@@ -1,0 +1,218 @@
+﻿<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Candidatura de Pintor Industrial | M&amp;A Elo Profissional</title>
+    <meta name="description" content="Formulário de candidatura para pintor industrial na M&amp;A Elo Profissional. Análise humana de cada candidatura.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#F4F2EE">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+    <link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="forms.css">
+  </head>
+  <body>
+    <script>document.documentElement.classList.add("js");</script><a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+    <header class="site-header" data-site-header><nav class="navbar" aria-label="Navegação principal"><a class="brand" href="index.html"><span class="brand__mark">M&amp;A Elo</span><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span></a><div class="nav-links" data-nav-links><a href="empresa.html">Empresa</a><a href="servicos.html">Serviços</a><a href="para-empresas.html">Empresas</a><a href="profissoes.html">Áreas Técnicas</a><a href="regioes.html">Regiões</a><a href="candidatos.html" class="nav-link--secondary">Profissionais</a><a href="contacto.html">Contacto</a></div><div class="nav-actions"><a class="nav-phone" href="tel:+351936525992">+351 936 525 992</a><a class="nav-cta" href="pintor-industrial.html">Ver perfil</a></div><button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle><span></span><span></span></button></nav></header>
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true" data-mobile-menu><div class="mobile-menu__inner"><a href="profissoes.html">Áreas Técnicas</a><a href="candidatos.html" class="nav-link--secondary">Profissionais</a><a href="contacto.html">Contacto</a><a class="mobile-menu__cta" href="pintor-industrial.html">Ver perfil pintor</a></div></div>
+
+    <main class="page-main" id="conteudo">
+      <section class="page-hero page-hero--pintor" aria-labelledby="form-title">
+        <div class="page-hero__inner">
+          <p class="section-label section-label--light">Candidatura</p>
+          <h1 id="form-title">Formulário de pintor industrial</h1>
+          <p>Preencha os dados abaixo. A equipa M&amp;A Elo analisa cada candidatura individualmente e entra em contacto quando existe seguimento aplicável.</p>
+        </div>
+      </section>
+
+      <section class="page-section">
+        <div class="section__shell">
+          <div class="form-page-shell">
+
+            <div id="form-global-error" class="form-global-error" role="alert"></div>
+
+            <form id="candidatura-form" novalidate>
+
+              <p class="form-section-heading">Dados pessoais</p>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="nome">Nome completo <span class="form-required">*</span></label>
+                  <input class="form-input" type="text" id="nome" name="nome" autocomplete="name" required placeholder="O seu nome completo">
+                  <span class="form-error-inline" id="err-nome">Campo obrigatório.</span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="telefone">Telefone (WhatsApp) <span class="form-required">*</span></label>
+                  <input class="form-input" type="tel" id="telefone" name="telefone" autocomplete="tel" required placeholder="+351 912 345 678">
+                  <span class="form-error-inline" id="err-telefone">Campo obrigatório.</span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="email">Email <span style="font-weight:400;text-transform:none;font-size:11px">(opcional)</span></label>
+                  <input class="form-input" type="email" id="email" name="email" autocomplete="email" placeholder="email@exemplo.com">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="regiao">Localização atual <span class="form-required">*</span></label>
+                  <input class="form-input" type="text" id="regiao" name="regiao" required placeholder="Ex: Porto, Braga, Aveiro…">
+                  <span class="form-error-inline" id="err-regiao">Campo obrigatório.</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Disponibilidade para deslocação <span class="form-required">*</span></label>
+                <div class="form-radio-group">
+                  <label class="form-radio-item"><input type="radio" name="disponibilidade" value="sim" required> Sim, tenho disponibilidade</label>
+                  <label class="form-radio-item"><input type="radio" name="disponibilidade" value="nao"> Não tenho disponibilidade</label>
+                </div>
+                <span class="form-error-inline" id="err-disponibilidade">Selecione uma opção.</span>
+                <p class="form-hint">A empresa não disponibiliza alojamento. Obras podem exigir deslocação.</p>
+              </div>
+
+              <p class="form-section-heading">Experiência como pintor industrial</p>
+
+              <div class="form-group">
+                <label class="form-label" for="experiencia">Anos de experiência <span class="form-required">*</span></label>
+                <select class="form-select" id="experiencia" name="experiencia" required>
+                  <option value="">Selecionar…</option>
+                  <option value="menos-1">Menos de 1 ano</option>
+                  <option value="1-2">1 a 2 anos</option>
+                  <option value="3-5">3 a 5 anos</option>
+                  <option value="5-10">5 a 10 anos</option>
+                  <option value="mais-10">Mais de 10 anos</option>
+                </select>
+                <span class="form-error-inline" id="err-experiencia">Selecione uma opção.</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Tipo de pintura executada</label>
+                <div class="form-check-grid">
+                  <label class="form-check-item"><input type="checkbox" name="tipo_pintura" value="Pintura industrial"> Pintura industrial</label>
+                  <label class="form-check-item"><input type="checkbox" name="tipo_pintura" value="Construção civil"> Construção civil</label>
+                  <label class="form-check-item"><input type="checkbox" name="tipo_pintura" value="Estruturas metálicas"> Estruturas metálicas</label>
+                  <label class="form-check-item"><input type="checkbox" name="tipo_pintura" value="Preparação de superfícies"> Preparação de superfícies</label>
+                  <label class="form-check-item"><input type="checkbox" name="tipo_pintura" value="Acabamento"> Acabamento</label>
+                  <label class="form-check-item"><input type="checkbox" name="tipo_pintura" value="Outro"> Outro</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Equipamentos e técnicas utilizadas</label>
+                <div class="form-check-grid">
+                  <label class="form-check-item"><input type="checkbox" name="equipamentos" value="Rolo e trincha"> Rolo e trincha</label>
+                  <label class="form-check-item"><input type="checkbox" name="equipamentos" value="Pistola convencional"> Pistola convencional</label>
+                  <label class="form-check-item"><input type="checkbox" name="equipamentos" value="Airless"> Airless</label>
+                  <label class="form-check-item"><input type="checkbox" name="equipamentos" value="Lixagem e primário"> Lixagem e primário</label>
+                  <label class="form-check-item"><input type="checkbox" name="equipamentos" value="Jato de areia"> Jato de areia</label>
+                </div>
+              </div>
+
+              <p class="form-section-heading">Informação adicional</p>
+
+              <div class="form-group">
+                <label class="form-label" for="mensagem">Mensagem ou informação que considere relevante</label>
+                <textarea class="form-textarea" id="mensagem" name="mensagem" placeholder="Obras anteriores, autonomia, produtos utilizados, EPI, horários preferidos, qualquer detalhe que queira partilhar…" rows="5"></textarea>
+              </div>
+
+              <div class="form-submit-area">
+                <p class="form-legal">Ao enviar aceita o tratamento dos seus dados para fins de análise de candidatura, conforme a nossa <a href="privacidade.html">política de privacidade</a>. O envio não garante colocação imediata.</p>
+                <button class="button button--dark" type="submit" id="submit-btn">Enviar candidatura</button>
+              </div>
+
+            </form>
+
+            <div class="form-success" id="success-state" role="status" aria-live="polite">
+              <div class="form-success__icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <h2>Candidatura enviada.</h2>
+              <p>Os seus dados foram recebidos. A equipa M&amp;A Elo analisará a informação e entrará em contacto se houver seguimento aplicável. Não há garantia de resposta imediata.</p>
+              <div class="form-success__actions">
+                <a class="button button--dark" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20acabei%20de%20enviar%20a%20minha%20candidatura%20como%20pintor%20industrial." target="_blank" rel="noopener">Confirmar pelo WhatsApp</a>
+                <a class="button button--outline-dark" href="profissoes.html">Ver outras profissões</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+        <footer class="footer-v2" id="contacto">
+      <div class="footer-v2__wrapper">
+        <div class="footer-v2__card">
+
+          <div class="footer-v2__grid">
+
+            <div class="footer-v2__brand" data-reveal>
+              <p class="brand brand--footer">
+                <span class="brand__mark">M&amp;A Elo</span>
+                <span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
+              </p>
+              <p class="footer-v2__desc">Prestação de serviços técnicos e apoio operacional para obras, indústria e metalomecânica em Portugal.</p>
+              <a class="footer-v2__cta" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="footer-whatsapp">
+                <span class="footer-v2__cta-aura"></span>
+                <span class="footer-v2__cta-inner">
+                  <span class="footer-v2__cta-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.559 4.126 1.531 5.856L.057 23.215a.75.75 0 0 0 .921.921l5.359-1.474A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.933 0-3.742-.525-5.287-1.438l-.378-.22-3.928 1.08 1.08-3.928-.22-.378A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                  </span>
+                  <span>Falar pelo WhatsApp</span>
+                </span>
+              </a>
+              <p class="footer-v2__tel">+351 936 525 992</p>
+            </div>
+
+            <div class="footer-v2__col" data-reveal>
+              <p class="footer-v2__col-heading">Empresa</p>
+              <ul>
+                <li><a href="empresa.html">Sobre n&oacute;s</a></li>
+                <li><a href="servicos.html">Servi&ccedil;os</a></li>
+                <li><a href="para-empresas.html">Para empresas</a></li>
+                <li><a href="regioes.html">Regi&otilde;es</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-v2__col" data-reveal>
+              <p class="footer-v2__col-heading">&#193;reas T&eacute;cnicas</p>
+              <ul>
+                <li><a href="soldador.html">Soldador</a></li>
+                <li><a href="serralheiro.html">Serralheiro</a></li>
+                <li><a href="pintor-industrial.html">Pintor Industrial</a></li>
+                <li><a href="candidatos.html">&#193;rea de Profissionais</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-v2__col" data-reveal>
+              <p class="footer-v2__col-heading">Apoio</p>
+              <ul>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="privacidade.html">Privacidade</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="footer-v2__bottom">
+            <nav aria-label="Rod&aacute;p&eacute; legal">
+              <a href="privacidade.html">Pol&iacute;tica de privacidade</a>
+              <span aria-hidden="true">|</span>
+              <span>NIF 518 954 170</span>
+              <span aria-hidden="true">|</span>
+              <span>Miranda do Douro, Portugal</span>
+            </nav>
+            <p>&copy; 2026 M&amp;A Elo Profissional, Unipessoal, Lda. &middot; Todos os direitos reservados</p>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+
+    <script src="neon.js"></script>
+    <script src="main.js" defer></script>
+    <script src="animations.js" defer></script>
+    <script src="form-pintor.js"></script>
+  </body>
+</html>

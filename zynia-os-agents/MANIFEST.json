@@ -1,0 +1,11 @@
+{
+  "generatedAt": "2026-05-10T17:56:35.177Z",
+  "serverUrl": "http://localhost:3001",
+  "apiPrefix": "/api/mcp-gateway",
+  "counts": {
+    "agents": 55,
+    "registry": 59,
+    "squads": 7,
+    "commands": 8
+  }
+}

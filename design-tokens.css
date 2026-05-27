@@ -1,0 +1,118 @@
+/*
+  M&A Elo Profissional
+  Minimal premium institutional tokens
+*/
+
+:root {
+  /* Color: neutral editorial system */
+  --color-paper: #F3EFE9;
+  --color-paper-warm: #EBE5DB;
+  --color-ink: #111111;
+  --color-ink-soft: #262626;
+  --color-ink-muted: #666666;
+  --color-ink-faint: #999999;
+  --color-night: #090909;
+  --color-night-soft: #1A1A1A;
+  --color-line: #D9D4CC;
+  --color-line-dark: rgba(255, 255, 255, 0.12);
+  --color-white: #FFFFFF;
+  --color-copper: #B87B51;
+  --color-copper-soft: #D99C73;
+  --color-green: #1F362C;
+  --color-steel: #485258;
+  --color-signal: #2C5648;
+  --color-charcoal: #1C2022;
+  --color-concrete: #4A4E52;
+  --color-industrial-line: #2E3235;
+
+  /* Backward-compatible aliases */
+  --color-bg-primary: var(--color-paper);
+  --color-bg-secondary: var(--color-night);
+  --color-bg-surface: var(--color-paper-warm);
+  --color-bg-elevated: var(--color-white);
+  --color-accent-copper: var(--color-copper);
+  --color-accent-light: var(--color-copper-soft);
+  --color-accent-green: var(--color-green);
+  --color-text-primary: var(--color-ink);
+  --color-text-secondary: var(--color-ink-muted);
+  --color-text-muted: var(--color-ink-faint);
+  --color-border: var(--color-line);
+  --color-divider: var(--color-line);
+  --color-black-soft: var(--color-night);
+
+  /* Typography */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* Type scale — editorial industrial */
+  --text-hero: clamp(64px, 9vw, 152px);
+  --text-h1: clamp(56px, 7.2vw, 124px);
+  --text-h2: clamp(38px, 4.2vw, 68px);
+  --text-h3: clamp(26px, 2.5vw, 42px);
+  --text-body: clamp(16px, 1.05vw, 19px);
+  --text-small: clamp(12px, 0.9vw, 14px);
+  --text-micro: 11px;
+  --text-label: 12.5px;
+
+  /* Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Line height */
+  --leading-tight: 0.86;
+  --leading-heading: 0.96;
+  --leading-body: 1.65;
+  --leading-small: 1.45;
+
+  /* Spacing */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 88px;
+  --space-5xl: 104px;
+  --space-6xl: 132px;
+
+  /* Layout */
+  --container: 1480px;
+  --container-narrow: 1240px;
+  --container-readable: 760px;
+  --page-gutter: clamp(22px, 4vw, 78px);
+  --topbar-height: 0px;
+  --nav-height: 84px;
+
+  /* Radius and effects */
+  --radius-none: 0;
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 28px 80px rgba(0, 0, 0, 0.12);
+  --shadow-subtle: var(--shadow-lg);
+  --shadow-deep: 0 42px 130px rgba(0, 0, 0, 0.24);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 160ms;
+  --duration-base: 280ms;
+  --duration-slow: 620ms;
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layers */
+  --z-base: 1;
+  --z-elevated: 10;
+  --z-header: 100;
+  --z-menu: 200;
+  --z-skip: 300;
+}

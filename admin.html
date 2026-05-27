@@ -1,0 +1,1817 @@
+﻿<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestão · M&amp;A Elo Profissional</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+:root{
+  --bg:#EDE8E1;
+  --surface:#FFFFFF;
+  --surface-t:#F8F4F0;
+  --sb:#0C0C0C;
+  --sb-h:#1A1A1A;
+  --sb-act:rgba(184,123,81,.14);
+  --sb-txt:rgba(255,255,255,.82);
+  --sb-mut:rgba(255,255,255,.36);
+  --sb-div:rgba(255,255,255,.06);
+  --copper:#B87B51;
+  --copper-s:#D9A87C;
+  --copper-bg:rgba(184,123,81,.09);
+  --copper-br:rgba(184,123,81,.22);
+  --ink:#111111;
+  --ink-s:#282828;
+  --ink-m:#6A6A6A;
+  --ink-f:#9C9C9C;
+  --line:#DDD7CF;
+  --line-l:#EAE5DF;
+  --sp:#B45309;--sp-bg:#FFFBEB;--sp-r:#FDE68A;
+  --sa:#15803D;--sa-bg:#F0FDF4;--sa-r:#BBF7D0;
+  --sr:#B91C1C;--sr-bg:#FEF2F2;--sr-r:#FECACA;
+  --se:#1D4ED8;--se-bg:#EFF6FF;--se-r:#BFDBFE;
+  --fd:"Cormorant Garamond",Georgia,serif;
+  --fu:"Inter",system-ui,sans-serif;
+  --r4:4px;--r8:8px;--r12:12px;--r16:16px;--rf:9999px;
+  --sh-xs:0 1px 2px rgba(0,0,0,.05);
+  --sh-sm:0 1px 4px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.04);
+  --sh:0 4px 16px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04);
+  --sh-lg:0 24px 64px rgba(0,0,0,.12),0 8px 24px rgba(0,0,0,.06);
+  --sh-panel:-8px 0 48px rgba(0,0,0,.14);
+  --eo:cubic-bezier(.22,1,.36,1);
+}
+body{font-family:var(--fu);background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.hidden{display:none!important}
+
+/* ═══ LOGIN ═══ */
+#login-screen{
+  min-height:100vh;background:var(--sb);display:flex;
+  align-items:center;justify-content:center;padding:24px;
+  position:relative;overflow:hidden;
+}
+#login-screen::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 50% at 20% 40%,rgba(184,123,81,.07) 0%,transparent 60%),
+             radial-gradient(ellipse 50% 40% at 80% 60%,rgba(31,54,44,.14) 0%,transparent 55%);
+}
+.lcard{
+  background:var(--surface);border-radius:var(--r16);
+  padding:44px 48px 48px;width:100%;max-width:420px;
+  box-shadow:var(--sh-lg);position:relative;
+}
+.lbrand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+.lbrand-mark{
+  width:38px;height:38px;background:var(--sb);border-radius:var(--r4);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.lbrand-mark svg{width:22px;height:22px;color:#fff}
+.lbrand-name{font-family:var(--fd);font-size:17px;font-weight:600;color:var(--ink)}
+.lbrand-tag{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--copper);margin-top:2px}
+.ltitle{font-family:var(--fd);font-size:28px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.lsub{font-size:13px;color:var(--ink-m);margin-bottom:26px}
+.lfield{margin-bottom:15px}
+.lfield label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-m);margin-bottom:6px}
+.lfield input{
+  width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:var(--r8);
+  font-size:14px;font-family:var(--fu);color:var(--ink);background:#FAFAFA;
+  outline:none;transition:border-color 150ms,box-shadow 150ms;
+}
+.lfield input:focus{border-color:var(--copper);background:#fff;box-shadow:0 0 0 3px var(--copper-bg)}
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:42px}
+.pw-tog{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-f);padding:4px;display:flex;align-items:center;transition:color 150ms}
+.pw-tog:hover{color:var(--ink-m)}
+.lerr{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA;border-radius:var(--r8);padding:10px 14px;font-size:13px;margin-bottom:14px}
+.lbtn{
+  width:100%;padding:13px;background:var(--sb);color:#fff;
+  border:none;border-radius:var(--r8);font-size:14px;font-weight:600;
+  font-family:var(--fu);cursor:pointer;margin-top:6px;
+  transition:opacity 150ms,transform 100ms;letter-spacing:.01em;
+}
+.lbtn:hover:not(:disabled){opacity:.86}
+.lbtn:active:not(:disabled){transform:scale(.99)}
+.lbtn:disabled{opacity:.5;cursor:not-allowed}
+
+/* ═══ APP ═══ */
+#app{display:none;height:100vh;overflow:hidden}
+#app.on{display:flex}
+
+/* Sidebar */
+.sidebar{
+  width:232px;flex-shrink:0;background:var(--sb);
+  display:flex;flex-direction:column;overflow:hidden;
+  border-right:1px solid rgba(255,255,255,.04);
+}
+.sb-brand{padding:22px 18px 16px;border-bottom:1px solid var(--sb-div);flex-shrink:0}
+.sb-brand-name{font-family:var(--fd);font-size:17px;font-weight:600;color:#fff;letter-spacing:.01em}
+.sb-brand-sub{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);margin-top:3px}
+.sb-nav{flex:1;padding:10px 10px;overflow-y:auto;display:flex;flex-direction:column;gap:1px}
+.nav-sec{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sb-mut);padding:14px 10px 5px}
+.ni{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;
+  border-radius:var(--r8);cursor:pointer;color:var(--sb-txt);
+  font-size:13px;font-weight:400;transition:background 130ms,color 130ms;
+  border:none;background:none;width:100%;text-align:left;
+}
+.ni:hover{background:var(--sb-h)}
+.ni.on{background:var(--sb-act);color:var(--copper-s)}
+.ni svg{width:15px;height:15px;opacity:.65;flex-shrink:0}
+.ni.on svg{opacity:1}
+.nbadge{
+  margin-left:auto;background:var(--copper);color:#fff;
+  font-size:10px;font-weight:700;padding:1px 7px;
+  border-radius:var(--rf);min-width:20px;text-align:center;
+}
+.sb-foot{padding:12px 10px;border-top:1px solid var(--sb-div);flex-shrink:0}
+.sb-user{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;
+  border-radius:var(--r8);background:rgba(255,255,255,.05);margin-bottom:5px;
+}
+.sb-avatar{
+  width:28px;height:28px;border-radius:var(--rf);background:var(--copper-bg);
+  border:1.5px solid var(--copper-br);display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--copper);flex-shrink:0;
+}
+.sb-email{font-size:11px;color:var(--sb-mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-logout{
+  display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--r8);
+  cursor:pointer;color:rgba(255,255,255,.42);font-size:12px;font-weight:500;
+  transition:background 130ms,color 130ms;border:none;background:none;width:100%;text-align:left;
+}
+.sb-logout:hover{background:rgba(220,38,38,.1);color:#FCA5A5}
+.sb-logout svg{width:14px;height:14px}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{
+  height:54px;background:var(--surface);border-bottom:1px solid var(--line-l);
+  display:flex;align-items:center;padding:0 26px;gap:14px;flex-shrink:0;
+}
+.topbar-page{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--ink);line-height:1}
+.topbar-right{margin-left:auto;display:flex;gap:10px;align-items:center}
+.content{flex:1;overflow-y:auto;padding:26px}
+.view{display:none}
+.view.on{display:block}
+
+/* ═══ BUTTONS ═══ */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 16px;
+  border-radius:var(--r8);font-size:13px;font-weight:600;font-family:var(--fu);
+  cursor:pointer;border:none;transition:opacity 150ms,background 150ms,transform 80ms;
+  white-space:nowrap;line-height:1;text-decoration:none;
+}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn svg{width:14px;height:14px;flex-shrink:0}
+.btn-dark{background:var(--sb);color:#fff}
+.btn-dark:hover:not(:disabled){opacity:.85}
+.btn-copper{background:var(--copper);color:#fff}
+.btn-copper:hover:not(:disabled){opacity:.85}
+.btn-ghost{background:transparent;color:var(--ink-m);border:1.5px solid var(--line)}
+.btn-ghost:hover:not(:disabled){background:var(--line-l);color:var(--ink)}
+.btn-danger{background:#FEE2E2;color:#B91C1C}
+.btn-danger:hover:not(:disabled){background:#FECACA}
+.btn-success{background:#DCFCE7;color:#15803D}
+.btn-success:hover:not(:disabled){background:#BBF7D0}
+.btn-wa{background:#25D366;color:#fff}
+.btn-wa:hover:not(:disabled){opacity:.88}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-icon{padding:7px}
+.btn-link{background:none;border:none;color:var(--copper);font-size:13px;font-weight:500;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:2px}
+
+/* ═══ STATS ═══ */
+.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:22px}
+@media(max-width:1200px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.scard{
+  background:var(--surface);border-radius:var(--r12);padding:18px 18px 14px;
+  border:1px solid var(--line-l);box-shadow:var(--sh-sm);position:relative;overflow:hidden;
+}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ac,var(--line))}
+.scard-total{--ac:var(--copper)}
+.scard-pend{--ac:#D97706}
+.scard-aprov{--ac:#16A34A}
+.scard-rej{--ac:#DC2626}
+.scard-espe{--ac:var(--copper)}
+.scard-rate{--ac:var(--copper)}
+.sv{font-family:var(--fd);font-size:32px;font-weight:700;line-height:1;color:var(--ink);letter-spacing:-.02em}
+.sl{font-size:11px;font-weight:500;color:var(--ink-m);margin-top:6px}
+.ss{font-size:10.5px;color:var(--ink-f);margin-top:1px}
+
+/* ═══ DASH LAYOUT ═══ */
+.dash-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:960px){.dash-row{grid-template-columns:1fr}}
+
+/* ═══ CARD ═══ */
+.card{background:var(--surface);border-radius:var(--r12);border:1px solid var(--line-l);box-shadow:var(--sh-sm)}
+.card-head{padding:16px 20px;border-bottom:1px solid var(--line-l);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card-title{font-family:var(--fd);font-size:16px;font-weight:600;color:var(--ink)}
+.card-body{padding:20px}
+
+/* ═══ TABLE ═══ */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead tr{background:var(--surface-t)}
+th{
+  padding:10px 14px;text-align:left;font-size:10.5px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-m);
+  border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none;
+}
+th:hover{color:var(--ink)}
+th .si{display:inline-block;margin-left:3px;font-size:9px;opacity:.4}
+th.asc .si::after{content:'▲';opacity:1}
+th.desc .si::after{content:'▼';opacity:1}
+td{padding:11px 14px;border-bottom:1px solid var(--line-l);font-size:13px;vertical-align:middle}
+.tr-c{cursor:pointer;transition:background 100ms}
+.tr-c:hover{background:var(--surface-t)}
+.tr-c.sel{background:var(--copper-bg)}
+.tr-c:last-child td{border-bottom:none}
+.td-name{font-weight:600}
+.td-muted{color:var(--ink-m)}
+
+/* ═══ BADGES ═══ */
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:var(--rf);font-size:11px;font-weight:600;white-space:nowrap}
+.b-soldador{background:#FEF9C3;color:#854D0E}
+.b-serralheiro{background:#EDE9FE;color:#5B21B6}
+.b-pintor{background:#FCE7F3;color:#9D174D}
+.b-geral{background:#F3F4F6;color:#374151}
+.b-pendente{background:var(--sp-bg);color:var(--sp);border:1px solid var(--sp-r)}
+.b-aprovado{background:var(--sa-bg);color:var(--sa);border:1px solid var(--sa-r)}
+.b-rejeitado{background:var(--sr-bg);color:var(--sr);border:1px solid var(--sr-r)}
+.b-em_espera{background:var(--se-bg);color:var(--se);border:1px solid var(--se-r)}
+
+/* ═══ FILTERS ═══ */
+.filter-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.fi{
+  padding:8px 12px;border:1.5px solid var(--line);border-radius:var(--r8);
+  font-size:13px;font-family:var(--fu);color:var(--ink);background:var(--surface);
+  outline:none;transition:border-color 150ms,box-shadow 150ms;
+}
+.fi:focus{border-color:var(--copper);box-shadow:0 0 0 3px var(--copper-bg)}
+.fi-search{width:220px}
+select.fi{cursor:pointer}
+
+/* ═══ PAGINATION ═══ */
+.pag{display:flex;align-items:center;gap:5px;padding:13px 16px;border-top:1px solid var(--line-l);justify-content:center;flex-wrap:wrap}
+.pb{
+  padding:5px 11px;border:1px solid var(--line);border-radius:var(--r8);font-size:12px;
+  font-family:var(--fu);font-weight:500;background:var(--surface);cursor:pointer;
+  transition:background 120ms,border-color 120ms;color:var(--ink-m);
+}
+.pb:hover:not(:disabled){background:var(--surface-t);border-color:var(--copper-br);color:var(--ink)}
+.pb.on{background:var(--sb);color:#fff;border-color:var(--sb)}
+.pb:disabled{opacity:.35;cursor:not-allowed}
+.pi{font-size:11.5px;color:var(--ink-m);padding:0 6px}
+
+/* ═══ BULK BAR ═══ */
+.bulk-bar{
+  background:var(--sb);border-radius:var(--r12);padding:10px 16px;
+  display:flex;align-items:center;gap:12px;margin-bottom:12px;
+}
+.bulk-bar .bc{font-size:13px;color:rgba(255,255,255,.65)}
+.bulk-bar .bc strong{color:#fff}
+
+/* ═══ CANDIDATE PANEL ═══ */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:90;opacity:0;pointer-events:none;transition:opacity 220ms}
+.overlay.on{opacity:1;pointer-events:all}
+.panel{
+  position:fixed;top:0;right:0;bottom:0;width:520px;max-width:100vw;
+  background:var(--surface);z-index:100;display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform 300ms var(--eo);box-shadow:var(--sh-panel);
+}
+.panel.on{transform:translateX(0)}
+.ph{padding:18px 22px;border-bottom:1px solid var(--line-l);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-shrink:0}
+.ph-title{font-family:var(--fd);font-size:20px;font-weight:600;line-height:1.2}
+.ph-sub{font-size:12px;color:var(--ink-m);margin-top:3px}
+.xbtn{width:30px;height:30px;border:1px solid var(--line);border-radius:var(--r8);background:var(--surface-t);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-m);transition:background 120ms;flex-shrink:0}
+.xbtn:hover{background:var(--line)}
+.xbtn svg{width:14px;height:14px}
+.pb-body{flex:1;overflow-y:auto;padding:20px 22px}
+.pb-foot{padding:13px 22px;border-top:1px solid var(--line-l);display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0}
+.ps{margin-bottom:20px}
+.ps-lbl{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-m);padding-bottom:8px;border-bottom:1px solid var(--line-l);margin-bottom:11px}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.pf label{display:block;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-m);margin-bottom:3px}
+.pf span{font-size:13px;color:var(--ink)}
+.pf-full{grid-column:1/-1}
+.fc{width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:var(--r8);font-size:13px;font-family:var(--fu);color:var(--ink);background:var(--surface-t);outline:none;transition:border-color 150ms,box-shadow 150ms}
+.fc:focus{border-color:var(--copper);background:#fff;box-shadow:0 0 0 3px var(--copper-bg)}
+textarea.fc{resize:vertical;min-height:90px;line-height:1.5}
+select.fc{cursor:pointer}
+.save-ok{font-size:11.5px;color:var(--sa);margin-top:4px;display:none}
+.save-ok.on{display:block}
+.ctag{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:var(--sa);margin-top:6px}
+.ctag svg{width:12px;height:12px}
+
+/* ═══ FORMS SECTION ═══ */
+.forms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(276px,1fr));gap:14px}
+.fcard{
+  background:var(--surface);border-radius:var(--r12);border:1px solid var(--line-l);
+  box-shadow:var(--sh-sm);padding:20px;display:flex;flex-direction:column;
+  transition:box-shadow 200ms,border-color 200ms;
+}
+.fcard:hover{box-shadow:var(--sh);border-color:var(--line)}
+.fc-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.fc-icon{width:38px;height:38px;border-radius:var(--r8);background:var(--copper-bg);border:1px solid var(--copper-br);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fc-icon svg{width:18px;height:18px;color:var(--copper)}
+.fc-status{display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600}
+.sdot{width:7px;height:7px;border-radius:50%}
+.sdot-on{background:var(--sa);box-shadow:0 0 0 2px var(--sa-r)}
+.sdot-off{background:var(--ink-f)}
+.fc-name{font-family:var(--fd);font-size:16px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.2}
+.fc-desc{font-size:12.5px;color:var(--ink-m);line-height:1.45;margin-bottom:14px;flex:1}
+.fc-meta{display:flex;align-items:center;gap:12px;font-size:11.5px;color:var(--ink-m);padding-top:12px;border-top:1px solid var(--line-l);margin-bottom:12px}
+.fc-mi{display:flex;align-items:center;gap:4px}
+.fc-mi svg{width:12px;height:12px;opacity:.7}
+.fc-actions{display:flex;gap:7px;align-items:center}
+
+/* ═══ MODAL ═══ */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center;padding:24px}
+.mo.on{display:flex}
+.modal{background:var(--surface);border-radius:var(--r16);box-shadow:var(--sh-lg);width:100%;max-width:560px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-lg{max-width:680px}
+.modal-sm{max-width:400px}
+.mh{padding:20px 24px 16px;border-bottom:1px solid var(--line-l);display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0}
+.mh h2{font-family:var(--fd);font-size:20px;font-weight:600}
+.mh p{font-size:13px;color:var(--ink-m);margin-top:2px}
+.mb{padding:20px 24px;overflow-y:auto;flex:1}
+.mf{padding:13px 24px;border-top:1px solid var(--line-l);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0}
+
+/* Form builder */
+.fb-row{background:var(--surface-t);border:1px solid var(--line);border-radius:var(--r8);padding:14px;margin-bottom:9px;position:relative}
+.fb-top{display:grid;grid-template-columns:1fr 140px auto auto;gap:9px;align-items:start}
+.fb-opts{margin-top:10px;padding-top:10px;border-top:1px solid var(--line-l)}
+.fb-opt-row{display:flex;gap:7px;align-items:center;margin-bottom:6px}
+.fb-opt-row input{flex:1}
+.fb-drag{position:absolute;left:-8px;top:50%;transform:translateY(-50%);color:var(--ink-f);cursor:grab;font-size:16px;user-select:none}
+
+/* Form builder — split modal */
+.modal-xl{max-width:1200px}
+.fb-split{display:flex;flex:1;overflow:hidden;min-height:0}
+.fb-editor{flex:0 0 460px;overflow-y:auto;padding:20px 24px;border-right:1px solid var(--line-l)}
+.fb-pane{flex:1;overflow-y:auto;background:#eeecea;display:flex;flex-direction:column;min-width:0}
+.fb-pane-head{padding:11px 18px;background:var(--surface);border-bottom:1px solid var(--line-l);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-m);display:flex;align-items:center;gap:6px;flex-shrink:0}
+.fb-pane-body{flex:1;padding:18px}
+.fv-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 18px rgba(0,0,0,.1)}
+.fv-hero{padding:28px 22px 22px;position:relative;background-size:cover;background-position:center}
+.fv-hero-ovl{position:absolute;inset:0}
+.fv-hero-inner{position:relative;z-index:1}
+.fv-clbl{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);margin:0 0 6px;display:flex;align-items:center;gap:8px}
+.fv-clbl::before{content:'';width:18px;height:1px;background:rgba(255,255,255,.45)}
+.fv-ctitle{font-family:var(--fd);font-size:24px;font-weight:400;color:#fff;margin:0;line-height:1.25;font-style:italic}
+.fv-body{padding:20px 22px}
+.fv-grp{margin-bottom:16px}
+.fv-lbl{display:block;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#7a7872;margin-bottom:5px}
+.fv-req{color:#9B6A3E;margin-left:2px}
+.fv-inp{width:100%;padding:8px 11px;border:1.5px solid #e0dbd5;border-radius:5px;font-size:12.5px;color:#bbb;background:#faf9f7;box-sizing:border-box;font-style:italic;font-family:inherit}
+.fv-textarea{min-height:64px;resize:none}
+.fv-select{padding-right:28px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;cursor:default}
+.fv-radio-wrap,.fv-check-wrap{display:flex;flex-direction:column;gap:7px}
+.fv-opt{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#999}
+.fv-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid #c8c4be;flex-shrink:0}
+.fv-box{width:13px;height:13px;border-radius:3px;border:1.5px solid #c8c4be;flex-shrink:0}
+.fv-sec-head{font-family:var(--fd);font-size:13px;font-weight:600;color:#2a2925;margin:18px 0 11px;padding-bottom:7px;border-bottom:1px solid #ece9e4}
+.fv-empty{color:#bbb;font-size:12.5px;text-align:center;padding:30px 0;font-style:italic}
+.fv-submit-wrap{padding:14px 22px;border-top:1px solid #ece9e4;display:flex;justify-content:flex-end}
+.fv-submit{background:#090D0F;color:#fff;border:none;border-radius:5px;padding:9px 20px;font-size:13px;font-family:var(--fu);cursor:default;opacity:.8}
+@media(max-width:880px){.fb-pane{display:none}.modal-xl{max-width:640px}}
+
+/* Toggle */
+.tog-wrap{display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.tog{width:34px;height:19px;background:var(--line);border-radius:var(--rf);position:relative;transition:background 200ms;cursor:pointer;border:none;flex-shrink:0}
+.tog::after{content:'';position:absolute;width:13px;height:13px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform 200ms;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tog.on{background:var(--sa)}
+.tog.on::after{transform:translateX(15px)}
+.tog-lbl{font-size:13px;color:var(--ink-s);font-weight:500}
+
+/* Chart */
+.chart-wrap{height:100px;display:flex;align-items:flex-end;gap:3px;padding:0 2px}
+.cb-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end}
+.cb{width:100%;background:var(--copper-bg);border:1px solid var(--copper-br);border-radius:2px 2px 0 0;transition:height 500ms var(--eo);min-height:2px;cursor:default}
+.cb:hover{background:var(--copper)}
+.cb-lbl{font-size:9.5px;color:var(--ink-f);white-space:nowrap;writing-mode:vertical-rl;transform:rotate(180deg);height:28px;display:flex;align-items:center;justify-content:center}
+
+/* Activity */
+.act-item{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid var(--line-l)}
+.act-item:last-child{border-bottom:none}
+.act-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.act-txt{font-size:13px;color:var(--ink-s);flex:1;line-height:1.4}
+.act-txt strong{font-weight:600}
+.act-time{font-size:11px;color:var(--ink-f);white-space:nowrap}
+
+/* Toast */
+#toast-box{position:fixed;bottom:22px;right:22px;z-index:500;display:flex;flex-direction:column;gap:9px;pointer-events:none}
+.toast{
+  background:var(--sb);color:rgba(255,255,255,.9);padding:12px 18px;border-radius:var(--r12);
+  font-size:13px;font-weight:500;box-shadow:var(--sh-lg);display:flex;align-items:center;gap:9px;
+  min-width:220px;max-width:340px;pointer-events:all;
+  animation:tin 280ms var(--eo) both;
+}
+.toast-ok{background:#14532D}
+.toast-err{background:#7F1D1D}
+.toast-info{background:#1E3A8A}
+.toast svg{width:15px;height:15px;flex-shrink:0}
+@keyframes tin{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes tout{to{opacity:0;transform:translateY(-6px) scale(.96)}}
+
+/* Skeleton */
+.sk{background:linear-gradient(90deg,var(--line-l) 25%,var(--line) 50%,var(--line-l) 75%);background-size:200% 100%;animation:shim 1.4s infinite;border-radius:3px}
+@keyframes shim{from{background-position:200% 0}to{background-position:-200% 0}}
+
+/* Section header */
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.sec-title{font-family:var(--fd);font-size:22px;font-weight:600;color:var(--ink)}
+.sec-sub{font-size:13px;color:var(--ink-m);margin-top:2px}
+
+/* Settings */
+.set-sec{background:var(--surface);border-radius:var(--r12);border:1px solid var(--line-l);margin-bottom:14px;overflow:hidden}
+.set-head{padding:15px 20px;border-bottom:1px solid var(--line-l);display:flex;align-items:center;gap:10px}
+.set-head svg{width:17px;height:17px;color:var(--copper);flex-shrink:0}
+.set-title{font-weight:600;font-size:14px}
+.set-sub{font-size:12px;color:var(--ink-m);margin-top:1px}
+.set-body{padding:18px 20px}
+.set-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line-l)}
+.set-row:last-child{border-bottom:none}
+.set-rlbl{font-size:13.5px;font-weight:500}
+.set-rsub{font-size:12px;color:var(--ink-m);margin-top:1px}
+.info-box{background:var(--copper-bg);border:1px solid var(--copper-br);border-radius:var(--r8);padding:12px 15px;font-size:12.5px;color:var(--ink-s);line-height:1.5}
+
+/* Empty & loading */
+.empty{text-align:center;padding:52px 24px;color:var(--ink-m)}
+.empty svg{width:44px;height:44px;color:var(--line);margin:0 auto 12px;display:block}
+.empty p{font-size:14px}
+.empty span{font-size:12.5px;color:var(--ink-f)}
+.loading{display:flex;align-items:center;justify-content:center;padding:48px;color:var(--ink-m);font-size:13px;gap:10px}
+.spin{width:18px;height:18px;border:2px solid var(--line);border-top-color:var(--copper);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* Form group */
+.fgrp{margin-bottom:14px}
+.fgrp label{display:block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-m);margin-bottom:5px}
+.fgrp small{font-size:11.5px;color:var(--ink-f);margin-top:3px;display:block}
+.flabel-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.flabel-row label{margin-bottom:0}
+.freq-mark{color:var(--sr);font-size:12px;margin-left:2px}
+
+/* Required check */
+.req-wrap{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-m)}
+.req-wrap input[type=checkbox]{width:14px;height:14px;accent-color:var(--copper);cursor:pointer}
+
+/* Copy button */
+.copy-btn{background:none;border:none;cursor:pointer;color:var(--ink-f);padding:2px;transition:color 150ms}
+.copy-btn:hover{color:var(--copper)}
+.copy-btn svg{width:13px;height:13px}
+
+/* ═══ INLINE STATUS SELECT ═══ */
+.isel{
+  appearance:none;-webkit-appearance:none;
+  border:1px solid transparent;padding:3px 22px 3px 9px;border-radius:var(--rf);
+  font-size:11px;font-weight:600;cursor:pointer;font-family:var(--fu);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 5px center;background-size:10px;
+  transition:box-shadow 120ms;
+}
+.isel:focus{outline:none;box-shadow:0 0 0 2px var(--copper-bg)}
+.isel:hover{opacity:.85}
+.isel.b-pendente{background-color:var(--sp-bg);color:var(--sp);border-color:var(--sp-r)}
+.isel.b-aprovado{background-color:var(--sa-bg);color:var(--sa);border-color:var(--sa-r)}
+.isel.b-rejeitado{background-color:var(--sr-bg);color:var(--sr);border-color:var(--sr-r)}
+.isel.b-em_espera{background-color:var(--se-bg);color:var(--se);border-color:var(--se-r)}
+
+/* ═══ ROW QUICK ACTIONS ═══ */
+.td-actions{width:40px;text-align:center}
+.wa-row-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:var(--r8);
+  background:#DCFCE7;color:#15803D;text-decoration:none;
+  transition:background 150ms,color 150ms;flex-shrink:0;
+}
+.wa-row-btn:hover{background:#25D366;color:#fff}
+.wa-row-btn svg{width:14px;height:14px}
+
+/* ═══ AUTO-REFRESH INDICATOR ═══ */
+.refresh-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--sa);
+  display:inline-block;margin-right:5px;
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+.last-update{font-size:11px;color:var(--ink-f);display:flex;align-items:center;gap:4px}
+
+/* Misc */
+.gap{display:flex;gap:8px;align-items:center}
+.ml-a{margin-left:auto}
+.mb-1{margin-bottom:4px}
+.mb-2{margin-bottom:8px}
+.mb-3{margin-bottom:12px}
+.mb-4{margin-bottom:16px}
+.mt-3{margin-top:12px}
+.mt-4{margin-top:16px}
+.text-m{color:var(--ink-m);font-size:13px}
+.text-sm{font-size:12px;color:var(--ink-m)}
+.w-full{width:100%}
+.check-col{width:36px}
+.rchk{width:14px;height:14px;cursor:pointer;accent-color:var(--copper)}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="login-screen">
+  <div class="lcard">
+    <div class="lbrand">
+      <div class="lbrand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <div class="lbrand-name">M&amp;A Elo Profissional</div>
+        <div class="lbrand-tag">Painel de Administração</div>
+      </div>
+    </div>
+    <div class="ltitle">Bem-vindo de volta</div>
+    <div class="lsub">Acede à gestão de candidaturas e formulários.</div>
+    <form id="login-form" novalidate>
+      <div class="lfield">
+        <label for="l-email">Email</label>
+        <input type="email" id="l-email" autocomplete="email" placeholder="admin@maelo.pt">
+      </div>
+      <div class="lfield">
+        <label for="l-pw">Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="l-pw" autocomplete="current-password" placeholder="••••••••••">
+          <button type="button" class="pw-tog" id="pw-tog" aria-label="Mostrar password">
+            <svg id="pw-eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg id="pw-eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="l-err" class="lerr hidden"></div>
+      <button class="lbtn" type="submit" id="l-btn">Entrar no painel</button>
+      <div style="text-align:center;margin-top:14px">
+        <button type="button" id="forgot-btn" style="background:none;border:none;color:var(--copper);font-size:13px;font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:2px">Esqueceu a password?</button>
+      </div>
+    </form>
+    <div id="forgot-panel" style="display:none;margin-top:18px;background:var(--sp-bg);border:1px solid var(--sp-r);border-radius:var(--r8);padding:16px 18px">
+      <p style="font-size:13px;color:#92400E;font-weight:600;margin-bottom:6px">Repor password</p>
+      <p style="font-size:13px;color:#78350F;line-height:1.5">Para repor a password de acesso, contacte o suporte técnico:</p>
+      <a href="https://wa.me/351936525992?text=Preciso%20de%20repor%20a%20password%20do%20painel%20admin%20M%26A%20Elo" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:#25D366;color:#fff;padding:9px 16px;border-radius:var(--r8);font-size:13px;font-weight:600;text-decoration:none">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        WhatsApp — +351 936 525 992
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-brand-name">M&amp;A Elo</div>
+      <div class="sb-brand-sub">Gestão Operacional</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="nav-sec">Principal</div>
+      <button class="ni on" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </button>
+      <button class="ni" data-view="candidates">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Candidaturas
+        <span class="nbadge" id="nb-pend">0</span>
+      </button>
+      <div class="nav-sec">Configurar</div>
+      <button class="ni" data-view="forms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Formulários
+      </button>
+      <button class="ni" data-view="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Configurações
+      </button>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="sb-avatar" id="sb-av">A</div>
+        <div class="sb-email" id="sb-email">admin</div>
+      </div>
+      <button class="sb-logout" id="logout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Terminar sessão
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-page" id="topbar-pg">Dashboard</div>
+      <div class="topbar-right" id="topbar-right"></div>
+    </header>
+    <main class="content">
+
+      <!-- ═══ DASHBOARD ═══ -->
+      <div class="view on" id="view-dashboard">
+        <div class="stats-grid">
+          <div class="scard scard-total"><div class="sv" id="s-total">—</div><div class="sl">Total Candidaturas</div><div class="ss" id="s-total-sub"></div></div>
+          <div class="scard scard-pend"><div class="sv" id="s-pend">—</div><div class="sl">Pendentes</div><div class="ss">A aguardar análise</div></div>
+          <div class="scard scard-aprov"><div class="sv" id="s-aprov">—</div><div class="sl">Aprovados</div><div class="ss">Perfis validados</div></div>
+          <div class="scard scard-rej"><div class="sv" id="s-rej">—</div><div class="sl">Rejeitados</div><div class="ss">Não adequados</div></div>
+          <div class="scard scard-espe"><div class="sv" id="s-espe">—</div><div class="sl">Em Espera</div><div class="ss">A confirmar disponibilidade</div></div>
+          <div class="scard scard-rate"><div class="sv" id="s-rate">—</div><div class="sl">Taxa de Aprovação</div><div class="ss">Aprovados vs avaliados</div></div>
+        </div>
+        <div class="dash-row">
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">Candidaturas — últimos 14 dias</div>
+              <div class="last-update" id="last-update-lbl"><span class="refresh-dot"></span><span id="last-update-txt">A sincronizar…</span></div>
+            </div>
+            <div class="card-body">
+              <div class="chart-wrap" id="dash-chart"><div class="loading"><div class="spin"></div></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><div class="card-title">Actividade recente</div></div>
+            <div class="card-body" id="dash-activity"><div class="loading"><div class="spin"></div></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Últimas candidaturas</div>
+            <button class="btn btn-ghost btn-sm" onclick="APP.nav('candidates')">Ver todas</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Nome</th><th>Profissão</th><th>Região</th><th>Data</th><th>Estado</th></tr></thead>
+              <tbody id="dash-recent"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ CANDIDATES ═══ -->
+      <div class="view" id="view-candidates">
+        <div class="sec-head">
+          <div><div class="sec-title">Candidaturas</div><div class="sec-sub" id="cand-count-lbl">A carregar…</div></div>
+          <div class="gap">
+            <button class="btn btn-ghost btn-sm" id="export-csv-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exportar CSV
+            </button>
+            <button class="btn btn-ghost btn-sm" id="refresh-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Atualizar
+            </button>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <input type="search" class="fi fi-search" id="f-search" placeholder="Nome, telefone ou email…">
+          <select class="fi" id="f-prof">
+            <option value="">Todas as profissões</option>
+            <option value="soldador">Soldador</option>
+            <option value="serralheiro">Serralheiro</option>
+            <option value="pintor">Pintor industrial</option>
+            <option value="geral">Candidatura geral</option>
+          </select>
+          <select class="fi" id="f-estado">
+            <option value="">Todos os estados</option>
+            <option value="pendente">Pendente</option>
+            <option value="aprovado">Aprovado</option>
+            <option value="rejeitado">Rejeitado</option>
+            <option value="em_espera">Em espera</option>
+          </select>
+          <select class="fi" id="f-sort">
+            <option value="date_desc">Mais recentes</option>
+            <option value="date_asc">Mais antigas</option>
+            <option value="name_asc">Nome A→Z</option>
+            <option value="name_desc">Nome Z→A</option>
+          </select>
+          <button class="btn btn-ghost btn-sm ml-a" id="clear-filters-btn">Limpar filtros</button>
+        </div>
+        <div class="bulk-bar hidden" id="bulk-bar">
+          <span class="bc"><strong id="bulk-count">0</strong> selecionado(s)</span>
+          <select class="fi btn-sm" id="bulk-status-sel">
+            <option value="">Alterar estado…</option>
+            <option value="pendente">→ Pendente</option>
+            <option value="aprovado">→ Aprovado</option>
+            <option value="rejeitado">→ Rejeitado</option>
+            <option value="em_espera">→ Em espera</option>
+          </select>
+          <button class="btn btn-success btn-sm" id="bulk-apply-btn">Aplicar</button>
+          <button class="btn btn-danger btn-sm" id="bulk-delete-btn">Eliminar selecionados</button>
+          <button class="btn btn-ghost btn-sm" id="bulk-clear-btn" style="color:#fff;border-color:rgba(255,255,255,.2)">Cancelar</button>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="check-col"><input type="checkbox" class="rchk" id="sel-all"></th>
+                  <th data-col="nome">Nome <span class="si"></span></th>
+                  <th data-col="telefone">Telefone <span class="si"></span></th>
+                  <th data-col="profissao">Profissão <span class="si"></span></th>
+                  <th data-col="regiao">Região <span class="si"></span></th>
+                  <th data-col="criado_em">Data <span class="si"></span></th>
+                  <th data-col="estado">Estado <span class="si"></span></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="cand-tbody"></tbody>
+            </table>
+          </div>
+          <div class="pag" id="cand-pag"></div>
+        </div>
+      </div>
+
+      <!-- ═══ FORMS ═══ -->
+      <div class="view" id="view-forms">
+        <div class="sec-head">
+          <div><div class="sec-title">Formulários de Candidatura</div><div class="sec-sub">Gere os formulários disponíveis no site</div></div>
+          <button class="btn btn-copper" id="new-form-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Novo formulário
+          </button>
+        </div>
+        <div class="forms-grid" id="forms-grid"><div class="loading"><div class="spin"></div>A carregar formulários…</div></div>
+      </div>
+
+      <!-- ═══ SETTINGS ═══ -->
+      <div class="view" id="view-settings">
+        <div class="sec-head">
+          <div><div class="sec-title">Configurações</div><div class="sec-sub">Administração e exportação de dados</div></div>
+        </div>
+        <div class="set-sec">
+          <div class="set-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+            <div><div class="set-title">Conta de administrador</div><div class="set-sub">Informação da sessão atual</div></div>
+          </div>
+          <div class="set-body">
+            <div class="set-row">
+              <div><div class="set-rlbl">Email de acesso</div><div class="set-rsub" id="set-admin-email">—</div></div>
+            </div>
+            <div class="set-row">
+              <div><div class="set-rlbl">Password</div><div class="set-rsub">Para alterar a password, contacte o administrador técnico</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="set-sec">
+          <div class="set-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <div><div class="set-title">Exportação de dados</div><div class="set-sub">Descarrega os dados em formato CSV</div></div>
+          </div>
+          <div class="set-body">
+            <div class="set-row">
+              <div><div class="set-rlbl">Exportar todas as candidaturas</div><div class="set-rsub">Ficheiro CSV com todos os dados dos candidatos</div></div>
+              <button class="btn btn-ghost btn-sm" id="export-all-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Exportar
+              </button>
+            </div>
+            <div class="set-row">
+              <div><div class="set-rlbl">Exportar pendentes</div><div class="set-rsub">Apenas candidaturas com estado pendente</div></div>
+              <button class="btn btn-ghost btn-sm" onclick="CANDS.exportCSV('pendente')">Exportar</button>
+            </div>
+            <div class="set-row">
+              <div><div class="set-rlbl">Exportar aprovados</div><div class="set-rsub">Apenas candidaturas aprovadas</div></div>
+              <button class="btn btn-ghost btn-sm" onclick="CANDS.exportCSV('aprovado')">Exportar</button>
+            </div>
+          </div>
+        </div>
+        <div class="set-sec">
+          <div class="set-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <div><div class="set-title">Base de dados</div><div class="set-sub">Informação sobre a ligação PostgreSQL (Neon)</div></div>
+          </div>
+          <div class="set-body">
+            <div class="info-box">
+              <strong>Host:</strong> ep-dry-term-alu2f51d-pooler.c-3.eu-central-1.aws.neon.tech<br>
+              <strong>Base de dados:</strong> neondb<br>
+              <strong>Região:</strong> EU Central (Frankfurt)<br>
+              <strong>Tabelas:</strong> candidatos · formularios
+            </div>
+          </div>
+        </div>
+        <div class="set-sec">
+          <div class="set-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div><div class="set-title">Sobre o painel</div></div>
+          </div>
+          <div class="set-body">
+            <div class="set-row"><div><div class="set-rlbl">Versão</div></div><span class="text-m">2.0.0</span></div>
+            <div class="set-row"><div><div class="set-rlbl">Site principal</div></div><a href="index.html" target="_blank" class="btn-link">maelo.pt →</a></div>
+            <div class="set-row"><div><div class="set-rlbl">Formulário soldador</div></div><a href="candidatura-soldador.html" target="_blank" class="btn-link">Abrir →</a></div>
+            <div class="set-row"><div><div class="set-rlbl">Formulário serralheiro</div></div><a href="candidatura-serralheiro.html" target="_blank" class="btn-link">Abrir →</a></div>
+            <div class="set-row"><div><div class="set-rlbl">Formulário pintor</div></div><a href="candidatura-pintor.html" target="_blank" class="btn-link">Abrir →</a></div>
+            <div class="set-row"><div><div class="set-rlbl">Formulário geral</div></div><a href="candidatura-geral.html" target="_blank" class="btn-link">Abrir →</a></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ═══ CANDIDATE DETAIL PANEL ═══ -->
+<div class="overlay" id="c-overlay" onclick="CANDS.closePanel()"></div>
+<div class="panel" id="c-panel" role="dialog" aria-modal="true">
+  <div class="ph">
+    <div>
+      <div class="ph-title" id="cp-name">—</div>
+      <div class="ph-sub" id="cp-meta"></div>
+    </div>
+    <button class="xbtn" id="cp-close" aria-label="Fechar" onclick="CANDS.closePanel()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="pb-body" id="cp-body"></div>
+  <div class="pb-foot" id="cp-foot"></div>
+</div>
+
+<!-- ═══ FORM BUILDER MODAL ═══ -->
+<div class="mo" id="fb-mo">
+  <div class="modal modal-xl" style="display:flex;flex-direction:column;max-height:92vh">
+    <div class="mh" style="flex-shrink:0">
+      <div>
+        <h2 id="fb-title">Novo Formulário</h2>
+        <p id="fb-sub">Define o formulário e os seus campos</p>
+      </div>
+      <button class="xbtn" id="fb-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+
+    <div class="fb-split">
+      <!-- ── Left: editor ── -->
+      <div class="fb-editor">
+        <div class="fgrp">
+          <label>Nome do formulário <span class="freq-mark">*</span></label>
+          <input class="fc w-full" type="text" id="fb-name" placeholder="Ex: Candidatura · Motorista">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" class="mb-3">
+          <div class="fgrp">
+            <label>Tipo / Profissão <span class="freq-mark">*</span></label>
+            <select class="fc" id="fb-prof">
+              <option value="soldador">Soldador</option>
+              <option value="serralheiro">Serralheiro</option>
+              <option value="pintor">Pintor industrial</option>
+              <option value="geral">Geral / Outra</option>
+              <option value="motorista">Motorista</option>
+              <option value="pedreiro">Pedreiro</option>
+              <option value="eletricista">Eletricista</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="fgrp">
+            <label>URL do formulário</label>
+            <input class="fc" type="text" id="fb-url" placeholder="candidatura-xxx.html">
+          </div>
+        </div>
+        <div class="fgrp">
+          <label>Descrição</label>
+          <textarea class="fc" id="fb-desc" placeholder="Breve descrição do formulário…" rows="2"></textarea>
+        </div>
+        <div class="fgrp">
+          <label class="flabel-row" style="margin-bottom:6px">Estado</label>
+          <label class="tog-wrap">
+            <button class="tog on" id="fb-ativo" type="button"></button>
+            <span class="tog-lbl" id="fb-ativo-lbl">Formulário ativo</span>
+          </label>
+        </div>
+        <div style="border-top:1px solid var(--line-l);padding-top:16px;margin-top:4px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <div>
+              <div style="font-weight:600;font-size:13.5px">Campos do formulário</div>
+              <div class="text-sm">Define os campos que aparecerão no formulário</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" id="fb-add-field">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Adicionar campo
+            </button>
+          </div>
+          <div id="fb-fields"></div>
+        </div>
+      </div>
+
+      <!-- ── Right: live preview ── -->
+      <div class="fb-pane">
+        <div class="fb-pane-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Pré-visualização
+        </div>
+        <div class="fb-pane-body">
+          <div class="fv-card" id="fb-preview-card">
+            <div class="fv-empty">Preencha o nome e adiciona campos para ver a pré-visualização.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mf" style="flex-shrink:0">
+      <input type="hidden" id="fb-editing-id" value="">
+      <button class="btn btn-ghost" id="fb-cancel">Cancelar</button>
+      <button class="btn btn-copper" id="fb-save">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Guardar formulário
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONFIRM MODAL ═══ -->
+<div class="mo" id="conf-mo">
+  <div class="modal modal-sm">
+    <div class="mh">
+      <div>
+        <h2 id="conf-title">Confirmar</h2>
+        <p id="conf-msg"></p>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="btn btn-ghost" id="conf-cancel">Cancelar</button>
+      <button class="btn btn-danger" id="conf-ok">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div id="toast-box"></div>
+
+<script src="neon.js"></script>
+<script>
+'use strict';
+// ══════════════════════════════════════════════════
+//  CONSTANTS
+// ══════════════════════════════════════════════════
+const ADMIN_PW   = "npg_ZNntQdzXOC23";
+const OWNER_CONN = "postgresql://neondb_owner:npg_ZNntQdzXOC23@ep-dry-term-alu2f51d-pooler.c-3.eu-central-1.aws.neon.tech/neondb?sslmode=require";
+const PAGE_SIZE  = 25;
+
+// ══════════════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════════════
+const $ = id => document.getElementById(id);
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fmtDate = iso => iso ? new Date(iso).toLocaleDateString('pt-PT',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+const fmtDT   = iso => iso ? new Date(iso).toLocaleString('pt-PT',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '—';
+const timeAgo = iso => {
+  if(!iso) return '—';
+  const d = (Date.now() - new Date(iso))/1000;
+  if(d<60) return 'agora mesmo';
+  if(d<3600) return Math.floor(d/60)+'min atrás';
+  if(d<86400) return Math.floor(d/3600)+'h atrás';
+  if(d<604800) return Math.floor(d/86400)+'d atrás';
+  return fmtDate(iso);
+};
+const profLabel  = p=>({soldador:'Soldador',serralheiro:'Serralheiro',pintor:'Pintor ind.',geral:'Geral'}[p]??p??'—');
+const estadoLabel= e=>({pendente:'Pendente',aprovado:'Aprovado',rejeitado:'Rejeitado',em_espera:'Em espera'}[e]??e??'—');
+
+function toast(msg, type='') {
+  const box = $('toast-box');
+  const t = document.createElement('div');
+  t.className = 'toast' + (type?' toast-'+type:'');
+  const icons={ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>',err:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'};
+  t.innerHTML = (icons[type]||icons.info)+esc(msg);
+  box.appendChild(t);
+  setTimeout(()=>{t.style.animation='tout 280ms forwards';setTimeout(()=>t.remove(),280)},3200);
+}
+
+function confirm(title, msg, onOk) {
+  $('conf-title').textContent = title;
+  $('conf-msg').textContent = msg;
+  $('conf-mo').classList.add('on');
+  const ok = $('conf-ok');
+  const cancel = $('conf-cancel');
+  const close = ()=>$('conf-mo').classList.remove('on');
+  const handle = ()=>{ close(); onOk(); };
+  ok.onclick = handle;
+  cancel.onclick = close;
+}
+
+// ══════════════════════════════════════════════════
+//  DB
+// ══════════════════════════════════════════════════
+const DB = {
+  conn: ()=>sessionStorage.getItem('ma_conn'),
+  q: (sql,params=[])=>neonQuery(DB.conn(),sql,params),
+};
+
+// ══════════════════════════════════════════════════
+//  AUTH
+// ══════════════════════════════════════════════════
+const AUTH = {
+  init(){
+    $('pw-tog').onclick = ()=>{
+      const i=$('l-pw'); const showing=i.type==='text';
+      i.type=showing?'password':'text';
+      $('pw-eye-open').style.display=showing?'':'none';
+      $('pw-eye-closed').style.display=showing?'none':'';
+      $('pw-tog').setAttribute('aria-label', showing?'Mostrar password':'Ocultar password');
+    };
+    $('forgot-btn').onclick = ()=>{
+      const p=$('forgot-panel'); p.style.display=p.style.display==='none'?'block':'none';
+    };
+    $('login-form').addEventListener('submit',e=>{
+      e.preventDefault();
+      const pw = $('l-pw').value;
+      const email = $('l-email').value.trim();
+      if(pw!==ADMIN_PW){
+        $('l-err').textContent='Password incorreta.';
+        $('l-err').classList.remove('hidden');
+        return;
+      }
+      $('l-err').classList.add('hidden');
+      sessionStorage.setItem('ma_conn', OWNER_CONN);
+      sessionStorage.setItem('ma_email', email||'admin@maelo.pt');
+      AUTH.showApp();
+    });
+    $('logout-btn').onclick = ()=>{ sessionStorage.clear(); location.reload(); };
+    if(DB.conn()) AUTH.showApp(); else AUTH.showLogin();
+  },
+  showLogin(){ $('login-screen').style.display=''; $('app').classList.remove('on'); },
+  showApp(){
+    $('login-screen').style.display='none';
+    $('app').classList.add('on');
+    const email = sessionStorage.getItem('ma_email')||'admin';
+    $('sb-email').textContent = email;
+    $('sb-av').textContent = email[0].toUpperCase();
+    $('set-admin-email').textContent = email;
+    APP.init();
+    startAutoRefresh();
+  }
+};
+
+// ══════════════════════════════════════════════════
+//  APP NAVIGATION
+// ══════════════════════════════════════════════════
+const VIEWS = {
+  dashboard:{title:'Dashboard',init:DASH_init},
+  candidates:{title:'Candidaturas',init:CANDS_init},
+  forms:{title:'Formulários',init:FORMS_init},
+  settings:{title:'Configurações',init:SETTINGS_init}
+};
+const APP = {
+  current: null,
+  init(){
+    document.querySelectorAll('.ni[data-view]').forEach(btn=>{
+      btn.onclick = ()=> APP.nav(btn.dataset.view);
+    });
+    APP.nav('dashboard');
+  },
+  nav(view){
+    if(!VIEWS[view]) return;
+    document.querySelectorAll('.ni').forEach(b=>b.classList.toggle('on',b.dataset.view===view));
+    document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='view-'+view));
+    $('topbar-pg').textContent = VIEWS[view].title;
+    $('topbar-right').innerHTML='';
+    if(APP.current!==view){ APP.current=view; VIEWS[view].init && VIEWS[view].init(); }
+  }
+};
+
+// ══════════════════════════════════════════════════
+//  DASHBOARD
+// ══════════════════════════════════════════════════
+let dashLoaded=false;
+function DASH_init(){
+  if(dashLoaded) return;
+  DASH_load();
+}
+async function DASH_load(){
+  dashLoaded=true;
+  try{
+    const r = await DB.q('SELECT * FROM candidatos ORDER BY criado_em DESC',[]);
+    const all = r.rows??[];
+    // Stats
+    const total=all.length, pend=all.filter(c=>c.estado==='pendente').length,
+      aprov=all.filter(c=>c.estado==='aprovado').length,
+      rej=all.filter(c=>c.estado==='rejeitado').length,
+      espe=all.filter(c=>c.estado==='em_espera').length;
+    const rate=aprov+rej>0?Math.round(aprov/(aprov+rej)*100):0;
+    $('s-total').textContent=total;
+    $('s-total-sub').textContent=pend+' aguardam revisão';
+    $('s-pend').textContent=pend;
+    $('s-aprov').textContent=aprov;
+    $('s-rej').textContent=rej;
+    $('s-espe').textContent=espe;
+    $('s-rate').textContent=rate+'%';
+    $('nb-pend').textContent=pend;
+    // Recent table
+    const recent5=all.slice(0,5);
+    $('dash-recent').innerHTML=recent5.length?recent5.map(c=>`
+      <tr class="tr-c" onclick="CANDS.openById('${esc(c.id)}')">
+        <td class="td-name">${esc(c.nome)}</td>
+        <td><span class="badge b-${esc(c.profissao)}">${esc(profLabel(c.profissao))}</span></td>
+        <td class="td-muted">${esc(c.regiao??'—')}</td>
+        <td class="td-muted">${fmtDate(c.criado_em)}</td>
+        <td><span class="badge b-${esc(c.estado)}">${esc(estadoLabel(c.estado))}</span></td>
+      </tr>`).join(''):'<tr><td colspan="5" class="empty">Sem candidaturas</td></tr>';
+    // Activity feed
+    const acts=all.slice(0,8);
+    const dotColors={soldador:'#B87B51',serralheiro:'#7C3AED',pintor:'#BE185D',geral:'#374151'};
+    $('dash-activity').innerHTML=acts.length?acts.map(c=>`
+      <div class="act-item">
+        <div class="act-dot" style="background:${dotColors[c.profissao]||'#B87B51'}"></div>
+        <div class="act-txt"><strong>${esc(c.nome)}</strong> candidatou-se como ${esc(profLabel(c.profissao))}</div>
+        <div class="act-time">${timeAgo(c.criado_em)}</div>
+      </div>`).join(''):'<div class="empty"><p>Sem actividade recente</p></div>';
+    // Chart — last 14 days
+    DASH_chart(all);
+    // Update last-refresh label
+    const now=new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'});
+    const lbl=$('last-update-txt'); if(lbl) lbl.textContent='Atualizado às '+now;
+    // Auto-refresh: store count for polling
+    window._dashCount=all.length;
+  }catch(err){
+    toast('Erro ao carregar dashboard: '+err.message,'err');
+  }
+}
+
+// ── Auto-refresh polling (90s) ──
+let _autoRefreshTimer=null;
+function startAutoRefresh(){
+  if(_autoRefreshTimer) clearInterval(_autoRefreshTimer);
+  _autoRefreshTimer=setInterval(async()=>{
+    try{
+      const r=await DB.q('SELECT COUNT(*) as cnt, SUM(CASE WHEN estado=\'pendente\' THEN 1 ELSE 0 END) as pend FROM candidatos');
+      const newCount=parseInt(r.rows[0]?.cnt??0);
+      const newPend=parseInt(r.rows[0]?.pend??0);
+      // Update pending badge always
+      $('nb-pend').textContent=newPend||0;
+      // If new candidaturas arrived, reload dashboard
+      if(typeof window._dashCount==='number' && newCount>window._dashCount){
+        const diff=newCount-window._dashCount;
+        toast(`${diff} nova${diff!==1?'s':''} candidatura${diff!==1?'s':''}! A atualizar…`,'ok');
+        dashLoaded=false; DASH_load();
+        if(CANDS && APP.current==='candidates') CANDS.load();
+      }
+      window._dashCount=newCount;
+      const now=new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'});
+      const lbl=$('last-update-txt'); if(lbl) lbl.textContent='Atualizado às '+now;
+    }catch{}
+  },90000);
+}
+
+function DASH_chart(all){
+  const days=14, labels=[], counts=[];
+  for(let i=days-1;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i); d.setHours(0,0,0,0);
+    const next=new Date(d); next.setDate(next.getDate()+1);
+    const cnt=all.filter(c=>{const t=new Date(c.criado_em);return t>=d&&t<next}).length;
+    const label=d.toLocaleDateString('pt-PT',{day:'2-digit',month:'short'});
+    labels.push(label); counts.push(cnt);
+  }
+  const mx=Math.max(...counts,1);
+  $('dash-chart').innerHTML=counts.map((v,i)=>`
+    <div class="cb-wrap">
+      <div class="cb" style="height:${Math.max(Math.round(v/mx*90),2)}px" title="${labels[i]}: ${v} candidatura${v!==1?'s':''}"></div>
+      <div class="cb-lbl">${labels[i].split(' ')[0]}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════════
+//  CANDIDATES
+// ══════════════════════════════════════════════════
+const CANDS = (()=>{
+  let all=[], filtered=[], page=1, sortCol='criado_em', sortDir='desc', selected=new Set(), panelId=null;
+
+  async function load(){
+    $('cand-tbody').innerHTML='<tr><td colspan="7" class="loading"><div class="spin"></div>A carregar…</td></tr>';
+    try{
+      const r=await DB.q('SELECT * FROM candidatos ORDER BY criado_em DESC',[]);
+      all=r.rows??[];
+      applyFilters(); page=1; render();
+      $('nb-pend').textContent=all.filter(c=>c.estado==='pendente').length;
+    }catch(err){
+      $('cand-tbody').innerHTML='<tr><td colspan="7" class="empty"><p>Erro ao carregar dados</p><span>'+esc(err.message)+'</span></td></tr>';
+      toast('Erro: '+err.message,'err');
+    }
+  }
+
+  function applyFilters(){
+    const q=$('f-search').value.toLowerCase().trim();
+    const prof=$('f-prof').value, estado=$('f-estado').value, sort=$('f-sort').value;
+    filtered=all.filter(c=>{
+      if(q&&!c.nome?.toLowerCase().includes(q)&&!c.telefone?.includes(q)&&!c.email?.toLowerCase().includes(q)) return false;
+      if(prof&&c.profissao!==prof) return false;
+      if(estado&&c.estado!==estado) return false;
+      return true;
+    });
+    const [sc,sd]=sort.split('_');
+    const col={date:'criado_em',name:'nome'}[sc]||'criado_em';
+    filtered.sort((a,b)=>{
+      let va=a[col]??'', vb=b[col]??'';
+      if(col==='criado_em'){va=new Date(va);vb=new Date(vb);}
+      return sd==='asc'?(va>vb?1:-1):(va<vb?1:-1);
+    });
+    $('cand-count-lbl').textContent=filtered.length+' candidatura(s) encontrada(s)';
+  }
+
+  function render(){
+    const tbody=$('cand-tbody');
+    const start=(page-1)*PAGE_SIZE, slice=filtered.slice(start,start+PAGE_SIZE);
+    if(!slice.length){ tbody.innerHTML='<tr><td colspan="7" class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><p>Nenhuma candidatura encontrada</p><span>Tenta ajustar os filtros de pesquisa</span></td></tr>'; renderPag(); return; }
+    tbody.innerHTML=slice.map(c=>{
+      const waNum=(c.telefone||'').replace(/\D/g,'');
+      const waUrl=`https://wa.me/${waNum}?text=${encodeURIComponent('Olá '+c.nome+', somos da M&A Elo Profissional. Entrámos em contacto relativamente à sua candidatura como '+profLabel(c.profissao)+'.')}`;
+      return `
+      <tr class="tr-c${selected.has(c.id)?' sel':''}" data-id="${esc(c.id)}">
+        <td class="check-col"><input type="checkbox" class="rchk row-chk" data-id="${esc(c.id)}" ${selected.has(c.id)?'checked':''}></td>
+        <td class="td-name">${esc(c.nome)}</td>
+        <td>${esc(c.telefone)}</td>
+        <td><span class="badge b-${esc(c.profissao)}">${esc(profLabel(c.profissao))}</span></td>
+        <td class="td-muted">${esc(c.regiao??'—')}</td>
+        <td class="td-muted">${fmtDate(c.criado_em)}</td>
+        <td onclick="event.stopPropagation()">
+          <select class="isel b-${esc(c.estado)}" data-id="${esc(c.id)}" title="Alterar estado">
+            <option value="pendente" ${c.estado==='pendente'?'selected':''}>Pendente</option>
+            <option value="aprovado" ${c.estado==='aprovado'?'selected':''}>Aprovado</option>
+            <option value="rejeitado" ${c.estado==='rejeitado'?'selected':''}>Rejeitado</option>
+            <option value="em_espera" ${c.estado==='em_espera'?'selected':''}>Em espera</option>
+          </select>
+        </td>
+        <td class="td-actions" onclick="event.stopPropagation()">
+          ${waNum?`<a class="wa-row-btn" href="${waUrl}" target="_blank" rel="noopener" title="Contactar pelo WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.559 4.126 1.531 5.856L.057 23.215a.75.75 0 0 0 .921.921l5.359-1.474A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.933 0-3.742-.525-5.287-1.438l-.378-.22-3.928 1.08 1.08-3.928-.22-.378A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          </a>`:'—'}
+        </td>
+      </tr>`;}).join('');
+    tbody.querySelectorAll('.row-chk').forEach(chk=>{
+      chk.onchange=e=>{ e.stopPropagation(); if(e.target.checked) selected.add(e.target.dataset.id); else selected.delete(e.target.dataset.id); renderBulk(); render(); };
+    });
+    tbody.querySelectorAll('.isel').forEach(sel=>{
+      sel.onchange=async e=>{
+        e.stopPropagation();
+        const id=sel.dataset.id, v=sel.value;
+        sel.className=`isel b-${v}`;
+        try{
+          await DB.q('UPDATE candidatos SET estado=$1 WHERE id=$2',[v,id]);
+          const ci=all.findIndex(x=>x.id===id);
+          if(ci!==-1) all[ci].estado=v;
+          applyFilters();
+          $('nb-pend').textContent=all.filter(c=>c.estado==='pendente').length;
+          if(panelId===id){ const c=all[ci]; if(c) renderPanelBody(c); }
+          toast('Estado atualizado','ok');
+        }catch(err){ toast('Erro: '+err.message,'err'); sel.className=`isel b-${all.find(x=>x.id===id)?.estado||'pendente'}`; }
+      };
+    });
+    tbody.querySelectorAll('.tr-c').forEach(row=>{
+      row.onclick=e=>{ if(e.target.classList.contains('rchk')||e.target.classList.contains('row-chk')||e.target.closest('.isel')||e.target.closest('.wa-row-btn')) return; openPanel(row.dataset.id); };
+    });
+    renderPag();
+  }
+
+  function renderPag(){
+    const total=Math.ceil(filtered.length/PAGE_SIZE), el=$('cand-pag');
+    if(total<=1){el.innerHTML='';return;}
+    const pages=Array.from({length:total},(_,i)=>i+1).filter(p=>p===1||p===total||Math.abs(p-page)<=1);
+    let html=`<button class="pb" id="pp" ${page===1?'disabled':''}>← Anterior</button>
+      <span class="pi">${filtered.length} resultados</span>`;
+    let prev=-1;
+    pages.forEach(p=>{
+      if(prev!==-1&&p-prev>1) html+='<span class="pi">…</span>';
+      html+=`<button class="pb${p===page?' on':''}" data-p="${p}">${p}</button>`;
+      prev=p;
+    });
+    html+=`<button class="pb" id="pn" ${page>=total?'disabled':''}>Próxima →</button>`;
+    el.innerHTML=html;
+    el.querySelector('#pp')?.addEventListener('click',()=>{page--;render()});
+    el.querySelector('#pn')?.addEventListener('click',()=>{page++;render()});
+    el.querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',()=>{page=+b.dataset.p;render()}));
+  }
+
+  function renderBulk(){
+    const bb=$('bulk-bar');
+    if(selected.size>0){
+      bb.classList.remove('hidden');
+      $('bulk-count').textContent=selected.size;
+    } else {
+      bb.classList.add('hidden');
+    }
+  }
+
+  async function bulkStatus(){
+    const val=$('bulk-status-sel').value;
+    if(!val){toast('Seleciona um estado','info');return;}
+    const ids=[...selected];
+    try{
+      for(const id of ids) await DB.q(`UPDATE candidatos SET estado=$1 WHERE id=$2`,[val,id]);
+      ids.forEach(id=>{ const c=all.find(x=>x.id===id); if(c) c.estado=val; });
+      selected.clear(); renderBulk(); applyFilters(); render();
+      toast('Estado atualizado em '+ids.length+' candidato(s)','ok');
+    }catch(err){ toast('Erro: '+err.message,'err'); }
+  }
+
+  async function bulkDelete(){
+    const ids=[...selected];
+    try{
+      for(const id of ids) await DB.q(`DELETE FROM candidatos WHERE id=$1`,[id]);
+      all=all.filter(c=>!ids.includes(c.id));
+      selected.clear(); renderBulk(); applyFilters(); render();
+      toast(ids.length+' candidato(s) eliminado(s)','ok');
+    }catch(err){ toast('Erro: '+err.message,'err'); }
+  }
+
+  function openPanel(id){
+    panelId=id;
+    const c=all.find(x=>x.id===id); if(!c) return;
+    $('cp-name').textContent=c.nome;
+    $('cp-meta').textContent=profLabel(c.profissao)+' · Candidatura '+fmtDT(c.criado_em);
+    renderPanelBody(c); renderPanelFoot(c);
+    $('c-panel').classList.add('on');
+    $('c-overlay').classList.add('on');
+  }
+
+  function openById(id){
+    if(!all.length){ DB.q('SELECT * FROM candidatos ORDER BY criado_em DESC').then(r=>{all=r.rows??[];openPanel(id)}).catch(()=>{}); return; }
+    openPanel(id);
+  }
+
+  function closePanel(){
+    $('c-panel').classList.remove('on');
+    $('c-overlay').classList.remove('on');
+    panelId=null;
+  }
+
+  function renderPanelBody(c){
+    const fields=[
+      ['Telefone',c.telefone],['Email',c.email??'—'],['Região',c.regiao??'—'],
+      ['Disponibilidade',c.disponibilidade?'Sim':'Não'],['Experiência',c.experiencia??'—'],
+      ['Processos / Função',c.processos??'—'],['Certificações',c.certificacoes??'—'],
+      ['Tipo de trabalhos',c.tipo_trabalhos??'—'],
+      ['Lê medidas',c.le_medidas===true?'Sim':c.le_medidas===false?'Não':'—'],
+      ['Tipo de pintura',c.tipo_pintura??'—'],['Equipamentos',c.equipamentos??'—'],
+    ].filter(([,v])=>v&&v!=='—');
+
+    const ctag=c.contactado_em?`<div class="ctag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Contactado em ${fmtDT(c.contactado_em)}</div>`:'';
+
+    $('cp-body').innerHTML=`
+      <div class="ps">
+        <div class="ps-lbl">Informação do candidato</div>
+        <div class="pg">${fields.map(([l,v])=>`<div class="pf"><label>${esc(l)}</label><span>${esc(v)}</span></div>`).join('')}</div>
+      </div>
+      ${c.mensagem?`<div class="ps"><div class="ps-lbl">Mensagem</div><p style="font-size:13px;line-height:1.6;white-space:pre-wrap;color:var(--ink-s)">${esc(c.mensagem)}</p></div>`:''}
+      <div class="ps">
+        <div class="ps-lbl">Estado da candidatura</div>
+        <select class="fc" id="cp-estado">
+          <option value="pendente" ${c.estado==='pendente'?'selected':''}>Pendente</option>
+          <option value="aprovado" ${c.estado==='aprovado'?'selected':''}>Aprovado</option>
+          <option value="rejeitado" ${c.estado==='rejeitado'?'selected':''}>Rejeitado</option>
+          <option value="em_espera" ${c.estado==='em_espera'?'selected':''}>Em espera</option>
+        </select>
+        ${ctag}
+      </div>
+      <div class="ps">
+        <div class="ps-lbl">Notas internas</div>
+        <textarea class="fc" id="cp-notas" placeholder="Notas visíveis apenas para a equipa…">${esc(c.notas_internas??'')}</textarea>
+        <div class="save-ok" id="cp-save-ok">✓ Notas guardadas</div>
+      </div>`;
+
+    $('cp-estado').onchange=async()=>{
+      const v=$('cp-estado').value;
+      await saveField({estado:v});
+      const ci=all.findIndex(x=>x.id===panelId); if(ci!==-1) all[ci].estado=v;
+      applyFilters(); render(); toast('Estado atualizado','ok');
+    };
+  }
+
+  function renderPanelFoot(c){
+    const wa=`https://wa.me/${(c.telefone||'').replace(/\D/g,'')}?text=${encodeURIComponent('Olá '+c.nome+', somos da M&A Elo Profissional. Entrámos em contacto relativamente à sua candidatura como '+profLabel(c.profissao)+'.')}`;
+    $('cp-foot').innerHTML=`
+      <button class="btn btn-dark" id="cp-save-notes">Guardar notas</button>
+      <a class="btn btn-wa" href="${wa}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.521 5.855L.057 23.486a.75.75 0 0 0 .919.921l5.733-1.497A11.938 11.938 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.722 9.722 0 0 1-4.98-1.371l-.356-.212-3.697.966.992-3.607-.232-.371A9.718 9.718 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        WhatsApp
+      </a>
+      <button class="btn btn-success" id="cp-contacted">Marcar contactado</button>
+      <button class="btn btn-danger" id="cp-delete">Eliminar</button>`;
+    $('cp-save-notes').onclick=async()=>{
+      await saveField({notas_internas:$('cp-notas').value});
+      const ok=$('cp-save-ok'); ok.classList.add('on'); setTimeout(()=>ok.classList.remove('on'),2500);
+    };
+    $('cp-contacted').onclick=async()=>{
+      const now=new Date().toISOString();
+      await saveField({contactado_em:now});
+      const ci=all.findIndex(x=>x.id===panelId); if(ci!==-1) all[ci].contactado_em=now;
+      renderPanelBody(all[ci]); renderPanelFoot(all[ci]);
+      toast('Marcado como contactado','ok');
+    };
+    $('cp-delete').onclick=()=>confirm('Eliminar candidato','Eliminar o candidato '+c.nome+'? Esta ação é irreversível.',async()=>{
+      await DB.q('DELETE FROM candidatos WHERE id=$1',[panelId]);
+      all=all.filter(x=>x.id!==panelId);
+      closePanel(); applyFilters(); render();
+      toast('Candidato eliminado','ok');
+    });
+  }
+
+  async function saveField(fields){
+    if(!panelId) return;
+    const keys=Object.keys(fields);
+    const set=keys.map((k,i)=>k+'=$'+(i+1)).join(', ');
+    const vals=[...keys.map(k=>fields[k]),panelId];
+    await DB.q(`UPDATE candidatos SET ${set} WHERE id=$${keys.length+1}`,vals);
+    const ci=all.findIndex(x=>x.id===panelId); if(ci!==-1) Object.assign(all[ci],fields);
+  }
+
+  function exportCSV(estadoFilter){
+    const data=(estadoFilter?all.filter(c=>c.estado===estadoFilter):all);
+    const headers=['ID','Nome','Telefone','Email','Profissão','Região','Estado','Data','Contactado em','Notas'];
+    const rows=data.map(c=>[c.id,c.nome,c.telefone,c.email,c.profissao,c.regiao,c.estado,c.criado_em,c.contactado_em,c.notas_internas].map(v=>`"${String(v??'').replace(/"/g,'""')}"`));
+    const csv=[headers.join(','),...rows.map(r=>r.join(','))].join('\n');
+    const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download=`candidaturas${estadoFilter?'_'+estadoFilter:''}_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click(); URL.revokeObjectURL(a.href);
+    toast('CSV exportado','ok');
+  }
+
+  let _ready=false;
+  function init(){ if(!_ready){_setupListeners();_ready=true;} if(!all.length) load(); }
+  function _setupListeners(){
+    $('refresh-btn').onclick=load;
+    $('export-csv-btn').onclick=()=>exportCSV();
+    ['f-search','f-prof','f-estado','f-sort'].forEach(id=>{
+      $(id).addEventListener('input',()=>{applyFilters();page=1;render()});
+    });
+    $('clear-filters-btn').onclick=()=>{
+      $('f-search').value='';$('f-prof').value='';$('f-estado').value='';$('f-sort').value='date_desc';
+      applyFilters();page=1;render();
+    };
+    $('sel-all').onchange=e=>{ if(e.target.checked) filtered.forEach(c=>selected.add(c.id)); else selected.clear(); renderBulk(); render(); };
+    $('bulk-clear-btn').onclick=()=>{ selected.clear(); renderBulk(); render(); };
+    $('bulk-apply-btn').onclick=bulkStatus;
+    $('bulk-delete-btn').onclick=()=>confirm('Eliminar candidatos','Eliminar os '+selected.size+' candidatos selecionados? Esta ação é irreversível.',bulkDelete);
+    $('cp-close').onclick=closePanel;
+    $('c-overlay').onclick=closePanel;
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closePanel(); });
+  }
+  return {init,load,openById,exportCSV,closePanel};
+})();
+function CANDS_init(){ CANDS.init(); }
+
+// ══════════════════════════════════════════════════
+//  FORMS
+// ══════════════════════════════════════════════════
+const FORMS = (()=>{
+  let forms=[];
+
+  const _BASE_CAMPOS = skills => [
+    {section:'Dados pessoais',label:'Nome completo',type:'text',required:true},
+    {section:'Dados pessoais',label:'Telefone / WhatsApp',type:'phone',required:true},
+    {section:'Dados pessoais',label:'Email',type:'email',required:false},
+    {section:'Dados pessoais',label:'Cidade / Região atual',type:'text',required:true},
+    {section:'Documentação',label:'Tem autorização/documentos para trabalhar em Portugal?',type:'select',required:true,options:['Sim, tenho documentos para trabalhar em Portugal','Estou em processo de regularização','Não tenho autorização/documentos para trabalhar em Portugal','Prefiro explicar com a equipa']},
+    {section:'Experiência',label:'Função principal',type:'text',required:true},
+    {section:'Experiência',label:'Anos de experiência nesta função',type:'select',required:true,options:['Menos de 1 ano','1 a 2 anos','3 a 5 anos','Mais de 5 anos']},
+    {section:'Experiência',label:'Resumo da experiência',type:'textarea',required:true},
+    {section:'Competências',label:'Competências que domina',type:'checkbox-group',required:true,options:skills},
+    {section:'Logística',label:'Para quais regiões/obras tem disponibilidade?',type:'checkbox-group',required:true,options:['Parque das Nações, Lisboa','Estarreja, Aveiro','Viana do Castelo','Qualquer região']},
+    {section:'Logística',label:'Confirma que consegue deslocar-se para alguma dessas regiões?',type:'select',required:true,options:['Sim','Não']},
+    {section:'Logística',label:'Como pretende chegar até à obra?',type:'select',required:true,options:['Tenho transporte próprio','Vou de transporte público','Tenho boleia/solução combinada','Ainda preciso confirmar']},
+    {section:'Logística',label:'A empresa não disponibiliza alojamento. Confirma que consegue avançar mesmo assim?',type:'select',required:true,options:['Sim, consigo avançar sem alojamento da empresa','Não, preciso de alojamento']},
+    {section:'Confirmação',label:'Confirmo que as informações enviadas são verdadeiras',type:'checkbox',required:true},
+    {section:'Confirmação',label:'Autorizo guardar os meus dados para esta candidatura e oportunidades futuras',type:'checkbox',required:true},
+  ];
+  const _SLUG_SKILLS = {
+    soldador:   ['MIG/MAG','TIG','Elétrico (MMA)','Oxiacetileno','Soldadura estrutural','Soldadura de tubagem'],
+    serralheiro:['Serralharia civil','Montagem metálica','Ferramentas manuais','Leitura de medidas','Soldadura ligeira','Estruturas metálicas'],
+    pintor:     ['Pintura industrial','Preparação de superfícies','Airless / pistola','Rolo e trincha','Primário e acabamento','Pintura de estruturas'],
+    geral:      ['Obra','Indústria','Montagem','Ferramentas manuais','Leitura de medidas','Outro'],
+  };
+
+  async function setupTable(){
+    try{
+      await DB.q(`CREATE TABLE IF NOT EXISTS formularios (
+        id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+        slug TEXT UNIQUE NOT NULL,
+        nome TEXT NOT NULL,
+        profissao TEXT NOT NULL DEFAULT 'geral',
+        descricao TEXT DEFAULT '',
+        url TEXT DEFAULT '',
+        campos JSONB DEFAULT '[]',
+        ativo BOOLEAN DEFAULT true,
+        posicao INTEGER DEFAULT 0,
+        criado_em TIMESTAMPTZ DEFAULT NOW(),
+        editado_em TIMESTAMPTZ DEFAULT NOW()
+      )`);
+      await DB.q(`INSERT INTO formularios (slug,nome,profissao,descricao,ativo,posicao) VALUES
+        ('soldador','Candidatura · Soldador','soldador','Formulário para candidatos a soldador MIG/MAG, TIG e soldadura elétrica.',true,1),
+        ('serralheiro','Candidatura · Serralheiro','serralheiro','Formulário para candidatos a serralheiro de construção civil e metalomecânica.',true,2),
+        ('pintor','Candidatura · Pintor Industrial','pintor','Formulário para candidatos a pintor industrial.',true,3),
+        ('geral','Candidatura Geral','geral','Formulário de candidatura geral para outras funções operacionais.',true,4)
+        ON CONFLICT (slug) DO NOTHING`);
+      // Pre-populate campos for existing forms that still have empty campos
+      for(const [slug,skills] of Object.entries(_SLUG_SKILLS)){
+        await DB.q(`UPDATE formularios SET campos=$1::jsonb WHERE slug=$2 AND (campos='[]'::jsonb OR campos IS NULL)`,
+          [JSON.stringify(_BASE_CAMPOS(skills)),slug]);
+      }
+    }catch(e){ console.warn('Forms table setup:',e.message); }
+  }
+
+  async function load(){
+    $('forms-grid').innerHTML='<div class="loading"><div class="spin"></div>A carregar formulários…</div>';
+    try{
+      await setupTable();
+      const [fr,cr]=await Promise.all([
+        DB.q('SELECT * FROM formularios ORDER BY posicao,criado_em',[]),
+        DB.q('SELECT profissao,COUNT(*) as cnt, MAX(criado_em) as last FROM candidatos GROUP BY profissao',[])
+      ]);
+      forms=fr.rows??[];
+      const counts={};
+      (cr.rows??[]).forEach(r=>{ counts[r.profissao]={cnt:+r.cnt,last:r.last}; });
+      render(counts);
+    }catch(err){
+      $('forms-grid').innerHTML='<div class="empty"><p>Erro ao carregar formulários</p><span>'+esc(err.message)+'</span></div>';
+      toast('Erro: '+err.message,'err');
+    }
+  }
+
+  function render(counts={}){
+    if(!forms.length){ $('forms-grid').innerHTML='<div class="empty"><p>Sem formulários</p><span>Cria o primeiro formulário</span></div>'; return; }
+    $('forms-grid').innerHTML=forms.map(f=>{
+      const c=counts[f.profissao]||{cnt:0,last:null};
+      return `<div class="fcard">
+        <div class="fc-head">
+          <div class="fc-icon">${formIcon()}</div>
+          <div class="fc-status">
+            <div class="sdot ${f.ativo?'sdot-on':'sdot-off'}"></div>
+            ${f.ativo?'Ativo':'Inativo'}
+          </div>
+        </div>
+        <div class="fc-name">${esc(f.nome)}</div>
+        <div class="fc-desc">${esc(f.descricao||'Sem descrição')}</div>
+        <div class="fc-meta">
+          <div class="fc-mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>${c.cnt} candidatura${c.cnt!==1?'s':''}</div>
+          <div class="fc-mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${c.last?timeAgo(c.last):'—'}</div>
+        </div>
+        <div class="fc-actions">
+          <button class="btn btn-ghost btn-sm" onclick="FORMS.edit('${esc(f.id)}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Editar
+          </button>
+          <button class="btn btn-ghost btn-sm" onclick="FORMS.toggleActive('${esc(f.id)}','${f.ativo}')">${f.ativo?'Desativar':'Ativar'}</button>
+          <a class="btn btn-ghost btn-sm" href="form.html?role=${esc(f.slug)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ver</a>
+          <button class="btn btn-danger btn-sm ml-a" onclick="FORMS.del('${esc(f.id)}','${esc(f.nome)}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          </button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function formIcon(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`; }
+
+  async function toggleActive(id,current){
+    const now=current==='true'||current===true;
+    try{
+      await DB.q('UPDATE formularios SET ativo=$1,editado_em=NOW() WHERE id=$2',[!now,id]);
+      const f=forms.find(x=>x.id===id); if(f) f.ativo=!now;
+      await load(); toast((!now?'Formulário ativado':'Formulário desativado'),'ok');
+    }catch(err){ toast('Erro: '+err.message,'err'); }
+  }
+
+  function del(id,nome){
+    confirm('Eliminar formulário','Eliminar "'+nome+'"? Esta ação é irreversível.',async()=>{
+      try{
+        await DB.q('DELETE FROM formularios WHERE id=$1',[id]);
+        await load(); toast('Formulário eliminado','ok');
+      }catch(err){ toast('Erro: '+err.message,'err'); }
+    });
+  }
+
+  function openBuilder(editId=null){
+    const f=editId?forms.find(x=>x.id===editId):null;
+    $('fb-title').textContent=f?'Editar Formulário':'Novo Formulário';
+    $('fb-sub').textContent=f?'Edita as propriedades do formulário':'Define o novo formulário e os seus campos';
+    $('fb-editing-id').value=editId||'';
+    $('fb-name').value=f?.nome||'';
+    $('fb-prof').value=f?.profissao||'geral';
+    $('fb-url').value=f?.url||'';
+    $('fb-desc').value=f?.descricao||'';
+    const ativoBtn=$('fb-ativo');
+    const isOn=f?f.ativo:true;
+    ativoBtn.className='tog'+(isOn?' on':'');
+    $('fb-ativo-lbl').textContent=isOn?'Formulário ativo':'Formulário inativo';
+    ativoBtn.onclick=()=>{
+      const wasOn=ativoBtn.classList.contains('on');
+      ativoBtn.classList.toggle('on',!wasOn);
+      $('fb-ativo-lbl').textContent=!wasOn?'Formulário ativo':'Formulário inativo';
+    };
+    // Auto-fill URL while name is typed (new forms only)
+    const nameInp=$('fb-name'), urlInp=$('fb-url');
+    nameInp.oninput=()=>{
+      if(editId) return;
+      if(urlInp._manual) return;
+      const s=nameInp.value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+      urlInp.value=s?'form.html?role='+s:'';
+    };
+    urlInp.oninput=()=>{ urlInp._manual=!!urlInp.value; };
+    urlInp._manual=false;
+    renderFields(f?.campos||[]);
+    renderPreview();
+    $('fb-mo').classList.add('on');
+  }
+
+  function renderFields(campos){
+    const container=$('fb-fields');
+    if(!campos.length){ container.innerHTML='<div class="empty" style="padding:20px"><p>Sem campos definidos</p><span>Adiciona campos ao formulário</span></div>'; renderPreview(); return; }
+    container.innerHTML=campos.map((f,i)=>fieldRow(f,i)).join('');
+    container.querySelectorAll('.fb-remove').forEach(btn=>{
+      btn.onclick=()=>{
+        const campos2=getFields(); campos2.splice(+btn.dataset.idx,1); renderFields(campos2);
+      };
+    });
+    container.querySelectorAll('.fb-type').forEach(sel=>{
+      sel.onchange=()=>{ const campos2=getFields(); renderFields(campos2); };
+    });
+    container.querySelectorAll('.fb-add-opt').forEach(btn=>{
+      btn.onclick=()=>{
+        const row=btn.closest('.fb-row');
+        const optList=row.querySelector('.fb-opt-list');
+        const idx=optList.children.length;
+        const d=document.createElement('div'); d.className='fb-opt-row';
+        d.innerHTML=`<input class="fc btn-sm" type="text" placeholder="Opção ${idx+1}"><button type="button" class="btn btn-danger btn-icon" style="padding:5px" onclick="this.closest('.fb-opt-row').remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
+        optList.appendChild(d);
+        renderPreview();
+      };
+    });
+    renderPreview();
+  }
+
+  function fieldRow(f,i){
+    const types=['text','phone','email','textarea','select','radio','checkbox-group','file','number'];
+    const hasOpts=['select','radio','checkbox-group'].includes(f.type);
+    const opts=(f.options||[]).map(o=>`<div class="fb-opt-row"><input class="fc btn-sm" type="text" value="${esc(o)}" placeholder="Opção…"><button type="button" class="btn btn-danger btn-icon" style="padding:5px" onclick="this.closest('.fb-opt-row').remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>`).join('');
+    return `<div class="fb-row">
+      <div class="fb-top">
+        <div class="fgrp" style="margin:0">
+          <label>Label do campo</label>
+          <input class="fc fb-label" type="text" value="${esc(f.label||'')}" placeholder="Ex: Nome completo">
+        </div>
+        <div class="fgrp" style="margin:0">
+          <label>Tipo</label>
+          <select class="fc fb-type">
+            ${types.map(t=>`<option value="${t}"${f.type===t?' selected':''}>${{text:'Texto',phone:'Telefone',email:'Email',textarea:'Texto longo',select:'Lista (select)',radio:'Opção única (radio)',['checkbox-group']:'Múltipla escolha',file:'Ficheiro',number:'Número'}[t]||t}</option>`).join('')}
+          </select>
+        </div>
+        <label class="tog-wrap" style="margin-top:18px">
+          <button class="tog fb-req-tog ${f.required?'on':''}" type="button"></button>
+          <span style="font-size:11.5px;color:var(--ink-m)">Obrigatório</span>
+        </label>
+        <button class="btn btn-danger btn-icon fb-remove" data-idx="${i}" style="margin-top:18px" title="Remover campo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:8px">
+        <span style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-f);white-space:nowrap">Secção:</span>
+        <input class="fc fb-section" type="text" value="${esc(f.section||'')}" placeholder="Ex: Dados pessoais, Experiência…" style="max-width:230px;padding:5px 9px;font-size:12px">
+      </div>
+      ${hasOpts?`<div class="fb-opts">
+        <div style="font-size:11.5px;color:var(--ink-m);margin-bottom:6px">Opções:</div>
+        <div class="fb-opt-list">${opts||'<div class="fb-opt-row"><input class="fc btn-sm" type="text" placeholder="Opção 1"><button type="button" class="btn btn-danger btn-icon" style="padding:5px" onclick="this.closest(\'.fb-opt-row\').remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>'}</div>
+        <button type="button" class="btn btn-ghost btn-sm mt-3 fb-add-opt" style="margin-top:8px">+ Adicionar opção</button>
+      </div>`:''}
+    </div>`;
+  }
+
+  function getFields(){
+    return [...$('fb-fields').querySelectorAll('.fb-row')].map(row=>{
+      const label=row.querySelector('.fb-label')?.value||'';
+      const type=row.querySelector('.fb-type')?.value||'text';
+      const required=row.querySelector('.fb-req-tog')?.classList.contains('on')||false;
+      const section=row.querySelector('.fb-section')?.value||'';
+      const opts=[...row.querySelectorAll('.fb-opt-list input')].map(i=>i.value).filter(Boolean);
+      return {label,type,required,...(section?{section}:{}),...(opts.length?{options:opts}:{})};
+    });
+  }
+
+  const HERO_BG = {
+    soldador:   'linear-gradient(90deg,rgba(9,13,15,.91),rgba(9,13,15,.38)),url("assets/soldador-hero.webp") center/cover',
+    serralheiro:'linear-gradient(90deg,rgba(9,13,15,.91),rgba(9,13,15,.38)),url("assets/serralheiro-hero.webp") center/cover',
+    pintor:     'linear-gradient(90deg,rgba(9,13,15,.91),rgba(9,13,15,.38)),url("assets/candidatos-hero.webp") center/cover',
+    geral:      'linear-gradient(90deg,rgba(9,13,15,.91),rgba(9,13,15,.38)),url("assets/candidatos-hero.webp") center/cover',
+  };
+
+  function renderPreview(){
+    const nome=$('fb-name').value||'Formulário';
+    const prof=$('fb-prof').value||'geral';
+    const campos=getFields();
+    const bg=HERO_BG[prof]||HERO_BG.geral;
+
+    let body='';
+    if(!campos.length){
+      body='<div class="fv-empty">Sem campos definidos — adiciona campos no editor.</div>';
+    } else {
+      campos.forEach(f=>{
+        const req=f.required?'<span class="fv-req">*</span>':'';
+        let inp='';
+        if(f.type==='textarea'){
+          inp=`<div class="fv-inp fv-textarea">${f.options?.[0]||f.placeholder||f.label||'…'}</div>`;
+        } else if(f.type==='select'){
+          const first=f.options?.[0];
+          inp=`<div class="fv-inp fv-select">${first?esc(first):'Selecionar…'}</div>`;
+        } else if(f.type==='radio'){
+          const opts=(f.options&&f.options.length?f.options:['Opção A','Opção B']).map(o=>`<div class="fv-opt"><div class="fv-dot"></div>${esc(o)}</div>`).join('');
+          inp=`<div class="fv-radio-wrap">${opts}</div>`;
+        } else if(f.type==='checkbox-group'){
+          const opts=(f.options&&f.options.length?f.options:['Opção A','Opção B']).map(o=>`<div class="fv-opt"><div class="fv-box"></div>${esc(o)}</div>`).join('');
+          inp=`<div class="fv-check-wrap">${opts}</div>`;
+        } else {
+          inp=`<div class="fv-inp">${f.placeholder||f.label||'…'}</div>`;
+        }
+        body+=`<div class="fv-grp"><label class="fv-lbl">${esc(f.label||'Campo')}${req}</label>${inp}</div>`;
+      });
+    }
+
+    $('fb-preview-card').innerHTML=`
+      <div class="fv-hero" style="background:${bg}">
+        <div class="fv-hero-inner">
+          <p class="fv-clbl">Candidatura</p>
+          <h2 class="fv-ctitle">${esc(nome)}</h2>
+        </div>
+      </div>
+      <div class="fv-body">${body}</div>
+      ${campos.length?'<div class="fv-submit-wrap"><button class="fv-submit" disabled>Enviar candidatura</button></div>':''}
+    `;
+  }
+
+  function closeBuilder(){ $('fb-mo').classList.remove('on'); }
+
+  async function saveForm(){
+    const nome=$('fb-name').value.trim();
+    const prof=$('fb-prof').value;
+    if(!nome){ toast('O nome do formulário é obrigatório','err'); return; }
+    const id=$('fb-editing-id').value;
+    const slug=nome.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    const urlVal=$('fb-url').value.trim()||(!id?'form.html?role='+slug:'');
+    const data={
+      nome,profissao:prof,
+      url:urlVal,
+      descricao:$('fb-desc').value.trim(),
+      ativo:$('fb-ativo').classList.contains('on'),
+      campos:JSON.stringify(getFields()),
+    };
+    try{
+      if(id){
+        const keys=Object.keys(data), set=keys.map((k,i)=>k+'=$'+(i+1)).join(',');
+        await DB.q(`UPDATE formularios SET ${set},editado_em=NOW() WHERE id=$${keys.length+1}`,[...Object.values(data),id]);
+        toast('Formulário atualizado','ok');
+      } else {
+        await DB.q(`INSERT INTO formularios (slug,nome,profissao,url,descricao,ativo,campos,posicao) VALUES($1,$2,$3,$4,$5,$6,$7::jsonb,(SELECT COALESCE(MAX(posicao),0)+1 FROM formularios))`,[slug,data.nome,data.profissao,data.url,data.descricao,data.ativo,data.campos]);
+        toast('Formulário criado','ok');
+      }
+      closeBuilder(); await load();
+    }catch(err){ toast('Erro ao guardar: '+err.message,'err'); }
+  }
+
+  function initUI(){
+    $('new-form-btn').onclick=()=>openBuilder();
+    $('fb-close').onclick=closeBuilder;
+    $('fb-cancel').onclick=closeBuilder;
+    $('fb-save').onclick=saveForm;
+    $('fb-add-field').onclick=()=>{
+      const campos=getFields();
+      campos.push({label:'',type:'text',required:false});
+      renderFields(campos);
+    };
+    $('fb-fields').addEventListener('click',e=>{
+      if(e.target.closest('.fb-req-tog')){
+        const tog=e.target.closest('.fb-req-tog');
+        tog.classList.toggle('on');
+        renderPreview();
+      }
+    });
+    // Live preview: react to name and profissao changes
+    let _pvTimer=null;
+    const _debounce=()=>{ clearTimeout(_pvTimer); _pvTimer=setTimeout(renderPreview,180); };
+    $('fb-name').addEventListener('input',_debounce);
+    $('fb-prof').addEventListener('change',()=>renderPreview());
+    // Live preview: react to field label/option edits
+    $('fb-fields').addEventListener('input',_debounce);
+    $('fb-mo').addEventListener('click',e=>{ if(e.target===$('fb-mo')) closeBuilder(); });
+  }
+
+  let _uiReady=false;
+  return {
+    init(){ if(!_uiReady){initUI();_uiReady=true;} load(); },
+    edit:openBuilder,del,toggleActive,load
+  };
+})();
+function FORMS_init(){ FORMS.init(); }
+
+// ══════════════════════════════════════════════════
+//  SETTINGS
+// ══════════════════════════════════════════════════
+function SETTINGS_init(){
+  $('export-all-btn')?.addEventListener('click',()=>CANDS.exportCSV());
+}
+
+// ══════════════════════════════════════════════════
+//  BOOT
+// ══════════════════════════════════════════════════
+AUTH.init();
+</script>
+</body>
+</html>

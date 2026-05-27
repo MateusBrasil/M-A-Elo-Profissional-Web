@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "zynia-os": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "zynia-mcp"
+      ],
+      "env": {
+        "ZYNIA_SERVER_URL": "http://localhost:3001",
+        "ZYNIA_API_PREFIX": "/api/mcp-gateway",
+        "ZYNIA_API_KEY": "zynia-local-dev"
+      }
+    }
+  }
+}

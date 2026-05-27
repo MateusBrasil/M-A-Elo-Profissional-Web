@@ -1,0 +1,10 @@
+# Exemplo opcional para Netlify se o agente precisar responder no mesmo domínio.
+# A recomendação atual do projeto é usar links absolutos para:
+# https://candidaturas.maelo.pt/apply/*
+#
+# Só renomeie este arquivo para _redirects se quiser que maelo.pt faça proxy
+# para o agente. Nesse caso, valide também os assets do agente e as rotas /forms.
+#
+# /apply/*  https://candidaturas.maelo.pt/apply/:splat  200
+# /forms   https://candidaturas.maelo.pt/forms          200
+# /forms/* https://candidaturas.maelo.pt/forms/:splat   200

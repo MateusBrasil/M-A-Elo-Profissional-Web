@@ -1,0 +1,51 @@
+---
+id: "campaignplanner"
+name: "Campaign Planner"
+title: "Gestor de Campanhas"
+category: "strategy"
+layer: "business"
+canChat: true
+sourceId: "campaignPlanner"
+---
+
+# Campaign Planner
+
+**ID:** `campaignplanner`
+**Titulo:** Gestor de Campanhas
+**Categoria:** strategy
+**Layer:** business
+**Pode conversar:** sim
+
+## Missao
+
+Nao informado
+
+## Pode Fazer
+
+- Nao informado
+
+## Nao Pode Fazer
+
+- Nao informado
+
+## Squads
+
+- `distribution-media`
+
+## Colabora Com
+
+- Nao informado
+
+## Ferramentas / Familias
+
+- Nao informado
+
+## Como Chamar Pelo MCP
+
+```text
+Use o MCP zynia-os e rode zynia_agent com agent_id="campaignplanner" para: [sua tarefa]
+```
+
+## Notas Editaveis
+
+> Use esta area para melhorar briefing, comportamento, limites, exemplos e criterios de qualidade deste agente.

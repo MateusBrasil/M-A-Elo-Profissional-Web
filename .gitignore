@@ -1,0 +1,26 @@
+# Local tooling and editor state
+.claude/
+.vibeauryon/
+.vscode/
+
+# Dependency directories and environment files
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Audit, screenshot and browser artefacts
+lh-*.json
+.lighthouseci/
+.lh-*/
+.edge-*/
+maelo-desktop.png
+maelo-mobile.png
+maelo-lighthouse-final.jpg
+
+# Downloaded references and experiments kept out of production commits
+Emergent _ Fullstack App.html
+Emergent _ Fullstack App_files/
+zynia-os-agents-npx-test/
+
+.vercel
