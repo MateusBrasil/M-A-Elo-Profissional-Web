@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<title>Briefing de Mudanças — Site M&amp;A Elo Profissional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F4F2EE;
+    --cream-warm: #EDE9E1;
+    --paper: #FAF8F4;
+    --ink: #1B1814;
+    --ink-soft: #423B33;
+    --ink-muted: #6B6258;
+    --ink-faint: #A09487;
+    --copper: #9B6A3E;
+    --copper-soft: #B98859;
+    --copper-faint: rgba(155, 106, 62, 0.12);
+    --line: #D8D0C3;
+    --line-soft: #E5DED1;
+  }
+
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm 16mm;
+  }
+
+  @page :first {
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ============ COVER ============ */
+  .cover {
+    page-break-after: always;
+    height: 297mm;
+    width: 210mm;
+    padding: 28mm 22mm;
+    background: var(--cream);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4mm;
+    background: var(--copper);
+  }
+
+  .cover__mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 28pt;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .cover__mark-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5pt;
+    font-weight: 400;
+    color: var(--ink-muted);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 6mm;
+  }
+
+  .cover__title-block {
+    margin-top: auto;
+    margin-bottom: 30mm;
+  }
+
+  .cover__eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--copper);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 10mm;
+  }
+
+  .cover__line {
+    width: 50mm;
+    height: 1px;
+    background: var(--copper);
+    margin-bottom: 10mm;
+  }
+
+  .cover__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 44pt;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin: 0 0 8mm 0;
+  }
+
+  .cover__lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 12pt;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    font-weight: 300;
+    max-width: 140mm;
+    margin: 0;
+  }
+
+  .cover__meta {
+    display: flex;
+    gap: 18mm;
+    padding-top: 12mm;
+    border-top: 1px solid var(--line);
+    color: var(--ink-muted);
+    font-size: 8.5pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cover__meta strong {
+    display: block;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 10pt;
+    margin-top: 2mm;
+    letter-spacing: 0;
+    text-transform: none;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ============ CONTENT ============ */
+  .content {
+    padding: 0;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0;
+    page-break-after: avoid;
+    letter-spacing: -0.005em;
+  }
+
+  h1 {
+    font-size: 22pt;
+    line-height: 1.15;
+    margin: 0 0 6mm 0;
+    padding-bottom: 5mm;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h2 {
+    font-size: 16pt;
+    line-height: 1.2;
+    margin: 12mm 0 4mm 0;
+    color: var(--ink);
+    position: relative;
+    padding-left: 8mm;
+  }
+
+  h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5mm;
+    height: 1px;
+    background: var(--copper);
+  }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 7mm 0 2.5mm 0;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.01em;
+  }
+
+  h4 {
+    font-size: 10pt;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink-soft);
+    margin: 4mm 0 1.5mm 0;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  p {
+    margin: 0 0 3mm 0;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  /* Section number badge */
+  .section-num {
+    display: inline-block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14pt;
+    color: var(--copper);
+    margin-right: 3mm;
+    font-weight: 400;
+  }
+
+  /* ============ LISTS ============ */
+  ul, ol {
+    margin: 0 0 4mm 0;
+    padding-left: 5mm;
+  }
+
+  ul li, ol li {
+    margin-bottom: 1.5mm;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  ul li::marker {
+    color: var(--copper);
+  }
+
+  ol li::marker {
+    color: var(--copper);
+    font-weight: 600;
+  }
+
+  /* ============ TABLES ============ */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5mm 0;
+    page-break-inside: avoid;
+    font-size: 9.5pt;
+    background: var(--paper);
+    border: 1px solid var(--line);
+  }
+
+  th {
+    background: var(--cream-warm);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    text-align: left;
+    padding: 3mm 4mm;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1.5px solid var(--copper);
+  }
+
+  td {
+    padding: 3mm 4mm;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  td strong {
+    color: var(--ink);
+  }
+
+  /* ============ BLOCKQUOTE / CALLOUT ============ */
+  blockquote {
+    margin: 5mm 0;
+    padding: 4mm 6mm;
+    background: var(--paper);
+    border-left: 2.5pt solid var(--copper);
+    color: var(--ink-soft);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11.5pt;
+    line-height: 1.55;
+    page-break-inside: avoid;
+  }
+
+  blockquote strong {
+    font-style: normal;
+    font-family: 'Inter', sans-serif;
+    font-size: 10pt;
+    color: var(--ink);
+  }
+
+  .callout {
+    padding: 5mm 6mm;
+    background: var(--copper-faint);
+    border-radius: 1mm;
+    margin: 5mm 0;
+    page-break-inside: avoid;
+    font-size: 10pt;
+    color: var(--ink-soft);
+  }
+
+  .callout strong {
+    color: var(--copper);
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    font-size: 8.5pt;
+    letter-spacing: 0.12em;
+    display: block;
+    margin-bottom: 2mm;
+  }
+
+  /* ============ CODE / FILE PATHS ============ */
+  code {
+    font-family: 'Consolas', 'SF Mono', monospace;
+    font-size: 9pt;
+    color: var(--copper);
+    background: var(--paper);
+    padding: 0.5mm 1.5mm;
+    border-radius: 1mm;
+    border: 1px solid var(--line-soft);
+  }
+
+  /* ============ PAGE STRUCTURE ============ */
+  .section {
+    padding: 0;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+
+  .no-break {
+    page-break-inside: avoid;
+  }
+
+  /* ============ EXECUTIVE SUMMARY ============ */
+  .exec-summary {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3pt solid var(--copper);
+    padding: 6mm 8mm;
+    margin: 4mm 0 8mm 0;
+    page-break-inside: avoid;
+  }
+
+  .exec-summary__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 8pt;
+    font-weight: 600;
+    color: var(--copper);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 3mm;
+  }
+
+  .exec-summary p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13pt;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .exec-summary p + p {
+    margin-top: 3mm;
+  }
+
+  /* ============ BEFORE/AFTER ============ */
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5mm;
+    margin: 4mm 0;
+    page-break-inside: avoid;
+  }
+
+  .before-after__block {
+    padding: 4mm 5mm;
+    border-radius: 1.5mm;
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+
+  .before-after__block--before {
+    background: var(--paper);
+    border: 1px solid var(--line);
+  }
+
+  .before-after__block--after {
+    background: var(--cream-warm);
+    border: 1px solid var(--copper-soft);
+  }
+
+  .before-after__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2mm;
+    display: block;
+  }
+
+  .before-after__block--before .before-after__label {
+    color: var(--ink-faint);
+  }
+
+  .before-after__block--after .before-after__label {
+    color: var(--copper);
+  }
+
+  .before-after__block p {
+    margin: 0;
+    color: var(--ink);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  /* ============ FOOTER ============ */
+  .doc-footer {
+    margin-top: 14mm;
+    padding-top: 5mm;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 8pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ============ KEY-VALUE GRID ============ */
+  .kv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+    margin: 4mm 0;
+  }
+
+  .kv-grid__item {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-left: 2pt solid var(--copper);
+    padding: 3.5mm 5mm;
+    page-break-inside: avoid;
+  }
+
+  .kv-grid__item h4 {
+    margin: 0 0 1.5mm 0;
+    color: var(--copper);
+    font-size: 8pt;
+  }
+
+  .kv-grid__item p {
+    margin: 0;
+    color: var(--ink);
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- ========================= CAPA ========================= -->
+<section class="cover">
+  <div>
+    <div class="cover__mark">M&amp;A Elo</div>
+    <div class="cover__mark-sub">Profissional · Unipessoal, Lda.</div>
+  </div>
+
+  <div class="cover__title-block">
+    <div class="cover__eyebrow">Briefing de Mudanças</div>
+    <div class="cover__line"></div>
+    <h1 class="cover__title">Reestruturação do site institucional</h1>
+    <p class="cover__lead">Reposicionamento estratégico, refundação de conteúdo, simplificação dos formulários de candidatura e alinhamento com o PRD aprovado.</p>
+  </div>
+
+  <div class="cover__meta">
+    <div>
+      Data
+      <strong>Junho 2026</strong>
+    </div>
+    <div>
+      Âmbito
+      <strong>27 páginas + formulários</strong>
+    </div>
+    <div>
+      Estado
+      <strong>Pronto para revisão</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= CONTEÚDO ========================= -->
+<section class="content">
+
+  <h1>Sumário executivo</h1>
+
+  <div class="exec-summary">
+    <div class="exec-summary__label">A mudança em uma frase</div>
+    <p>O site foi reposicionado de <em>"intermediador de mão de obra"</em> para <strong>"empresa portuguesa de execução de serviços técnicos industriais"</strong>.</p>
+    <p>A linguagem, a arquitectura de conteúdo, os formulários de candidatura e a exibição de dados institucionais foram revistos página a página para alinhar com a estratégia do PRD. O site agora lê-se como empresa B2B que executa serviços com equipa própria, não como agência de cedência de pessoas.</p>
+  </div>
+
+  <h2><span class="section-num">01</span> Decisão estratégica — Posicionamento</h2>
+
+  <h3>O problema que estava no site</h3>
+
+  <p>A homepage abria com a seguinte mensagem:</p>
+
+  <blockquote>"Reforço operacional para obras, indústria e metalomecânica. A M&amp;A Elo Profissional <strong>fornece equipas técnicas</strong> a empresas em Portugal."</blockquote>
+
+  <p>Esta frase, em conjunto com expressões como <em>"apoio operacional"</em>, <em>"encaminhamento responsável"</em> e <em>"canal de profissionais"</em> espalhadas pelo site, posicionava a empresa como agência de cedência de pessoas — com risco jurídico-comercial, percepção errada por parte dos decisores empresariais, e contradição directa com o briefing.</p>
+
+  <h3>O posicionamento novo</h3>
+
+  <p>A homepage abre agora com:</p>
+
+  <blockquote><strong>Serviços técnicos industriais para metalomecânica, montagem e manutenção em Portugal.</strong><br><br>A M&amp;A Elo Profissional <strong>executa intervenções técnicas</strong> para empresas industriais em Portugal — soldadura MIG/MAG e TIG, serralharia, tubagem, montagem e manutenção metalomecânica. Equipa própria, leitura técnica do projeto e acompanhamento do orçamento à entrega.</blockquote>
+
+  <p>A mesma lógica foi aplicada de forma consistente em todas as páginas do site.</p>
+
+  <h2><span class="section-num">02</span> Mapa léxico — antes e depois</h2>
+
+  <p>Substituições aplicadas em todas as 27 páginas HTML do site:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:48%">Termo antigo (proibido)</th>
+        <th>Termo novo (preferido)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Reforço operacional</td><td><strong>Serviços técnicos</strong></td></tr>
+      <tr><td>Reforço técnico operacional</td><td><strong>Execução técnica especializada</strong></td></tr>
+      <tr><td>Fornece equipas técnicas</td><td><strong>Executa serviços técnicos</strong></td></tr>
+      <tr><td>Apoio operacional</td><td><strong>Serviços técnicos industriais</strong></td></tr>
+      <tr><td>Encaminhamento responsável</td><td><strong>Execução técnica responsável</strong></td></tr>
+      <tr><td>Encaminhamento de profissionais</td><td><strong>Execução com equipa qualificada</strong></td></tr>
+      <tr><td>Canal de Profissionais (como valor)</td><td><strong>Equipa Própria Qualificada</strong></td></tr>
+      <tr><td>Cedência / Cedência de mão de obra</td><td><strong>Execução / Prestação de serviço</strong></td></tr>
+      <tr><td>Solicitar apoio técnico (CTA)</td><td><strong>Pedir orçamento técnico</strong></td></tr>
+      <tr><td>Pedir perfil técnico (CTA)</td><td><strong>Pedir orçamento técnico</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Termos eliminados completamente</strong>
+    Terceirização · Trabalho temporário · ETT · Agência de recrutamento
+  </div>
+
+  <h2 style="page-break-before: always"><span class="section-num">03</span> Páginas refundadas</h2>
+
+  <h3>Homepage <code>index.html</code></h3>
+  <ul>
+    <li>Novo H1 e subtítulo focados em execução técnica</li>
+    <li>Meta tags (title, description, OG, Twitter) reescritas — SEO alinhado com novo posicionamento</li>
+    <li>Dados estruturados <strong>JSON-LD reescritos</strong>: as 4 perguntas FAQ que apareciam no Google foram refundadas para perguntas B2B (ex: <em>"Como pedir um orçamento para um serviço técnico industrial?"</em>)</li>
+    <li>Secção "About" — eliminado o dossier institucional que mostrava NIF e morada em destaque, substituído por "Capacidades operacionais"</li>
+    <li>Strip do hero — removido NIF, agora destaca <em>"Equipa própria"</em>, <em>"Execução técnica industrial"</em>, regiões e sede</li>
+    <li>Secção "Setores", "Como atuamos" e CTA final reescritos sem termos proibidos</li>
+  </ul>
+
+  <h3>Empresa <code>empresa.html</code></h3>
+  <ul>
+    <li>Title, meta description e hero refundados</li>
+    <li>Painel institucional — removido NIF, mantido nome, especialidades, sede, contacto técnico</li>
+    <li>Strip de credenciais refundada (4 cards): Execução Técnica · Análise Técnica · Regiões Ativas · Empresa Portuguesa</li>
+    <li><strong>6 valores institucionais reescritos por completo</strong> — secção mais transformada da página</li>
+    <li>Bloco "Missão" reescrito: <em>"Execução técnica responsável, sem promessas vazias."</em></li>
+  </ul>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Valor antigo</th>
+        <th>Valor novo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>01</td><td>Apoio Operacional</td><td><strong>Execução Técnica</strong></td></tr>
+      <tr><td>02</td><td>Encaminhamento Responsável</td><td><strong>Equipa Própria Qualificada</strong></td></tr>
+      <tr><td>03</td><td>Canal de Profissionais</td><td><strong>Acompanhamento Direto</strong></td></tr>
+      <tr><td>04</td><td>Portugal, Conforme Obras</td><td><strong>Atuação Nacional</strong></td></tr>
+      <tr><td>05</td><td>Processo Claro</td><td><strong>Processo Claro</strong> (mantido, copy renovada)</td></tr>
+      <tr><td>06</td><td>Presença Formal</td><td><strong>Empresa Registada em Portugal</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Para Empresas <code>para-empresas.html</code></h3>
+  <ul>
+    <li>Hero: <em>"Execução técnica industrial para o vosso projeto — análise, planeamento e equipa própria."</em></li>
+    <li>Painel "Informação útil no primeiro contacto" reorganizado por âmbito técnico</li>
+    <li>4 cards de capacidades refundados: Obras · Indústria · Metalomecânica · Processo</li>
+    <li>4 etapas do processo: <strong>Pedido inicial → Análise do âmbito → Proposta técnica → Execução e acompanhamento</strong></li>
+    <li>Bloco "Limites claros" → "Compromissos claros" — passou de linguagem defensiva ("não garantimos colocação") para compromissos B2B (âmbito definido, orçamento sob consulta, equipa qualificada)</li>
+  </ul>
+
+  <h3>Serviços <code>servicos.html</code></h3>
+  <ul>
+    <li>Hero, meta e 4 itens de serviço reescritos</li>
+    <li>Item "Gestão operacional de recursos técnicos" foi substituído por <strong>"Análise e proposta técnica"</strong></li>
+    <li>Hub de páginas especializadas com nomes alinhados ao novo posicionamento</li>
+  </ul>
+
+  <h3>Áreas Técnicas <code>profissoes.html</code> — refundação conceptual</h3>
+
+  <div class="callout">
+    <strong>Mudança estrutural</strong>
+    A página deixou de listar perfis profissionais ("estes são os candidatos disponíveis") e passou a listar áreas técnicas executadas pela empresa ("estas são as competências da nossa equipa").
+  </div>
+
+  <p><strong>Antes:</strong> 4 cards de perfis profissionais (Soldador, Serralheiro, Pintor Industrial, Outros)</p>
+
+  <p><strong>Depois:</strong> 6 cards de macroáreas técnicas executadas com equipa própria:</p>
+
+  <div class="kv-grid">
+    <div class="kv-grid__item">
+      <h4>01</h4>
+      <p><strong>Soldadura</strong><br>MIG/MAG, TIG e Eletrodo</p>
+    </div>
+    <div class="kv-grid__item">
+      <h4>02</h4>
+      <p><strong>Serralharia</strong><br>Industrial e civil</p>
+    </div>
+    <div class="kv-grid__item">
+      <h4>03</h4>
+      <p><strong>Tubagem</strong><br>Industrial e fabril</p>
+    </div>
+    <div class="kv-grid__item">
+      <h4>04</h4>
+      <p><strong>Montagem</strong><br>Mecânica e estrutural</p>
+    </div>
+    <div class="kv-grid__item">
+      <h4>05</h4>
+      <p><strong>Manutenção</strong><br>Preventiva e corretiva</p>
+    </div>
+    <div class="kv-grid__item">
+      <h4>06</h4>
+      <p><strong>Estruturas Metálicas</strong><br>Construção e montagem</p>
+    </div>
+  </div>
+
+  <h3>Serviços Técnicos para Obras <code>apoio-operacional-obras.html</code></h3>
+  <ul>
+    <li>URL <strong>mantido</strong> por SEO (já estava indexado no Google)</li>
+    <li>Title: "Apoio operacional para obras" → <strong>"Serviços Técnicos para Obras em Portugal"</strong></li>
+    <li>H1, copy, etapas e CTAs reescritos para refletir execução técnica</li>
+    <li>4 etapas novas: Análise do âmbito → Proposta técnica e orçamento → Execução em obra → Entrega e acompanhamento</li>
+  </ul>
+
+  <h3>FAQ <code>faq.html</code></h3>
+  <ul>
+    <li><strong>6 perguntas refundadas</strong> (lista visível + dados estruturados JSON-LD do Google sincronizados):</li>
+  </ul>
+
+  <ol>
+    <li>Que tipos de intervenção técnica a M&amp;A Elo executa?</li>
+    <li>Como funciona o processo de orçamento?</li>
+    <li>Qual é o prazo médio de resposta a um pedido?</li>
+    <li>A execução é feita com equipa própria ou subcontratada?</li>
+    <li>Em que regiões a M&amp;A Elo atua?</li>
+    <li>Como é assegurada a supervisão técnica durante a execução?</li>
+  </ol>
+
+  <p><strong>Removidas:</strong> "A M&amp;A Elo garante colocação?" e variantes que confirmavam ao Google que a empresa era de intermediação.</p>
+
+  <h3>Páginas de varredura</h3>
+
+  <p>Limpeza de termos proibidos e remoção de NIF do texto visível nas seguintes páginas adicionais:</p>
+
+  <ul>
+    <li><code>candidatos.html</code> — meta e parágrafos institucionais</li>
+    <li><code>contacto.html</code> — ficha da empresa sem NIF</li>
+    <li><code>regioes.html</code> — meta description</li>
+    <li><code>obras-lisboa-parque-das-nacoes.html</code>, <code>obras-estarreja-aveiro.html</code>, <code>obras-viana-do-castelo.html</code> — meta e parágrafos defensivos</li>
+    <li><code>organizacao-candidatos-obra-industria.html</code> — copy refundada</li>
+    <li><code>candidatura-dinamica.html</code> — disclaimer de consentimento atualizado</li>
+    <li><code>privacidade.html</code> — copy técnica revista (NIF mantido aqui por obrigação RGPD)</li>
+  </ul>
+
+  <h3>Footer e Navegação — alterações globais nas 27 páginas</h3>
+  <ul>
+    <li>Footer institucional reescrito em todas as páginas</li>
+    <li><strong>NIF removido do rodapé legal</strong> em todas as páginas</li>
+    <li>CTAs "Solicitar apoio técnico" / "Pedir perfil técnico" → <strong>"Pedir orçamento técnico"</strong></li>
+    <li>Mensagens pré-preenchidas do WhatsApp atualizadas para linguagem técnica</li>
+  </ul>
+
+  <h2 style="page-break-before: always"><span class="section-num">04</span> Decisão estratégica — Política do NIF</h2>
+
+  <p>A pedido do cliente, o NIF (518 954 170) deixou de estar exposto no site.</p>
+
+  <h3>Onde foi removido</h3>
+  <ul>
+    <li>Title da homepage e várias páginas</li>
+    <li>Meta descriptions de todas as páginas onde aparecia</li>
+    <li>Strip institucional do hero da homepage</li>
+    <li>Dossier "Conhecer a empresa" da homepage</li>
+    <li>Painel "Dados da empresa" da página Empresa</li>
+    <li>Painel "Ficha da empresa" do Contacto</li>
+    <li>Footer legal de todas as 27 páginas</li>
+    <li>Vários parágrafos institucionais espalhados</li>
+  </ul>
+
+  <h3>Onde foi mantido (justificação legal)</h3>
+  <ul>
+    <li><strong>Dados estruturados JSON-LD da homepage</strong> (campo <code>taxID</code>) — invisível ao utilizador, necessário ao Google para identificação do negócio</li>
+    <li><strong>Página de Privacidade</strong> — identificação do responsável de tratamento de dados (obrigação RGPD)</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Efeito</strong>
+    O site comunica como empresa profissional sem ostentar dados fiscais como prova de existência. Mantém-se rastreável legalmente onde tem de ser.
+  </div>
+
+  <h2><span class="section-num">05</span> Simplificação dos formulários de candidatura</h2>
+
+  <h3>Diagnóstico anterior</h3>
+
+  <p>Os 4 formulários (Soldador, Serralheiro, Pintor, Geral) tinham <strong>5 campos obrigatórios</strong> cada, dropdown para anos de experiência, e copy defensiva. Profissionais operacionais com baixa literacia digital desistiam antes de submeter.</p>
+
+  <h3>Mudanças aplicadas em todos os 4 formulários</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:48%">Antes</th>
+        <th>Depois</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>5 campos obrigatórios (nome, telefone, região, disponibilidade, experiência)</td>
+        <td><strong>3 obrigatórios</strong> (nome, telefone, especialidade/função)</td>
+      </tr>
+      <tr>
+        <td>Dropdown de experiência ("Selecione…")</td>
+        <td><strong>Chips horizontais visíveis</strong> (&lt; 1 · 1-2 · 3-5 · 5-10 · &gt; 10 anos)</td>
+      </tr>
+      <tr>
+        <td>Nenhuma pergunta sobre idiomas</td>
+        <td>Checkboxes: Português · Espanhol · Inglês · Francês · Outro</td>
+      </tr>
+      <tr>
+        <td>Nenhuma pergunta sobre disponibilidade geográfica</td>
+        <td>Checkboxes: Norte · Centro · Lisboa · Sul · Ilhas · <strong>Fora de Portugal (Europa)</strong></td>
+      </tr>
+      <tr>
+        <td>Nenhum espaço para experiência prática não certificada</td>
+        <td><strong>Textarea dedicada</strong> ("Descreva trabalho relevante sem certificado oficial")</td>
+      </tr>
+      <tr>
+        <td>Disclaimer defensivo no fim ("não garante colocação imediata")</td>
+        <td><strong>Checkbox RGPD explícito</strong> num bloco visual destacado</td>
+      </tr>
+      <tr>
+        <td>"Candidatura enviada. Não há garantia de resposta imediata."</td>
+        <td>"Candidatura recebida. A equipa vai analisar e contactar quando surgir projeto compatível."</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Benefício esperado</strong>
+    Menos fricção para profissionais (mais candidaturas completadas) · Dados mais úteis na base (idiomas e Europa captados desde o início) · Cumprimento RGPD reforçado com consentimento explícito.
+  </div>
+
+  <h2 style="page-break-before: always"><span class="section-num">06</span> O que não mudou — decisões deliberadas</h2>
+
+  <ul>
+    <li><strong>Paleta cromática e tipografia</strong> — cream + copper, Cormorant Garamond + Inter mantidos</li>
+    <li><strong>URLs das páginas</strong> — todos mantidos para preservar SEO existente (inclui <code>apoio-operacional-obras.html</code>)</li>
+    <li><strong>Arquitectura de navegação principal</strong> — mesmo conjunto de links</li>
+    <li><strong>WhatsApp</strong> continua o canal principal de conversão</li>
+    <li><strong>Estrutura da base de dados dos formulários</strong> — não alterada; os novos campos são concatenados na coluna existente com prefixos</li>
+  </ul>
+
+  <h2><span class="section-num">07</span> Próximos passos sugeridos</h2>
+
+  <h3>Para decisão do cliente</h3>
+
+  <ol>
+    <li><strong>Aprovar o novo posicionamento</strong> — confirmar que a mensagem-mãe ("execução de serviços técnicos industriais com equipa própria") está alinhada com a visão da empresa</li>
+    <li><strong>Validar a política do NIF</strong> — confirmar que esconder NIF do site (mantendo em RGPD e JSON-LD) é a abordagem desejada</li>
+    <li><strong>Aprovar as 6 macroáreas técnicas</strong> em <code>profissoes.html</code></li>
+    <li><strong>Aprovar os 6 valores institucionais</strong> em <code>empresa.html</code></li>
+    <li><strong>Validar o formulário simplificado</strong> — pedir ao cliente que preencha um como teste</li>
+    <li><strong>Decidir o deploy</strong> desta versão para produção (Vercel) ou afinar mais primeiro</li>
+  </ol>
+
+  <h3>Ajustes possíveis (se solicitados)</h3>
+
+  <ul>
+    <li>Reescrever em maior detalhe as páginas de regiões e obras individuais</li>
+    <li>Substituir imagens stock por fotos próprias da equipa em obra</li>
+    <li>Adicionar página "Casos de execução" / portefólio técnico</li>
+    <li>Implementar tracking de conversão WhatsApp para medir impacto</li>
+  </ul>
+
+  <h2><span class="section-num">08</span> Formato sugerido para feedback rápido</h2>
+
+  <p>Para cada ponto que queira alterar, pode usar este formato:</p>
+
+  <blockquote><strong>Página:</strong> empresa.html<br><strong>Secção:</strong> valor nº 2<br><strong>Pedido:</strong> trocar "Equipa Própria Qualificada" por "Equipa Técnica Especializada"</blockquote>
+
+  <p>Cada pedido é tratado e devolvido no mesmo dia.</p>
+
+  <div class="doc-footer">
+    M&amp;A Elo Profissional · Briefing de Mudanças · Junho 2026
+  </div>
+
+</section>
+
+</body>
+</html>

@@ -1,10 +1,10 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pt-PT">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>M&amp;A Elo Profissional — Empresa Portuguesa de Apoio Operacional para Obras e Indústria</title>
-    <meta name="description" content="Empresa portuguesa de apoio operacional e encaminhamento de profissionais para obras, indústria e metalomecânica. Registada em Miranda do Douro. NIF 518954170.">
+    <title>M&amp;A Elo Profissional — Empresa Portuguesa de Serviços Técnicos Industriais</title>
+    <meta name="description" content="Empresa portuguesa de execução de serviços técnicos industriais em metalomecânica, montagem, manutenção, tubagem, soldadura e serralharia. Sede em Miranda do Douro, atuação em Portugal continental.">
     <link rel="canonical" href="https://maelo.pt/empresa.html">
     <meta name="theme-color" content="#F4F2EE">
     <link rel="icon" type="image/png" href="assets/logo.png">
@@ -17,29 +17,29 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="design-tokens.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="effects.css">
   </head>
-  <body>
+  <body data-barba="wrapper">
     <script>document.documentElement.classList.add("js");</script>
     <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
 
     <header class="site-header" data-site-header>
       <nav class="navbar" aria-label="Navegação principal">
         <a class="brand" href="index.html">
-          <span class="brand__mark">M&amp;A Elo</span>
-          <span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
+          <img class="brand__logo" src="assets/logo-transparente.png" alt="" width="48" height="40" loading="eager" decoding="async"><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
         </a>
         <div class="nav-links" data-nav-links>
-          <a href="empresa.html" aria-current="page">Empresa</a>
-          <a href="servicos.html">Serviços</a>
-          <a href="para-empresas.html">Empresas</a>
-          <a href="profissoes.html">Áreas Técnicas</a>
-          <a href="regioes.html">Regiões</a>
-          <a href="candidatos.html" class="nav-link--secondary">Profissionais</a>
-          <a href="contacto.html">Contacto</a>
+          <a href="empresa.html" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg></span><span class="nav-text">Empresa</span></a>
+          <a href="servicos.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="nav-text">Serviços</span></a>
+          <a href="para-empresas.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-text">Empresas</span></a>
+          <a href="profissoes.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span><span class="nav-text">Áreas Técnicas</span></a>
+          <a href="regioes.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="nav-text">Regiões</span></a>
+          <a href="candidatos.html" class="nav-link--secondary"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="nav-text">Profissionais</span></a>
+          <a href="contacto.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><span class="nav-text">Contacto</span></a>
         </div>
         <div class="nav-actions">
           <a class="nav-phone" href="tel:+351936525992">+351 936 525 992</a>
-          <a class="nav-cta" href="contacto.html">Falar connosco</a>
+          <a class="nav-cta" href="contacto.html"><span class="nav-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="nav-cta__text">Falar connosco</span></a>
         </div>
         <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
           <span></span><span></span>
@@ -60,20 +60,22 @@
       </div>
     </div>
 
-    <main class="page-main" id="conteudo">
+    <main class="page-main" id="conteudo" data-barba="container" data-barba-namespace="default">
 
       <!-- ═══ PAGE HERO ═══ -->
       <section class="page-hero page-hero--empresa" aria-labelledby="empresa-title">
+        <span class="page-hero__bg-mark" aria-hidden="true">M&amp;A</span>
         <div class="page-hero__inner">
-          <p class="section-label section-label--light" data-reveal>Empresa</p>
+          <p class="section-label section-label--light" data-reveal data-scramble>Empresa</p>
           <h1 id="empresa-title" data-reveal>M&amp;A Elo Profissional, Unipessoal, Lda.</h1>
           <span class="page-hero__copper"></span>
-          <p data-reveal>Empresa portuguesa de apoio técnico e operacional a projetos industriais, obras e metalomecânica. Constituída, registada e com atuação responsável em Portugal.</p>
+          <p data-reveal>Empresa portuguesa de execução de serviços técnicos industriais. Atuação em projetos de metalomecânica, obras e manutenção industrial — com equipa própria, análise técnica de cada projeto e responsabilidade institucional.</p>
           <div class="page-actions" data-reveal>
             <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20sou%20uma%20empresa%20e%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo%20sobre%20uma%20necessidade%20operacional." target="_blank" rel="noopener" data-cta="empresa-hero-whatsapp">Falar pelo WhatsApp</a>
             <a class="button button--secondary" href="servicos.html" data-cta="empresa-hero-servicos">Ver serviços</a>
           </div>
         </div>
+        <span class="page-hero__scroll-indicator" aria-hidden="true"><span class="scroll-indicator__track"><span class="scroll-indicator__dot"></span></span>Continuar</span>
       </section>
 
       <!-- ═══ ABOUT ═══ -->
@@ -81,27 +83,27 @@
         <div class="section__shell page-grid">
           <div class="page-copy">
             <p class="page-kicker">Presença institucional</p>
-            <h2 id="about-title" data-reveal>Seriedade, organização e ligação responsável entre projetos e profissionais.</h2>
-            <p data-reveal>A M&amp;A Elo Profissional atua com uma abordagem prudente e operacional. A empresa apoia necessidades ligadas a obra, indústria, metalúrgica e metalomecânica através de organização, encaminhamento de profissionais/candidatos e acompanhamento humano quando aplicável.</p>
-            <p data-reveal>O posicionamento é institucional: não se trata de um portal de vagas nem de uma comunicação baseada em promessas automáticas. Cada contacto passa por leitura de contexto e análise responsável.</p>
+            <h2 id="about-title" data-reveal>Execução técnica responsável. Equipa própria. Resposta identificada.</h2>
+            <p data-reveal>A M&amp;A Elo Profissional executa intervenções técnicas em obra, indústria, metalúrgica e metalomecânica — com análise do âmbito antes da proposta, equipa qualificada própria e supervisão técnica em todas as fases. Sem improviso, sem subcontratação não declarada.</p>
+            <p data-reveal>O posicionamento é claro: empresa de execução técnica industrial, não portal de vagas nem cedência de mão de obra. Cada projeto é avaliado em contexto e respondido com plano técnico, prazo e capacidade real.</p>
           </div>
           <aside class="credential-panel" data-reveal>
-            <p class="credential-panel__heading">Dados da empresa</p>
+            <p class="credential-panel__heading">Capacidades operacionais</p>
             <dl>
               <div>
-                <dt>Nome completo</dt>
+                <dt>Empresa</dt>
                 <dd>M&amp;A Elo Profissional, Unipessoal, Lda.</dd>
               </div>
               <div>
-                <dt>NIF</dt>
-                <dd>518954170</dd>
+                <dt>Especialidades</dt>
+                <dd>Soldadura · Serralharia · Tubagem · Montagem · Manutenção · Estruturas metálicas</dd>
               </div>
               <div>
-                <dt>Morada</dt>
-                <dd>Rua 1.º de Maio, N.º 37<br>5210-191 Miranda do Douro<br>Portugal</dd>
+                <dt>Sede</dt>
+                <dd>Miranda do Douro, Portugal</dd>
               </div>
               <div>
-                <dt>Contacto</dt>
+                <dt>Contacto técnico</dt>
                 <dd>+351 936 525 992</dd>
               </div>
             </dl>
@@ -114,24 +116,51 @@
         <div class="cred-strip__inner">
           <div class="cred-strip__grid">
             <div class="cred-item" data-reveal>
-              <span class="cred-item__tag">Apoio Operacional</span>
-              <p class="cred-item__title">Obra · Indústria · Metalomecânica</p>
-              <p class="cred-item__desc">Atuação em Portugal conforme projetos e obras em curso — sem comunicação exagerada.</p>
+              <span class="cred-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 28v-3a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v3"/>
+                  <circle cx="16" cy="13" r="5"/>
+                  <path d="M11 8.5C11 6 13 4 16 4s5 2 5 4.5"/>
+                </svg>
+              </span>
+              <span class="cred-item__tag">Execução Técnica</span>
+              <p class="cred-item__title">Equipa própria em obra</p>
+              <p class="cred-item__desc">Soldadores, serralheiros e técnicos qualificados — analisados individualmente, supervisionados pela M&amp;A Elo em cada intervenção.</p>
             </div>
             <div class="cred-item" data-reveal>
-              <span class="cred-item__tag">Encaminhamento Responsável</span>
-              <p class="cred-item__title">Análise humana em cada pedido</p>
-              <p class="cred-item__desc">Cada contacto é lido pela equipa antes de qualquer encaminhamento. Sem automação.</p>
+              <span class="cred-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="4" width="20" height="24" rx="2"/>
+                  <path d="M11 10h10M11 15h10M11 20h6"/>
+                  <path d="m22 22 2 2 4-4"/>
+                </svg>
+              </span>
+              <span class="cred-item__tag">Análise Técnica</span>
+              <p class="cred-item__title">Âmbito definido antes da proposta</p>
+              <p class="cred-item__desc">Cada projeto começa por leitura técnica — tipo de intervenção, materiais, prazo, contexto. Sem orçamentos cegos.</p>
             </div>
             <div class="cred-item" data-reveal>
+              <span class="cred-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M26 14c0 8-10 16-10 16S6 22 6 14a10 10 0 1 1 20 0z"/>
+                  <circle cx="16" cy="14" r="3.5"/>
+                </svg>
+              </span>
               <span class="cred-item__tag">Regiões Ativas</span>
               <p class="cred-item__title">Lisboa · Aveiro · Viana do Castelo</p>
-              <p class="cred-item__desc">Obras confirmadas em curso. Novas regiões adicionadas conforme projetos em desenvolvimento.</p>
+              <p class="cred-item__desc">Obras confirmadas em curso. Capacidade de resposta a novas regiões conforme âmbito do projeto.</p>
             </div>
             <div class="cred-item" data-reveal>
-              <span class="cred-item__tag">Empresa Registada</span>
-              <p class="cred-item__title">NIF 518 954 170</p>
-              <p class="cred-item__desc">Miranda do Douro, Portugal. Registo formal, morada permanente, comunicação identificada.</p>
+              <span class="cred-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 28V12l12-7 12 7v16"/>
+                  <path d="M12 28V18h8v10"/>
+                  <path d="M4 28h24"/>
+                </svg>
+              </span>
+              <span class="cred-item__tag">Empresa Portuguesa</span>
+              <p class="cred-item__title">Sede em Miranda do Douro</p>
+              <p class="cred-item__desc">Estrutura formal registada em Portugal, contacto identificado, responsabilidade legal e fiscal.</p>
             </div>
           </div>
         </div>
@@ -142,38 +171,78 @@
         <div class="section__shell">
           <div class="section-intro">
             <p class="section-label" data-reveal>Forma de atuação</p>
-            <h2 id="valores-title" data-reveal>O que a empresa comunica com segurança.</h2>
+            <h2 id="valores-title" data-reveal>Os seis princípios que orientam cada intervenção.</h2>
           </div>
           <div class="values-grid">
             <article class="value-item" data-reveal>
+              <span class="value-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m22 6 4 4-12 12-6 2 2-6L22 6z"/>
+                  <path d="m18 10 4 4"/>
+                  <path d="M6 28h20"/>
+                </svg>
+              </span>
               <span class="value-item__number">01</span>
-              <h3 class="value-item__title">Apoio Operacional</h3>
-              <p class="value-item__text">Organização e acompanhamento de necessidades em contexto de obra, indústria e metalomecânica, com leitura responsável de cada situação.</p>
+              <h3 class="value-item__title">Execução Técnica</h3>
+              <p class="value-item__text">Intervenção em obra, indústria e metalomecânica com equipa própria. Análise do âmbito, planeamento técnico e execução supervisionada — não cedência de pessoas.</p>
             </article>
             <article class="value-item" data-reveal>
+              <span class="value-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="12" r="4"/>
+                  <circle cx="22" cy="14" r="3"/>
+                  <path d="M4 26v-2a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v2"/>
+                  <path d="M20 26v-1a4 4 0 0 1 4-4h1a3 3 0 0 1 3 3v2"/>
+                </svg>
+              </span>
               <span class="value-item__number">02</span>
-              <h3 class="value-item__title">Encaminhamento Responsável</h3>
-              <p class="value-item__text">Ligação entre projetos e profissionais/candidatos quando aplicável, sempre dependente de análise humana e compatibilidade real.</p>
+              <h3 class="value-item__title">Equipa Própria Qualificada</h3>
+              <p class="value-item__text">Soldadores, serralheiros e técnicos com experiência verificada. Cada perfil é analisado individualmente antes de integrar uma intervenção.</p>
             </article>
             <article class="value-item" data-reveal>
+              <span class="value-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M27 18a3 3 0 0 1-3 3H10l-5 5V8a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v10z"/>
+                  <path d="M10 11h12M10 16h8"/>
+                </svg>
+              </span>
               <span class="value-item__number">03</span>
-              <h3 class="value-item__title">Canal de Profissionais</h3>
-              <p class="value-item__text">A M&amp;A Elo mantém um canal de profissionais como complemento à operação técnica — os perfis são avaliados e encaminhados quando existe projeto compatível.</p>
+              <h3 class="value-item__title">Acompanhamento Direto</h3>
+              <p class="value-item__text">Do primeiro contacto à entrega documentada. Um responsável técnico identificado em cada projeto, comunicação clara em cada fase.</p>
             </article>
             <article class="value-item" data-reveal>
+              <span class="value-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 4C9.4 4 4 9.4 4 16s5.4 12 12 12 12-5.4 12-12S22.6 4 16 4z"/>
+                  <path d="M4 16h24M16 4c3 3.4 4.7 7.7 4.7 12s-1.7 8.6-4.7 12c-3-3.4-4.7-7.7-4.7-12s1.7-8.6 4.7-12z"/>
+                </svg>
+              </span>
               <span class="value-item__number">04</span>
-              <h3 class="value-item__title">Portugal, Conforme Obras</h3>
-              <p class="value-item__text">Atuação em Portugal conforme projetos e obras em curso, incluindo Lisboa, Estarreja/Aveiro e Viana do Castelo.</p>
+              <h3 class="value-item__title">Atuação Nacional</h3>
+              <p class="value-item__text">Sede em Miranda do Douro. Projetos em Lisboa, Aveiro, Viana do Castelo e outros pontos do país conforme âmbito.</p>
             </article>
             <article class="value-item" data-reveal>
+              <span class="value-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="4" width="20" height="24" rx="2"/>
+                  <path d="m11 14 3 3 7-7"/>
+                  <path d="M11 22h10"/>
+                </svg>
+              </span>
               <span class="value-item__number">05</span>
               <h3 class="value-item__title">Processo Claro</h3>
-              <p class="value-item__text">Comunicação transparente sobre o que é possível, sem promessas automáticas ou falsas expectativas sobre colocação ou condições.</p>
+              <p class="value-item__text">Análise prévia · proposta técnica e orçamento · execução planeada · entrega documentada. Sem improvisação em nenhuma fase.</p>
             </article>
             <article class="value-item" data-reveal>
+              <span class="value-item__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 4 6 8v8c0 6.5 4 10 10 12 6-2 10-5.5 10-12V8L16 4z"/>
+                  <path d="m12 16 3 3 6-6"/>
+                </svg>
+              </span>
               <span class="value-item__number">06</span>
-              <h3 class="value-item__title">Presença Formal</h3>
-              <p class="value-item__text">Empresa com registo formal, NIF ativo, morada permanente e responsabilidade legal — um parceiro institucional real.</p>
+              <h3 class="value-item__title">Empresa Registada em Portugal</h3>
+              <p class="value-item__text">Estrutura formal, contacto identificado, responsabilidade legal e fiscal. Parceiro institucional real para empresas industriais.</p>
             </article>
           </div>
         </div>
@@ -186,9 +255,9 @@
         </div>
         <div class="feature-split__content">
           <p class="page-kicker">Missão</p>
-          <h2 id="missao-title" data-reveal>Apoio operacional real, sem comunicação exagerada.</h2>
-          <p data-reveal>A M&amp;A Elo foi criada com um propósito claro: apoiar empresas e profissionais em contextos de obra, indústria e metalomecânica em Portugal, de forma séria, organizada e responsável.</p>
-          <p data-reveal>Não existem garantias automáticas, colocações garantidas ou salários publicados — porque esses temas dependem de análise humana, disponibilidade real e contexto de projeto.</p>
+          <h2 id="missao-title" data-reveal>Execução técnica responsável, sem promessas vazias.</h2>
+          <p data-reveal>A M&amp;A Elo foi criada com um propósito definido: executar serviços técnicos industriais para empresas em Portugal — com equipa própria, análise prévia de cada projeto e supervisão técnica em obra.</p>
+          <p data-reveal>Cada proposta é construída sobre âmbito real, materiais identificados, prazo possível e equipa dimensionada. O que prometemos, executamos. O que não conseguimos executar, dizemos antes da proposta.</p>
           <div data-reveal>
             <a class="button button--dark" href="servicos.html">Ver serviços completos</a>
           </div>
@@ -199,10 +268,10 @@
       <section class="block-cta" aria-labelledby="empresa-cta-title">
         <div class="block-cta__inner">
           <p class="block-cta__eyebrow" data-reveal>Iniciar contacto</p>
-          <h2 class="block-cta__heading" id="empresa-cta-title" data-reveal>Pronto para falar com a equipa?</h2>
-          <p class="block-cta__sub" data-reveal>Seja empresa com necessidade operacional ou candidato com disponibilidade real, fale diretamente com a equipa M&amp;A Elo.</p>
+          <h2 class="block-cta__heading" id="empresa-cta-title" data-reveal>Pronto para falar com a equipa técnica?</h2>
+          <p class="block-cta__sub" data-reveal>Para empresas com projeto técnico industrial ou profissionais qualificados a integrar equipas, o canal direto é o WhatsApp da M&amp;A Elo.</p>
           <div class="block-cta__actions" data-reveal>
-            <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo%20sobre%20uma%20necessidade%20operacional." target="_blank" rel="noopener" data-cta="empresa-cta-whatsapp">Falar pelo WhatsApp</a>
+            <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo%20sobre%20um%20projeto%20t%C3%A9cnico." target="_blank" rel="noopener" data-cta="empresa-cta-whatsapp">Falar pelo WhatsApp</a>
             <a class="button button--secondary" href="para-empresas.html" data-cta="empresa-cta-empresas">Ver opções para empresas</a>
           </div>
         </div>
@@ -221,7 +290,7 @@
                 <span class="brand__mark">M&amp;A Elo</span>
                 <span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
               </p>
-              <p class="footer-v2__desc">Prestação de serviços técnicos e apoio operacional para obras, indústria e metalomecânica em Portugal.</p>
+              <p class="footer-v2__desc">M&amp;A Elo Profissional, Unipessoal, Lda. — execução de serviços técnicos industriais em soldadura, serralharia, tubagem, montagem e manutenção metalomecânica em Portugal.</p>
               <a class="footer-v2__cta" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="footer-whatsapp">
                 <span class="footer-v2__cta-aura"></span>
                 <span class="footer-v2__cta-inner">
@@ -268,8 +337,6 @@
           <div class="footer-v2__bottom">
             <nav aria-label="Rod&aacute;p&eacute; legal">
               <a href="privacidade.html">Pol&iacute;tica de privacidade</a>
-              <span aria-hidden="true">|</span>
-              <span>NIF 518 954 170</span>
               <span aria-hidden="true">|</span>
               <span>Miranda do Douro, Portugal</span>
             </nav>

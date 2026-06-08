@@ -1,0 +1,3995 @@
+/*
+  M&A Elo Profissional — effects.css
+  Cinematic layer: ambient backgrounds, grain, scroll progress, cursor v2,
+  hero video overlay, premium CTA, ambient pulse.
+  Loaded after styles.css so it can override surgically.
+*/
+
+/* ──────────────────────────────────────────────────────────────
+   1. Grain / ambient noise overlay (Stripe-style subtle film)
+   ────────────────────────────────────────────────────────────── */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-ambient);
+  background-image: var(--texture-grain);
+  background-size: 240px 240px;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  animation: ambient-grain-shift 12s steps(6) infinite;
+}
+
+@keyframes ambient-grain-shift {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-3%, 2%); }
+  40%  { transform: translate(2%, -3%); }
+  60%  { transform: translate(-2%, -2%); }
+  80%  { transform: translate(3%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+}
+
+/* Mesh ambient gradient in warm sections (only desktop, very subtle) */
+@media (min-width: 1024px) {
+  .page-section--warm::before,
+  .section--warm::before,
+  .about::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: var(--gradient-mesh-ambient);
+    opacity: 0.8;
+    z-index: 0;
+  }
+  .page-section--warm,
+  .section--warm,
+  .about {
+    position: relative;
+    isolation: isolate;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   2. Scroll progress indicator (top hairline that grows)
+   ────────────────────────────────────────────────────────────── */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: var(--z-scroll-progress);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.scroll-progress.is-active {
+  opacity: 1;
+}
+
+.scroll-progress__track {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.scroll-progress__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--color-copper) 0%, var(--color-copper-soft) 100%);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 80ms linear;
+  box-shadow: 0 0 12px rgba(184, 123, 81, 0.5);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   3. Custom cursor v2 — modes for view/click + trail
+   ────────────────────────────────────────────────────────────── */
+
+.cursor-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 280ms var(--ease-out), border-color 280ms var(--ease-out);
+}
+
+.cursor-ring__label {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-paper);
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.custom-cursor.is-view .cursor-ring {
+  background: var(--color-copper);
+  border-color: var(--color-copper);
+}
+.custom-cursor.is-view .cursor-ring__label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.custom-cursor.is-cta .cursor-ring {
+  background: rgba(184, 123, 81, 0.16);
+  border-color: var(--color-copper);
+}
+
+/* Cursor trail dots */
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-copper);
+  pointer-events: none;
+  z-index: calc(var(--z-cursor) - 1);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   4. Hero video background (replaces static img where present)
+   ────────────────────────────────────────────────────────────── */
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1200ms var(--ease-cinematic);
+  filter: saturate(0.82) contrast(1.05);
+}
+
+.hero__video.is-playing {
+  opacity: 1;
+}
+
+/* Hide video on mobile + when video failed */
+@media (max-width: 768px) {
+  .hero__video { display: none !important; }
+}
+
+.hero__media--no-video .hero__video { display: none; }
+
+.hero__media-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.85);
+}
+
+.hero__media-poster.is-faded {
+  opacity: 0;
+  transition: opacity 1200ms var(--ease-cinematic);
+}
+
+/* Cinematic overlay layers on top of video */
+.hero__shade {
+  background: var(--gradient-hero-shade);
+}
+
+.hero__copper-tint {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero-copper-tint);
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+.hero__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   5. Hero copper-line — ambient pulse breathing
+   ────────────────────────────────────────────────────────────── */
+
+.hero__copper-line {
+  position: relative;
+  overflow: visible;
+}
+
+.hero__copper-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  filter: blur(8px);
+  opacity: 0.6;
+  z-index: -1;
+  animation: copper-breathe 4s ease-in-out infinite;
+}
+
+@keyframes copper-breathe {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50%      { opacity: 0.8; transform: scaleY(1.4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__copper-line::after { animation: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   6. Hero scroll indicator (cinematic, replaces simple arrow)
+   ────────────────────────────────────────────────────────────── */
+
+.scroll-indicator {
+  position: absolute;
+  bottom: clamp(20px, 4vh, 48px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(243, 239, 233, 0.75);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 280ms var(--ease-out);
+}
+
+.scroll-indicator:hover {
+  color: var(--color-copper-soft);
+}
+
+.scroll-indicator__track {
+  width: 1px;
+  height: 36px;
+  background: rgba(243, 239, 233, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-indicator__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 12px;
+  background: var(--color-copper-soft);
+  animation: scroll-dot 2.4s var(--ease-cinematic) infinite;
+}
+
+@keyframes scroll-dot {
+  0%   { transform: translateY(-12px); opacity: 0; }
+  30%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translateY(36px); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-indicator__dot { animation: none; opacity: 0.6; }
+}
+
+/* Hide legacy empty <span> arrow (the new structure replaces it) */
+.scroll-indicator > span:empty {
+  display: none;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   7. Hero strip elevated (backdrop glass + animated separators)
+   ────────────────────────────────────────────────────────────── */
+
+.hero__meta--strip {
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  background: rgba(9, 9, 9, 0.32);
+  border: 1px solid rgba(243, 239, 233, 0.1);
+  border-radius: 999px;
+  padding: 10px 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__meta--strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(184, 123, 81, 0.08) 0%, rgba(184, 123, 81, 0) 50%);
+  pointer-events: none;
+}
+
+.hero-strip__sep {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: rgba(243, 239, 233, 0.24);
+  flex-shrink: 0;
+  transition: background-color 280ms var(--ease-out), height 280ms var(--ease-out);
+}
+
+.hero__meta--strip:hover .hero-strip__sep {
+  background: var(--color-copper-soft);
+  height: 16px;
+}
+
+.hero-strip__item {
+  color: rgba(243, 239, 233, 0.85);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .hero__meta--strip {
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    backdrop-filter: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 8px 16px;
+    width: 100%;
+  }
+  .hero__meta--strip::-webkit-scrollbar { display: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   8. CTA primário cinematic — border-draw + arrow slide + halo
+   ────────────────────────────────────────────────────────────── */
+
+.button--primary,
+.button--dark {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.button--primary::before,
+.button--dark::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-copper) 0%, var(--color-copper-soft) 50%, var(--color-copper) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 320ms var(--ease-out);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.button--primary:hover::before,
+.button--dark:hover::before {
+  opacity: 1;
+}
+
+/* Copper halo glow on hover */
+.button--primary:hover,
+.button--dark:hover {
+  box-shadow: var(--glow-copper-soft);
+  transform: translateY(-1px);
+}
+
+/* Arrow slide micro-feedback (inject ::after) */
+.button--primary[data-cta]::after,
+.button--dark[data-cta]::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 0.6em;
+  transition: transform 320ms var(--ease-bounce-soft);
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.button--primary[data-cta]:hover::after,
+.button--dark[data-cta]:hover::after {
+  transform: translateX(4px);
+}
+
+/* Click ripple — discrete copper expand from cursor point */
+.button--primary .ripple,
+.button--dark .ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(184, 123, 81, 0.4) 0%, rgba(184, 123, 81, 0) 70%);
+  transform: scale(0);
+  animation: ripple-expand 600ms var(--ease-out) forwards;
+}
+
+@keyframes ripple-expand {
+  0%   { transform: scale(0);  opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* WhatsApp button keeps brand color but gains halo */
+.button--whatsapp:hover {
+  box-shadow: 0 0 0 1px rgba(37, 211, 102, 0.32), 0 12px 32px rgba(37, 211, 102, 0.22);
+  transform: translateY(-1px);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   9. Reveal helpers (used by hero JS scramble + word-fade)
+   ────────────────────────────────────────────────────────────── */
+
+.kinetic-text {
+  display: inline-block;
+}
+
+.kinetic-text__char {
+  display: inline-block;
+  transition: color 200ms var(--ease-out);
+}
+
+.kinetic-text__char.is-scrambling {
+  color: var(--color-copper);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   10. WA float button & GDPR — minor cinematic polish
+   ────────────────────────────────────────────────────────────── */
+
+.wa-float__ring {
+  border-color: rgba(37, 211, 102, 0.4);
+}
+
+/* Subtle separator under header on scroll */
+.site-header.is-scrolled {
+  border-bottom: 1px solid rgba(184, 123, 81, 0.06);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  background: rgba(243, 239, 233, 0.78);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   11. Page transitions — fade in on load
+   ────────────────────────────────────────────────────────────── */
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+html.js body > main {
+  animation: page-fade-in 0.8s var(--ease-cinematic) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js body > main { animation: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   12. Editorial Specialty Grid — asymmetric magazine layout
+   6 cards com imagens grandes em destaque (estilo editorial documentário).
+   Card 01 (Soldadura) ocupa 2 linhas à esquerda — peso visual.
+   Cards 02 e 06 são "wide" (mais altos) para quebrar ritmo.
+   ────────────────────────────────────────────────────────────── */
+
+.spec-edit {
+  position: relative;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  padding: clamp(80px, 10vw, 140px) 0;
+  isolation: isolate;
+}
+
+.spec-edit::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-mesh-ambient);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.spec-edit .section__shell {
+  position: relative;
+  z-index: 1;
+}
+
+.spec-edit__header {
+  max-width: 760px;
+  margin-bottom: clamp(56px, 6vw, 96px);
+}
+
+.spec-edit__h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
+  margin: 16px 0 24px 0;
+}
+
+.spec-edit__h2 em {
+  font-style: italic;
+  color: var(--color-copper);
+}
+
+.spec-edit__lead {
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.65;
+  color: var(--color-ink-muted);
+  max-width: 560px;
+  margin: 0;
+}
+
+/* ── GRID ── 1 col mobile / 2 col tablet / 3 col desktop asymmetric */
+.spec-edit__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 3vw, 40px);
+}
+
+@media (min-width: 720px) {
+  .spec-edit__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .spec-edit__card--tall {
+    grid-row: span 2;
+  }
+}
+
+@media (min-width: 1100px) {
+  .spec-edit__grid {
+    grid-template-columns: 1.15fr 1fr 1fr;
+    grid-auto-rows: minmax(280px, auto);
+  }
+  /* Asymmetric layout:
+     [01 tall × 2 rows] [02 wide]      [03]
+                        [04]            [05]
+                        [06 wide spans 2 cols] */
+  .spec-edit__card--tall {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .spec-edit__card--wide:nth-of-type(2) {
+    grid-column: 2 / span 2;
+    grid-row: 1;
+  }
+  .spec-edit__card:nth-of-type(3) { grid-column: 2; grid-row: 2; }
+  .spec-edit__card:nth-of-type(4) { grid-column: 3; grid-row: 2; }
+  .spec-edit__card:nth-of-type(5) { grid-column: 1; grid-row: 3; }
+  .spec-edit__card--wide:nth-of-type(6) {
+    grid-column: 2 / span 2;
+    grid-row: 3;
+  }
+}
+
+/* ── CARD ── editorial documentary frame */
+.spec-edit__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-paper-warm);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+  transition: transform 540ms var(--ease-cinematic), box-shadow 540ms var(--ease-cinematic), border-color 380ms var(--ease-out);
+  isolation: isolate;
+  min-height: 360px;
+}
+
+.spec-edit__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--depth-3);
+  border-color: rgba(184, 123, 81, 0.35);
+}
+
+.spec-edit__media {
+  position: relative;
+  margin: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  min-height: 220px;
+}
+
+.spec-edit__card--tall .spec-edit__media {
+  min-height: 480px;
+}
+
+.spec-edit__card--wide .spec-edit__media {
+  min-height: 280px;
+}
+
+.spec-edit__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: saturate(0.92) contrast(1.04);
+  transition: transform 1400ms var(--ease-cinematic), filter 800ms var(--ease-out);
+  will-change: transform;
+  position: absolute;
+  inset: 0;
+}
+
+.spec-edit__card:hover .spec-edit__media img {
+  transform: scale(1.06);
+  filter: saturate(1.08) contrast(1.08);
+}
+
+/* Subtle dark gradient at bottom of image for label legibility */
+.spec-edit__media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(9, 9, 9, 0) 0%, rgba(9, 9, 9, 0.55) 100%);
+  pointer-events: none;
+}
+
+/* Meta — copper number + tag chip floating on image */
+.spec-edit__meta {
+  position: absolute;
+  top: clamp(18px, 2vw, 28px);
+  left: clamp(18px, 2vw, 28px);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.spec-edit__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(28px, 2.6vw, 42px);
+  line-height: 1;
+  color: var(--color-copper-soft);
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+.spec-edit__tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-paper);
+  background: rgba(9, 9, 9, 0.32);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 6px 12px;
+  border: 1px solid rgba(243, 239, 233, 0.18);
+  border-radius: 999px;
+}
+
+/* Body — text block below image */
+.spec-edit__body {
+  position: relative;
+  z-index: 2;
+  padding: clamp(20px, 2vw, 32px);
+  background: var(--color-paper-warm);
+}
+
+.spec-edit__body h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(24px, 2.2vw, 34px);
+  line-height: 1.08;
+  letter-spacing: -0.008em;
+  color: var(--color-ink);
+  margin: 0 0 6px 0;
+  transition: color 280ms var(--ease-out);
+}
+
+.spec-edit__card:hover .spec-edit__body h3 {
+  color: var(--color-copper);
+}
+
+.spec-edit__sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-copper);
+  margin: 0 0 14px 0;
+}
+
+.spec-edit__body p:last-child {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--color-ink-muted);
+  margin: 0;
+}
+
+/* Copper underline draw on hover (editorial detail) */
+.spec-edit__body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(20px, 2vw, 32px);
+  right: clamp(20px, 2vw, 32px);
+  height: 1px;
+  background: var(--color-copper);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 540ms var(--ease-cinematic);
+}
+
+.spec-edit__card:hover .spec-edit__body::before {
+  transform: scaleX(1);
+}
+
+/* CTA row below grid */
+.spec-edit__cta {
+  margin-top: clamp(48px, 5vw, 80px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Legacy sticky-spec hidden — replaced by .spec-edit editorial grid above */
+.sticky-spec,
+.sticky-spec * { display: none !important; }
+
+/* ──────────────────────────────────────────────────────────────
+   13. Floating Pill Header — glass cream + copper, icon reveal,
+       shimmer CTA. Portado de React/Framer-Motion para vanilla.
+   Specificity boosted with body.js to win legacy styles.css.
+   ────────────────────────────────────────────────────────────── */
+
+/* Container do header — fixed floating top center.
+   !important overrides legacy styles.css full-width bar rules. */
+body.js .site-header,
+body .site-header,
+.site-header {
+  position: fixed !important;
+  top: clamp(14px, 1.8vw, 22px) !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  z-index: var(--z-header);
+  width: max-content !important;
+  max-width: calc(100vw - 32px) !important;
+  min-width: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transition: top 380ms var(--ease-out);
+}
+
+/* Body sem padding-top — pill fica overlay sobre o hero (Stripe/Linear style).
+   Em páginas internas, o page-hero já tem padding-top próprio.
+   Aplicamos uma safety margin top apenas em main quando o primeiro filho NÃO é hero. */
+body {
+  padding-top: 0 !important;
+}
+
+/* Páginas com page-hero (todas excepto homepage) — adicionar safety top
+   só para garantir que o título não fica colado ao pill. */
+.page-main > .page-hero:first-child {
+  padding-top: clamp(88px, 11vw, 132px);
+}
+
+/* Páginas sem hero (raras: 404, privacidade simple, contacto) — main inteiro recebe top */
+.page-main:not(:has(.page-hero:first-child)):not(:has(.hero:first-child)) {
+  padding-top: clamp(96px, 12vw, 144px);
+}
+
+/* Quando scrolla, o pill encolhe vertical 2px (subtle) */
+.site-header.is-scrolled {
+  top: clamp(10px, 1.4vw, 16px);
+}
+
+/* O pill: glassmorphism com paleta cream/copper (NÃO dark blue) */
+body .site-header .navbar,
+.site-header .navbar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  min-height: auto !important;
+  height: auto !important;
+  padding: 8px 8px 8px 22px !important;
+  background: linear-gradient(135deg, rgba(243, 239, 233, 0.78) 0%, rgba(243, 239, 233, 0.6) 100%) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(184, 123, 81, 0.22) !important;
+  border-bottom: 1px solid rgba(184, 123, 81, 0.22) !important;
+  border-radius: 999px !important;
+  box-shadow:
+    0 12px 32px -8px rgba(15, 12, 8, 0.18),
+    0 4px 12px -4px rgba(15, 12, 8, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45) !important;
+  position: relative;
+  overflow: visible !important;
+  width: auto !important;
+  max-width: 100% !important;
+  justify-content: flex-start !important;
+}
+
+/* Force hide nav-phone in pill (was display:block in legacy) */
+body .site-header .nav-phone,
+.site-header .nav-phone {
+  display: none !important;
+}
+
+/* Reflexo subtil copper no topo do pill (signature M&A Elo) */
+.site-header .navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(184, 123, 81, 0.55) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Brand "M&A Elo" — Cormorant italic inside pill */
+body .site-header .brand,
+.site-header .brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  text-decoration: none !important;
+  padding: 4px 14px 4px 8px !important;
+  border-right: 1px solid rgba(184, 123, 81, 0.22) !important;
+  margin-right: 6px !important;
+  flex-shrink: 0 !important;
+  flex-direction: row !important;
+  height: 100%;
+}
+
+body .site-header .brand__logo,
+.site-header .brand__logo {
+  display: block !important;
+  height: 42px !important;
+  width: auto !important;
+  max-width: 56px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  flex-shrink: 0 !important;
+  /* Logo já tem fundo transparente — sem blend-mode necessário */
+}
+
+body .site-header .brand__mark,
+.site-header .brand__mark {
+  font-family: var(--font-display) !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  letter-spacing: -0.01em !important;
+  color: var(--color-ink) !important;
+  line-height: 1 !important;
+  border: none !important;
+}
+
+/* Hide brand subtitle in header pill — would crowd the logo */
+body .site-header .brand__sub,
+.site-header .brand__sub {
+  display: none !important;
+}
+
+.site-header .brand__sub {
+  display: none;
+}
+
+/* Nav links — pill item com hover icon reveal */
+.site-header .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+body .site-header .nav-links a,
+.site-header .nav-links a {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  padding: 8px 12px !important;
+  border-radius: 999px !important;
+  text-decoration: none !important;
+  font-family: var(--font-body) !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.03em !important;
+  text-transform: none !important;
+  color: var(--color-ink-muted) !important;
+  white-space: nowrap !important;
+  transition: padding 480ms var(--ease-cinematic), color 320ms var(--ease-out), background-color 320ms var(--ease-out) !important;
+}
+
+/* Hide secondary "Profissionais" link in floating pill — accessible via menu */
+@media (min-width: 1024px) {
+  body .site-header .nav-links a.nav-link--secondary,
+  .site-header .nav-links a.nav-link--secondary {
+    display: none !important;
+  }
+}
+
+/* Nav icon — hidden by default, slides in on hover (port do React optn:hover) */
+.site-header .nav-links a .nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  opacity: 0;
+  margin-right: 0;
+  overflow: hidden;
+  transform: scale(0.2);
+  transition: width 480ms var(--ease-cinematic), opacity 380ms var(--ease-out), transform 480ms var(--ease-bounce-soft), margin-right 480ms var(--ease-cinematic);
+}
+
+.site-header .nav-links a .nav-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--color-copper);
+  stroke-width: 2;
+  fill: none;
+}
+
+.site-header .nav-links a:hover {
+  color: var(--color-ink);
+  padding-left: 14px;
+  padding-right: 18px;
+}
+
+.site-header .nav-links a:hover .nav-icon {
+  width: 18px;
+  opacity: 1;
+  margin-right: 8px;
+  transform: scale(1);
+}
+
+/* Underline copper glow on hover (port do framer layoutId) */
+.site-header .nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-copper) 50%, transparent 100%);
+  box-shadow: 0 0 12px rgba(184, 123, 81, 0.55);
+  transform-origin: center;
+  transition: transform 380ms var(--ease-cinematic);
+}
+
+.site-header .nav-links a:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Active state for current page (aria-current="page") */
+.site-header .nav-links a[aria-current="page"] {
+  color: var(--color-ink);
+}
+.site-header .nav-links a[aria-current="page"]::after {
+  transform: translateX(-50%) scaleX(0.6);
+  background: linear-gradient(90deg, transparent 0%, var(--color-copper-soft) 50%, transparent 100%);
+}
+
+/* Secondary "Profissionais" — muted but distinct */
+.site-header .nav-links a.nav-link--secondary {
+  color: var(--color-ink-faint);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Nav actions container — phone hidden in pill (mobile click) */
+.site-header .nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(184, 123, 81, 0.2);
+  flex-shrink: 0;
+}
+
+.site-header .nav-phone {
+  display: none; /* Hide phone in floating pill — usar CTA */
+}
+
+/* CTA "Falar connosco" — porte do bookmarkBtn React (shimmer copper + arrow nudge).
+   Estrutura: container relative com text absolute (fade out) e icon absolute (expande de right→full width). */
+body .site-header .nav-cta,
+.site-header .nav-cta {
+  position: relative !important;
+  display: block !important;
+  width: 192px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  background: var(--color-ink) !important;
+  border: 1px solid rgba(184, 123, 81, 0.4) !important;
+  border-radius: 999px !important;
+  text-decoration: none !important;
+  overflow: hidden !important;
+  transition: transform 380ms var(--ease-out), box-shadow 380ms var(--ease-out) !important;
+  flex-shrink: 0;
+  cursor: pointer;
+  min-height: 0 !important;
+  color: var(--color-paper) !important;
+}
+
+body .site-header .nav-cta:hover,
+.site-header .nav-cta:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: var(--glow-copper-soft) !important;
+  background: var(--color-ink) !important;
+  border-color: rgba(184, 123, 81, 0.6) !important;
+}
+
+/* Shimmer animated border (port do React ::before) */
+.site-header .nav-cta::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(184, 123, 81, 0.2) 25%,
+    rgba(217, 156, 115, 0.95) 50%,
+    rgba(184, 123, 81, 0.2) 75%,
+    transparent 100%);
+  background-size: 200% 100%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out);
+  z-index: 3;
+}
+
+.site-header .nav-cta:hover::before {
+  opacity: 1;
+  animation: cta-shimmer 2s infinite ease-in-out;
+}
+
+@keyframes cta-shimmer {
+  0%   { background-position: 150% 0; }
+  100% { background-position: -150% 0; }
+}
+
+/* Text — absolute centrado no espaço útil (esquerda até início do círculo) */
+.site-header .nav-cta__text {
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 42px !important; /* deixa exactamente o espaço do círculo (32px + 3px gap + 6px folga) */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  font-family: var(--font-body) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: var(--color-paper) !important;
+  white-space: nowrap !important;
+  z-index: 1 !important;
+  transition: opacity 320ms var(--ease-out), transform 420ms var(--ease-cinematic) !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+.site-header .nav-cta:hover .nav-cta__text {
+  opacity: 0 !important;
+  transform: translateX(20px) !important;
+}
+
+/* Icon — absolute à direita por default, expande para cobrir tudo ao hover */
+.site-header .nav-cta__icon {
+  position: absolute !important;
+  top: 3px !important;
+  right: 3px !important;
+  left: auto !important;
+  width: 32px !important;
+  height: 32px !important;
+  background: linear-gradient(135deg, var(--color-copper-soft) 0%, var(--color-copper) 100%) !important;
+  border-radius: 999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transition: width 480ms var(--ease-cinematic), left 480ms var(--ease-cinematic), border-radius 480ms var(--ease-cinematic) !important;
+  z-index: 2 !important;
+  box-shadow: 0 2px 8px rgba(184, 123, 81, 0.4);
+}
+
+.site-header .nav-cta:hover .nav-cta__icon {
+  width: calc(100% - 6px) !important;
+  left: 3px !important;
+  right: 3px !important;
+  border-radius: 999px !important;
+}
+
+.site-header .nav-cta__icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--color-paper);
+  stroke-width: 2.5;
+  fill: none;
+  transition: transform 320ms var(--ease-bounce-soft);
+  display: block;
+}
+
+.site-header .nav-cta:hover .nav-cta__icon svg {
+  animation: cta-arrow-nudge 1s infinite ease-in-out;
+}
+
+@keyframes cta-arrow-nudge {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(4px); }
+}
+
+/* When scrolled — slightly more solid pill (better contrast over content) */
+.site-header.is-scrolled .navbar {
+  background: linear-gradient(135deg, rgba(243, 239, 233, 0.92) 0%, rgba(243, 239, 233, 0.78) 100%);
+  box-shadow:
+    0 16px 48px -8px rgba(15, 12, 8, 0.22),
+    0 6px 16px -4px rgba(15, 12, 8, 0.14),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Mobile / tablet — colapsar para hamburger pill compact */
+@media (max-width: 1023px) {
+  .site-header .nav-links,
+  .site-header .nav-actions {
+    display: none;
+  }
+
+  .site-header .navbar {
+    padding: 8px 14px;
+    gap: 12px;
+  }
+
+  .site-header .brand {
+    border-right: none;
+    margin-right: 0;
+    padding-right: 12px;
+  }
+
+  .site-header .menu-toggle {
+    display: flex !important;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    background: var(--color-ink);
+    border: 1px solid rgba(184, 123, 81, 0.4);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .site-header .menu-toggle span {
+    display: block;
+    width: 14px;
+    height: 1.5px;
+    background: var(--color-paper);
+    border-radius: 1px;
+    transition: transform 280ms var(--ease-out);
+  }
+}
+
+/* Desktop — hide hamburger */
+@media (min-width: 1024px) {
+  .site-header .menu-toggle {
+    display: none !important;
+  }
+}
+
+/* Prevent legacy header full-width override */
+.site-header.is-scrolled {
+  border-bottom: none;
+}
+
+/* Reduced motion — kill animations */
+@media (prefers-reduced-motion: reduce) {
+  .site-header .nav-cta:hover::before { animation: none; }
+  .site-header .nav-cta:hover .nav-cta__icon svg { animation: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   14. Process Rail — 4 etapas com progress vertical copper
+   ────────────────────────────────────────────────────────────── */
+
+.process-rail {
+  position: relative;
+  background: var(--color-paper);
+  padding: clamp(80px, 10vw, 140px) 0;
+  isolation: isolate;
+}
+
+.process-rail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-mesh-ambient);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.process-rail .section__shell {
+  position: relative;
+  z-index: 1;
+}
+
+.process-rail__header {
+  max-width: 760px;
+  margin-bottom: clamp(56px, 6vw, 88px);
+}
+
+.process-rail__h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(36px, 4.8vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
+  margin: 16px 0 0 0;
+}
+
+.process-rail__h2 em {
+  font-style: italic;
+  color: var(--color-copper);
+}
+
+/* Grid: 1 col mobile / progress + steps desktop */
+.process-rail__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 4vw, 56px);
+}
+
+@media (min-width: 1024px) {
+  .process-rail__grid {
+    grid-template-columns: 80px 1fr;
+    gap: clamp(48px, 6vw, 96px);
+    align-items: start;
+  }
+}
+
+/* Progress column — sticky em desktop */
+.process-rail__progress {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .process-rail__progress {
+    display: block;
+    position: sticky;
+    top: 120px;
+    height: 360px;
+    width: 80px;
+  }
+
+  .process-rail__line {
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 50%;
+    width: 1px;
+    background: rgba(184, 123, 81, 0.18);
+    transform: translateX(-50%);
+    overflow: hidden;
+  }
+
+  .process-rail__line-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(180deg, var(--color-copper-soft) 0%, var(--color-copper) 100%);
+    transition: height 480ms var(--ease-cinematic);
+    box-shadow: 0 0 8px rgba(184, 123, 81, 0.5);
+  }
+
+  .process-rail__dots {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .process-rail__dot {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    margin: 0 auto;
+    background: var(--color-paper);
+    border: 1.5px solid rgba(184, 123, 81, 0.3);
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 380ms var(--ease-cinematic);
+    z-index: 2;
+  }
+
+  .process-rail__dot span {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-faint);
+    transition: color 320ms var(--ease-out);
+  }
+
+  .process-rail__dot.is-active {
+    background: var(--color-copper);
+    border-color: var(--color-copper);
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px rgba(184, 123, 81, 0.15), 0 0 16px rgba(184, 123, 81, 0.4);
+  }
+
+  .process-rail__dot.is-active span {
+    color: var(--color-paper);
+  }
+
+  .process-rail__dot.is-passed {
+    background: var(--color-copper-soft);
+    border-color: var(--color-copper-soft);
+  }
+
+  .process-rail__dot.is-passed span {
+    color: var(--color-paper);
+  }
+}
+
+/* Steps */
+.process-rail__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 6vw, 88px);
+}
+
+.process-rail__step {
+  position: relative;
+  padding: clamp(28px, 3vw, 40px);
+  background: var(--color-paper-warm);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  transition: transform 480ms var(--ease-cinematic), box-shadow 480ms var(--ease-cinematic), border-color 380ms var(--ease-out);
+}
+
+.process-rail__step.is-active {
+  transform: translateX(4px);
+  box-shadow: var(--depth-2);
+  border-color: rgba(184, 123, 81, 0.4);
+}
+
+.process-rail__step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1px;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-copper);
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 520ms var(--ease-cinematic);
+}
+
+.process-rail__step.is-active::before {
+  transform: scaleY(1);
+}
+
+.process-rail__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(32px, 3.6vw, 48px);
+  line-height: 1;
+  color: var(--color-copper);
+  letter-spacing: -0.01em;
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* Show numbers only on mobile (desktop has the progress column) */
+@media (min-width: 1024px) {
+  .process-rail__num {
+    font-size: 28px;
+    opacity: 0.5;
+  }
+}
+
+.process-rail__step h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0 0 8px 0;
+}
+
+.process-rail__sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-copper);
+  margin: 0 0 16px 0;
+}
+
+.process-rail__step p:last-child {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-ink-muted);
+  margin: 0;
+  max-width: 600px;
+}
+
+.process-rail__cta {
+  margin-top: clamp(48px, 5vw, 80px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .process-rail__cta {
+    margin-left: calc(80px + clamp(48px, 6vw, 96px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-rail__line-fill { transition: none; }
+  .process-rail__dot { transition: none; }
+  .process-rail__step { transition: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   15. Image blur-up — sharpens on intersect
+   ────────────────────────────────────────────────────────────── */
+
+.img-blur-up {
+  filter: blur(8px) saturate(0.7);
+  transition: filter 900ms var(--ease-cinematic);
+}
+
+.img-blur-up.is-sharp {
+  filter: blur(0) saturate(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-blur-up { filter: none; transition: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   16. Page-hero polish (replicação do hero motion a páginas internas)
+   ────────────────────────────────────────────────────────────── */
+
+/* Page hero: decoração wordmark grande no fundo */
+.page-hero__bg-mark {
+  position: absolute;
+  bottom: clamp(-40px, -3vw, -20px);
+  right: clamp(-20px, -2vw, -8px);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(160px, 22vw, 360px);
+  line-height: 0.8;
+  color: var(--color-paper);
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.03em;
+  z-index: 1;
+}
+
+/* Copper line nos page-heroes ganha breathing pulse */
+.page-hero__copper {
+  position: relative;
+}
+
+.page-hero__copper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  filter: blur(6px);
+  opacity: 0.6;
+  z-index: -1;
+  animation: copper-breathe 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero__copper::after { animation: none; }
+}
+
+/* Scroll indicator pequeno nos page-heroes */
+.page-hero__scroll-indicator {
+  position: absolute;
+  bottom: clamp(16px, 2.6vh, 32px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(243, 239, 233, 0.65);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.page-hero__scroll-indicator .scroll-indicator__track {
+  width: 1px;
+  height: 28px;
+  background: rgba(243, 239, 233, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero__scroll-indicator .scroll-indicator__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 10px;
+  background: var(--color-copper-soft);
+  animation: scroll-dot 2.4s var(--ease-cinematic) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero__scroll-indicator .scroll-indicator__dot { animation: none; opacity: 0.6; }
+}
+
+/* Legacy hero classes (--cinematic / --split / --bleed) removed in Sessão 6.
+   Site agora usa apenas .hero--screen (homepage) + .page-hero--screen (internas). */
+
+/* ──────────────────────────────────────────────────────────────
+   17.5. Hero Screen — iPhone screen style (Clube Infinity ref)
+   Cream warm radial gradient multi-layer, inset 10px com cantos
+   inferiores arredondados 32px (efeito "tela de iPhone"),
+   pill rounded-xl, H1 font-weight 500 medium, CTA split black+copper.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  --hero-accent: #E65100;
+  --hero-accent-soft: #FF7A1A;
+}
+
+body .hero--screen,
+.hero--screen {
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #FAF6F1 !important;
+  color: #0a0a0a !important;
+  color-scheme: light;
+  isolation: isolate;
+}
+
+.hero--screen .hero__bg-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+}
+
+.hero--screen .hero__bg-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  filter: grayscale(0.2) contrast(1.05);
+}
+
+.hero--screen .hero__bg-grad {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(255, 209, 168, 0.55), transparent 65%),
+    radial-gradient(ellipse 90% 60% at 50% 115%, rgba(230, 81, 0, 0.22), transparent 70%),
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.6), transparent 45%),
+    radial-gradient(circle at 82% 32%, rgba(255, 235, 215, 0.5), transparent 45%),
+    linear-gradient(180deg, rgba(250, 246, 241, 0.92) 0%, rgba(245, 239, 231, 0.88) 50%, rgba(236, 217, 194, 0.86) 100%);
+  background-repeat: no-repeat;
+  mix-blend-mode: normal;
+}
+
+.hero--screen .hero__bg-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(255, 247, 240, 0.04) 0%,
+    rgba(255, 225, 200, 0.10) 42%,
+    rgba(255, 160, 100, 0.12) 100%);
+}
+
+/* SVG faísca decorativa — inspirada na "faísca" da logo M&A Elo */
+.hero--screen .hero__spark {
+  position: absolute;
+  top: clamp(110px, 14vw, 170px);
+  right: clamp(40px, 7vw, 120px);
+  width: clamp(56px, 6vw, 88px);
+  height: clamp(56px, 6vw, 88px);
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 12px rgba(230, 81, 0, 0.25));
+  animation: hero-spark-rotate 12s linear infinite, hero-spark-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes hero-spark-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes hero-spark-pulse {
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 1; filter: drop-shadow(0 4px 18px rgba(230, 81, 0, 0.45)); }
+}
+
+@media (max-width: 849px) {
+  .hero--screen .hero__bg-photo,
+  .hero--screen .hero__bg-grad,
+  .hero--screen .hero__bg-tint {
+    inset: 0;
+    border-radius: 0;
+  }
+  .hero--screen .hero__spark {
+    top: 90px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+.hero--screen .hero__shell {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(140px, 16vw, 220px) clamp(20px, 5vw, 64px) clamp(80px, 10vw, 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero--screen .hero__inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(20px, 2.4vw, 28px);
+}
+
+@media (max-width: 849px) {
+  .hero--screen .hero__inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+.hero--screen .hero__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px 7px 18px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  color: #0a0a0a;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.hero--screen .hero__pill-spark {
+  display: inline-block;
+  color: var(--hero-accent);
+  font-size: 14px;
+  line-height: 1;
+  animation: hero-screen-spark 3.6s ease-in-out infinite;
+}
+
+@keyframes hero-screen-spark {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50%      { opacity: 0.65; transform: scale(1.12) rotate(90deg); }
+}
+
+body .hero--screen .hero__title,
+.hero--screen .hero__title {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: clamp(38px, 4.6vw, 64px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.025em !important;
+  color: #000 !important;
+  margin: 0 !important;
+  max-width: 920px !important;
+  text-shadow: none !important;
+}
+
+.hero--screen .hero__title-line {
+  display: block;
+}
+
+.hero--screen .hero__lead {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #525252;
+  margin: 0 auto;
+  max-width: 680px;
+  letter-spacing: -0.003em;
+  text-shadow: none;
+}
+
+.hero--screen .hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(8px, 1vw, 16px);
+}
+
+@media (max-width: 849px) {
+  .hero--screen .hero__actions {
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
+
+/* CTA Split — pill preto + box accent laranja com seta */
+.hero--screen .hero__cta-split {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.hero--screen .hero__cta-split-bg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: calc(100% - 2rem);
+  background: var(--hero-accent);
+  border-radius: 12px;
+  z-index: 1;
+  transition: background-color 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero--screen .hero__cta-split-label {
+  position: relative;
+  z-index: 2;
+  background: #000;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  padding: 13px 22px;
+  border-radius: 12px;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.hero--screen .hero__cta-split-icon {
+  position: relative;
+  z-index: 2;
+  margin-left: -1px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  border-radius: 12px;
+  background: var(--hero-accent);
+}
+
+.hero--screen .hero__cta-split-icon svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero--screen .hero__cta-split:hover .hero__cta-split-icon svg {
+  transform: rotate(-45deg);
+}
+
+.hero--screen .hero__cta-split:hover .hero__cta-split-bg {
+  background: var(--hero-accent-soft);
+}
+
+.hero--screen .hero__cta-split:hover .hero__cta-split-icon {
+  background: var(--hero-accent-soft);
+}
+
+/* Ghost CTA — WhatsApp */
+.hero--screen .hero__cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 22px;
+  border-radius: 12px;
+  background: transparent;
+  color: #0a0a0a;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  text-decoration: none;
+  transition: background-color 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero--screen .hero__cta-ghost:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #0a0a0a;
+}
+
+@media (max-width: 849px) {
+  body .hero--screen .hero__title,
+  .hero--screen .hero__title {
+    font-size: clamp(32px, 8vw, 44px) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.018em !important;
+  }
+  .hero--screen .hero__lead {
+    font-size: 15.5px;
+    line-height: 1.55;
+    max-width: 100%;
+    margin: 0;
+  }
+  .hero--screen .hero__pill {
+    font-size: 12.5px;
+    padding: 6px 12px 6px 14px;
+  }
+  .hero--screen .hero__shell {
+    padding-top: 120px;
+    padding-bottom: 96px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .hero--screen .hero__inner {
+    gap: 18px;
+  }
+  .hero--screen .hero__cta-split-label,
+  .hero--screen .hero__cta-ghost {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+  .hero--screen .hero__cta-split-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero--screen .hero__cta-split-icon svg,
+  .hero--screen .hero__cta-split-bg,
+  .hero--screen .hero__cta-split-icon,
+  .hero--screen .hero__cta-ghost { transition: none; }
+  .hero--screen .hero__pill-spark { animation: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   13. Sector cards (homepage .sectors-grid) — Fase D.1
+   ────────────────────────────────────────────────────────────── */
+
+.sector-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 480ms var(--ease-cinematic), box-shadow 480ms var(--ease-cinematic);
+  will-change: transform;
+}
+
+.sector-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--depth-3);
+}
+
+.sector-card__bg img {
+  transition: transform 1200ms var(--ease-cinematic), filter 800ms var(--ease-out);
+  will-change: transform;
+}
+
+.sector-card:hover .sector-card__bg img {
+  transform: scale(1.08);
+  filter: saturate(1.12) contrast(1.06);
+}
+
+/* Copper vignette pulse from corner on hover */
+.sector-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 60% at 100% 100%, rgba(184, 123, 81, 0.32) 0%, rgba(184, 123, 81, 0) 60%);
+  opacity: 0;
+  transition: opacity 600ms var(--ease-cinematic);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sector-card:hover::after {
+  opacity: 1;
+}
+
+/* Tag chip slide-in */
+.sector-card__tag {
+  transform: translateX(0);
+  transition: transform 420ms var(--ease-bounce-soft), color 320ms var(--ease-out);
+}
+
+.sector-card:hover .sector-card__tag {
+  transform: translateX(-4px);
+  color: var(--color-copper-soft);
+}
+
+/* Link arrow gets emphasis */
+.sector-card__link {
+  position: relative;
+  transition: color 280ms var(--ease-out);
+}
+
+.sector-card__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-copper);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 420ms var(--ease-cinematic);
+}
+
+.sector-card:hover .sector-card__link::after {
+  transform: scaleX(1);
+}
+
+/* Copper-line at bottom grows on reveal (already animated via JS line-progress) */
+.sector-card:hover .sector-card__copper-line {
+  background: var(--color-copper);
+  height: 2px;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   14. Service items (.service-item) — Fase D.2
+   ────────────────────────────────────────────────────────────── */
+
+.service-item {
+  position: relative;
+  transition: padding-left 480ms var(--ease-cinematic), background-color 480ms var(--ease-out);
+  isolation: isolate;
+}
+
+.service-item:hover {
+  padding-left: var(--space-md);
+}
+
+.service-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: var(--space-xl);
+  bottom: var(--space-xl);
+  width: 2px;
+  background: var(--color-copper);
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 520ms var(--ease-cinematic);
+  z-index: 1;
+}
+
+.service-item:hover::before {
+  transform: scaleY(1);
+}
+
+/* Number badge becomes Linear-style large copper italic */
+.service-item > span:first-child {
+  transition: color 320ms var(--ease-out), transform 480ms var(--ease-bounce-soft);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  display: inline-block;
+}
+
+.service-item:hover > span:first-child {
+  color: var(--color-copper);
+  transform: translateX(-2px) scale(1.05);
+}
+
+.service-item h3 {
+  transition: transform 420ms var(--ease-cinematic), color 320ms var(--ease-out);
+}
+
+.service-item:hover h3 {
+  transform: translateX(4px);
+}
+
+/* Bullets cascade subtle on hover (via opacity transition + delays) */
+.service-item ul li {
+  opacity: 0.78;
+  transform: translateX(0);
+  transition: opacity 360ms var(--ease-out), transform 380ms var(--ease-out);
+}
+
+.service-item:hover ul li {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+.service-item:hover ul li:nth-child(1) { transition-delay: 0ms; }
+.service-item:hover ul li:nth-child(2) { transition-delay: 60ms; }
+.service-item:hover ul li:nth-child(3) { transition-delay: 120ms; }
+.service-item:hover ul li:nth-child(4) { transition-delay: 180ms; }
+
+/* ──────────────────────────────────────────────────────────────
+   15. Value items (empresa.html .values-grid) — Fase D.3
+   ────────────────────────────────────────────────────────────── */
+
+.value-item {
+  position: relative;
+  padding: var(--space-2xl) var(--space-xl);
+  transition: background-color 480ms var(--ease-out), transform 480ms var(--ease-cinematic), box-shadow 480ms var(--ease-cinematic);
+  isolation: isolate;
+}
+
+.value-item:nth-child(odd) {
+  background-color: rgba(235, 229, 219, 0.4);
+}
+
+.value-item:hover {
+  transform: translateY(-2px);
+  background-color: var(--color-paper-warm);
+  box-shadow: var(--depth-2);
+}
+
+.value-item__number {
+  transition: color 320ms var(--ease-out), transform 480ms var(--ease-bounce-soft);
+  display: inline-block;
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.value-item:hover .value-item__number {
+  color: var(--color-copper);
+  transform: scale(1.08);
+}
+
+.value-item__title {
+  position: relative;
+  transition: color 320ms var(--ease-out);
+}
+
+.value-item__title::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--color-copper);
+  margin-top: 6px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 420ms var(--ease-cinematic);
+}
+
+.value-item:hover .value-item__title::after {
+  transform: scaleX(1);
+  width: 56px;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   16. Role cards (profissoes.html .role-list--two-col) — Fase D.4
+   ────────────────────────────────────────────────────────────── */
+
+.role-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 480ms var(--ease-cinematic), box-shadow 480ms var(--ease-cinematic);
+  padding-bottom: var(--space-2xl) !important;
+}
+
+.role-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--depth-3);
+}
+
+.role-card__image {
+  position: relative;
+  overflow: hidden;
+}
+
+.role-card__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(184, 123, 81, 0) 0%, rgba(184, 123, 81, 0.28) 100%);
+  opacity: 0;
+  transition: opacity 600ms var(--ease-cinematic);
+  z-index: 2;
+  mix-blend-mode: multiply;
+}
+
+.role-card:hover .role-card__image::after {
+  opacity: 1;
+}
+
+/* Number badge gets italic copper at hover */
+.role-card > span {
+  transition: color 320ms var(--ease-out), transform 480ms var(--ease-bounce-soft);
+}
+
+.role-card:hover > span {
+  color: var(--color-copper);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.role-card h3 {
+  transition: color 320ms var(--ease-out);
+}
+
+.role-card:hover h3 {
+  color: var(--color-ink);
+}
+
+/* Role actions become more prominent */
+.role-card .role-actions {
+  margin-top: var(--space-lg);
+  opacity: 0.86;
+  transition: opacity 320ms var(--ease-out);
+}
+
+.role-card:hover .role-actions {
+  opacity: 1;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   17. Capability items (para-empresas.html) — Fase D.5
+   ────────────────────────────────────────────────────────────── */
+
+.capability-item {
+  position: relative;
+  padding: var(--space-xl);
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 2px;
+  transition: transform 480ms var(--ease-cinematic), box-shadow 480ms var(--ease-cinematic), border-color 360ms var(--ease-out);
+}
+
+.capability-item::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-copper);
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 520ms var(--ease-cinematic);
+}
+
+.capability-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--depth-3);
+  border-color: rgba(184, 123, 81, 0.3);
+}
+
+.capability-item:hover::before {
+  transform: scaleY(1);
+}
+
+/* Tag chip gets micro-pulse on hover */
+.capability-item__tag {
+  position: relative;
+  transition: color 320ms var(--ease-out), background-color 320ms var(--ease-out), padding 320ms var(--ease-out);
+}
+
+.capability-item:hover .capability-item__tag {
+  background-color: var(--color-copper);
+  color: var(--color-paper);
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.capability-item h3 {
+  transition: transform 320ms var(--ease-cinematic);
+}
+
+.capability-item:hover h3 {
+  transform: translateY(-1px);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   18. Region cards (homepage v2) — bonus polish
+   ────────────────────────────────────────────────────────────── */
+
+.region-card-v2 {
+  position: relative;
+  overflow: hidden;
+  transition: transform 480ms var(--ease-cinematic), box-shadow 480ms var(--ease-cinematic);
+}
+
+.region-card-v2:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--depth-3);
+}
+
+.region-card-v2__photo img {
+  transition: transform 1200ms var(--ease-cinematic), filter 600ms var(--ease-out);
+}
+
+.region-card-v2:hover .region-card-v2__photo img {
+  transform: scale(1.1);
+  filter: saturate(1.1);
+}
+
+.region-card-v2__num {
+  transition: color 320ms var(--ease-out);
+}
+
+.region-card-v2:hover .region-card-v2__num {
+  color: var(--color-copper-soft);
+}
+
+.region-card-v2__link {
+  position: relative;
+  transition: color 280ms var(--ease-out);
+}
+
+.region-card-v2__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-copper);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 420ms var(--ease-cinematic);
+}
+
+.region-card-v2:hover .region-card-v2__link::after {
+  transform: scaleX(1);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   19. Tech service items (homepage fallback grid + standalone)
+   ────────────────────────────────────────────────────────────── */
+
+.tech-service-item {
+  transition: transform 480ms var(--ease-cinematic), box-shadow 480ms var(--ease-cinematic);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.tech-service-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--depth-3);
+}
+
+.tech-service-item__bg img {
+  transition: transform 1200ms var(--ease-cinematic);
+}
+
+.tech-service-item:hover .tech-service-item__bg img {
+  transform: scale(1.08);
+}
+
+.tech-service-item__label {
+  transition: color 320ms var(--ease-out), letter-spacing 320ms var(--ease-out);
+}
+
+.tech-service-item:hover .tech-service-item__label {
+  color: var(--color-copper-soft);
+  letter-spacing: 0.08em;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   18. Screen Section — template reutilizável iOS premium
+   Aplicar a qualquer dobra para alinhar com o padrão .hero--screen:
+   pill rounded-xl, H2 Inter 500 preto massivo, lead cinza, cards
+   rounded-2xl com hover spring scale(1.02) + shadow.
+   ────────────────────────────────────────────────────────────── */
+
+.screen-section {
+  position: relative;
+  padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 64px);
+  background: var(--gradient-section-cream);
+  color: var(--color-ink-deep);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.screen-section--plain {
+  background: #FAF6F1;
+}
+
+.screen-section--dark {
+  background: linear-gradient(180deg, #0a0a0a 0%, #141414 100%);
+  color: #fff;
+}
+
+.screen-section--dark .screen-section__heading,
+.screen-section--dark .screen-section__title { color: #fff; }
+.screen-section--dark .screen-section__lead { color: rgba(255, 255, 255, 0.72); }
+.screen-section--dark .screen-section__pill {
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.screen-section__shell {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.screen-section__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(14px, 1.8vw, 22px);
+  max-width: 820px;
+  margin: 0 auto clamp(48px, 6vw, 80px);
+}
+
+@media (max-width: 849px) {
+  .screen-section__header {
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: clamp(32px, 6vw, 48px);
+  }
+}
+
+/* Pill eyebrow universal */
+.screen-section__pill,
+.pill-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px 7px 18px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: var(--radius-pill-xl);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  color: var(--color-ink-deep);
+  box-shadow: var(--shadow-ios-pill);
+  width: fit-content;
+}
+
+.screen-section__pill .pill-spark,
+.pill-eyebrow .pill-spark {
+  display: inline-block;
+  color: var(--accent-spark);
+  font-size: 14px;
+  line-height: 1;
+  animation: pill-spark-pulse 3.6s ease-in-out infinite;
+}
+
+@keyframes pill-spark-pulse {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50%      { opacity: 0.65; transform: scale(1.12) rotate(90deg); }
+}
+
+/* H2 título de secção — Inter 500 medium preto massivo */
+.screen-section__title {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(32px, 4.4vw, 60px);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--color-ink-deep);
+  margin: 0;
+  max-width: 720px;
+}
+
+.screen-section__title em {
+  font-style: normal;
+  color: var(--accent-spark);
+}
+
+/* Lead cinza */
+.screen-section__lead {
+  font-family: var(--font-body);
+  font-size: clamp(15.5px, 1.15vw, 18px);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-ink-neutral);
+  margin: 0;
+  max-width: 640px;
+  letter-spacing: -0.003em;
+}
+
+/* Card base iOS — utility class para cards filhos da screen-section */
+.screen-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-card);
+  padding: clamp(20px, 2vw, 28px);
+  box-shadow: var(--shadow-ios-card);
+  transition: transform var(--duration-ios) var(--ease-ios),
+              box-shadow var(--duration-ios) var(--ease-ios),
+              border-color var(--duration-ios) var(--ease-ios);
+  overflow: hidden;
+}
+
+.screen-card:hover {
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: var(--shadow-ios-card-hover);
+  border-color: rgba(0, 0, 0, 0.10);
+}
+
+.screen-card--featured {
+  border-radius: var(--radius-card-lg);
+  padding: clamp(28px, 3vw, 40px);
+}
+
+.screen-card__badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--accent-spark-tint);
+  color: var(--accent-spark);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  line-height: 1;
+  height: 22px;
+}
+
+.screen-card__badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-spark);
+}
+
+/* CTA split universal (replicar do .hero--screen para uso fora do hero) */
+.cta-split {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.cta-split__bg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: calc(100% - 2rem);
+  background: var(--accent-spark);
+  border-radius: var(--radius-pill-xl);
+  z-index: 1;
+  transition: background-color 320ms var(--ease-ios);
+}
+
+.cta-split__label {
+  position: relative;
+  z-index: 2;
+  background: #000;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  padding: 13px 22px;
+  border-radius: var(--radius-pill-xl);
+  white-space: nowrap;
+  box-shadow: var(--shadow-ios-pill);
+}
+
+.cta-split__icon {
+  position: relative;
+  z-index: 2;
+  margin-left: -1px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  border-radius: var(--radius-pill-xl);
+  background: var(--accent-spark);
+}
+
+.cta-split__icon svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 320ms var(--ease-ios);
+}
+
+.cta-split:hover .cta-split__icon svg {
+  transform: rotate(-45deg);
+}
+
+.cta-split:hover .cta-split__bg,
+.cta-split:hover .cta-split__icon {
+  background: var(--accent-spark-soft);
+}
+
+/* CTA ghost universal */
+.cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 22px;
+  border-radius: var(--radius-pill-xl);
+  background: transparent;
+  color: var(--color-ink-deep);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  text-decoration: none;
+  transition: background-color 320ms var(--ease-ios),
+              border-color 320ms var(--ease-ios);
+}
+
+.cta-ghost:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: var(--color-ink-deep);
+}
+
+.screen-section--dark .cta-ghost {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.screen-section--dark .cta-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+@media (max-width: 849px) {
+  .screen-section {
+    padding: clamp(64px, 12vw, 96px) 20px;
+  }
+  .screen-section__title {
+    font-size: clamp(28px, 7vw, 40px);
+    letter-spacing: -0.018em;
+  }
+  .screen-section__lead {
+    font-size: 15.5px;
+  }
+  .screen-section__pill,
+  .pill-eyebrow {
+    font-size: 12.5px;
+    padding: 6px 12px 6px 14px;
+  }
+  .cta-split__label,
+  .cta-ghost {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+  .cta-split__icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen-card,
+  .cta-split__bg,
+  .cta-split__icon,
+  .cta-split__icon svg,
+  .cta-ghost { transition: none; }
+  .screen-card:hover { transform: none; }
+  .pill-spark { animation: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   19. Global Override — Logo Design System
+   Converte automaticamente o look antigo (Cormorant italic +
+   copper) para Inter 500 + spark laranja, sem precisar reescrever
+   cada secção HTML. Aplica-se a secções fora do hero.
+   ────────────────────────────────────────────────────────────── */
+
+/* Section-label → pill rounded-xl com sparkle (JS injecta ✦) */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px 7px 18px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: var(--radius-pill-xl);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  text-transform: none;
+  color: var(--color-ink-deep);
+  box-shadow: var(--shadow-ios-pill);
+  width: fit-content;
+}
+
+.section-label--light {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--color-ink-deep);
+}
+
+/* Dark hero / dark sections: section-label fica glass dark */
+.page-hero .section-label,
+.feature-split--dark .section-label,
+.screen-section--dark .section-label {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.20);
+  color: #fff;
+}
+
+/* H1/H2/H3 globais: forçar Inter 500 medium (descartar Cormorant) */
+.spec-edit__h2,
+.about__h2,
+.sectors-section h2,
+.process-rail__h2,
+.regions h2,
+.applications h2,
+.block-cta h2,
+.feature-split h2,
+.feature-split__title,
+.page-hero h1,
+.page-hero__title,
+section.section h2,
+.cred-strip h2,
+.values-section h2,
+.role-list h2,
+.service-list h2,
+.capabilities-row + h2 {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  letter-spacing: -0.022em !important;
+  color: var(--color-ink-deep) !important;
+  line-height: 1.12 !important;
+}
+
+/* Dark sections — branco */
+.feature-split--dark h2,
+.feature-split--dark .feature-split__title,
+.page-hero h1,
+.page-hero__title {
+  color: #fff !important;
+}
+
+.page-hero h1 em,
+.page-hero__title em,
+.feature-split--dark h2 em {
+  color: var(--accent-spark) !important;
+  font-style: normal !important;
+}
+
+/* H2 com <em> dentro: em vira accent spark (não italic) */
+.spec-edit__h2 em,
+.about__h2 em,
+.sectors-section h2 em,
+.process-rail__h2 em,
+.regions h2 em,
+.applications h2 em,
+.block-cta h2 em,
+.feature-split h2 em,
+.cred-strip h2 em,
+.values-section h2 em,
+.role-list h2 em,
+.service-list h2 em {
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  color: var(--accent-spark) !important;
+}
+
+/* Leads — Inter 400 cinza neutral */
+.spec-edit__lead,
+.about__lead,
+.sectors-section__lead,
+.process-rail__lead,
+.regions__lead,
+.applications__lead,
+.feature-split__lead,
+.feature-split p:not([class]),
+.page-hero__lead,
+.page-hero p:not([class]) {
+  font-family: var(--font-body) !important;
+  font-weight: 400 !important;
+  color: var(--color-ink-neutral) !important;
+  letter-spacing: -0.003em !important;
+  line-height: 1.6 !important;
+}
+
+.page-hero__lead,
+.feature-split--dark .feature-split__lead,
+.feature-split--dark p:not([class]) {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
+/* Polish iOS uniforme em todos os cards repetidos */
+.sector-card,
+.service-item,
+.value-item,
+.role-card,
+.capability-item,
+.region-card-v2,
+.tech-service-item,
+.spec-edit__card {
+  border-radius: var(--radius-card) !important;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              box-shadow var(--duration-ios) var(--ease-ios),
+              border-color var(--duration-ios) var(--ease-ios) !important;
+}
+
+.sector-card:hover,
+.service-item:hover,
+.value-item:hover,
+.role-card:hover,
+.capability-item:hover,
+.region-card-v2:hover,
+.tech-service-item:hover,
+.spec-edit__card:hover {
+  transform: scale(1.02) translateY(-2px) !important;
+  box-shadow: var(--shadow-ios-card-hover) !important;
+}
+
+/* Substituir tags copper por chip neutro */
+.spec-edit__tag,
+.sector-card__tag,
+.capability-item__tag {
+  background: var(--accent-spark-tint) !important;
+  color: var(--accent-spark) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 4px 10px !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: -0.003em !important;
+}
+
+/* Botões primários → pill preto Apple-style */
+.button--primary {
+  background: #0a0a0a !important;
+  color: #fff !important;
+  border: 1px solid #0a0a0a !important;
+  border-radius: var(--radius-pill-xl) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.003em !important;
+  padding: 13px 24px !important;
+  box-shadow: var(--shadow-ios-cta) !important;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              background-color var(--duration-ios) var(--ease-ios) !important;
+}
+
+.button--primary:hover {
+  background: #1a1a1a !important;
+  transform: scale(1.03) !important;
+}
+
+/* WhatsApp button — preserva brand verde + iOS polish */
+.button--whatsapp {
+  background: #25D366 !important;
+  color: #fff !important;
+  border: 1px solid #25D366 !important;
+  border-radius: var(--radius-pill-xl) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.003em !important;
+  padding: 13px 24px !important;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.28), 0 2px 6px rgba(37, 211, 102, 0.12) !important;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              background-color var(--duration-ios) var(--ease-ios) !important;
+}
+
+.button--whatsapp:hover {
+  background: #1DA851 !important;
+  border-color: #1DA851 !important;
+  transform: scale(1.03) !important;
+}
+
+/* Sector card copper line → accent spark laranja */
+.sector-card__copper-line,
+.feature-split__line,
+.copper-line {
+  background: var(--accent-spark) !important;
+}
+
+.button--secondary {
+  background: transparent !important;
+  color: var(--color-ink-deep) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: var(--radius-pill-xl) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.003em !important;
+  padding: 13px 24px !important;
+  transition: background-color var(--duration-ios) var(--ease-ios),
+              border-color var(--duration-ios) var(--ease-ios) !important;
+}
+
+.button--secondary:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Page-hero agora é cream warm — button--secondary deve ser preto sobre cream */
+.page-hero .button--secondary {
+  background: rgba(0, 0, 0, 0.03) !important;
+  color: var(--color-ink-deep) !important;
+  border: 1px solid rgba(0, 0, 0, 0.14) !important;
+}
+
+.page-hero .button--secondary:hover {
+  background: rgba(0, 0, 0, 0.08) !important;
+  border-color: rgba(0, 0, 0, 0.24) !important;
+  color: var(--color-ink-deep) !important;
+}
+
+/* Block-CTA + feature-split--dark + screen-section--dark continuam dark → ghost glass branco */
+.block-cta .button--secondary,
+.feature-split--dark .button--secondary,
+.screen-section--dark .button--secondary {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.block-cta .button--secondary:hover,
+.feature-split--dark .button--secondary:hover,
+.screen-section--dark .button--secondary:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #fff !important;
+}
+
+/* Process-rail números — Inter 500 grande preto, accent spark no dot */
+.process-rail__num,
+.process-rail__index {
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  color: var(--color-ink-deep) !important;
+}
+
+.process-rail__dot,
+.process-rail__line {
+  background: var(--accent-spark) !important;
+}
+
+/* Copper-line decoration → spark accent */
+.copper-line,
+.sector-card__copper-line,
+.feature-split__line {
+  background: var(--accent-spark) !important;
+}
+
+/* Footer + dark backgrounds — manter mas trocar accents */
+.feature-split--dark {
+  background: linear-gradient(180deg, #0a0a0a 0%, #141414 100%) !important;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   23. Icons + Photos — visual richness em cards institucionais
+   - SVG icons line-art em .cred-item e .value-item
+   - Fotos no topo dos .region-card--with-photo
+   - Icone signature M&A Elo (engrenagem industrial) em todos os
+     service-item / capability-item / process-line items
+   ────────────────────────────────────────────────────────────── */
+
+/* Icone universal signature M&A Elo — engrenagem industrial inline SVG
+   Aplicado via ::before em todos os cards com número (01-04 etc).
+   Layout: 44x44 circle no top-left, accent spark tint background. */
+
+.service-item,
+.capability-item,
+.process-line__step,
+.process-line > li {
+  position: relative;
+}
+
+.service-item::before,
+.capability-item::before {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: var(--accent-spark-tint);
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='16' cy='16' r='3.5'/%3E%3Cpath d='M16 4v3M16 25v3M28 16h-3M7 16H4M24.5 7.5l-2.1 2.1M9.6 22.4l-2.1 2.1M24.5 24.5l-2.1-2.1M9.6 9.6 7.5 7.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px 22px;
+  margin-bottom: 16px;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              background-color var(--duration-ios) var(--ease-ios);
+}
+
+.service-item:hover::before,
+.capability-item:hover::before {
+  background-color: var(--accent-spark);
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='16' cy='16' r='3.5'/%3E%3Cpath d='M16 4v3M16 25v3M28 16h-3M7 16H4M24.5 7.5l-2.1 2.1M9.6 22.4l-2.1 2.1M24.5 24.5l-2.1-2.1M9.6 9.6 7.5 7.5'/%3E%3C/svg%3E");
+  transform: rotate(45deg) scale(1.05);
+}
+
+/* Variantes contextuais — ícones específicos onde fizer mais sentido
+   Aplicar via class adicional ou data-icon attribute */
+.service-item--welding::before,
+.service-item[data-icon="welding"]::before,
+.capability-item[data-icon="welding"]::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 22 22 9M14 9h8v8'/%3E%3Cpath d='M9 22a3 3 0 0 0 4-1.5l1.5-3M9 22l-2 3a2 2 0 1 0 3 2l3-2'/%3E%3C/svg%3E");
+}
+
+.service-item--analise::before,
+.service-item[data-icon="analysis"]::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='4' width='20' height='24' rx='2'/%3E%3Cpath d='M11 10h10M11 15h10M11 20h6'/%3E%3Cpath d='m22 22 2 2 4-4'/%3E%3C/svg%3E");
+}
+
+.service-item--entrega::before,
+.service-item[data-icon="delivery"]::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 4 6 8v8c0 6.5 4 10 10 12 6-2 10-5.5 10-12V8L16 4z'/%3E%3Cpath d='m12 16 3 3 6-6'/%3E%3C/svg%3E");
+}
+
+.service-item--regioes::before,
+.service-item[data-icon="map"]::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M26 14c0 8-10 16-10 16S6 22 6 14a10 10 0 1 1 20 0z'/%3E%3Ccircle cx='16' cy='14' r='3.5'/%3E%3C/svg%3E");
+}
+
+.service-item--industria::before,
+.service-item[data-icon="factory"]::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 28V14l8 4v-4l8 4V8h8v20H4z'/%3E%3Cpath d='M10 22v2M16 22v2M22 22v2'/%3E%3C/svg%3E");
+}
+
+.service-item--obras::before,
+.service-item[data-icon="construction"]::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 28h24M6 28V16l4-4 4 4M14 28V12l4-4 4 4v16M22 28V14l4-2v16'/%3E%3C/svg%3E");
+}
+
+/* Process-line numbered list (para-empresas, servicos) */
+.process-line {
+  list-style: none !important;
+  padding: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  gap: clamp(16px, 2vw, 24px) !important;
+}
+
+.process-line > li {
+  background: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: var(--radius-card) !important;
+  padding: clamp(20px, 2.2vw, 28px) !important;
+  box-shadow: var(--shadow-ios-card) !important;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              box-shadow var(--duration-ios) var(--ease-ios) !important;
+}
+
+.process-line > li:hover {
+  transform: scale(1.02) translateY(-3px) !important;
+  box-shadow: var(--shadow-ios-card-hover) !important;
+}
+
+.process-line > li::before {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: var(--accent-spark-tint);
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 16h22M22 11l5 5-5 5'/%3E%3Ccircle cx='6' cy='16' r='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px 22px;
+  margin-bottom: 14px;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              background-color var(--duration-ios) var(--ease-ios);
+}
+
+.process-line > li:hover::before {
+  background-color: var(--accent-spark);
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 16h22M22 11l5 5-5 5'/%3E%3Ccircle cx='6' cy='16' r='2'/%3E%3C/svg%3E");
+  transform: scale(1.05);
+}
+
+.process-line > li > span:first-child {
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.08em !important;
+  color: var(--accent-spark) !important;
+  margin: 0 0 4px 0 !important;
+  display: block;
+}
+
+.process-line > li strong,
+.process-line > li h3,
+.process-line > li h4 {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+  color: var(--color-ink-deep) !important;
+  margin: 0 0 8px 0 !important;
+  display: block;
+}
+
+.process-line > li p {
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+  color: var(--color-ink-neutral) !important;
+  margin: 0 !important;
+}
+
+/* Role-list two-col cards (profissoes.html, candidatos.html) — já com foto, só polish */
+.role-card .role-card__photo,
+.role-card figure {
+  border-radius: var(--radius-card) !important;
+  overflow: hidden !important;
+  margin: 0 0 16px 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-item::before, .capability-item::before, .process-line > li::before,
+  .process-line > li { transition: none !important; }
+  .service-item:hover::before, .capability-item:hover::before,
+  .process-line > li:hover::before, .process-line > li:hover { transform: none !important; }
+}
+
+
+
+/* Icon container — 48px circle preto translucido com SVG laranja */
+.cred-item__icon,
+.value-item__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--accent-spark-tint);
+  color: var(--accent-spark);
+  margin-bottom: 16px;
+  flex-shrink: 0;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              background-color var(--duration-ios) var(--ease-ios);
+}
+
+.cred-item__icon svg,
+.value-item__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.cred-item:hover .cred-item__icon,
+.value-item:hover .value-item__icon {
+  background: var(--accent-spark);
+  color: #fff;
+  transform: scale(1.05) rotate(-3deg);
+}
+
+/* Cred-item layout adjustment */
+.cred-item {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.cred-item__tag {
+  color: var(--accent-spark) !important;
+  font-weight: 500 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 8px !important;
+  display: block;
+}
+
+.cred-item__title {
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  line-height: 1.3 !important;
+  color: var(--color-ink-deep) !important;
+  margin: 0 0 12px 0 !important;
+}
+
+.cred-item__desc {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: var(--color-ink-neutral) !important;
+  margin: 0 !important;
+}
+
+/* Value-item layout — icon + número juntos no top */
+.value-item {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+}
+
+.value-item__icon + .value-item__number,
+.value-item__number {
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.08em !important;
+  color: var(--accent-spark) !important;
+  margin-bottom: 8px !important;
+  display: block;
+}
+
+.value-item__title {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  line-height: 1.25 !important;
+  color: var(--color-ink-deep) !important;
+  margin: 0 0 12px 0 !important;
+}
+
+.value-item__text {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: var(--color-ink-neutral) !important;
+  margin: 0 !important;
+}
+
+/* Region cards with photo — regioes.html */
+.region-card--with-photo {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: var(--radius-card-lg) !important;
+  box-shadow: var(--shadow-ios-card) !important;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              box-shadow var(--duration-ios) var(--ease-ios) !important;
+}
+
+.region-card--with-photo:hover {
+  transform: scale(1.015) translateY(-3px) !important;
+  box-shadow: var(--shadow-ios-card-hover) !important;
+}
+
+.region-card__photo {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--color-night);
+}
+
+.region-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 800ms var(--ease-ios);
+  filter: saturate(0.92) contrast(1.04);
+}
+
+.region-card--with-photo:hover .region-card__photo img {
+  transform: scale(1.05);
+  filter: saturate(1.05) contrast(1.04);
+}
+
+.region-card__body {
+  padding: clamp(20px, 2.4vw, 32px) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.region-card__body > span:first-child {
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.08em !important;
+  color: var(--accent-spark) !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.region-card__body h3 {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-size: 20px !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.018em !important;
+  color: var(--color-ink-deep) !important;
+  margin: 0 0 8px 0 !important;
+}
+
+.region-card__body p {
+  font-size: 14.5px !important;
+  line-height: 1.6 !important;
+  color: var(--color-ink-neutral) !important;
+  margin: 0 0 12px 0 !important;
+}
+
+.region-card__body ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 20px 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.region-card__body li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-ink-neutral);
+}
+
+.region-card__body li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 2px;
+  background: var(--accent-spark);
+  border-radius: 1px;
+}
+
+.region-card__body .role-actions {
+  margin-top: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cred-item__icon, .value-item__icon,
+  .region-card--with-photo, .region-card__photo img { transition: none !important; }
+  .cred-item:hover .cred-item__icon,
+  .value-item:hover .value-item__icon,
+  .region-card--with-photo:hover { transform: none !important; }
+  .region-card--with-photo:hover .region-card__photo img { transform: none !important; }
+}
+
+/* Applications section — converte de dark com foto para cream warm
+   Texto preto agora legível, foto soldador-portrait escondida. */
+.applications {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 225, 200, 0.28), transparent 60%),
+    linear-gradient(180deg, #FAF6F1 0%, #F5EFE7 100%) !important;
+  color: var(--color-ink-deep) !important;
+}
+
+.applications h2,
+.applications h3,
+.applications strong {
+  color: var(--color-ink-deep) !important;
+}
+
+.applications p,
+.applications li,
+.applications__subtitle,
+.applications__roles,
+.applications__process-label {
+  color: var(--color-ink-neutral) !important;
+}
+
+.applications__process {
+  background: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: var(--radius-card-lg) !important;
+  padding: clamp(24px, 2.6vw, 36px) !important;
+  box-shadow: var(--shadow-ios-card) !important;
+}
+
+.applications__process ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.applications__process ol li {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.applications__process ol li:last-child {
+  border-bottom: none;
+}
+
+.applications__process ol li > span {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  color: var(--accent-spark) !important;
+  flex: 0 0 28px;
+}
+
+.applications__process ol li strong {
+  display: block;
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  color: var(--color-ink-deep) !important;
+  margin-bottom: 4px !important;
+}
+
+.applications__process ol li p {
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+  color: var(--color-ink-neutral) !important;
+  margin: 0 !important;
+}
+
+/* Block-CTA final — institucional dark com spark decorativo */
+.block-cta {
+  position: relative;
+  background: linear-gradient(180deg, #0a0a0a 0%, #141414 100%) !important;
+  color: #fff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  overflow: hidden;
+}
+
+.block-cta__spark {
+  position: absolute;
+  top: clamp(40px, 5vw, 80px);
+  right: clamp(40px, 7vw, 120px);
+  width: clamp(56px, 6vw, 88px);
+  height: clamp(56px, 6vw, 88px);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 16px rgba(230, 81, 0, 0.32));
+  animation: block-cta-spark 12s linear infinite, hero-spark-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes block-cta-spark {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.block-cta__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.block-cta h2 {
+  color: #fff !important;
+}
+
+.block-cta p {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+@media (max-width: 849px) {
+  .block-cta__spark {
+    top: 24px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .block-cta__spark { animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sector-card,
+  .service-item,
+  .value-item,
+  .role-card,
+  .capability-item,
+  .region-card-v2,
+  .tech-service-item,
+  .spec-edit__card,
+  .button--primary,
+  .button--whatsapp,
+  .button--secondary { transition: none !important; }
+  .sector-card:hover,
+  .service-item:hover,
+  .value-item:hover,
+  .role-card:hover,
+  .capability-item:hover,
+  .region-card-v2:hover,
+  .tech-service-item:hover,
+  .spec-edit__card:hover,
+  .button--primary:hover,
+  .button--whatsapp:hover { transform: none !important; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   20. Page Hero Screen — converte .page-hero legacy em screen-style
+   Cream warm radial gradient, Inter 500 H1, layout centralizado,
+   spark decorativo no canto superior direito. Sem mexer no HTML.
+   ────────────────────────────────────────────────────────────── */
+
+body .page-hero,
+.page-hero {
+  position: relative !important;
+  min-height: 70vh !important;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(255, 209, 168, 0.55), transparent 65%),
+    radial-gradient(ellipse 90% 60% at 50% 115%, rgba(230, 81, 0, 0.18), transparent 70%),
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.6), transparent 45%),
+    radial-gradient(circle at 82% 32%, rgba(255, 235, 215, 0.5), transparent 45%),
+    linear-gradient(180deg, #FAF6F1 0%, #F5EFE7 50%, #ECD9C2 100%) !important;
+  color: var(--color-ink-deep) !important;
+  padding: clamp(120px, 14vw, 180px) clamp(24px, 5vw, 64px) clamp(60px, 7vw, 96px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  isolation: isolate;
+}
+
+/* Spark decorativo SVG injectado via ::after — alinhado com hero homepage */
+.page-hero::after {
+  content: "";
+  position: absolute;
+  top: clamp(100px, 12vw, 150px);
+  right: clamp(40px, 7vw, 120px);
+  width: clamp(48px, 5vw, 72px);
+  height: clamp(48px, 5vw, 72px);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' fill='none'><g stroke='%23E65100' stroke-width='2.5' stroke-linecap='round'><line x1='40' y1='10' x2='40' y2='26'/><line x1='40' y1='54' x2='40' y2='70'/><line x1='10' y1='40' x2='26' y2='40'/><line x1='54' y1='40' x2='70' y2='40'/><line x1='18' y1='18' x2='29' y2='29'/><line x1='51' y1='51' x2='62' y2='62'/><line x1='62' y1='18' x2='51' y2='29'/><line x1='29' y1='51' x2='18' y2='62'/></g><circle cx='40' cy='40' r='5' fill='%23E65100'/></svg>");
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  opacity: 0.75;
+  z-index: 1;
+  filter: drop-shadow(0 4px 12px rgba(230, 81, 0, 0.25));
+  animation: page-hero-spark 14s linear infinite;
+}
+
+@keyframes page-hero-spark {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Esconder elementos AI-cliché + neutralizar background photo dark */
+.page-hero__bg-mark,
+.page-hero__copper,
+.page-hero__scroll-indicator {
+  display: none !important;
+}
+
+.page-hero--empresa::before,
+.page-hero--obras::before,
+.page-hero--people::before,
+.page-hero--servicos::before,
+.page-hero--industria::before,
+.page-hero--metalomecanica::before,
+.page-hero--regioes::before,
+.page-hero--lisboa::before,
+.page-hero--viana::before,
+.page-hero--estarreja::before,
+.page-hero--soldador::before,
+.page-hero--serralheiro::before,
+.page-hero--pintor::before,
+.page-hero--candidatos::before,
+.page-hero--candidatura::before,
+.page-hero--contacto::before,
+.page-hero--faq::before,
+.page-hero--privacidade::before,
+.page-hero--404::before,
+.page-hero::before {
+  display: none !important;
+}
+
+.page-hero__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(20px, 2.2vw, 28px);
+}
+
+@media (max-width: 849px) {
+  .page-hero__inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+body .page-hero h1,
+body .page-hero__title,
+.page-hero h1,
+.page-hero__title {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: clamp(36px, 4.6vw, 64px) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.022em !important;
+  color: var(--color-ink-deep) !important;
+  margin: 0 !important;
+  max-width: 800px !important;
+  text-shadow: none !important;
+}
+
+.page-hero h1 em,
+.page-hero__title em {
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  color: var(--accent-spark) !important;
+}
+
+.page-hero__inner > p,
+.page-hero p:not([class]),
+.page-hero__lead {
+  font-family: var(--font-body) !important;
+  font-size: clamp(15.5px, 1.15vw, 18px) !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+  color: var(--color-ink-neutral) !important;
+  margin: 0 !important;
+  max-width: 640px !important;
+  letter-spacing: -0.003em !important;
+  text-shadow: none !important;
+}
+
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: clamp(8px, 1vw, 16px);
+}
+
+@media (max-width: 849px) {
+  .page-actions {
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .page-hero::after {
+    top: 90px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero::after { animation: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   21. Cards iOS Sistémicos — service/capability/cred/value/role
+   Background branco + border subtle + padding generoso + hover
+   spring. Numeração editorial Inter 500 grande preto.
+   ────────────────────────────────────────────────────────────── */
+
+.service-item,
+.capability-item,
+.cred-item,
+.value-item,
+.role-card {
+  position: relative;
+  background: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: var(--radius-card-lg) !important;
+  padding: clamp(24px, 2.6vw, 36px) !important;
+  box-shadow: var(--shadow-ios-card) !important;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              box-shadow var(--duration-ios) var(--ease-ios),
+              border-color var(--duration-ios) var(--ease-ios) !important;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.service-item:hover,
+.capability-item:hover,
+.cred-item:hover,
+.value-item:hover,
+.role-card:hover {
+  transform: scale(1.02) translateY(-3px) !important;
+  box-shadow: var(--shadow-ios-card-hover) !important;
+  border-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+/* Numeração editorial — Inter 500 grande preto, hover ganha spark */
+.service-item__num,
+.capability-item__num,
+.cred-item__num,
+.value-item__num,
+.role-card__num,
+.process-line__num,
+.process-rail__num {
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: clamp(32px, 3.4vw, 48px) !important;
+  line-height: 1 !important;
+  letter-spacing: -0.022em !important;
+  color: var(--color-ink-deep) !important;
+  display: block;
+  margin-bottom: 12px;
+  transition: color var(--duration-ios) var(--ease-ios);
+}
+
+.service-item:hover .service-item__num,
+.capability-item:hover .capability-item__num,
+.cred-item:hover .cred-item__num,
+.value-item:hover .value-item__num,
+.role-card:hover .role-card__num {
+  color: var(--accent-spark) !important;
+}
+
+/* Titles inside cards — Inter 500 medium */
+.service-item h3,
+.capability-item h3,
+.cred-item h3,
+.value-item h3,
+.role-card h3 {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: clamp(18px, 1.4vw, 22px) !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.018em !important;
+  color: var(--color-ink-deep) !important;
+  margin: 0 0 10px 0 !important;
+}
+
+/* Paragraphs and lists inside cards — Inter 400 cinza */
+.service-item p,
+.capability-item p,
+.cred-item p,
+.value-item p,
+.role-card p,
+.service-item li,
+.capability-item li,
+.role-card li {
+  font-family: var(--font-body) !important;
+  font-weight: 400 !important;
+  font-size: 14.5px !important;
+  line-height: 1.6 !important;
+  color: var(--color-ink-neutral) !important;
+}
+
+/* Feature-split bullets — orange accent bar */
+.feature-split__list,
+.feature-split ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-split__list li,
+.feature-split ul li {
+  position: relative;
+  padding: 10px 0 10px 18px;
+  border-left: 2px solid var(--accent-spark);
+  margin-bottom: 8px;
+}
+
+.feature-split--dark .feature-split__list li,
+.feature-split--dark ul li {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Card button at bottom (role-card, service-item) — alinhado pill style */
+.service-item .button,
+.role-card .button,
+.capability-item .button {
+  margin-top: 16px;
+}
+
+/* Cred-strip enquanto grid — items rounded + spacing */
+.cred-strip {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  gap: clamp(16px, 2vw, 24px) !important;
+}
+
+/* Capabilities row enquanto grid de cards */
+.capabilities-row {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+  gap: clamp(16px, 2vw, 24px) !important;
+}
+
+/* Values grid spacing iOS */
+.values-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  gap: clamp(20px, 2.2vw, 28px) !important;
+}
+
+/* Service list spacing */
+.service-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: clamp(16px, 2vw, 24px) !important;
+}
+
+@media (min-width: 720px) {
+  .service-list {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Role list two-col */
+.role-list--two-col {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: clamp(20px, 2.2vw, 28px) !important;
+}
+
+@media (min-width: 900px) {
+  .role-list--two-col {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Region cards — iOS rounded com glassmorphism subtle */
+.region-card-v2 {
+  border-radius: var(--radius-card-lg) !important;
+  overflow: hidden !important;
+  position: relative !important;
+  transition: transform var(--duration-ios) var(--ease-ios),
+              box-shadow var(--duration-ios) var(--ease-ios) !important;
+}
+
+.region-card-v2:hover {
+  transform: scale(1.02) translateY(-3px) !important;
+  box-shadow: var(--shadow-ios-card-hover) !important;
+}
+
+/* Spec-edit cards — already styled but enforce rounded */
+.spec-edit__card {
+  border-radius: var(--radius-card-lg) !important;
+}
+
+/* Sector cards — rounded + override copper border */
+.sector-card {
+  border-radius: var(--radius-card-lg) !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-item, .capability-item, .cred-item, .value-item, .role-card,
+  .region-card-v2, .spec-edit__card, .sector-card { transition: none !important; }
+  .service-item:hover, .capability-item:hover, .cred-item:hover,
+  .value-item:hover, .role-card:hover, .region-card-v2:hover,
+  .spec-edit__card:hover, .sector-card:hover { transform: none !important; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   22. Momentos institucionais com propósito
+   1. Process-rail dot glow no step activo (mostra processo real)
+   2. Regions card glassmorphism overlay + zoom no hover
+   3. Spec-edit hover saturate (profundidade técnica)
+   ────────────────────────────────────────────────────────────── */
+
+/* (1) Process-rail — dot activo ganha glow laranja */
+.process-rail__dot.is-active,
+.process-rail__step[data-active="true"] .process-rail__dot {
+  background: var(--accent-spark) !important;
+  box-shadow: 0 0 0 4px var(--accent-spark-glow), 0 0 24px rgba(230, 81, 0, 0.45) !important;
+  transform: scale(1.15);
+  transition: all var(--duration-ios) var(--ease-ios);
+}
+
+.process-rail__fill,
+.process-rail__line {
+  background: var(--accent-spark) !important;
+}
+
+/* (2) Region cards — glassmorphism overlay + zoom no hover
+   Background dark fallback explícito (foto pode demorar a carregar) */
+.region-card-v2 {
+  isolation: isolate;
+  background: var(--color-night) !important;
+  min-height: 380px;
+}
+
+.region-card-v2__photo,
+.region-card-v2__photo img {
+  display: block !important;
+}
+
+.region-card-v2__overlay {
+  transition: background-color var(--duration-ios) var(--ease-ios);
+}
+
+.region-card-v2 img {
+  transition: transform 800ms var(--ease-ios) !important;
+  will-change: transform;
+}
+
+.region-card-v2:hover img {
+  transform: scale(1.06);
+}
+
+.region-card-v2:hover .region-card-v2__overlay {
+  background: linear-gradient(0deg, rgba(9,9,9,0.95) 0%, rgba(9,9,9,0.42) 45%, rgba(9,9,9,0.08) 100%) !important;
+}
+
+.region-card-v2__body {
+  transition: transform var(--duration-ios) var(--ease-ios);
+}
+
+.region-card-v2:hover .region-card-v2__body {
+  transform: translateY(-6px);
+}
+
+/* Badge "● Activo" laranja no canto */
+.region-card-v2::after {
+  content: "● Activo";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  background: rgba(230, 81, 0, 0.92);
+  color: #fff;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+
+/* (3) Spec-edit hover saturate + tag chip reveal */
+.spec-edit__card .spec-edit__media img {
+  transition: filter 700ms var(--ease-ios), transform 1400ms var(--ease-ios) !important;
+}
+
+.spec-edit__card:hover .spec-edit__media img {
+  filter: saturate(1.10) contrast(1.06) !important;
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .region-card-v2 img,
+  .region-card-v2:hover img,
+  .spec-edit__card .spec-edit__media img,
+  .spec-edit__card:hover .spec-edit__media img,
+  .process-rail__dot { transition: none !important; transform: none !important; animation: none !important; }
+}

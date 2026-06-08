@@ -161,6 +161,32 @@
   flex-shrink: 0;
 }
 
+/* Consent checkbox — multi-line text, align top */
+.form-check-item--consent {
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.55;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.form-check-item--consent input[type="checkbox"] {
+  margin-top: 3px;
+}
+
+.form-consent {
+  padding: var(--space-lg);
+  background: var(--color-paper-warm);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  margin-bottom: var(--space-xl);
+}
+
+.form-consent a {
+  color: var(--color-copper);
+  text-decoration: underline;
+}
+
 /* Submit area */
 .form-submit-area {
   margin-top: var(--space-2xl);

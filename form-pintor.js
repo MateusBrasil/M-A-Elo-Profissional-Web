@@ -17,13 +17,14 @@
     globalError.classList.remove("is-visible");
   };
 
+  const collectChecked = (name) => Array.from(form.querySelectorAll("[name=" + name + "]:checked")).map(el => el.value);
+
   const validate = () => {
     let ok = true;
     if (!form.nome.value.trim()) { showError("nome", "Campo obrigatório."); ok = false; }
     if (!form.telefone.value.trim()) { showError("telefone", "Campo obrigatório."); ok = false; }
-    if (!form.regiao.value.trim()) { showError("regiao", "Campo obrigatório."); ok = false; }
-    if (!form.experiencia.value) { showError("experiencia", "Selecione uma opção."); ok = false; }
-    if (!form.querySelector("[name=disponibilidade]:checked")) { showError("disponibilidade", "Selecione uma opção."); ok = false; }
+    if (collectChecked("tipo_pintura").length === 0) { showError("tipo_pintura", "Selecione pelo menos um tipo de pintura."); ok = false; }
+    if (!form.consentimento.checked) { showError("consentimento", "Tem de aceitar para enviar a candidatura."); ok = false; }
     return ok;
   };
 
@@ -35,10 +36,19 @@
     submitBtn.disabled = true;
     submitBtn.textContent = "A enviar…";
 
-    const tipo_pintura = Array.from(form.querySelectorAll("[name=tipo_pintura]:checked"))
-      .map(el => el.value).join(", ") || null;
-    const equipamentos = Array.from(form.querySelectorAll("[name=equipamentos]:checked"))
-      .map(el => el.value).join(", ") || null;
+    const tipo_pintura = collectChecked("tipo_pintura").join(", ") || null;
+    const equipamentos = collectChecked("equipamentos").join(", ") || null;
+    const idiomas = collectChecked("idiomas").join(", ");
+    const zonas = collectChecked("zonas").join(", ");
+    const experienciaPratica = form.experiencia_pratica.value.trim();
+    const mensagemBase = form.mensagem.value.trim();
+
+    const mensagemExtra = [
+      idiomas ? "Idiomas: " + idiomas : "",
+      zonas ? "Zonas: " + zonas : "",
+      experienciaPratica ? "Experiência prática: " + experienciaPratica : "",
+      mensagemBase ? "Mensagem: " + mensagemBase : ""
+    ].filter(Boolean).join(" | ") || null;
 
     try {
       await neonQuery(NEON_FORM_CONN,
@@ -48,12 +58,12 @@
           form.nome.value.trim(),
           form.telefone.value.trim(),
           form.email.value.trim() || null,
-          form.regiao.value.trim(),
-          form.experiencia.value,
-          form.querySelector("[name=disponibilidade]:checked")?.value === "sim",
+          form.regiao.value.trim() || null,
+          form.experiencia.value || null,
+          zonas.length > 0,
           tipo_pintura,
           equipamentos,
-          form.mensagem.value.trim() || null,
+          mensagemExtra,
         ]
       );
       form.style.display = "none";

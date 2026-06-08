@@ -1445,6 +1445,21 @@ strong {
   border-top: 1px solid var(--color-line);
 }
 
+/* role-list em 2 colunas (usado em profissoes.html com 6 cards) */
+@media (min-width: 900px) {
+  .role-list--two-col {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-2xl);
+  }
+  .role-list--two-col .role-card {
+    border-top: none;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .role-list--two-col .role-card:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+}
+
 .evidence-item,
 .service-item,
 .role-card,

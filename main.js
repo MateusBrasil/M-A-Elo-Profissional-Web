@@ -278,9 +278,111 @@
     });
   };
 
+  /* ─────────────────────────────────────────────────────────────
+     Lazy hero video — promotes data-src to src once visible/idle
+     ───────────────────────────────────────────────────────────── */
+  const initHeroVideo = () => {
+    const video = document.querySelector("[data-hero-video]");
+    if (!video) return;
+    const media = video.closest("[data-hero-media]");
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const saveData = navigator.connection && navigator.connection.saveData;
+
+    if (prefersReduced || isMobile || saveData) {
+      if (media) media.classList.add("hero__media--no-video");
+      return;
+    }
+
+    const promote = () => {
+      const sources = video.querySelectorAll("source[data-src]");
+      let promoted = false;
+      sources.forEach(s => {
+        if (s.dataset.src) { s.src = s.dataset.src; s.removeAttribute("data-src"); promoted = true; }
+      });
+      if (!promoted) return;
+
+      video.load();
+      const onPlay = () => {
+        video.classList.add("is-playing");
+        const poster = media && media.querySelector(".hero__media-poster");
+        if (poster) poster.classList.add("is-faded");
+      };
+      video.addEventListener("playing", onPlay, { once: true });
+
+      video.play().catch(() => {
+        // Autoplay blocked — keep poster visible
+        if (media) media.classList.add("hero__media--no-video");
+      });
+
+      // If still no playing event after 4s, fall back to poster
+      setTimeout(() => {
+        if (!video.classList.contains("is-playing")) {
+          if (media) media.classList.add("hero__media--no-video");
+        }
+      }, 4000);
+    };
+
+    // Defer until idle for non-LCP-blocking
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(promote, { timeout: 1500 });
+    } else {
+      setTimeout(promote, 400);
+    }
+  };
+
+  /* ─────────────────────────────────────────────────────────────
+     Scroll progress bar — fixed top hairline that grows
+     ───────────────────────────────────────────────────────────── */
+  const initScrollProgress = () => {
+    const bar = document.createElement("div");
+    bar.className = "scroll-progress";
+    bar.innerHTML = '<div class="scroll-progress__track"></div><div class="scroll-progress__fill" data-progress-fill></div>';
+    document.body.appendChild(bar);
+    const fill = bar.querySelector("[data-progress-fill]");
+
+    let ticking = false;
+    const update = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      fill.style.transform = `scaleX(${ratio})`;
+      if (window.scrollY > 80) bar.classList.add("is-active");
+      else bar.classList.remove("is-active");
+      ticking = false;
+    };
+    window.addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+  };
+
+  /* ─────────────────────────────────────────────────────────────
+     CTA ripple — discrete copper expand from click point
+     ───────────────────────────────────────────────────────────── */
+  const initCtaRipple = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".button--primary, .button--dark");
+      if (!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 1.4;
+      const ripple = document.createElement("span");
+      ripple.className = "ripple";
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+      ripple.style.top  = `${e.clientY - rect.top  - size / 2}px`;
+      btn.appendChild(ripple);
+      ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+    }, { passive: true });
+  };
+
   prepareApplicationLinks();
   setHeaderState();
   markActiveNavLink();
+  initHeroVideo();
+  initScrollProgress();
+  initCtaRipple();
   // injectWhatsappFloat(); — removed per design decision
   injectGdprBanner();
 })();
