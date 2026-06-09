@@ -60,20 +60,15 @@ body::before {
    2. Scroll progress indicator (top hairline that grows)
    ────────────────────────────────────────────────────────────── */
 
+/* Scroll progress indicator desactivado (utilizador pediu para remover
+   a linha laranja que aparecia em baixo do header no scroll) */
 .scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  z-index: var(--z-scroll-progress);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 400ms var(--ease-out);
+  display: none !important;
 }
 
 .scroll-progress.is-active {
-  opacity: 1;
+  opacity: 0 !important;
+  display: none !important;
 }
 
 .scroll-progress__track {
@@ -390,26 +385,20 @@ body::before {
   isolation: isolate;
 }
 
-.button--primary::before,
-.button--dark::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, var(--color-copper) 0%, var(--color-copper-soft) 50%, var(--color-copper) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 320ms var(--ease-out);
-  pointer-events: none;
-  z-index: 1;
+/* Disable legacy white-fill ::after animation on all primary buttons —
+   conflicts with iOS Onda styling (botão fica branco no hover) */
+.button--primary::after,
+.button--secondary::after,
+.button--dark::after,
+.button--whatsapp::after,
+.button::after {
+  display: none !important;
 }
 
-.button--primary:hover::before,
-.button--dark:hover::before {
-  opacity: 1;
+/* Disable copper border-gradient ::before (also legacy) */
+.button--primary::before,
+.button--dark::before {
+  display: none !important;
 }
 
 /* Copper halo glow on hover */
@@ -482,12 +471,14 @@ body::before {
   border-color: rgba(37, 211, 102, 0.4);
 }
 
-/* Subtle separator under header on scroll */
+/* Neutralizado: .site-header.is-scrolled NÃO deve ter background nem
+   border porque é apenas um wrapper pill flutuante — não barra full-width.
+   O background do pill vive no .navbar. */
 .site-header.is-scrolled {
-  border-bottom: 1px solid rgba(184, 123, 81, 0.06);
-  backdrop-filter: var(--blur-glass);
-  -webkit-backdrop-filter: var(--blur-glass);
-  background: rgba(243, 239, 233, 0.78);
+  border-bottom: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -847,8 +838,8 @@ body .site-header .navbar,
   background: linear-gradient(135deg, rgba(243, 239, 233, 0.78) 0%, rgba(243, 239, 233, 0.6) 100%) !important;
   backdrop-filter: blur(28px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
-  border: 1px solid rgba(184, 123, 81, 0.22) !important;
-  border-bottom: 1px solid rgba(184, 123, 81, 0.22) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
   border-radius: 999px !important;
   box-shadow:
     0 12px 32px -8px rgba(15, 12, 8, 0.18),
@@ -867,17 +858,47 @@ body .site-header .nav-phone,
   display: none !important;
 }
 
-/* Reflexo subtil copper no topo do pill (signature M&A Elo) */
-.site-header .navbar::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 20%;
-  right: 20%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(184, 123, 81, 0.55) 50%, transparent 100%);
-  pointer-events: none;
-  z-index: 1;
+/* Eliminar TODAS as decorações pseudo-element do header pill
+   (linhas copper, sombras horizontais, tails, etc) */
+.site-header::before,
+.site-header::after,
+.site-header .navbar::before,
+.site-header .navbar::after,
+.navbar::before,
+.navbar::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Garantir que .site-header é apenas o pill — width: max-content, sem
+   background, sem border, em TODOS os estados */
+body .site-header,
+body.js .site-header,
+.site-header,
+.site-header.is-scrolled,
+.site-header:not(.is-scrolled) {
+  width: max-content !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+}
+
+/* Linha cobre no scroll (em styles.css) — neutralizada */
+.site-header.is-scrolled .navbar::after {
+  display: none !important;
+  width: 0 !important;
+}
+
+/* Sombra horizontal no scroll que cria "tails" laterais — removida */
+.site-header.is-scrolled .navbar {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Brand "M&A Elo" — Cormorant italic inside pill */
@@ -888,7 +909,7 @@ body .site-header .brand,
   gap: 0 !important;
   text-decoration: none !important;
   padding: 4px 14px 4px 8px !important;
-  border-right: 1px solid rgba(184, 123, 81, 0.22) !important;
+  border-right: none !important;
   margin-right: 6px !important;
   flex-shrink: 0 !important;
   flex-direction: row !important;
@@ -2005,20 +2026,15 @@ body .hero--screen .hero__title,
   filter: saturate(1.12) contrast(1.06);
 }
 
-/* Copper vignette pulse from corner on hover */
+/* Overlay copper no hover REMOVIDO (estava a escurecer o card) */
 .sector-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(60% 60% at 100% 100%, rgba(184, 123, 81, 0.32) 0%, rgba(184, 123, 81, 0) 60%);
-  opacity: 0;
-  transition: opacity 600ms var(--ease-cinematic);
-  pointer-events: none;
-  z-index: 1;
+  display: none !important;
 }
 
-.sector-card:hover::after {
-  opacity: 1;
+/* Hover na imagem: clareia (não escurece) — força brightness 1 */
+.sector-card:hover .sector-card__bg img {
+  transform: scale(1.06) !important;
+  filter: saturate(1.18) contrast(1.04) brightness(1) !important;
 }
 
 /* Tag chip slide-in */
@@ -2919,34 +2935,43 @@ section.section h2,
   background: var(--accent-spark) !important;
 }
 
+/* Button secondary — branco sólido com border accent spark para destaque
+   visível sobre fundos cream warm (não transparente como antes) */
 .button--secondary {
-  background: transparent !important;
+  background: #fff !important;
   color: var(--color-ink-deep) !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border: 1.5px solid var(--accent-spark) !important;
   border-radius: var(--radius-pill-xl) !important;
   font-weight: 500 !important;
   letter-spacing: -0.003em !important;
   padding: 13px 24px !important;
+  box-shadow: 0 2px 8px rgba(230, 81, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
   transition: background-color var(--duration-ios) var(--ease-ios),
-              border-color var(--duration-ios) var(--ease-ios) !important;
+              border-color var(--duration-ios) var(--ease-ios),
+              color var(--duration-ios) var(--ease-ios),
+              box-shadow var(--duration-ios) var(--ease-ios),
+              transform var(--duration-ios) var(--ease-ios) !important;
 }
 
 .button--secondary:hover {
-  background: rgba(0, 0, 0, 0.04) !important;
-  border-color: rgba(0, 0, 0, 0.2) !important;
+  background: var(--accent-spark) !important;
+  border-color: var(--accent-spark) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 28px rgba(230, 81, 0, 0.32), 0 2px 6px rgba(230, 81, 0, 0.14) !important;
+  transform: scale(1.03) !important;
 }
 
-/* Page-hero agora é cream warm — button--secondary deve ser preto sobre cream */
+/* Page-hero é cream — mantém o mesmo padrão branco+border laranja */
 .page-hero .button--secondary {
-  background: rgba(0, 0, 0, 0.03) !important;
+  background: #fff !important;
   color: var(--color-ink-deep) !important;
-  border: 1px solid rgba(0, 0, 0, 0.14) !important;
+  border: 1.5px solid var(--accent-spark) !important;
 }
 
 .page-hero .button--secondary:hover {
-  background: rgba(0, 0, 0, 0.08) !important;
-  border-color: rgba(0, 0, 0, 0.24) !important;
-  color: var(--color-ink-deep) !important;
+  background: var(--accent-spark) !important;
+  border-color: var(--accent-spark) !important;
+  color: #fff !important;
 }
 
 /* Block-CTA + feature-split--dark + screen-section--dark continuam dark → ghost glass branco */
@@ -3002,9 +3027,8 @@ section.section h2,
      service-item / capability-item / process-line items
    ────────────────────────────────────────────────────────────── */
 
-/* Icone universal signature M&A Elo — engrenagem industrial inline SVG
-   Aplicado via ::before em todos os cards com número (01-04 etc).
-   Layout: 44x44 circle no top-left, accent spark tint background. */
+/* Cards layout — sem ícone universal (decisão: remover engrenagem que
+   parecia sol). Apenas service-items com data-icon específico ganham ícone. */
 
 .service-item,
 .capability-item,
@@ -3013,15 +3037,15 @@ section.section h2,
   position: relative;
 }
 
-.service-item::before,
-.capability-item::before {
+/* Ícone APENAS para service-items com data-icon explícito */
+.service-item[data-icon]::before,
+.capability-item[data-icon]::before {
   content: "";
   display: block;
   width: 44px;
   height: 44px;
   border-radius: 12px;
   background-color: var(--accent-spark-tint);
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='16' cy='16' r='3.5'/%3E%3Cpath d='M16 4v3M16 25v3M28 16h-3M7 16H4M24.5 7.5l-2.1 2.1M9.6 22.4l-2.1 2.1M24.5 24.5l-2.1-2.1M9.6 9.6 7.5 7.5'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 22px 22px;
@@ -3030,101 +3054,132 @@ section.section h2,
               background-color var(--duration-ios) var(--ease-ios);
 }
 
-.service-item:hover::before,
-.capability-item:hover::before {
+.service-item[data-icon]:hover::before,
+.capability-item[data-icon]:hover::before {
   background-color: var(--accent-spark);
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='16' cy='16' r='3.5'/%3E%3Cpath d='M16 4v3M16 25v3M28 16h-3M7 16H4M24.5 7.5l-2.1 2.1M9.6 22.4l-2.1 2.1M24.5 24.5l-2.1-2.1M9.6 9.6 7.5 7.5'/%3E%3C/svg%3E");
-  transform: rotate(45deg) scale(1.05);
+  transform: scale(1.05);
 }
 
-/* Variantes contextuais — ícones específicos onde fizer mais sentido
-   Aplicar via class adicional ou data-icon attribute */
-.service-item--welding::before,
+/* Variantes — ícones SVG line-art via data-icon attribute */
 .service-item[data-icon="welding"]::before,
 .capability-item[data-icon="welding"]::before {
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 22 22 9M14 9h8v8'/%3E%3Cpath d='M9 22a3 3 0 0 0 4-1.5l1.5-3M9 22l-2 3a2 2 0 1 0 3 2l3-2'/%3E%3C/svg%3E");
 }
 
-.service-item--analise::before,
+.service-item[data-icon="welding"]:hover::before,
+.capability-item[data-icon="welding"]:hover::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 22 22 9M14 9h8v8'/%3E%3Cpath d='M9 22a3 3 0 0 0 4-1.5l1.5-3M9 22l-2 3a2 2 0 1 0 3 2l3-2'/%3E%3C/svg%3E");
+}
+
 .service-item[data-icon="analysis"]::before {
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='4' width='20' height='24' rx='2'/%3E%3Cpath d='M11 10h10M11 15h10M11 20h6'/%3E%3Cpath d='m22 22 2 2 4-4'/%3E%3C/svg%3E");
 }
 
-.service-item--entrega::before,
+.service-item[data-icon="analysis"]:hover::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6' y='4' width='20' height='24' rx='2'/%3E%3Cpath d='M11 10h10M11 15h10M11 20h6'/%3E%3Cpath d='m22 22 2 2 4-4'/%3E%3C/svg%3E");
+}
+
 .service-item[data-icon="delivery"]::before {
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 4 6 8v8c0 6.5 4 10 10 12 6-2 10-5.5 10-12V8L16 4z'/%3E%3Cpath d='m12 16 3 3 6-6'/%3E%3C/svg%3E");
 }
 
-.service-item--regioes::before,
+.service-item[data-icon="delivery"]:hover::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 4 6 8v8c0 6.5 4 10 10 12 6-2 10-5.5 10-12V8L16 4z'/%3E%3Cpath d='m12 16 3 3 6-6'/%3E%3C/svg%3E");
+}
+
 .service-item[data-icon="map"]::before {
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M26 14c0 8-10 16-10 16S6 22 6 14a10 10 0 1 1 20 0z'/%3E%3Ccircle cx='16' cy='14' r='3.5'/%3E%3C/svg%3E");
 }
 
-.service-item--industria::before,
+.service-item[data-icon="map"]:hover::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M26 14c0 8-10 16-10 16S6 22 6 14a10 10 0 1 1 20 0z'/%3E%3Ccircle cx='16' cy='14' r='3.5'/%3E%3C/svg%3E");
+}
+
 .service-item[data-icon="factory"]::before {
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 28V14l8 4v-4l8 4V8h8v20H4z'/%3E%3Cpath d='M10 22v2M16 22v2M22 22v2'/%3E%3C/svg%3E");
 }
 
-.service-item--obras::before,
+.service-item[data-icon="factory"]:hover::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 28V14l8 4v-4l8 4V8h8v20H4z'/%3E%3Cpath d='M10 22v2M16 22v2M22 22v2'/%3E%3C/svg%3E");
+}
+
 .service-item[data-icon="construction"]::before {
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 28h24M6 28V16l4-4 4 4M14 28V12l4-4 4 4v16M22 28V14l4-2v16'/%3E%3C/svg%3E");
 }
 
-/* Process-line numbered list (para-empresas, servicos) */
+.service-item[data-icon="construction"]:hover::before {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 28h24M6 28V16l4-4 4 4M14 28V12l4-4 4 4v16M22 28V14l4-2v16'/%3E%3C/svg%3E");
+}
+
+/* Process-line numbered list (para-empresas, servicos) — layout vertical
+   por card para evitar quebra de texto vertical com colunas estreitas */
 .process-line {
   list-style: none !important;
   padding: 0 !important;
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  grid-template-columns: 1fr !important;
   gap: clamp(16px, 2vw, 24px) !important;
+  border-top: none !important;
+  margin: 0 !important;
+}
+
+@media (min-width: 720px) {
+  .process-line {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (min-width: 1100px) {
+  .process-line {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
 }
 
 .process-line > li {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  grid-template-columns: none !important;
   background: #fff !important;
   border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
   border-radius: var(--radius-card) !important;
-  padding: clamp(20px, 2.2vw, 28px) !important;
+  padding: clamp(22px, 2.2vw, 28px) !important;
   box-shadow: var(--shadow-ios-card) !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  min-width: 0;
   transition: transform var(--duration-ios) var(--ease-ios),
               box-shadow var(--duration-ios) var(--ease-ios) !important;
 }
 
 .process-line > li:hover {
   transform: scale(1.02) translateY(-3px) !important;
+  background: #fff !important;
+  padding-left: clamp(22px, 2.2vw, 28px) !important;
+  padding-right: clamp(22px, 2.2vw, 28px) !important;
+  margin: 0 !important;
   box-shadow: var(--shadow-ios-card-hover) !important;
-}
-
-.process-line > li::before {
-  content: "";
-  display: block;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background-color: var(--accent-spark-tint);
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23E65100' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 16h22M22 11l5 5-5 5'/%3E%3Ccircle cx='6' cy='16' r='2'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 22px 22px;
-  margin-bottom: 14px;
-  transition: transform var(--duration-ios) var(--ease-ios),
-              background-color var(--duration-ios) var(--ease-ios);
-}
-
-.process-line > li:hover::before {
-  background-color: var(--accent-spark);
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23FFFFFF' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 16h22M22 11l5 5-5 5'/%3E%3Ccircle cx='6' cy='16' r='2'/%3E%3C/svg%3E");
-  transform: scale(1.05);
 }
 
 .process-line > li > span:first-child {
   font-family: var(--font-body) !important;
   font-style: normal !important;
   font-weight: 500 !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
   letter-spacing: 0.08em !important;
   color: var(--accent-spark) !important;
-  margin: 0 0 4px 0 !important;
-  display: block;
+  margin: 0 0 12px 0 !important;
+  display: block !important;
+  line-height: 1 !important;
+  width: auto !important;
+  text-align: left !important;
+}
+
+.process-line > li > div {
+  width: 100% !important;
+  min-width: 0;
+  display: block !important;
 }
 
 .process-line > li strong,
@@ -3132,16 +3187,18 @@ section.section h2,
 .process-line > li h4 {
   font-family: var(--font-body) !important;
   font-weight: 500 !important;
-  font-size: 16px !important;
+  font-style: normal !important;
+  font-size: 17px !important;
   line-height: 1.3 !important;
+  letter-spacing: -0.012em !important;
   color: var(--color-ink-deep) !important;
-  margin: 0 0 8px 0 !important;
+  margin: 0 0 10px 0 !important;
   display: block;
 }
 
 .process-line > li p {
-  font-size: 14px !important;
-  line-height: 1.55 !important;
+  font-size: 14.5px !important;
+  line-height: 1.6 !important;
   color: var(--color-ink-neutral) !important;
   margin: 0 !important;
 }
@@ -3281,12 +3338,66 @@ section.section h2,
 }
 
 .region-card__photo {
+  position: relative !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 220px !important;
+  background: var(--color-night) !important;
+}
+
+.region-card__photo img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  opacity: 1 !important;
+  filter: saturate(0.92) contrast(1.04);
+}
+
+/* Card "Outras regiões" — foto institucional + overlay com pin + label */
+.region-card__photo--expand {
   position: relative;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
   background: var(--color-night);
+}
+
+.region-card__photo--expand img {
+  filter: brightness(0.45) saturate(0.85) contrast(1.05);
+}
+
+.region-card__photo-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.75) 100%);
+  z-index: 2;
+}
+
+.region-card__pin {
+  width: 42px;
+  height: 56px;
+  filter: drop-shadow(0 4px 14px rgba(230, 81, 0, 0.55));
+  transition: transform var(--duration-ios) var(--ease-ios);
+}
+
+.region-card--expand:hover .region-card__pin {
+  transform: translateY(-4px) scale(1.08);
+}
+
+.region-card__photo-label {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
 }
 
 .region-card__photo img {
@@ -3784,24 +3895,66 @@ body .page-hero__title,
 }
 
 /* Feature-split bullets — orange accent bar */
+/* Feature-split list — layout vertical limpo, fix do grid-template legacy */
 .feature-split__list,
 .feature-split ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 24px 0 32px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.feature-split--dark .feature-split__list,
+.feature-split--dark ul {
+  border-top-color: rgba(255, 255, 255, 0.10) !important;
 }
 
 .feature-split__list li,
 .feature-split ul li {
-  position: relative;
-  padding: 10px 0 10px 18px;
-  border-left: 2px solid var(--accent-spark);
-  margin-bottom: 8px;
+  display: flex !important;
+  align-items: center !important;
+  grid-template-columns: none !important;
+  position: relative !important;
+  padding: 14px 0 14px 24px !important;
+  margin: 0 !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-left: none !important;
+  font-family: var(--font-body) !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  color: var(--color-ink-neutral) !important;
+  width: 100% !important;
+  min-width: 0;
 }
 
 .feature-split--dark .feature-split__list li,
 .feature-split--dark ul li {
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+.feature-split__list li:last-child,
+.feature-split ul li:last-child {
+  border-bottom: none !important;
+}
+
+/* Bullet point laranja antes de cada item */
+.feature-split__list li::after,
+.feature-split ul li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 2px;
+  background: var(--accent-spark);
+  border-radius: 1px;
+  display: block !important;
 }
 
 /* Card button at bottom (role-card, service-item) — alinhado pill style */
@@ -3811,11 +3964,68 @@ body .page-hero__title,
   margin-top: 16px;
 }
 
-/* Cred-strip enquanto grid — items rounded + spacing */
-.cred-strip {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
-  gap: clamp(16px, 2vw, 24px) !important;
+/* Fix definitivo: regions__heading agora é block simples (não grid 2 colunas)
+   para evitar célula vazia que aparecia como "caixa Regiões" placeholder */
+.regions__heading {
+  display: block !important;
+  grid-template-columns: none !important;
+  gap: 0 !important;
+}
+
+.regions__heading::before,
+.regions__heading::after,
+.regions__heading > *:empty {
+  display: none !important;
+}
+
+/* Remover traço "—" antes do texto em todos os section-label e page-kicker */
+.section-label::before,
+.eyebrow::before,
+.page-kicker::before {
+  display: none !important;
+  content: none !important;
+  width: 0 !important;
+  background: none !important;
+}
+
+/* Remover traços "—" laranja decorativos dos bullets (legacy) */
+.role-card li::before,
+.service-item li::before,
+.region-card li::before,
+.region-card__body li::before,
+.capability-item li::before,
+.value-item li::before,
+.feature-split__list li::before,
+.feature-split ul li::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Bullets agora sem ::before — adicionar padding-left mínimo e nada mais */
+.role-card li,
+.service-item li,
+.region-card li,
+.region-card__body li,
+.capability-item li,
+.value-item li {
+  padding-left: 0 !important;
+}
+
+/* Cred-strip — gap generoso entre os cards (não grudados) */
+.cred-strip__grid {
+  gap: clamp(16px, 2vw, 28px) !important;
+}
+
+.cred-item {
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  padding: clamp(24px, 2.6vw, 36px) !important;
+}
+
+.cred-item::before {
+  display: none !important;
 }
 
 /* Capabilities row enquanto grid de cards */
@@ -3825,11 +4035,23 @@ body .page-hero__title,
   gap: clamp(16px, 2vw, 24px) !important;
 }
 
-/* Values grid spacing iOS */
+/* Values grid — distribuição equilibrada 3+3 em desktop, 2+2+2 em tablet, 1 em mobile */
 .values-grid {
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  grid-template-columns: 1fr !important;
   gap: clamp(20px, 2.2vw, 28px) !important;
+}
+
+@media (min-width: 720px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .values-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
 }
 
 /* Service list spacing */

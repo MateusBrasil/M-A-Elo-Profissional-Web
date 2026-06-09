@@ -17,6 +17,8 @@ lh-*.json
 maelo-desktop.png
 maelo-mobile.png
 maelo-lighthouse-final.jpg
+QA-*.png
+QA-FINAL/
 
 # Downloaded references and experiments kept out of production commits
 Emergent _ Fullstack App.html
