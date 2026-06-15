@@ -2,6 +2,30 @@
 
 Este guia documenta como configurar a autenticação do painel admin após a migração para Vercel Functions.
 
+## ⚡ Caminho rápido — gerar `.env.local` e importar no Vercel
+
+Se preferires não preencher as 6 variáveis uma a uma, há um script interativo:
+
+```bash
+node scripts/setup-env.js
+```
+
+Vai pedir-te apenas a password de admin e os pontos opcionais (email, Resend). Hash PBKDF2, `SESSION_SECRET` aleatório e connection strings são tratados automaticamente. Sai com um ficheiro `.env.local` na raiz.
+
+Depois, no Vercel:
+
+1. **Project → Settings → Environment Variables**
+2. Clica em **"Import .env"** (canto superior direito)
+3. Arrasta o ficheiro `.env.local` ou cola o conteúdo
+4. Marca **Production + Preview + Development**
+5. **Save** → faz um novo deploy
+
+> O ficheiro `.env.local` está no `.gitignore` — nunca é commitado.
+
+Se preferires preencher manualmente, segue o caminho longo abaixo.
+
+---
+
 ## 1. Variáveis de ambiente (Vercel)
 
 Vai a **Vercel → Project → Settings → Environment Variables** e adiciona estas variáveis (Production e Preview):
