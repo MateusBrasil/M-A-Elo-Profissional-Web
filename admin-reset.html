@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Repor password · M&amp;A Elo Profissional</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+:root{
+  --bg-a:#0a0c0f;--bg-b:#13161b;--bg-c:#1c2027;
+  --copper:#d9a87c;--copper-glow:rgba(217,168,124,.42);
+  --green-deep:#1f362c;
+  --ink-l:#f5f1ea;--ink-m:rgba(245,241,234,.62);--ink-f:rgba(245,241,234,.36);
+  --line:rgba(255,255,255,.1);--line-s:rgba(255,255,255,.05);
+  --glass:rgba(255,255,255,.04);--glass-h:rgba(255,255,255,.07);
+  --err:#ff6b6b;--err-bg:rgba(255,107,107,.08);
+  --ok:#3ddc97;--ok-bg:rgba(61,220,151,.1);
+  --fd:"Cormorant Garamond",Georgia,serif;
+  --fu:"Inter",system-ui,sans-serif;
+  --eo:cubic-bezier(.22,1,.36,1);
+}
+body{
+  font-family:var(--fu);color:var(--ink-l);font-size:14px;line-height:1.55;
+  background:radial-gradient(ellipse 80% 60% at 18% 22%,#1d2a3a 0%,transparent 55%),
+             radial-gradient(ellipse 70% 60% at 82% 78%,#2b1d12 0%,transparent 50%),
+             linear-gradient(160deg,var(--bg-a) 0%,var(--bg-b) 50%,var(--bg-a) 100%);
+  background-attachment:fixed;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:24px;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;
+}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:.5}
+.orb-1{width:540px;height:540px;background:radial-gradient(circle,var(--copper-glow) 0%,transparent 70%);top:-160px;left:-180px;animation:float-a 18s ease-in-out infinite}
+.orb-2{width:420px;height:420px;background:radial-gradient(circle,rgba(31,54,44,.65) 0%,transparent 70%);bottom:-140px;right:-120px;animation:float-b 22s ease-in-out infinite}
+.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(217,168,124,.18) 0%,transparent 65%);top:55%;left:60%;animation:float-c 26s ease-in-out infinite}
+@keyframes float-a{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+@keyframes float-b{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,-40px)}}
+@keyframes float-c{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-20px,15px) scale(1.06)}}
+.grid-veil{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%);pointer-events:none;z-index:0}
+.card{
+  position:relative;z-index:1;width:100%;max-width:440px;
+  background:var(--glass);border:1px solid var(--line);
+  border-radius:24px;padding:38px 36px 34px;
+  backdrop-filter:blur(40px) saturate(160%);-webkit-backdrop-filter:blur(40px) saturate(160%);
+  box-shadow:0 30px 100px rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.08) inset,0 -1px 0 rgba(0,0,0,.4) inset;
+  animation:in 700ms var(--eo) both;
+}
+@keyframes in{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.brand-mark{
+  width:42px;height:42px;border-radius:11px;
+  background:linear-gradient(135deg,var(--copper) 0%,#b87b51 100%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(184,123,81,.35),0 1px 0 rgba(255,255,255,.2) inset;
+}
+.brand-mark svg{width:22px;height:22px;color:#1a1208}
+.brand-name{font-family:var(--fd);font-size:18px;font-weight:600;color:var(--ink-l);letter-spacing:-.005em}
+.brand-tag{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);margin-top:2px}
+h1{font-family:var(--fd);font-size:30px;font-weight:600;color:var(--ink-l);letter-spacing:-.015em;margin-bottom:6px;line-height:1.1}
+.sub{font-size:13.5px;color:var(--ink-m);margin-bottom:24px;line-height:1.6}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-m);margin-bottom:7px}
+.field input{
+  width:100%;padding:13px 15px;background:rgba(255,255,255,.04);
+  border:1px solid var(--line);border-radius:11px;color:var(--ink-l);
+  font-size:14px;font-family:var(--fu);transition:border-color 200ms,background 200ms,box-shadow 200ms;
+}
+.field input::placeholder{color:var(--ink-f)}
+.field input:focus{outline:none;border-color:var(--copper);background:rgba(255,255,255,.07);box-shadow:0 0 0 4px rgba(217,168,124,.12)}
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:42px}
+.pw-tog{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-f);padding:8px;border-radius:6px;display:flex;align-items:center;transition:color 160ms,background 160ms}
+.pw-tog:hover{color:var(--ink-m);background:rgba(255,255,255,.04)}
+.pw-tog svg{width:16px;height:16px}
+.hint{font-size:11.5px;color:var(--ink-f);margin-top:6px}
+.btn{
+  width:100%;padding:14px;margin-top:8px;border:none;border-radius:11px;cursor:pointer;
+  font-size:14px;font-weight:600;font-family:var(--fu);letter-spacing:.005em;
+  background:linear-gradient(135deg,var(--copper) 0%,#b87b51 100%);
+  color:#1a1208;transition:transform 100ms,box-shadow 200ms,opacity 160ms;
+  box-shadow:0 10px 28px rgba(184,123,81,.32),0 1px 0 rgba(255,255,255,.18) inset;
+}
+.btn:hover:not(:disabled){box-shadow:0 14px 36px rgba(184,123,81,.42),0 1px 0 rgba(255,255,255,.22) inset}
+.btn:active:not(:disabled){transform:scale(.99)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.msg{margin:0 0 16px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;display:none}
+.msg.on{display:block;animation:fadein 300ms ease}
+.msg-err{background:var(--err-bg);color:var(--err);border:1px solid rgba(255,107,107,.18)}
+.msg-ok{background:var(--ok-bg);color:var(--ok);border:1px solid rgba(61,220,151,.2)}
+@keyframes fadein{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.foot{margin-top:18px;text-align:center}
+.foot a{color:var(--copper);font-size:13px;font-weight:500;text-decoration:none;transition:opacity 160ms}
+.foot a:hover{opacity:.8}
+.success{display:none;text-align:center;padding:8px 0 4px}
+.success.on{display:block;animation:fadein 400ms ease}
+.success-icon{width:60px;height:60px;border-radius:50%;background:var(--ok-bg);border:1.5px solid rgba(61,220,151,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.success-icon svg{width:30px;height:30px;color:var(--ok)}
+.success h2{font-family:var(--fd);font-size:24px;font-weight:600;margin-bottom:8px}
+.success p{font-size:13.5px;color:var(--ink-m);margin-bottom:22px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="grid-veil"></div>
+
+<div class="card">
+  <div class="brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <div>
+      <div class="brand-name">M&amp;A Elo Profissional</div>
+      <div class="brand-tag">Repor password</div>
+    </div>
+  </div>
+
+  <div id="reset-view">
+    <h1>Definir nova password</h1>
+    <p class="sub">Escolhe uma password forte (mínimo 10 caracteres). Vais ficar autenticado depois de gravar.</p>
+
+    <div id="msg" class="msg"></div>
+
+    <form id="reset-form" novalidate>
+      <div class="field">
+        <label for="new-pw">Nova password</label>
+        <div class="pw-wrap">
+          <input type="password" id="new-pw" autocomplete="new-password" placeholder="Pelo menos 10 caracteres" minlength="10">
+          <button type="button" class="pw-tog" data-target="new-pw" aria-label="Mostrar password">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <div class="hint">Mistura letras, números e um símbolo para uma password mais forte.</div>
+      </div>
+
+      <div class="field">
+        <label for="conf-pw">Confirmar</label>
+        <div class="pw-wrap">
+          <input type="password" id="conf-pw" autocomplete="new-password" placeholder="Repete a nova password" minlength="10">
+          <button type="button" class="pw-tog" data-target="conf-pw" aria-label="Mostrar password">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <button class="btn" type="submit" id="submit-btn">Gravar nova password</button>
+    </form>
+  </div>
+
+  <div id="success-view" class="success">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Password actualizada</h2>
+    <p>Já podes iniciar sessão com a nova password.</p>
+    <a href="admin.html" class="btn" style="display:inline-block;text-decoration:none;width:auto;padding:11px 24px">Ir para o painel</a>
+  </div>
+
+  <div class="foot" id="foot">
+    <a href="admin.html">← Voltar ao login</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var token = params.get('token');
+  var email = (params.get('email')||'').toLowerCase();
+
+  var msg = document.getElementById('msg');
+  var form = document.getElementById('reset-form');
+  var btn = document.getElementById('submit-btn');
+  var newPw = document.getElementById('new-pw');
+  var confPw = document.getElementById('conf-pw');
+  var resetView = document.getElementById('reset-view');
+  var successView = document.getElementById('success-view');
+  var foot = document.getElementById('foot');
+
+  function showMsg(text, kind){
+    msg.textContent = text;
+    msg.className = 'msg on ' + (kind === 'ok' ? 'msg-ok' : 'msg-err');
+  }
+  function clearMsg(){ msg.className = 'msg'; }
+
+  if (!token || !email) {
+    showMsg('Link de reset inválido. Pede um novo no ecrã de login.', 'err');
+    btn.disabled = true;
+    newPw.disabled = true;
+    confPw.disabled = true;
+  }
+
+  document.querySelectorAll('.pw-tog').forEach(function(b){
+    b.addEventListener('click', function(){
+      var input = document.getElementById(b.dataset.target);
+      input.type = input.type === 'password' ? 'text' : 'password';
+    });
+  });
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    clearMsg();
+    var n = newPw.value;
+    var c = confPw.value;
+    if (n.length < 10) { showMsg('A password precisa de pelo menos 10 caracteres.', 'err'); return; }
+    if (n !== c) { showMsg('As passwords não coincidem.', 'err'); return; }
+
+    btn.disabled = true; btn.textContent = 'A gravar…';
+    try {
+      var res = await fetch('/api/reset-password', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ email: email, token: token, newPassword: n }),
+      });
+      var json = await res.json();
+      if (!res.ok) {
+        showMsg(json.error || 'Erro ao actualizar password.', 'err');
+        btn.disabled = false; btn.textContent = 'Gravar nova password';
+        return;
+      }
+      resetView.style.display = 'none';
+      foot.style.display = 'none';
+      successView.classList.add('on');
+    } catch (err) {
+      showMsg('Não foi possível contactar o servidor. Tenta novamente.', 'err');
+      btn.disabled = false; btn.textContent = 'Gravar nova password';
+    }
+  });
+})();
+</script>
+</body>
+</html>

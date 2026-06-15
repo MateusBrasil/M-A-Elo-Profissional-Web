@@ -1,32 +1,46 @@
-// Neon PostgreSQL — HTTP SQL API
-// Em localhost usa /neon-proxy (evita CORS); em produção faz fetch direto.
+// Client → /api/public-form (server-side proxy for candidate forms).
+// Credentials live in Vercel env vars; the browser never sees a Neon connection string.
 
-const NEON_HOST      = "ep-dry-term-alu2f51d-pooler.c-3.eu-central-1.aws.neon.tech";
-const NEON_HTTP_HOST = "ep-dry-term-alu2f51d.c-3.eu-central-1.aws.neon.tech";
-const NEON_DB        = "neondb";
-
-const NEON_FORM_CONN = "postgresql://form_user:form_maelo_2026@" + NEON_HOST + "/" + NEON_DB + "?sslmode=require";
-
-function _neonEndpoint() {
-  const h = (typeof location !== 'undefined') ? location.hostname : '';
-  return (h === 'localhost' || h === '127.0.0.1')
-    ? '/neon-proxy'
-    : '/api/neon-proxy';
-}
-
-async function neonQuery(connString, sql, params) {
-  const endpoint = _neonEndpoint();
-  const res = await fetch(endpoint, {
+async function publicFormCall(payload) {
+  const res = await fetch("/api/public-form", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Neon-Connection-String": connString,
-    },
-    body: JSON.stringify({ query: sql, params: params || [] }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
   });
-
   let json;
-  try { json = await res.json(); } catch { throw new Error("Resposta inválida da base de dados"); }
-  if (!res.ok) throw new Error(json.message || json.error || "Erro DB (HTTP " + res.status + ")");
+  try { json = await res.json(); } catch { throw new Error("Resposta inválida do servidor"); }
+  if (!res.ok) throw new Error(json.error || "Erro ao contactar o servidor.");
   return json;
 }
+
+async function loadFormDefinition(slug) {
+  return publicFormCall({ op: "loadForm", slug });
+}
+
+async function submitCandidate(data) {
+  return publicFormCall({ op: "submitCandidate", data });
+}
+
+// Back-compat shim — old callers pass (connString, sql, params) and expect rows.
+// We map the few known queries used by the public forms to the new whitelisted ops.
+async function neonQuery(_connString, sql, params) {
+  const raw = sql || "";
+  const s = raw.toLowerCase();
+  if (s.startsWith("select") && s.includes("from formularios") && s.includes("slug=")) {
+    return loadFormDefinition(params[0]);
+  }
+  if (s.startsWith("insert into candidatos")) {
+    const colsMatch = raw.match(/insert\s+into\s+candidatos\s*\(([^)]+)\)/i);
+    const cols = colsMatch
+      ? colsMatch[1].split(",").map((c) => c.trim())
+      : ["profissao","nome","telefone","email","regiao","experiencia","disponibilidade","processos","mensagem"];
+    const data = {};
+    cols.forEach((c, i) => { data[c] = params[i]; });
+    await submitCandidate(data);
+    return { rows: [] };
+  }
+  throw new Error("Query não suportada pelo endpoint público.");
+}
+
+// Compat — old code expects this constant to exist; value is unused now.
+const NEON_FORM_CONN = "server-managed";

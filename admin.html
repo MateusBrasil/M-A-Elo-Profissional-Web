@@ -48,54 +48,81 @@ html,body{height:100%}
 body{font-family:var(--fu);background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
 .hidden{display:none!important}
 
-/* ═══ LOGIN ═══ */
+/* ═══ LOGIN — glassmorphism premium ═══ */
 #login-screen{
-  min-height:100vh;background:var(--sb);display:flex;
-  align-items:center;justify-content:center;padding:24px;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
   position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 80% 60% at 18% 22%,#1d2a3a 0%,transparent 55%),
+             radial-gradient(ellipse 70% 60% at 82% 78%,#2b1d12 0%,transparent 50%),
+             linear-gradient(160deg,#0a0c0f 0%,#13161b 50%,#0a0c0f 100%);
 }
-#login-screen::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 60% 50% at 20% 40%,rgba(184,123,81,.07) 0%,transparent 60%),
-             radial-gradient(ellipse 50% 40% at 80% 60%,rgba(31,54,44,.14) 0%,transparent 55%);
-}
+.l-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:.5}
+.l-orb-1{width:540px;height:540px;background:radial-gradient(circle,rgba(217,168,124,.42) 0%,transparent 70%);top:-160px;left:-180px;animation:lfloat-a 18s ease-in-out infinite}
+.l-orb-2{width:420px;height:420px;background:radial-gradient(circle,rgba(31,54,44,.65) 0%,transparent 70%);bottom:-140px;right:-120px;animation:lfloat-b 22s ease-in-out infinite}
+.l-orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(217,168,124,.18) 0%,transparent 65%);top:55%;left:60%;animation:lfloat-c 26s ease-in-out infinite}
+@keyframes lfloat-a{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+@keyframes lfloat-b{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,-40px)}}
+@keyframes lfloat-c{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-20px,15px) scale(1.06)}}
+.l-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%);pointer-events:none;z-index:0}
 .lcard{
-  background:var(--surface);border-radius:var(--r16);
-  padding:44px 48px 48px;width:100%;max-width:420px;
-  box-shadow:var(--sh-lg);position:relative;
+  position:relative;z-index:1;width:100%;max-width:440px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;padding:38px 36px 32px;
+  backdrop-filter:blur(40px) saturate(160%);-webkit-backdrop-filter:blur(40px) saturate(160%);
+  box-shadow:0 30px 100px rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.08) inset,0 -1px 0 rgba(0,0,0,.4) inset;
+  animation:lin 700ms cubic-bezier(.22,1,.36,1) both;
 }
-.lbrand{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+@keyframes lin{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}
+.lbrand{display:flex;align-items:center;gap:14px;margin-bottom:24px}
 .lbrand-mark{
-  width:38px;height:38px;background:var(--sb);border-radius:var(--r4);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:42px;height:42px;border-radius:11px;flex-shrink:0;
+  background:linear-gradient(135deg,#d9a87c 0%,#b87b51 100%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(184,123,81,.35),0 1px 0 rgba(255,255,255,.2) inset;
 }
-.lbrand-mark svg{width:22px;height:22px;color:#fff}
-.lbrand-name{font-family:var(--fd);font-size:17px;font-weight:600;color:var(--ink)}
-.lbrand-tag{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--copper);margin-top:2px}
-.ltitle{font-family:var(--fd);font-size:28px;font-weight:600;color:var(--ink);margin-bottom:4px}
-.lsub{font-size:13px;color:var(--ink-m);margin-bottom:26px}
-.lfield{margin-bottom:15px}
-.lfield label{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-m);margin-bottom:6px}
+.lbrand-mark svg{width:22px;height:22px;color:#1a1208}
+.lbrand-name{font-family:var(--fd);font-size:18px;font-weight:600;color:#f5f1ea;letter-spacing:-.005em}
+.lbrand-tag{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#d9a87c;margin-top:2px}
+.ltitle{font-family:var(--fd);font-size:30px;font-weight:600;color:#f5f1ea;letter-spacing:-.015em;margin-bottom:6px;line-height:1.1}
+.lsub{font-size:13.5px;color:rgba(245,241,234,.62);margin-bottom:24px;line-height:1.6}
+.lfield{margin-bottom:14px}
+.lfield label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,241,234,.6);margin-bottom:7px}
 .lfield input{
-  width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:var(--r8);
-  font-size:14px;font-family:var(--fu);color:var(--ink);background:#FAFAFA;
-  outline:none;transition:border-color 150ms,box-shadow 150ms;
+  width:100%;padding:13px 15px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1);border-radius:11px;color:#f5f1ea;
+  font-size:14px;font-family:var(--fu);outline:none;
+  transition:border-color 200ms,background 200ms,box-shadow 200ms;
 }
-.lfield input:focus{border-color:var(--copper);background:#fff;box-shadow:0 0 0 3px var(--copper-bg)}
+.lfield input::placeholder{color:rgba(245,241,234,.36)}
+.lfield input:focus{border-color:#d9a87c;background:rgba(255,255,255,.07);box-shadow:0 0 0 4px rgba(217,168,124,.12)}
 .pw-wrap{position:relative}
 .pw-wrap input{padding-right:42px}
-.pw-tog{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-f);padding:4px;display:flex;align-items:center;transition:color 150ms}
-.pw-tog:hover{color:var(--ink-m)}
-.lerr{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA;border-radius:var(--r8);padding:10px 14px;font-size:13px;margin-bottom:14px}
+.pw-tog{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(245,241,234,.42);padding:8px;border-radius:6px;display:flex;align-items:center;transition:color 160ms,background 160ms}
+.pw-tog:hover{color:rgba(245,241,234,.7);background:rgba(255,255,255,.04)}
+.pw-tog svg{width:16px;height:16px}
+.lerr{background:rgba(255,107,107,.08);color:#ff8a8a;border:1px solid rgba(255,107,107,.18);border-radius:10px;padding:11px 14px;font-size:13px;margin-bottom:14px;line-height:1.5}
 .lbtn{
-  width:100%;padding:13px;background:var(--sb);color:#fff;
-  border:none;border-radius:var(--r8);font-size:14px;font-weight:600;
-  font-family:var(--fu);cursor:pointer;margin-top:6px;
-  transition:opacity 150ms,transform 100ms;letter-spacing:.01em;
+  width:100%;padding:14px;margin-top:6px;border:none;border-radius:11px;cursor:pointer;
+  font-size:14px;font-weight:600;font-family:var(--fu);letter-spacing:.005em;
+  background:linear-gradient(135deg,#d9a87c 0%,#b87b51 100%);color:#1a1208;
+  transition:transform 100ms,box-shadow 200ms,opacity 160ms;
+  box-shadow:0 10px 28px rgba(184,123,81,.32),0 1px 0 rgba(255,255,255,.18) inset;
 }
-.lbtn:hover:not(:disabled){opacity:.86}
+.lbtn:hover:not(:disabled){box-shadow:0 14px 36px rgba(184,123,81,.42),0 1px 0 rgba(255,255,255,.22) inset}
 .lbtn:active:not(:disabled){transform:scale(.99)}
 .lbtn:disabled{opacity:.5;cursor:not-allowed}
+.lfoot{margin-top:16px;text-align:center}
+.lforgot-btn{background:none;border:none;color:#d9a87c;font-size:13px;font-weight:500;cursor:pointer;padding:6px 10px;border-radius:6px;transition:background 160ms,opacity 160ms;font-family:var(--fu)}
+.lforgot-btn:hover{background:rgba(217,168,124,.08);opacity:.9}
+.lforgot{margin-top:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 20px;animation:fadein 280ms ease}
+.lforgot h3{font-family:var(--fd);font-size:17px;font-weight:600;color:#f5f1ea;margin-bottom:5px}
+.lforgot p{font-size:12.5px;color:rgba(245,241,234,.6);margin-bottom:14px;line-height:1.55}
+.fmsg{margin-top:10px;font-size:12.5px;line-height:1.5;padding:8px 12px;border-radius:8px;display:none}
+.fmsg.fmsg-info{display:block;background:rgba(180,200,255,.08);color:#a8c3ff;border:1px solid rgba(180,200,255,.16)}
+.fmsg.fmsg-ok{display:block;background:rgba(61,220,151,.08);color:#3ddc97;border:1px solid rgba(61,220,151,.18)}
+.fmsg.fmsg-err{display:block;background:rgba(255,107,107,.08);color:#ff8a8a;border:1px solid rgba(255,107,107,.18)}
+.lcaption{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:11px;color:rgba(245,241,234,.32);letter-spacing:.04em;z-index:1}
+@keyframes fadein{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 
 /* ═══ APP ═══ */
 #app{display:none;height:100vh;overflow:hidden}
@@ -523,6 +550,10 @@ select.fc{cursor:pointer}
 
 <!-- ═══ LOGIN ═══ -->
 <div id="login-screen">
+  <div class="l-orb l-orb-1"></div>
+  <div class="l-orb l-orb-2"></div>
+  <div class="l-orb l-orb-3"></div>
+  <div class="l-grid"></div>
   <div class="lcard">
     <div class="lbrand">
       <div class="lbrand-mark">
@@ -534,16 +565,16 @@ select.fc{cursor:pointer}
       </div>
     </div>
     <div class="ltitle">Bem-vindo de volta</div>
-    <div class="lsub">Acede à gestão de candidaturas e formulários.</div>
-    <form id="login-form" novalidate>
+    <div class="lsub">Acede à gestão de candidaturas e formulários da M&amp;A Elo.</div>
+    <form id="login-form" novalidate autocomplete="on">
       <div class="lfield">
         <label for="l-email">Email</label>
-        <input type="email" id="l-email" autocomplete="email" placeholder="admin@maelo.pt">
+        <input type="email" id="l-email" autocomplete="username" placeholder="admin@maelo.pt" required>
       </div>
       <div class="lfield">
         <label for="l-pw">Password</label>
         <div class="pw-wrap">
-          <input type="password" id="l-pw" autocomplete="current-password" placeholder="••••••••••">
+          <input type="password" id="l-pw" autocomplete="current-password" placeholder="••••••••••" required>
           <button type="button" class="pw-tog" id="pw-tog" aria-label="Mostrar password">
             <svg id="pw-eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             <svg id="pw-eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
@@ -552,19 +583,24 @@ select.fc{cursor:pointer}
       </div>
       <div id="l-err" class="lerr hidden"></div>
       <button class="lbtn" type="submit" id="l-btn">Entrar no painel</button>
-      <div style="text-align:center;margin-top:14px">
-        <button type="button" id="forgot-btn" style="background:none;border:none;color:var(--copper);font-size:13px;font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:2px">Esqueceu a password?</button>
+      <div class="lfoot">
+        <button type="button" id="forgot-btn" class="lforgot-btn">Esqueceu-se da password?</button>
       </div>
     </form>
-    <div id="forgot-panel" style="display:none;margin-top:18px;background:var(--sp-bg);border:1px solid var(--sp-r);border-radius:var(--r8);padding:16px 18px">
-      <p style="font-size:13px;color:#92400E;font-weight:600;margin-bottom:6px">Repor password</p>
-      <p style="font-size:13px;color:#78350F;line-height:1.5">Para repor a password de acesso, contacte o suporte técnico:</p>
-      <a href="https://wa.me/351936525992?text=Preciso%20de%20repor%20a%20password%20do%20painel%20admin%20M%26A%20Elo" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:#25D366;color:#fff;padding:9px 16px;border-radius:var(--r8);font-size:13px;font-weight:600;text-decoration:none">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        WhatsApp — +351 936 525 992
-      </a>
+    <div id="forgot-panel" class="lforgot" style="display:none">
+      <h3>Repor password</h3>
+      <p>Indica o email da conta e enviamos um link seguro para definires uma nova password. O link expira em 30 minutos.</p>
+      <form id="forgot-form" novalidate>
+        <div class="lfield">
+          <label for="forgot-email">Email da conta</label>
+          <input type="email" id="forgot-email" autocomplete="email" placeholder="admin@maelo.pt" required>
+        </div>
+        <button class="lbtn" type="submit" id="forgot-submit">Enviar link de reset</button>
+        <div id="forgot-status" class="fmsg"></div>
+      </form>
     </div>
   </div>
+  <div class="lcaption">M&amp;A Elo Profissional, Unipessoal Lda. · acesso restrito</div>
 </div>
 
 <!-- ═══ APP ═══ -->
@@ -756,7 +792,11 @@ select.fc{cursor:pointer}
               <div><div class="set-rlbl">Email de acesso</div><div class="set-rsub" id="set-admin-email">—</div></div>
             </div>
             <div class="set-row">
-              <div><div class="set-rlbl">Password</div><div class="set-rsub">Para alterar a password, contacte o administrador técnico</div></div>
+              <div><div class="set-rlbl">Password de acesso</div><div class="set-rsub">Recomendado trocar a cada 90 dias · mínimo 10 caracteres</div></div>
+              <button class="btn btn-dark btn-sm" id="open-change-pw-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Alterar password
+              </button>
             </div>
           </div>
         </div>
@@ -937,6 +977,41 @@ select.fc{cursor:pointer}
   </div>
 </div>
 
+<!-- ═══ CHANGE PASSWORD MODAL ═══ -->
+<div class="mo" id="pw-mo">
+  <div class="modal modal-sm">
+    <div class="mh">
+      <div>
+        <h2>Alterar password</h2>
+        <p>Confirma a password atual e define uma nova (mínimo 10 caracteres).</p>
+      </div>
+      <button class="xbtn" id="pw-close" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <form id="pw-form" class="mb" novalidate>
+      <div class="fgrp">
+        <label for="pw-cur">Password atual</label>
+        <input type="password" id="pw-cur" class="fc" autocomplete="current-password" required>
+      </div>
+      <div class="fgrp">
+        <label for="pw-new">Nova password</label>
+        <input type="password" id="pw-new" class="fc" autocomplete="new-password" minlength="10" required>
+        <small>Mínimo 10 caracteres. Recomendado: letras, números e um símbolo.</small>
+      </div>
+      <div class="fgrp">
+        <label for="pw-conf">Confirmar nova password</label>
+        <input type="password" id="pw-conf" class="fc" autocomplete="new-password" minlength="10" required>
+      </div>
+      <div id="pw-msg" class="fmsg" style="margin-top:4px"></div>
+    </form>
+    <div class="mf">
+      <button class="btn btn-ghost" id="pw-cancel" type="button">Cancelar</button>
+      <button class="btn btn-dark" id="pw-submit" type="submit" form="pw-form">Gravar nova password</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ TOAST ═══ -->
 <div id="toast-box"></div>
 
@@ -946,8 +1021,7 @@ select.fc{cursor:pointer}
 // ══════════════════════════════════════════════════
 //  CONSTANTS
 // ══════════════════════════════════════════════════
-const ADMIN_PW   = "npg_ZNntQdzXOC23";
-const OWNER_CONN = "postgresql://neondb_owner:npg_ZNntQdzXOC23@ep-dry-term-alu2f51d-pooler.c-3.eu-central-1.aws.neon.tech/neondb?sslmode=require";
+// Credentials are server-side only (Vercel env vars). The client never sees a connection string.
 const PAGE_SIZE  = 25;
 
 // ══════════════════════════════════════════════════
@@ -995,15 +1069,32 @@ function confirm(title, msg, onOk) {
 //  DB
 // ══════════════════════════════════════════════════
 const DB = {
-  conn: ()=>sessionStorage.getItem('ma_conn'),
-  q: (sql,params=[])=>neonQuery(DB.conn(),sql,params),
+  async q(sql, params = []) {
+    const res = await fetch('/api/neon-proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ query: sql, params }),
+    });
+    if (res.status === 401) {
+      AUTH.showLogin();
+      throw new Error('Sessão expirada. Faça login novamente.');
+    }
+    let json;
+    try { json = await res.json(); } catch { throw new Error('Resposta inválida do servidor'); }
+    if (!res.ok) throw new Error(json.error || 'Erro DB');
+    return json;
+  },
 };
 
 // ══════════════════════════════════════════════════
 //  AUTH
 // ══════════════════════════════════════════════════
 const AUTH = {
-  init(){
+  email: null,
+  appReady: false,
+  async init(){
+    // Password reveal toggle (login form)
     $('pw-tog').onclick = ()=>{
       const i=$('l-pw'); const showing=i.type==='text';
       i.type=showing?'password':'text';
@@ -1011,36 +1102,113 @@ const AUTH = {
       $('pw-eye-closed').style.display=showing?'none':'';
       $('pw-tog').setAttribute('aria-label', showing?'Mostrar password':'Ocultar password');
     };
+
+    // Forgot password panel (slides open with an email field)
     $('forgot-btn').onclick = ()=>{
-      const p=$('forgot-panel'); p.style.display=p.style.display==='none'?'block':'none';
+      const p=$('forgot-panel');
+      p.style.display = p.style.display==='block'?'none':'block';
+      if (p.style.display==='block') $('forgot-email').focus();
     };
-    $('login-form').addEventListener('submit',e=>{
-      e.preventDefault();
-      const pw = $('l-pw').value;
-      const email = $('l-email').value.trim();
-      if(pw!==ADMIN_PW){
-        $('l-err').textContent='Password incorreta.';
+    $('forgot-form').addEventListener('submit', AUTH.forgotPassword);
+
+    // Login submission
+    $('login-form').addEventListener('submit', AUTH.login);
+
+    // Logout
+    $('logout-btn').onclick = AUTH.logout;
+
+    // Check existing session
+    try {
+      const r = await fetch('/api/session', { credentials: 'same-origin' });
+      const j = await r.json();
+      if (j.authenticated) {
+        AUTH.email = j.email;
+        AUTH.showApp();
+      } else {
+        AUTH.showLogin();
+      }
+    } catch {
+      AUTH.showLogin();
+    }
+  },
+  async login(e){
+    e.preventDefault();
+    const btn = $('l-btn');
+    const email = $('l-email').value.trim();
+    const password = $('l-pw').value;
+    $('l-err').classList.add('hidden');
+    if (!email || !password) {
+      $('l-err').textContent = 'Email e password obrigatórios.';
+      $('l-err').classList.remove('hidden');
+      return;
+    }
+    btn.disabled = true; const orig = btn.textContent; btn.textContent = 'A autenticar…';
+    try {
+      const r = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ email, password }),
+      });
+      const j = await r.json();
+      if (!r.ok) {
+        $('l-err').textContent = j.error || 'Credenciais inválidas.';
         $('l-err').classList.remove('hidden');
+        btn.disabled = false; btn.textContent = orig;
         return;
       }
-      $('l-err').classList.add('hidden');
-      sessionStorage.setItem('ma_conn', OWNER_CONN);
-      sessionStorage.setItem('ma_email', email||'admin@maelo.pt');
+      AUTH.email = j.email;
+      $('l-pw').value = '';
       AUTH.showApp();
-    });
-    $('logout-btn').onclick = ()=>{ sessionStorage.clear(); location.reload(); };
-    if(DB.conn()) AUTH.showApp(); else AUTH.showLogin();
+    } catch (err) {
+      $('l-err').textContent = 'Não foi possível contactar o servidor.';
+      $('l-err').classList.remove('hidden');
+      btn.disabled = false; btn.textContent = orig;
+    }
+  },
+  async logout(){
+    try { await fetch('/api/logout', { method:'POST', credentials:'same-origin' }); } catch {}
+    location.reload();
+  },
+  async forgotPassword(e){
+    e.preventDefault();
+    const email = $('forgot-email').value.trim();
+    const status = $('forgot-status');
+    const btn = $('forgot-submit');
+    if (!email) return;
+    status.textContent = 'A enviar…'; status.className='fmsg fmsg-info';
+    btn.disabled = true;
+    try {
+      const r = await fetch('/api/forgot-password', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email }),
+      });
+      const j = await r.json();
+      if (j.delivered === 'email') {
+        status.textContent = 'Se a conta existir, foi enviado um email com um link para definir nova password.';
+      } else if (j.delivered === 'fallback') {
+        status.textContent = 'Pedido registado. Como o envio de email ainda não está configurado, contacta o suporte para receber o link.';
+      } else {
+        status.textContent = j.message || 'Pedido registado.';
+      }
+      status.className = 'fmsg fmsg-ok';
+    } catch {
+      status.textContent = 'Erro ao contactar o servidor.';
+      status.className = 'fmsg fmsg-err';
+    } finally {
+      btn.disabled = false;
+    }
   },
   showLogin(){ $('login-screen').style.display=''; $('app').classList.remove('on'); },
   showApp(){
     $('login-screen').style.display='none';
     $('app').classList.add('on');
-    const email = sessionStorage.getItem('ma_email')||'admin';
+    const email = AUTH.email || 'admin';
     $('sb-email').textContent = email;
-    $('sb-av').textContent = email[0].toUpperCase();
+    $('sb-av').textContent = (email[0]||'A').toUpperCase();
     $('set-admin-email').textContent = email;
-    APP.init();
-    startAutoRefresh();
+    if (!AUTH.appReady) { APP.init(); startAutoRefresh(); AUTH.appReady = true; }
   }
 };
 
@@ -1806,7 +1974,65 @@ function FORMS_init(){ FORMS.init(); }
 // ══════════════════════════════════════════════════
 function SETTINGS_init(){
   $('export-all-btn')?.addEventListener('click',()=>CANDS.exportCSV());
+  $('open-change-pw-btn')?.addEventListener('click', PW.open);
 }
+
+// ══════════════════════════════════════════════════
+//  CHANGE PASSWORD
+// ══════════════════════════════════════════════════
+const PW = {
+  open(){
+    $('pw-cur').value = '';
+    $('pw-new').value = '';
+    $('pw-conf').value = '';
+    PW.setMsg('');
+    $('pw-mo').classList.add('on');
+    setTimeout(()=>$('pw-cur').focus(), 60);
+  },
+  close(){ $('pw-mo').classList.remove('on'); },
+  setMsg(text, kind){
+    const el = $('pw-msg');
+    if (!text) { el.className = 'fmsg'; el.textContent = ''; return; }
+    el.textContent = text;
+    el.className = 'fmsg ' + (kind === 'ok' ? 'fmsg-ok' : kind === 'info' ? 'fmsg-info' : 'fmsg-err');
+  },
+  async submit(e){
+    e.preventDefault();
+    const cur = $('pw-cur').value;
+    const next = $('pw-new').value;
+    const conf = $('pw-conf').value;
+    PW.setMsg('');
+    if (!cur || !next || !conf) { PW.setMsg('Preenche todos os campos.'); return; }
+    if (next.length < 10) { PW.setMsg('A nova password precisa de pelo menos 10 caracteres.'); return; }
+    if (next !== conf) { PW.setMsg('A confirmação não bate com a nova password.'); return; }
+    if (next === cur) { PW.setMsg('A nova password tem de ser diferente da atual.'); return; }
+
+    const btn = $('pw-submit');
+    btn.disabled = true; const orig = btn.textContent; btn.textContent = 'A gravar…';
+    try {
+      const r = await fetch('/api/change-password', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        credentials: 'same-origin',
+        body: JSON.stringify({ currentPassword: cur, newPassword: next }),
+      });
+      const j = await r.json();
+      if (!r.ok) { PW.setMsg(j.error || 'Erro ao gravar.'); btn.disabled=false; btn.textContent=orig; return; }
+      toast('Password atualizada com sucesso.', 'ok');
+      PW.close();
+    } catch {
+      PW.setMsg('Não foi possível contactar o servidor.');
+    } finally {
+      btn.disabled = false; btn.textContent = orig;
+    }
+  },
+};
+document.addEventListener('DOMContentLoaded', ()=>{
+  $('pw-form')?.addEventListener('submit', PW.submit);
+  $('pw-cancel')?.addEventListener('click', PW.close);
+  $('pw-close')?.addEventListener('click', PW.close);
+  $('pw-mo')?.addEventListener('click', (e)=>{ if (e.target.id === 'pw-mo') PW.close(); });
+});
 
 // ══════════════════════════════════════════════════
 //  BOOT
