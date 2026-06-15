@@ -62,7 +62,55 @@ function _buildFromDB(dbRow, campos, roleKey) {
   };
 }
 
+function createSoldadorDefinition() {
+  return {
+    roleKey: 'soldador',
+    title: 'Formulário de Soldador',
+    intro: 'Preencha o formulário abaixo e faça parte da nossa base de profissionais industriais para oportunidades em Portugal e na Europa. A M&A Elo Profissional procura profissionais qualificados para projetos industriais nas áreas de soldadura, tubagem, montagem e metalomecânica.',
+    mustHave: [
+      'Experiência prática no seu processo de soldadura',
+      'Documentos legais para trabalhar em Portugal e Europa',
+      'Dados corretos para contacto',
+    ],
+    heroPanel: {
+      eyebrow: 'Onde trabalhamos',
+      strong: 'Projetos em Portugal e em toda a Europa',
+      hint: null,
+    },
+    processSteps: [
+      'Preenche o formulário',
+      'A equipa analisa o perfil',
+      'Entramos em contacto',
+    ],
+    submitLabel: 'Quero fazer parte da equipa',
+    webFormFields: [
+      { section: 'Dados pessoais', name: 'full_name', label: 'Nome completo', type: 'text', required: true, target: 'candidate', placeholder: 'Escreva o nome igual aos documentos.' },
+      { section: 'Dados pessoais', name: 'phone', label: 'Telefone / WhatsApp', type: 'tel', required: true, target: 'candidate', placeholder: '+351 9xx xxx xxx' },
+      { section: 'Dados pessoais', name: 'email', label: 'Email', type: 'email', required: false, target: 'candidate', placeholder: 'nome@email.com', helpText: 'Opcional.' },
+      { section: 'Dados pessoais', name: 'city', label: 'Onde reside atualmente?', type: 'text', required: true, target: 'candidate', placeholder: 'Ex: Braga, Porto, Lisboa…' },
+      { section: 'Documentação', name: 'work_authorization', label: 'Tem documentos legais para trabalhar em Portugal?', type: 'select', required: true, target: 'answers', options: ['AT (Autorização de Residência)', 'CC (Cartão de Cidadão)', 'Cidadania Europeia', 'Estou em processo de legalização', 'Prefiro explicar à equipa'] },
+      { section: 'Experiência', name: 'current_profession', label: 'Função principal', type: 'text', required: true, target: 'candidate', defaultValue: 'Soldador' },
+      { section: 'Experiência', name: 'years_experience', label: 'Anos de experiência nesta função', type: 'select', required: true, target: 'answers', options: ['0-1 ano', '1-3 anos', '3-5 anos', '+5 anos'] },
+      { section: 'Experiência', name: 'experience_summary', label: 'Resumo da experiência', type: 'textarea', required: false, target: 'answers', placeholder: 'Se desejar, utilize este espaço para falar um pouco sobre a sua experiência profissional, processos ou posições que domina ou projetos em que já trabalhou.', helpText: 'Opcional.' },
+      { section: 'Competências', name: 'technical_skills', label: 'Em que processos de soldadura tem certificação ou experiência?', type: 'checkbox_group', required: true, target: 'answers', options: ['MIG/MAG', 'TIG', 'Eletrodo Revestido (SMAW)', 'Arame Tubular (FCAW)', 'Submerso (SAW)', 'Oxiacetilénica', 'Brasagem', 'Plasma', 'Ponto / Resistência', 'Orbital', 'Soldadura Robotizada', 'Outro'] },
+      { section: 'Competências', name: 'materials_experience', label: 'Em que materiais tem experiência?', type: 'checkbox_group', required: false, target: 'answers', options: ['Aço Carbono', 'Aço Inox', 'Alumínio', 'Galvanizado', 'Duplex', 'Super Duplex', 'Titânio', 'Cobre', 'Liga Especial', 'Outro'] },
+      { section: 'Competências', name: 'segments_experience', label: 'Em que tipos de trabalho ou sectores já atuou?', type: 'checkbox_group', required: false, target: 'answers', options: ['Estruturas Metálicas', 'Tubagem Industrial', 'Caldeiraria', 'Montagem Industrial', 'Indústria Alimentar', 'Farmacêutica', 'Petroquímica', 'Naval', 'Manutenção Industrial', 'Soldadura de Precisão', 'Construção Civil', 'Serralharia', 'Outro'] },
+      { section: 'Competências', name: 'languages', label: 'Que idiomas fala?', type: 'checkbox_group', required: false, target: 'answers', options: ['Português', 'Espanhol', 'Francês', 'Inglês'], helpText: 'O idioma pesa muito em projetos internacionais.' },
+      { section: 'Competências', name: 'additional_skills', label: 'Competências adicionais ou experiências práticas', type: 'textarea', required: false, target: 'answers', placeholder: 'Utilize este espaço para informar processos, posições, materiais ou atividades industriais em que tenha experiência prática, mesmo sem certificação formal.', helpText: 'Opcional.' },
+      { section: 'Logística', name: 'travel_availability', label: 'Tem interesse e disponibilidade para se deslocar da sua morada caso não haja projetos próximos?', type: 'select', required: true, target: 'answers', options: ['Sim, tenho disponibilidade', 'Tenho preferência pela minha região'] },
+      { section: 'Logística', name: 'transport_method', label: 'Tem viatura própria?', type: 'select', required: true, target: 'answers', options: ['Sim', 'Não'] },
+      { section: 'Logística', name: 'international_interest', label: 'Tem disponibilidade e interesse para trabalhar em:', type: 'checkbox_group', required: false, target: 'answers', options: ['Espanha', 'França', 'Holanda', 'Bélgica', 'Alemanha', 'Outros'], helpText: 'Opcional.' },
+      { section: 'Documentos', name: 'cv_files', label: 'Anexar currículo', type: 'file', required: true, target: 'answers', accept: '.pdf,.doc,.docx,.jpg,.jpeg,.png', multiple: true, helpText: 'PDF, Word ou imagem. Obrigatório para continuar com a candidatura — pode enviá-lo depois pelo WhatsApp.' },
+      { section: 'Documentos', name: 'certificate_files', label: 'Anexar certificados dos processos assinalados', type: 'file', required: false, target: 'answers', accept: '.pdf,.jpg,.jpeg,.png', multiple: true },
+      { section: 'Confirmação', name: 'truth_confirmation', label: 'Confirmo que as informações enviadas são verdadeiras', type: 'checkbox', required: true, target: 'answers' },
+      { section: 'Confirmação', name: 'data_consent', label: 'Autorizo apenas guardar os meus dados para esta candidatura e oportunidades futuras', type: 'checkbox', required: true, target: 'answers' },
+    ],
+  };
+}
+
 function createFormDefinition(roleKey) {
+  if (roleKey === 'soldador') return createSoldadorDefinition();
+
   const labels = {
     soldador: 'Soldador',
     serralheiro: 'Serralheiro',
@@ -270,21 +318,26 @@ async function loadForm() {
   const titleEl = byId('form-title');
   if (!roleKey || !form || !fieldsRoot) return;
 
-  // Try DB first — slug matches role (generic → geral)
+  // Soldador uses the curated in-code definition (ignores DB) so the latest copy ships immediately.
   let formDefinition = null;
-  const dbSlug = roleKey === 'generic' ? 'geral' : roleKey;
-  try {
-    const r = await neonQuery(NEON_FORM_CONN,
-      'SELECT * FROM formularios WHERE slug=$1 AND ativo=true LIMIT 1', [dbSlug]);
-    const dbRow = r.rows?.[0];
-    if (dbRow) {
-      const campos = typeof dbRow.campos === 'string' ? JSON.parse(dbRow.campos) : (dbRow.campos || []);
-      if (campos.length > 0) {
-        formDefinition = _buildFromDB(dbRow, campos, roleKey);
+  if (roleKey === 'soldador') {
+    formDefinition = createSoldadorDefinition();
+  } else {
+    // Try DB first — slug matches role (generic → geral)
+    const dbSlug = roleKey === 'generic' ? 'geral' : roleKey;
+    try {
+      const r = await neonQuery(NEON_FORM_CONN,
+        'SELECT * FROM formularios WHERE slug=$1 AND ativo=true LIMIT 1', [dbSlug]);
+      const dbRow = r.rows?.[0];
+      if (dbRow) {
+        const campos = typeof dbRow.campos === 'string' ? JSON.parse(dbRow.campos) : (dbRow.campos || []);
+        if (campos.length > 0) {
+          formDefinition = _buildFromDB(dbRow, campos, roleKey);
+        }
       }
+    } catch (e) {
+      console.warn('DB load failed, using fallback:', e);
     }
-  } catch (e) {
-    console.warn('DB load failed, using fallback:', e);
   }
   if (!formDefinition) formDefinition = createFormDefinition(roleKey);
   currentFormDefinition = formDefinition;
@@ -301,6 +354,42 @@ async function loadForm() {
       li.textContent = item;
       requirements.appendChild(li);
     }
+  }
+
+  if (formDefinition.heroPanel) {
+    const panelKicker = document.querySelector('.hero-panel .panel-kicker');
+    const panelStrong = document.querySelector('.hero-panel strong');
+    const panelHint = document.querySelector('.hero-panel span');
+    if (panelKicker && formDefinition.heroPanel.eyebrow) panelKicker.textContent = formDefinition.heroPanel.eyebrow;
+    if (panelStrong && formDefinition.heroPanel.strong) panelStrong.textContent = formDefinition.heroPanel.strong;
+    if (panelHint) {
+      if (formDefinition.heroPanel.hint) {
+        panelHint.textContent = formDefinition.heroPanel.hint;
+        panelHint.style.display = '';
+      } else {
+        panelHint.style.display = 'none';
+      }
+    }
+  }
+
+  if (Array.isArray(formDefinition.processSteps) && formDefinition.processSteps.length) {
+    const processList = document.querySelector('.process-card ol');
+    if (processList) {
+      processList.innerHTML = '';
+      formDefinition.processSteps.forEach((stepText, i) => {
+        const li = document.createElement('li');
+        const num = document.createElement('span');
+        num.textContent = String(i + 1).padStart(2, '0');
+        li.appendChild(num);
+        li.appendChild(document.createTextNode(stepText));
+        processList.appendChild(li);
+      });
+    }
+  }
+
+  if (formDefinition.submitLabel) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.textContent = formDefinition.submitLabel;
   }
 
   const grouped = groupBySection(formDefinition.webFormFields || []);
@@ -362,6 +451,7 @@ async function loadForm() {
     const profissao = roleMap[roleKey] || 'geral';
 
     const disponibilidade = (answers.travel_availability || '').toLowerCase().startsWith('sim');
+    const joinList = (v) => Array.isArray(v) ? v.join(', ') : (v || '');
 
     const regioes = Array.isArray(answers.available_regions)
       ? answers.available_regions.join(', ')
@@ -375,7 +465,13 @@ async function loadForm() {
     const mensagemParts = [];
     if (answers.experience_summary) mensagemParts.push(answers.experience_summary);
     if (answers.work_authorization) mensagemParts.push('Autorização: ' + answers.work_authorization);
-    if (answers.transport_method) mensagemParts.push('Transporte: ' + answers.transport_method);
+    if (joinList(answers.materials_experience)) mensagemParts.push('Materiais: ' + joinList(answers.materials_experience));
+    if (joinList(answers.segments_experience)) mensagemParts.push('Sectores: ' + joinList(answers.segments_experience));
+    if (joinList(answers.languages)) mensagemParts.push('Idiomas: ' + joinList(answers.languages));
+    if (answers.additional_skills) mensagemParts.push('Competências adicionais: ' + answers.additional_skills);
+    if (answers.travel_availability) mensagemParts.push('Mobilidade: ' + answers.travel_availability);
+    if (answers.transport_method) mensagemParts.push('Viatura própria: ' + answers.transport_method);
+    if (joinList(answers.international_interest)) mensagemParts.push('Interesse internacional: ' + joinList(answers.international_interest));
     if (answers.can_work_without_housing) mensagemParts.push('Sem alojamento: ' + answers.can_work_without_housing);
     const cvNames = Array.isArray(answers.cv_files) && answers.cv_files.length
       ? 'CV anexado: ' + answers.cv_files.join(', ') + ' — enviar via WhatsApp +351 936 525 992'
