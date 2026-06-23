@@ -1,4 +1,17 @@
 {
+  "redirects": [
+    { "source": "/obras-lisboa-parque-das-nacoes.html", "destination": "/regioes.html", "permanent": true },
+    { "source": "/obras-estarreja-aveiro.html", "destination": "/regioes.html", "permanent": true },
+    { "source": "/obras-viana-do-castelo.html", "destination": "/regioes.html", "permanent": true },
+    { "source": "/soldador.html", "destination": "/servicos.html", "permanent": true },
+    { "source": "/serralheiro.html", "destination": "/servicos.html", "permanent": true },
+    { "source": "/pintor-industrial.html", "destination": "/servicos.html", "permanent": true },
+    { "source": "/apoio-operacional-obras.html", "destination": "/servicos.html", "permanent": true },
+    { "source": "/profissionais-industria-metalomecanica.html", "destination": "/candidatos.html", "permanent": true },
+    { "source": "/organizacao-candidatos-obra-industria.html", "destination": "/candidatos.html", "permanent": true },
+    { "source": "/profissoes.html", "destination": "/competencias.html", "permanent": true },
+    { "source": "/privacidade.html", "destination": "/politica-de-privacidade.html", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

@@ -25,8 +25,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(60% 40% at 14% 12%, rgba(184, 123, 81, 0.06) 0%, rgba(184, 123, 81, 0) 60%),
-    radial-gradient(50% 35% at 86% 78%, rgba(72, 82, 88, 0.04) 0%, rgba(72, 82, 88, 0) 60%);
+    radial-gradient(70% 50% at 14% 8%, rgba(230, 81, 0, 0.05) 0%, rgba(230, 81, 0, 0) 65%),
+    radial-gradient(50% 40% at 86% 80%, rgba(184, 123, 81, 0.05) 0%, rgba(184, 123, 81, 0) 60%);
   pointer-events: none;
   z-index: -1;
 }
@@ -74,9 +74,9 @@
 }
 
 .form-back:hover {
-  color: var(--color-ink);
-  border-color: var(--color-copper);
-  background: rgba(184, 123, 81, 0.04);
+  color: var(--accent-navy);
+  border-color: var(--accent-navy);
+  background: rgba(27, 42, 78, 0.04);
 }
 
 .form-back:hover .form-back__arrow {
@@ -88,14 +88,14 @@
   align-items: center;
   gap: 10px;
   padding: 8px 14px;
-  color: var(--color-copper);
+  color: var(--accent-navy);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  background: rgba(184, 123, 81, 0.06);
-  border: 1px solid rgba(184, 123, 81, 0.22);
+  background: rgba(27, 42, 78, 0.06);
+  border: 1px solid rgba(27, 42, 78, 0.22);
   border-radius: 999px;
 }
 
@@ -111,8 +111,9 @@
   padding: clamp(28px, 4vw, 56px) clamp(24px, 3vw, 48px);
   margin-bottom: var(--space-xl);
   background: var(--color-paper);
-  border: 1px solid var(--color-line);
+  border: 1.5px solid var(--color-copper-soft);
   border-radius: var(--radius-lg);
+  box-shadow: 0 4px 24px rgba(230, 81, 0, 0.06), 0 1px 0 rgba(184, 123, 81, 0.08);
 }
 
 .form-hero__copy {
@@ -124,10 +125,10 @@
 
 .form-hero__eyebrow {
   margin: 0;
-  color: var(--color-copper);
+  color: var(--accent-navy);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -160,8 +161,9 @@
   gap: var(--space-lg);
   padding: clamp(20px, 2.4vw, 28px);
   background: var(--color-paper-warm);
-  border: 1px solid var(--color-copper-soft);
+  border: 1.5px solid var(--accent-spark);
   border-radius: var(--radius-lg);
+  box-shadow: 0 6px 28px rgba(230, 81, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .hero-panel__brand {
@@ -185,7 +187,7 @@
   font-size: 18px;
   font-weight: 500;
   font-style: italic;
-  color: var(--color-ink);
+  color: var(--accent-navy);
   letter-spacing: -0.01em;
 }
 
@@ -245,8 +247,32 @@
 .trust-card {
   padding: clamp(18px, 2vw, 24px);
   background: var(--color-paper);
-  border: 1px solid var(--color-line);
+  border: 1.5px solid var(--color-copper-soft);
   border-radius: var(--radius-lg);
+  box-shadow: 0 2px 12px rgba(230, 81, 0, 0.04), 0 1px 0 rgba(184, 123, 81, 0.06);
+  transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.requirements-card:hover,
+.process-card:hover {
+  border-color: var(--accent-spark);
+  box-shadow: 0 4px 20px rgba(230, 81, 0, 0.10);
+}
+
+/* Trust / Privacy card — navy accent (trust = cool/calm/identity) */
+.trust-card {
+  border-left: 3px solid var(--accent-navy);
+  background: linear-gradient(90deg, rgba(27, 42, 78, 0.025) 0%, var(--color-paper) 40%);
+}
+
+.trust-card:hover {
+  border-color: var(--color-copper-soft);
+  border-left-color: var(--accent-navy-bright);
+  box-shadow: 0 4px 20px rgba(27, 42, 78, 0.08);
+}
+
+.trust-card .sidebar-label {
+  color: var(--accent-navy);
 }
 
 .sidebar-label {
@@ -312,18 +338,20 @@
 
 .process-card li span {
   display: grid;
-  flex: 0 0 32px;
-  width: 32px;
-  height: 32px;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
   place-items: center;
-  color: var(--color-copper);
-  background: transparent;
-  border: 1px solid var(--color-copper-soft);
+  color: var(--color-white);
+  background: linear-gradient(135deg, var(--accent-spark) 0%, var(--color-copper) 100%);
+  border: 1px solid var(--accent-spark);
   border-radius: 999px;
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.04em;
+  font-feature-settings: "tnum";
+  box-shadow: 0 2px 8px rgba(230, 81, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .trust-card p {
@@ -352,9 +380,10 @@
 
 .form-panel {
   background: var(--color-paper);
-  border: 1px solid var(--color-line);
+  border: 1.5px solid var(--accent-spark);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: 0 8px 36px rgba(230, 81, 0, 0.10), 0 2px 8px rgba(184, 123, 81, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 /* Progress */
@@ -406,9 +435,10 @@
   display: block;
   width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, var(--color-copper), var(--color-copper-soft));
+  background: linear-gradient(90deg, var(--color-copper), var(--accent-spark));
   border-radius: inherit;
   transition: width 360ms var(--ease-out);
+  box-shadow: 0 0 12px rgba(230, 81, 0, 0.4);
 }
 
 /* Fields root */
@@ -445,7 +475,7 @@
   flex: 0 0 3px;
   width: 3px;
   height: 28px;
-  background: var(--color-copper);
+  background: linear-gradient(180deg, var(--accent-spark), var(--color-copper));
   border-radius: 999px;
 }
 
@@ -509,7 +539,7 @@
   padding: 13px 16px;
   color: var(--color-ink);
   background: var(--color-paper);
-  border: 1.5px solid var(--color-line);
+  border: 1.5px solid rgba(184, 123, 81, 0.32);
   border-radius: var(--radius-md);
   font-family: var(--font-body);
   font-size: 15px;
@@ -530,14 +560,14 @@
 .field > input:not([type="checkbox"]):not([type="radio"]):hover,
 .field > select:hover,
 .field > textarea:hover {
-  border-color: var(--color-copper-soft);
+  border-color: var(--accent-spark-soft);
 }
 
 .field > input:not([type="checkbox"]):not([type="radio"]):focus,
 .field > select:focus,
 .field > textarea:focus {
-  border-color: var(--color-copper);
-  box-shadow: 0 0 0 3px rgba(184, 123, 81, 0.14);
+  border-color: var(--accent-spark);
+  box-shadow: 0 0 0 3px rgba(230, 81, 0, 0.16);
 }
 
 .field > input[aria-invalid="true"],
@@ -593,15 +623,21 @@
   gap: 12px;
   padding: 14px 16px;
   background: var(--color-paper-warm);
-  border: 1px solid var(--color-line);
+  border: 1.5px solid rgba(184, 123, 81, 0.28);
   border-radius: var(--radius-md);
+  transition: border-color 0.2s var(--ease-out);
+}
+
+.check-row:has(input:checked) {
+  border-color: var(--accent-spark);
+  background: rgba(230, 81, 0, 0.05);
 }
 
 .check-row input {
   width: 18px;
   min-height: 18px;
   margin-top: 1px;
-  accent-color: var(--color-copper);
+  accent-color: var(--accent-spark);
 }
 
 .check-row label {
@@ -637,7 +673,7 @@
   padding: 12px 14px;
   color: var(--color-ink-soft);
   background: var(--color-paper);
-  border: 1px solid var(--color-line);
+  border: 1.5px solid rgba(184, 123, 81, 0.32);
   border-radius: var(--radius-md);
   font-family: var(--font-body);
   font-size: 14px;
@@ -645,25 +681,27 @@
   letter-spacing: 0;
   text-transform: none;
   cursor: pointer;
-  transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out), color 160ms var(--ease-out), transform 160ms var(--ease-out);
+  transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out), color 160ms var(--ease-out), transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
 }
 
 .option-card:hover {
-  border-color: var(--color-copper-soft);
+  border-color: var(--accent-spark-soft);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(230, 81, 0, 0.10);
 }
 
 .option-card:has(input:checked) {
   color: var(--color-ink);
-  background: rgba(184, 123, 81, 0.06);
-  border-color: var(--color-copper);
+  background: rgba(230, 81, 0, 0.08);
+  border-color: var(--accent-spark);
+  box-shadow: 0 0 0 1px var(--accent-spark), 0 4px 14px rgba(230, 81, 0, 0.14);
 }
 
 .option-card input {
   width: 16px;
   min-height: 16px;
   margin: 0;
-  accent-color: var(--color-copper);
+  accent-color: var(--accent-spark);
   flex-shrink: 0;
 }
 
@@ -682,7 +720,7 @@
   gap: var(--space-lg);
   padding: clamp(22px, 2.6vw, 32px);
   background: var(--color-paper-warm);
-  border-top: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-copper-soft);
   flex-wrap: wrap;
 }
 
@@ -721,6 +759,26 @@
 
 .actions .button {
   flex-shrink: 0;
+}
+
+/* Submit CTA — navy gradient (anchors brand identity, complements orange highlights) */
+.actions .button--dark {
+  background: linear-gradient(135deg, var(--accent-navy) 0%, var(--accent-navy-soft) 100%);
+  border: 1px solid var(--accent-navy);
+  color: var(--color-white);
+  box-shadow: 0 4px 18px rgba(27, 42, 78, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.actions .button--dark:hover {
+  background: linear-gradient(135deg, var(--accent-navy-soft) 0%, var(--accent-navy-bright) 100%);
+  border-color: var(--accent-navy-bright);
+  color: var(--color-white);
+  box-shadow: 0 6px 24px rgba(27, 42, 78, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.actions .button--dark:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(27, 42, 78, 0.28);
 }
 
 /* ==========================================================================

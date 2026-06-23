@@ -99,7 +99,7 @@ function createSoldadorDefinition() {
       { section: 'Competências', name: 'additional_skills', label: 'Competências adicionais ou experiências práticas', type: 'textarea', required: false, target: 'answers', placeholder: 'Utilize este espaço para informar processos, posições, materiais ou atividades industriais em que tenha experiência prática, mesmo sem certificação formal.', helpText: 'Opcional.' },
       { section: 'Logística', name: 'travel_availability', label: 'Tem interesse e disponibilidade para se deslocar da sua morada caso não haja projetos próximos?', type: 'select', required: true, target: 'answers', options: ['Sim, tenho disponibilidade', 'Tenho preferência pela minha região'] },
       { section: 'Logística', name: 'transport_method', label: 'Tem viatura própria?', type: 'select', required: true, target: 'answers', options: ['Sim', 'Não'] },
-      { section: 'Logística', name: 'international_interest', label: 'Tem disponibilidade e interesse para trabalhar em:', type: 'checkbox_group', required: false, target: 'answers', options: ['Espanha', 'França', 'Holanda', 'Bélgica', 'Alemanha', 'Outros'], helpText: 'Opcional.' },
+      { section: 'Logística', name: 'international_interest', label: 'Tem disponibilidade e interesse para trabalhar em:', type: 'checkbox_group', required: false, target: 'answers', options: ['Espanha', 'França', 'Bélgica', 'Alemanha', 'Outros'], helpText: 'Opcional.' },
       { section: 'Documentos', name: 'cv_files', label: 'Anexar currículo', type: 'file', required: true, target: 'answers', accept: '.pdf,.doc,.docx,.jpg,.jpeg,.png', multiple: true, helpText: 'PDF, Word ou imagem. Obrigatório para continuar com a candidatura — pode enviá-lo depois pelo WhatsApp.' },
       { section: 'Documentos', name: 'certificate_files', label: 'Anexar certificados dos processos assinalados', type: 'file', required: false, target: 'answers', accept: '.pdf,.jpg,.jpeg,.png', multiple: true },
       { section: 'Confirmação', name: 'truth_confirmation', label: 'Confirmo que as informações enviadas são verdadeiras', type: 'checkbox', required: true, target: 'answers' },
@@ -113,8 +113,12 @@ function createFormDefinition(roleKey) {
 
   const labels = {
     soldador: 'Soldador',
-    serralheiro: 'Serralheiro',
+    serralheiro: 'Serralheiro Industrial',
     pintor: 'Pintor Industrial',
+    mecanico: 'Mecânico Industrial',
+    tubista: 'Tubista',
+    caldeireiro: 'Caldeireiro',
+    ajudante: 'Ajudante Técnico',
     generic: 'Candidatura Geral',
   };
   const label = labels[roleKey] || labels.generic;
@@ -123,13 +127,21 @@ function createFormDefinition(roleKey) {
     soldador: ['Experiência prática em soldadura', 'Disponibilidade para deslocação', 'Documentos válidos para trabalhar em Portugal'],
     serralheiro: ['Experiência em serralharia ou montagem metálica', 'Disponibilidade para deslocação', 'Documentos válidos para trabalhar em Portugal'],
     pintor: ['Experiência em pintura industrial ou construção', 'Disponibilidade para deslocação', 'Documentos válidos para trabalhar em Portugal'],
+    mecanico: ['Experiência em montagem e manutenção mecânica industrial', 'Disponibilidade para paragens programadas', 'Documentos válidos para trabalhar em Portugal'],
+    tubista: ['Experiência em traçado e montagem de tubagem industrial', 'Leitura de isométricos', 'Documentos válidos para trabalhar em Portugal'],
+    caldeireiro: ['Experiência em conformação de chapa e calderagem', 'Conhecimento de equipamentos sob pressão', 'Documentos válidos para trabalhar em Portugal'],
+    ajudante: ['Disponibilidade para apoiar equipa técnica em obra', 'Mobilidade e disponibilidade para deslocação', 'Documentos válidos para trabalhar em Portugal'],
     generic: ['Experiência prática na função indicada', 'Disponibilidade para deslocação', 'Documentos válidos para trabalhar em Portugal'],
   };
 
   const skillsByRole = {
-    soldador: ['MIG/MAG', 'TIG', 'Elétrico (MMA)', 'Oxiacetileno', 'Soldadura estrutural', 'Soldadura de tubagem'],
-    serralheiro: ['Serralharia civil', 'Montagem metálica', 'Ferramentas manuais', 'Leitura de medidas', 'Soldadura ligeira', 'Estruturas metálicas'],
-    pintor: ['Pintura industrial', 'Preparação de superfícies', 'Airless / pistola', 'Rolo e trincha', 'Primário e acabamento', 'Pintura de estruturas'],
+    soldador: ['MIG/MAG (135)', 'TIG (141)', 'Eletrodo (111)', 'MAG fio tubular (136/138)', 'Soldadura estrutural', 'Soldadura de tubagem'],
+    serralheiro: ['Serralharia civil', 'Serralharia industrial', 'Corte e dobragem', 'Montagem de estruturas', 'Vedações técnicas', 'Leitura de medidas'],
+    pintor: ['Pintura industrial', 'Preparação de superfícies', 'Jacto / esmerilagem', 'Airless / pistola', 'Primário anticorrosivo', 'Trabalho em altura'],
+    mecanico: ['Montagem de equipamentos', 'Desmontagem e manutenção', 'Paragens programadas', 'Turbinas', 'Circuitos de arrefecimento', 'Sistemas hidráulicos'],
+    tubista: ['Traçado de tubagem', 'Corte e conformação', 'Aço carbono', 'Aço inox', 'Ligas especiais', 'Leitura de isométricos'],
+    caldeireiro: ['Fabrico de reservatórios', 'Permutadores de calor', 'Equipamentos sob pressão', 'Conformação de chapa', 'Calderagem', 'Aço carbono e inox'],
+    ajudante: ['Apoio a soldadura', 'Apoio a serralharia', 'Apoio a manutenção', 'Apoio a montagem', 'Ferramentas manuais', 'Disponibilidade para aprender'],
     generic: ['Obra', 'Indústria', 'Montagem', 'Ferramentas manuais', 'Leitura de medidas', 'Outro'],
   };
 
@@ -148,7 +160,7 @@ function createFormDefinition(roleKey) {
       { section: 'Experiência', name: 'years_experience', label: 'Anos de experiência nesta função', type: 'select', required: true, target: 'answers', options: ['Menos de 1 ano', '1 a 2 anos', '3 a 5 anos', 'Mais de 5 anos'] },
       { section: 'Experiência', name: 'experience_summary', label: 'Resumo da experiência', type: 'textarea', required: true, target: 'answers', placeholder: 'Onde trabalhou, o que fazia e por quanto tempo.' },
       { section: 'Competências', name: 'technical_skills', label: 'Competências que domina', type: 'checkbox_group', required: true, target: 'answers', options: skillsByRole[roleKey] || skillsByRole.generic },
-      { section: 'Logística', name: 'available_regions', label: 'Para quais regiões/obras tem disponibilidade?', type: 'checkbox_group', required: true, target: 'answers', options: ['Parque das Nações, Lisboa', 'Estarreja, Aveiro', 'Viana do Castelo', 'Qualquer região'] },
+      { section: 'Logística', name: 'available_regions', label: 'Para quais regiões/obras tem disponibilidade?', type: 'checkbox_group', required: true, target: 'answers', options: ['Lisboa e área metropolitana', 'Aveiro / Estarreja', 'Viana do Castelo', 'Vila Real', 'Miranda do Douro / Transmontana', 'Qualquer região nacional', 'Projectos internacionais (Europa)'] },
       { section: 'Logística', name: 'travel_availability', label: 'Confirma que consegue deslocar-se para alguma dessas regiões?', type: 'select', required: true, target: 'answers', options: ['Sim', 'Não'] },
       { section: 'Logística', name: 'transport_method', label: 'Como pretende chegar até à obra?', type: 'select', required: true, target: 'answers', options: ['Tenho transporte próprio', 'Vou de transporte público', 'Tenho boleia/solução combinada', 'Ainda preciso confirmar'] },
       { section: 'Logística', name: 'can_work_without_housing', label: 'A empresa não disponibiliza alojamento. Confirma que consegue avançar mesmo assim?', type: 'select', required: true, target: 'answers', options: ['Sim, consigo avançar sem alojamento da empresa', 'Não, preciso de alojamento'], helpText: 'Esta resposta ajuda a filtrar as obras atuais e guardar o perfil para oportunidades futuras.' },

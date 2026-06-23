@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="design-tokens.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="cookies.css">
   </head>
   <body data-barba="wrapper">
     <script>document.documentElement.classList.add("js");</script>
@@ -26,19 +27,19 @@
     <header class="site-header" data-site-header>
       <nav class="navbar" aria-label="Navegação principal">
         <a class="brand" href="index.html">
-          <img class="brand__logo" src="assets/logo-transparente.png" alt="" width="48" height="40" loading="eager" decoding="async"><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
+          <img class="brand__logo" src="assets/logo-transparente.png" alt="" width="64" height="54" loading="eager" decoding="async"><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
         </a>
         <div class="nav-links" data-nav-links>
-          <a href="empresa.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg></span><span class="nav-text">Empresa</span></a>
+          <a href="empresa.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg></span><span class="nav-text">Sobre</span></a>
           <a href="servicos.html" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="nav-text">Serviços</span></a>
-          <a href="para-empresas.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-text">Empresas</span></a>
-          <a href="profissoes.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span><span class="nav-text">Áreas Técnicas</span></a>
+          <a href="para-empresas.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-text">Para Empresas</span></a>
+          <a href="competencias.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span><span class="nav-text">Competências Técnicas</span></a>
           <a href="regioes.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="nav-text">Regiões</span></a>
           <a href="candidatos.html" class="nav-link--secondary"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="nav-text">Profissionais</span></a>
           <a href="contacto.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><span class="nav-text">Contacto</span></a>
         </div>
         <div class="nav-actions">
-          <a class="nav-phone" href="tel:+351936525992">+351 936 525 992</a>
+          <a class="nav-phone" href="tel:+351937920005">+351 937 920 005</a>
           <a class="nav-cta" href="contacto.html"><span class="nav-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="nav-cta__text">Falar connosco</span></a>
         </div>
         <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
@@ -49,14 +50,14 @@
 
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true" data-mobile-menu>
       <div class="mobile-menu__inner">
-        <a href="empresa.html">Empresa</a>
+        <a href="empresa.html">Sobre</a>
         <a href="servicos.html">Serviços</a>
-        <a href="para-empresas.html">Empresas</a>
-        <a href="profissoes.html">Áreas Técnicas</a>
+        <a href="para-empresas.html">Para Empresas</a>
+        <a href="competencias.html">Competências Técnicas</a>
         <a href="regioes.html">Regiões</a>
         <a href="candidatos.html" class="nav-link--secondary">Profissionais</a>
         <a href="contacto.html">Contacto</a>
-        <a class="mobile-menu__cta" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20da%20M%26A%20Elo." target="_blank" rel="noopener">Falar pelo WhatsApp</a>
+        <a class="mobile-menu__cta" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20da%20M%26A%20Elo." target="_blank" rel="noopener">Falar pelo WhatsApp</a>
       </div>
     </div>
 
@@ -66,69 +67,98 @@
       <section class="page-hero page-hero--servicos" aria-labelledby="servicos-title">
         <span class="page-hero__bg-mark" aria-hidden="true">M&amp;A</span>
         <div class="page-hero__inner">
-          <p class="section-label section-label--light" data-reveal data-scramble>Serviços técnicos</p>
-          <h1 id="servicos-title" data-reveal>Soldadura, serralharia, tubagem, montagem e manutenção industrial em Portugal.</h1>
+          <p class="section-label section-label--light" data-reveal data-scramble>As nossas especialidades</p>
+          <h1 id="servicos-title" data-reveal>Detalhe técnico de cada área de execução M&amp;A Elo.</h1>
           <span class="page-hero__copper"></span>
-          <p data-reveal>Execução técnica industrial para empresas com projeto definido. A M&amp;A Elo analisa o âmbito de cada pedido e responde com proposta técnica, prazo e equipa própria.</p>
+          <p data-reveal>Aqui encontra a descrição técnica completa das seis especialidades &mdash; processos, materiais e contextos de intervenção. Para uma visão geral, consulte a homepage.</p>
           <div class="page-actions" data-reveal>
-            <a class="button button--primary" href="para-empresas.html" data-cta="servicos-hero-empresas">Pedir orçamento técnico</a>
-            <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20sou%20uma%20empresa%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20t%C3%A9cnicos%20da%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="servicos-hero-whatsapp">Falar pelo WhatsApp</a>
+            <a class="button button--primary" href="contacto.html" data-cta="servicos-hero-empresas">Solicitar proposta</a>
+            <a class="button button--whatsapp" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="servicos-hero-whatsapp">Falar pelo WhatsApp</a>
           </div>
         </div>
         <span class="page-hero__scroll-indicator" aria-hidden="true"><span class="scroll-indicator__track"><span class="scroll-indicator__dot"></span></span>Continuar</span>
       </section>
 
-      <!-- ═══ SERVIÇOS PRINCIPAIS ═══ -->
+      <!-- ═══ ESPECIALIDADES TÉCNICAS DETALHADAS ═══ -->
       <section class="page-section" aria-labelledby="areas-title">
         <div class="section__shell">
           <div class="page-copy">
             <p class="page-kicker">Especialidades técnicas</p>
-            <h2 id="areas-title" data-reveal>Serviços técnicos executados para empresas industriais.</h2>
-            <p data-reveal>A M&amp;A Elo executa em soldadura, serralharia, tubagem, montagem, manutenção e estruturas metálicas — com equipa própria, supervisão técnica e acompanhamento do orçamento à entrega.</p>
+            <h2 id="areas-title" data-reveal>Seis especialidades técnicas com processos e materiais identificados.</h2>
+            <p data-reveal>A M&amp;A Elo executa em obra, unidade fabril e infraestrutura industrial. Cada especialidade tem processos certificáveis, materiais definidos e contextos de intervenção reais.</p>
           </div>
 
           <div class="service-list" data-reveal>
-            <article class="service-item" data-icon="construction">
+            <article class="service-item">
               <span>01</span>
-              <h3>Obras e projetos operacionais</h3>
-              <p>Execução técnica em obras civis e industriais. Soldadura de estrutura, serralharia em estaleiro, tubagem, montagem e estruturas metálicas para fases operacionais específicas.</p>
+              <h3>Soldadura industrial</h3>
+              <p>Execução de soldadura em obra, unidade fabril e infraestrutura industrial. Processos certificados, materiais identificados, supervisão técnica em todas as fases.</p>
               <ul>
-                <li>Estruturas metálicas e civil</li>
-                <li>Obras urbanas e industriais</li>
-                <li>Intervenções em fases críticas</li>
+                <li>Processo 135 &mdash; MIG/MAG (aço carbono e inox)</li>
+                <li>Processo 136 / 138 &mdash; MAG com fio tubular (estruturas de grande espessura)</li>
+                <li>Processo 141 &mdash; TIG (inox, titânio, ligas especiais e passagens de raiz)</li>
+                <li>Processo 111 &mdash; Eletrodo revestido (obra e manutenção)</li>
+                <li>Materiais: aço carbono, aço inoxidável, ligas especiais</li>
               </ul>
             </article>
             <article class="service-item">
               <span>02</span>
-              <h3>Indústria e metalomecânica</h3>
-              <p>Execução em contexto industrial e metalúrgico — manutenção, fabricação metalomecânica e intervenções em paragem programada com supervisão técnica.</p>
+              <h3>Serralharia e estruturas metálicas</h3>
+              <p>Fabrico, montagem e instalação de estruturas metálicas em obra ou unidade fabril. Corte, dobragem e montagem completa, com supervisão técnica.</p>
               <ul>
-                <li>Manutenção industrial</li>
-                <li>Metalurgia e metalomecânica</li>
-                <li>Produção e montagem</li>
+                <li>Estruturas metálicas primárias e secundárias</li>
+                <li>Vedações técnicas, portões e suporte</li>
+                <li>Serralharia civil e industrial</li>
+                <li>Corte, dobragem e instalação em obra</li>
               </ul>
             </article>
             <article class="service-item">
               <span>03</span>
-              <h3>Análise e proposta técnica</h3>
-              <p>Receção do pedido, avaliação técnica do âmbito e construção de proposta com plano de execução, prazo e orçamento. Sem orçamentos cegos.</p>
+              <h3>Caldeiraria industrial</h3>
+              <p>Fabrico e montagem de reservatórios, permutadores de calor, silos e equipamentos sob pressão. Trabalho em aço carbono, inox e ligas especiais.</p>
               <ul>
-                <li>Leitura do âmbito e materiais</li>
-                <li>Estimativa de prazo e custo</li>
-                <li>Plano de equipa e supervisão</li>
+                <li>Reservatórios e permutadores de calor</li>
+                <li>Silos e equipamentos sob pressão</li>
+                <li>Conformação de chapa e calderagem</li>
+                <li>Montagem conforme especificações técnicas do cliente</li>
               </ul>
             </article>
             <article class="service-item">
               <span>04</span>
-              <h3>Acompanhamento até à entrega</h3>
-              <p>Execução supervisionada por responsável técnico, comunicação directa com a empresa em cada fase, entrega documentada no final da intervenção.</p>
+              <h3>Tubagem industrial</h3>
+              <p>Traçado, corte, conformação e montagem de redes de tubagem industrial. Integração directa com equipa de soldadura. Obra e unidade fabril.</p>
               <ul>
-                <li>Responsável técnico identificado</li>
-                <li>Comunicação clara em obra</li>
-                <li>Entrega documentada</li>
+                <li>Aço carbono, inox e ligas especiais</li>
+                <li>Traçado e corte com precisão técnica</li>
+                <li>Integração com equipa de soldadura</li>
+                <li>Manutenção e reparação de redes existentes</li>
+              </ul>
+            </article>
+            <article class="service-item">
+              <span>05</span>
+              <h3>Pintura industrial</h3>
+              <p>Preparação de superfície e aplicação de sistemas de pintura industrial. Estruturas metálicas, equipamentos e construção civil. Trabalho em altura.</p>
+              <ul>
+                <li>Preparação: esmerilagem, jacto, desengordurante</li>
+                <li>Primário anticorrosivo e acabamentos</li>
+                <li>Trabalho em altura com plataformas e andaimes</li>
+                <li>Controlo de qualidade em cada fase</li>
+              </ul>
+            </article>
+            <article class="service-item">
+              <span>06</span>
+              <h3>Montagem e manutenção industrial</h3>
+              <p>Montagem de equipamentos e grupos mecânicos. Paragens programadas em unidades industriais e infraestrutura energética. Documentação técnica de cada fase.</p>
+              <ul>
+                <li>Montagem de equipamentos e grupos mecânicos</li>
+                <li>Paragens programadas em unidades de produção</li>
+                <li>Desmontagem, manutenção e remontagem</li>
+                <li>Experiência em infraestrutura hidroeléctrica</li>
               </ul>
             </article>
           </div>
+
+          <p class="spec-edit__hint" data-reveal style="margin-top:48px;">Não encontrou o processo ou serviço que procura? <a href="contacto.html" data-cta="servicos-final-hint">Entre em contacto</a> &mdash; analisamos a viabilidade.</p>
         </div>
       </section>
 
@@ -154,45 +184,45 @@
         </div>
       </section>
 
-      <!-- ═══ PÁGINAS ESPECIALIZADAS ═══ -->
+      <!-- ═══ NAVEGAÇÃO ENTRE PÁGINAS RELACIONADAS ═══ -->
       <section class="page-section page-section--warm" aria-labelledby="especializadas-title">
         <div class="section__shell">
           <div class="page-copy">
-            <p class="page-kicker">Páginas especializadas</p>
-            <h2 id="especializadas-title" data-reveal>Encontre a informação pelo tipo de necessidade.</h2>
-            <p data-reveal>Estas páginas ajudam empresas e candidatos a encontrar rapidamente respostas específicas sobre obras, indústria, regiões e candidaturas.</p>
+            <p class="page-kicker">Continuar a explorar</p>
+            <h2 id="especializadas-title" data-reveal>Mais informação sobre execução, competências e regiões.</h2>
+            <p data-reveal>Páginas complementares com a posição B2B da M&amp;A Elo, competências técnicas mobilizadas e regiões de actuação.</p>
           </div>
           <div class="service-list" data-reveal>
             <article class="service-item">
               <span>01</span>
-              <h3>Serviços técnicos para obras</h3>
-              <p>Execução técnica em obras civis e industriais — soldadura, serralharia, montagem e estruturas metálicas.</p>
+              <h3>Para empresas</h3>
+              <p>Como contratualizar com a M&amp;A Elo &mdash; objecções, garantias e formato de proposta.</p>
               <div class="role-actions">
-                <a class="button button--dark" href="apoio-operacional-obras.html">Ver página</a>
+                <a class="button button--dark" href="para-empresas.html">Ver página</a>
               </div>
             </article>
             <article class="service-item">
               <span>02</span>
-              <h3>Indústria e metalomecânica</h3>
-              <p>Intervenções em contexto industrial — manutenção, fabricação metalomecânica e paragens programadas.</p>
+              <h3>Competências técnicas</h3>
+              <p>As sete especializações que a M&amp;A Elo mobiliza por projecto.</p>
               <div class="role-actions">
-                <a class="button button--dark" href="profissionais-industria-metalomecanica.html">Ver página</a>
+                <a class="button button--dark" href="competencias.html">Ver competências</a>
               </div>
             </article>
             <article class="service-item">
               <span>03</span>
-              <h3>Áreas técnicas executadas</h3>
-              <p>Soldadura, serralharia, tubagem, montagem, manutenção e estruturas — competências executadas pela equipa M&amp;A Elo.</p>
+              <h3>Regiões de actuação</h3>
+              <p>Mobilidade nacional e europeia. Sede em Miranda do Douro, projectos internacionais activos.</p>
               <div class="role-actions">
-                <a class="button button--dark" href="profissoes.html">Ver áreas técnicas</a>
+                <a class="button button--dark" href="regioes.html">Ver regiões</a>
               </div>
             </article>
             <article class="service-item">
               <span>04</span>
-              <h3>Regiões em curso</h3>
-              <p>Lisboa, Estarreja/Aveiro e Viana do Castelo conforme obras em curso.</p>
+              <h3>Projectos executados</h3>
+              <p>Seis casos reais &mdash; tubagens, fabrico em série, hidroeléctricas e pintura industrial.</p>
               <div class="role-actions">
-                <a class="button button--dark" href="regioes.html">Ver regiões</a>
+                <a class="button button--dark" href="empresa.html#projectos">Ver casos</a>
               </div>
             </article>
           </div>
@@ -203,11 +233,11 @@
       <section class="block-cta" aria-labelledby="servicos-cta-title">
         <div class="block-cta__inner">
           <p class="block-cta__eyebrow" data-reveal>Próximo passo</p>
-          <h2 class="block-cta__heading" id="servicos-cta-title" data-reveal>Precisam de execução técnica para obra ou projeto industrial?</h2>
-          <p class="block-cta__sub" data-reveal>Envie o âmbito por WhatsApp. A equipa M&amp;A Elo analisa o pedido, responde com plano técnico, prazo e orçamento — sem propostas cegas.</p>
+          <h2 class="block-cta__heading" id="servicos-cta-title" data-reveal>Não encontrou o processo ou serviço que procura?</h2>
+          <p class="block-cta__sub" data-reveal>Descreva o âmbito. A M&amp;A Elo analisa a viabilidade técnica e responde em 24 horas úteis com plano, equipa e prazo.</p>
           <div class="block-cta__actions" data-reveal>
-            <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20sou%20uma%20empresa%20e%20preciso%20de%20execu%C3%A7%C3%A3o%20t%C3%A9cnica%20industrial." target="_blank" rel="noopener" data-cta="servicos-cta-whatsapp">Falar pelo WhatsApp</a>
-            <a class="button button--secondary" href="para-empresas.html" data-cta="servicos-cta-empresas">Para empresas</a>
+            <a class="button button--whatsapp" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="servicos-cta-whatsapp">Falar com a M&amp;A Elo</a>
+            <a class="button button--secondary" href="contacto.html" data-cta="servicos-cta-contacto">Solicitar proposta</a>
           </div>
         </div>
       </section>
@@ -226,7 +256,7 @@
                 <span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
               </p>
               <p class="footer-v2__desc">M&amp;A Elo Profissional, Unipessoal, Lda. — execução de serviços técnicos industriais em soldadura, serralharia, tubagem, montagem e manutenção metalomecânica em Portugal.</p>
-              <a class="footer-v2__cta" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="footer-whatsapp">
+              <a class="footer-v2__cta" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="footer-whatsapp">
                 <span class="footer-v2__cta-aura"></span>
                 <span class="footer-v2__cta-inner">
                   <span class="footer-v2__cta-icon">
@@ -235,7 +265,8 @@
                   <span>Falar pelo WhatsApp</span>
                 </span>
               </a>
-              <p class="footer-v2__tel">+351 936 525 992</p>
+              <p class="footer-v2__tel">+351 937 920 005</p>
+              <p class="footer-v2__tel-secondary">Canal RH (profissionais): <a href="candidatos.html">+351 936 525 992</a></p>
             </div>
 
             <div class="footer-v2__col" data-reveal>
@@ -249,12 +280,12 @@
             </div>
 
             <div class="footer-v2__col" data-reveal>
-              <p class="footer-v2__col-heading">&#193;reas T&eacute;cnicas</p>
+              <p class="footer-v2__col-heading">Compet&ecirc;ncias T&eacute;cnicas</p>
               <ul>
-                <li><a href="soldador.html">Soldador</a></li>
-                <li><a href="serralheiro.html">Serralheiro</a></li>
-                <li><a href="pintor-industrial.html">Pintor Industrial</a></li>
-                <li><a href="candidatos.html">&#193;rea de Profissionais</a></li>
+                <li><a href="competencias.html">Compet&ecirc;ncias t&eacute;cnicas</a></li>
+                <li><a href="servicos.html">Servi&ccedil;os</a></li>
+                <li><a href="regioes.html">Regi&otilde;es</a></li>
+                <li><a href="candidatos.html">&Aacute;rea de Profissionais</a></li>
               </ul>
             </div>
 
@@ -263,7 +294,7 @@
               <ul>
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="faq.html">FAQ</a></li>
-                <li><a href="privacidade.html">Privacidade</a></li>
+                <li><a href="politica-de-privacidade.html">Privacidade</a></li>
               </ul>
             </div>
 
@@ -271,7 +302,9 @@
 
           <div class="footer-v2__bottom">
             <nav aria-label="Rod&aacute;p&eacute; legal">
-              <a href="privacidade.html">Pol&iacute;tica de privacidade</a>
+              <a href="politica-de-privacidade.html">Pol&iacute;tica de privacidade</a>
+              <span aria-hidden="true">|</span>
+              <button type="button" class="cookie-manage-link" data-cookie-manage aria-label="Gerir prefer&ecirc;ncias de cookies">Gerir cookies</button>
               <span aria-hidden="true">|</span>
               <span>Miranda do Douro, Portugal</span>
             </nav>
@@ -283,6 +316,7 @@
     </footer>
 
     <script src="main.js" defer></script>
+    <script src="cookies.js" defer></script>
     <script src="animations.js" defer></script>
   </body>
 </html>

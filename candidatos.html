@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="design-tokens.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="cookies.css">
   </head>
   <body data-barba="wrapper">
     <script>document.documentElement.classList.add("js");</script>
@@ -26,13 +27,13 @@
     <header class="site-header" data-site-header>
       <nav class="navbar" aria-label="Navegação principal">
         <a class="brand" href="index.html">
-          <img class="brand__logo" src="assets/logo-transparente.png" alt="" width="48" height="40" loading="eager" decoding="async"><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
+          <img class="brand__logo" src="assets/logo-transparente.png" alt="" width="64" height="54" loading="eager" decoding="async"><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
         </a>
         <div class="nav-links" data-nav-links>
-          <a href="empresa.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg></span><span class="nav-text">Empresa</span></a>
+          <a href="empresa.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg></span><span class="nav-text">Sobre</span></a>
           <a href="servicos.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="nav-text">Serviços</span></a>
-          <a href="para-empresas.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-text">Empresas</span></a>
-          <a href="profissoes.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span><span class="nav-text">Áreas Técnicas</span></a>
+          <a href="para-empresas.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-text">Para Empresas</span></a>
+          <a href="competencias.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span><span class="nav-text">Competências Técnicas</span></a>
           <a href="regioes.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="nav-text">Regiões</span></a>
           <a href="candidatos.html" class="nav-link--secondary" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="nav-text">Profissionais</span></a>
           <a href="contacto.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><span class="nav-text">Contacto</span></a>
@@ -49,10 +50,10 @@
 
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true" data-mobile-menu>
       <div class="mobile-menu__inner">
-        <a href="empresa.html">Empresa</a>
+        <a href="empresa.html">Sobre</a>
         <a href="servicos.html">Serviços</a>
-        <a href="para-empresas.html">Empresas</a>
-        <a href="profissoes.html">Áreas Técnicas</a>
+        <a href="para-empresas.html">Para Empresas</a>
+        <a href="competencias.html">Competências Técnicas</a>
         <a href="regioes.html">Regiões</a>
         <a href="candidatos.html" class="nav-link--secondary">Profissionais</a>
         <a href="contacto.html">Contacto</a>
@@ -65,209 +66,180 @@
       <!-- ═══ PAGE HERO ═══ -->
       <section class="page-hero page-hero--candidatos" aria-labelledby="candidatos-title">
         <div class="page-hero__inner">
-          <p class="section-label section-label--light" data-reveal>Canal de candidaturas</p>
-          <h1 id="candidatos-title" data-reveal>Candidaturas para obra, indústria e metalomecânica.</h1>
+          <p class="section-label section-label--light" data-reveal>Para profissionais</p>
+          <h1 id="candidatos-title" data-reveal>Trabalhas na área técnica industrial e queres integrar equipas M&amp;A Elo?</h1>
           <span class="page-hero__copper"></span>
-          <p data-reveal>A M&amp;A Elo analisa cada candidatura individualmente. Preencha o formulário com experiência, região e disponibilidade — a equipa entra em contacto quando existe projeto compatível com o seu perfil.</p>
+          <p data-reveal>A M&amp;A Elo executa projectos técnicos industriais em todo o território português e na Europa. Para cada projecto, a equipa é montada com profissionais qualificados e verificados. Se tens experiência técnica real e queres trabalhar em projectos sérios, este é o teu canal.</p>
           <div class="page-actions" data-reveal>
             <a class="button button--primary" href="#formularios" data-cta="cand-hero-formularios">Escolher função e candidatar</a>
-            <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20uma%20candidatura%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="cand-hero-whatsapp">Dúvidas pelo WhatsApp</a>
+            <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20sou%20profissional%20t%C3%A9cnico%20e%20gostaria%20de%20integrar%20equipas%20da%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="cand-hero-whatsapp">Dúvidas pelo WhatsApp RH</a>
           </div>
         </div>
       </section>
 
-      <!-- ═══ COMO FUNCIONA ═══ -->
-      <section class="page-section" aria-labelledby="processo-title">
-        <div class="section__shell page-grid">
+      <!-- ═══ O QUE A M&A ELO OFERECE ═══ -->
+      <section class="page-section" aria-labelledby="oferta-title">
+        <div class="section__shell">
           <div class="page-copy">
-            <p class="page-kicker">Processo</p>
-            <h2 id="processo-title" data-reveal>Como a candidatura é tratada.</h2>
-            <p data-reveal>O formulário ajuda a organizar dados, experiência, disponibilidade e documentos. A equipa avalia a informação enviada e entra em contacto apenas quando houver seguimento aplicável.</p>
-            <p data-reveal>A equipa avalia cada perfil recebido. O seguimento acontece quando existe projeto compatível com a função e região indicada.</p>
+            <p class="page-kicker">O que a M&amp;A Elo oferece</p>
+            <h2 id="oferta-title" data-reveal>Projectos reais. Organização. Empresa registada. Diversidade.</h2>
+            <p data-reveal>Quatro condições que diferenciam o canal de candidaturas M&amp;A Elo de outras opções no mercado.</p>
           </div>
-          <aside class="credential-panel" data-reveal>
-            <p class="credential-panel__heading">Antes de avançar</p>
-            <dl>
-              <div>
-                <dt>Alojamento</dt>
-                <dd>A empresa não disponibiliza alojamento. O candidato deve ter disponibilidade real de deslocação.</dd>
-              </div>
-              <div>
-                <dt>Contratação</dt>
-                <dd>Salários, horários e condições são informados após análise pela equipa.</dd>
-              </div>
-              <div>
-                <dt>Resposta</dt>
-                <dd>A equipa entra em contacto quando existe seguimento aplicável.</dd>
-              </div>
-            </dl>
-          </aside>
+          <div class="capabilities-row" data-reveal>
+            <article class="capability-item">
+              <span class="capability-item__tag">01</span>
+              <h3>Projectos reais em empresas sérias</h3>
+              <p>Trabalhamos para clientes industriais, construtoras e operadores de infraestrutura. Os projectos têm âmbito definido, prazo acordado e condições claras antes do início.</p>
+            </article>
+            <article class="capability-item">
+              <span class="capability-item__tag">02</span>
+              <h3>Organização e supervisão técnica</h3>
+              <p>Cada projecto tem um responsável técnico M&amp;A Elo identificado. Não vais para obra sem saber o que vais fazer, com quem e em que condições.</p>
+            </article>
+            <article class="capability-item">
+              <span class="capability-item__tag">03</span>
+              <h3>Empresa registada e a cumprir obrigações</h3>
+              <p>Seguro de acidentes de trabalho activo, formação de segurança conforme exigência de cada projecto e estrutura formal registada em Portugal.</p>
+            </article>
+            <article class="capability-item">
+              <span class="capability-item__tag">04</span>
+              <h3>Diversidade de projectos e regiões</h3>
+              <p>Obra, indústria, infraestrutura energética, construção civil e metalomecânica. Disponibilidade para projectos internacionais.</p>
+            </article>
+          </div>
         </div>
       </section>
 
-      <!-- ═══ STEPS ═══ -->
+      <!-- ═══ COMO FUNCIONA — 4 steps ═══ -->
       <section class="page-section page-section--warm" aria-labelledby="steps-title">
         <div class="section__shell">
           <div class="page-copy">
-            <p class="page-kicker">Passo a passo</p>
-            <h2 id="steps-title" data-reveal>Da candidatura ao seguimento.</h2>
+            <p class="page-kicker">Como funciona</p>
+            <h2 id="steps-title" data-reveal>Da escolha da função ao contacto da equipa.</h2>
           </div>
           <ol class="process-line" data-reveal>
             <li>
               <span>01</span>
               <div>
-                <h3>Escolha a função</h3>
-                <p>Soldador, serralheiro, pintor industrial ou candidatura geral para outras funções ligadas a obra, indústria e metalomecânica.</p>
+                <h3>Escolhe a tua função</h3>
+                <p>Selecciona o formulário da tua especialidade &mdash; soldador, serralheiro, mecânico, tubista, caldeireiro, pintor industrial, ajudante técnico ou candidatura geral.</p>
               </div>
             </li>
             <li>
               <span>02</span>
               <div>
-                <h3>Preencha o formulário</h3>
-                <p>Informe experiência, região, disponibilidade de deslocação e documentos quando existirem. Quanto mais completo, melhor a análise.</p>
+                <h3>Preenche em 3 minutos</h3>
+                <p>Dados pessoais, experiência, competências, disponibilidade e documentos.</p>
               </div>
             </li>
             <li>
               <span>03</span>
               <div>
-                <h3>Análise humana</h3>
-                <p>A equipa M&amp;A Elo avalia os dados enviados. Não existe decisão automática de contratação ou colocação.</p>
+                <h3>Análise pela equipa M&amp;A Elo</h3>
+                <p>O perfil é analisado pela equipa. Sem colocação automática nem garantia de projectos imediatos.</p>
               </div>
             </li>
             <li>
               <span>04</span>
               <div>
-                <h3>Seguimento</h3>
-                <p>Salários, horários e condições contratuais são informados pela equipa após análise, quando aplicável e quando existir projeto compatível.</p>
+                <h3>Contacto quando houver projecto</h3>
+                <p>Quando surgir projecto compatível com o teu perfil, a equipa entra em contacto. Salários, horários e condições são informados nessa altura.</p>
               </div>
             </li>
           </ol>
         </div>
       </section>
 
-      <!-- ═══ FEATURE SPLIT — perfil de candidato ═══ -->
-      <section class="feature-split feature-split--dark" aria-labelledby="perfil-title">
-        <div class="feature-split__visual">
-          <img src="assets/soldador-portrait.webp" width="1672" height="941" alt="Profissional de obra — retrato de soldador experiente em contexto de construção metálica" loading="lazy" decoding="async">
-        </div>
-        <div class="feature-split__content">
-          <p class="page-kicker">Perfil de candidato</p>
-          <h2 id="perfil-title" data-reveal>Profissionais com experiência real e disponibilidade de deslocação.</h2>
-          <p data-reveal>A M&amp;A Elo procura candidatos com experiência prática comprovada — não perfis genéricos. O processo valoriza disponibilidade real, documentação em ordem e clareza sobre a função pretendida.</p>
-          <ul class="feature-split__list" data-reveal>
-            <li>Soldador, serralheiro, pintor industrial ou função geral</li>
-            <li>Disponibilidade para deslocação (alojamento não incluído)</li>
-            <li>Documentação pessoal e profissional em ordem</li>
-            <li>Análise humana — cada candidatura é lida pela equipa</li>
-          </ul>
-          <div data-reveal>
-            <a class="button button--primary" href="#formularios" data-cta="cand-feature-formularios">Escolher função e candidatar</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══ ROLE CARDS ═══ -->
+      <!-- ═══ ROLE CARDS — 8 perfis ═══ -->
       <section class="page-section" id="formularios" aria-labelledby="roles-title">
         <div class="section__shell">
           <div class="page-copy">
-            <p class="page-kicker">Formulários</p>
-            <h2 id="roles-title" data-reveal>Escolha o formulário adequado à sua função.</h2>
-            <p data-reveal>Cada formulário é específico à função — selecione o mais próximo da sua experiência. Para dúvidas antes de avançar, contacte pelo WhatsApp.</p>
+            <p class="page-kicker">Perfis e formulários</p>
+            <h2 id="roles-title" data-reveal>Oito formulários, um por especialidade técnica.</h2>
+            <p data-reveal>Cada formulário é específico à função &mdash; selecciona o mais próximo da tua experiência. Para dúvidas, contacta pelo WhatsApp RH.</p>
           </div>
 
           <div class="role-list" data-reveal>
             <article class="role-card">
               <span>01</span>
               <h3>Soldador</h3>
-              <p>Para profissionais com experiência prática em soldadura — obra, indústria ou metalomecânica. Soldadura MIG/MAG, TIG, elétrica e estrutural.</p>
-              <ul>
-                <li>Obra e estruturas metálicas</li>
-                <li>Indústria e manutenção</li>
-                <li>Soldadura de tubo e chapa</li>
-              </ul>
+              <p>MIG/MAG (135), TIG (141), Eletrodo (111), MAG fio tubular (136/138). Obra, indústria ou metalomecânica.</p>
               <div class="role-actions">
-                <a class="button button--dark" href="form.html?role=soldador" aria-label="Candidatar como soldador">Candidatar como soldador</a>
-                <a class="button button--outline-dark" href="soldador.html" aria-label="Ver função de soldador">Ver função</a>
+                <a class="button button--dark" href="candidatura-soldador.html" aria-label="Candidatar como soldador">Candidatar como soldador</a>
               </div>
             </article>
 
             <article class="role-card">
               <span>02</span>
-              <h3>Serralheiro</h3>
-              <p>Para profissionais de serralharia, montagem metálica e funções equivalentes em obra ou oficina industrial.</p>
-              <ul>
-                <li>Serralharia civil e industrial</li>
-                <li>Montagem de estruturas</li>
-                <li>Trabalho em oficina e obra</li>
-              </ul>
+              <h3>Serralheiro industrial</h3>
+              <p>Estruturas metálicas, vedações técnicas, serralharia civil e industrial.</p>
               <div class="role-actions">
-                <a class="button button--dark" href="form.html?role=serralheiro" aria-label="Candidatar como serralheiro">Candidatar como serralheiro</a>
-                <a class="button button--outline-dark" href="serralheiro.html" aria-label="Ver função de serralheiro">Ver função</a>
+                <a class="button button--dark" href="candidatura-serralheiro.html" aria-label="Candidatar como serralheiro">Candidatar como serralheiro</a>
               </div>
             </article>
 
             <article class="role-card">
               <span>03</span>
-              <h3>Pintor Industrial</h3>
-              <p>Para profissionais com experiência em pintura industrial, construção civil ou preparação e tratamento de superfície.</p>
-              <ul>
-                <li>Pintura industrial e anticorrosão</li>
-                <li>Preparação de superfícies</li>
-                <li>Construção civil e obra</li>
-              </ul>
+              <h3>Mecânico industrial</h3>
+              <p>Montagem, desmontagem e manutenção de equipamentos. Paragens programadas e infraestrutura energética.</p>
               <div class="role-actions">
-                <a class="button button--dark" href="form.html?role=pintor" aria-label="Candidatar como pintor industrial">Candidatar como pintor</a>
-                <a class="button button--outline-dark" href="pintor-industrial.html" aria-label="Ver função de pintor industrial">Ver função</a>
+                <a class="button button--dark" href="candidatura-mecanico.html" aria-label="Candidatar como mecânico industrial">Candidatar como mecânico</a>
               </div>
             </article>
 
             <article class="role-card">
               <span>04</span>
-              <h3>Candidatura Geral</h3>
-              <p>Para outras funções ligadas a obra, indústria ou metalomecânica. Exemplos orientativos no formulário — descreva a sua experiência real.</p>
-              <ul>
-                <li>Montagem e apoio em obra</li>
-                <li>Funções técnicas industriais</li>
-                <li>Outras funções operacionais</li>
-              </ul>
+              <h3>Tubista</h3>
+              <p>Tubagem industrial em aço carbono, inox e ligas especiais. Integração com equipa de soldadura.</p>
               <div class="role-actions">
-                <a class="button button--dark" href="form.html?role=generic" aria-label="Abrir candidatura geral">Candidatura geral</a>
-                <a class="button button--outline-dark" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20tenho%20d%C3%BAvidas%20sobre%20qual%20candidatura%20escolher." target="_blank" rel="noopener" aria-label="Tirar dúvidas pelo WhatsApp">Tirar dúvida</a>
+                <a class="button button--dark" href="candidatura-tubista.html" aria-label="Candidatar como tubista">Candidatar como tubista</a>
+              </div>
+            </article>
+
+            <article class="role-card">
+              <span>05</span>
+              <h3>Caldeireiro</h3>
+              <p>Reservatórios, permutadores e equipamentos sob pressão. Conformação de chapa e calderagem.</p>
+              <div class="role-actions">
+                <a class="button button--dark" href="candidatura-caldeireiro.html" aria-label="Candidatar como caldeireiro">Candidatar como caldeireiro</a>
+              </div>
+            </article>
+
+            <article class="role-card">
+              <span>06</span>
+              <h3>Pintor industrial</h3>
+              <p>Pintura anticorrosiva e acabamento. Estruturas metálicas e construção civil. Trabalho em altura.</p>
+              <div class="role-actions">
+                <a class="button button--dark" href="candidatura-pintor.html" aria-label="Candidatar como pintor industrial">Candidatar como pintor</a>
+              </div>
+            </article>
+
+            <article class="role-card">
+              <span>07</span>
+              <h3>Ajudante técnico</h3>
+              <p>Apoio à equipa técnica em obra ou unidade fabril. Sem experiência mínima obrigatória &mdash; mobilidade e disponibilidade valorizadas.</p>
+              <div class="role-actions">
+                <a class="button button--dark" href="candidatura-ajudante.html" aria-label="Candidatar como ajudante técnico">Candidatar como ajudante</a>
+              </div>
+            </article>
+
+            <article class="role-card">
+              <span>08</span>
+              <h3>Candidatura geral</h3>
+              <p>Especialidade não listada? Candidata-te na mesma. Descreve a tua função e experiência real.</p>
+              <div class="role-actions">
+                <a class="button button--dark" href="candidatura-geral.html" aria-label="Abrir candidatura geral">Candidatura geral</a>
               </div>
             </article>
           </div>
 
-          <aside class="notice-panel" style="margin-top: var(--space-3xl);" data-reveal>
-            <h3>Empresa confirmada</h3>
-            <p><strong>M&amp;A Elo Profissional, Unipessoal, Lda.</strong><br>Miranda do Douro · Portugal<br>WhatsApp: +351 936 525 992</p>
+          <aside class="notice-panel notice-panel--whatsapp" style="margin-top: 56px;" data-reveal>
+            <h3>WhatsApp RH &mdash; Canal exclusivo de Recursos Humanos</h3>
+            <p>Preferes falar primeiro antes de preencher o formulário? O canal WhatsApp RH está disponível para dúvidas sobre funções, regiões e condições.</p>
+            <div class="role-actions" style="margin-top:16px;">
+              <a class="button button--dark" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20sou%20profissional%20t%C3%A9cnico%20e%20gostaria%20de%20integrar%20equipas%20da%20M%26A%20Elo." target="_blank" rel="noopener">Falar com RH &mdash; +351 936 525 992</a>
+            </div>
           </aside>
-        </div>
-      </section>
-
-      <!-- ═══ PROFISSÕES ═══ -->
-      <section class="feature-banner" aria-labelledby="profissoes-title">
-        <div class="feature-banner__inner">
-          <div class="feature-banner__copy">
-            <p class="page-kicker" style="color: var(--color-copper-soft);">Perfis disponíveis</p>
-            <h2 id="profissoes-title" data-reveal>Veja as funções em detalhe antes de candidatar.</h2>
-            <p data-reveal>Cada função tem uma página com informação específica sobre o que se espera do candidato, contexto de trabalho e o que a empresa procura.</p>
-            <ul class="feature-banner__list" data-reveal>
-              <li><a href="soldador.html" style="color:inherit">Soldador — perfil, funções e candidatura</a></li>
-              <li><a href="serralheiro.html" style="color:inherit">Serralheiro — perfil, funções e candidatura</a></li>
-              <li><a href="pintor-industrial.html" style="color:inherit">Pintor Industrial — perfil, funções e candidatura</a></li>
-              <li><a href="profissoes.html" style="color:inherit">Todas as profissões — visão geral</a></li>
-            </ul>
-          </div>
-          <div class="feature-banner__aside">
-            <div class="applications__notice" data-reveal>
-              <strong>Regiões atuais</strong>
-              <p>Lisboa (Parque das Nações) · Estarreja, Aveiro · Viana do Castelo</p>
-            </div>
-            <div class="applications__notice" data-reveal>
-              <strong>Dúvidas?</strong>
-              <p>Contacte diretamente pelo WhatsApp +351 936 525 992 antes de preencher.</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -308,12 +280,12 @@
             </div>
 
             <div class="footer-v2__col" data-reveal>
-              <p class="footer-v2__col-heading">&#193;reas T&eacute;cnicas</p>
+              <p class="footer-v2__col-heading">Compet&ecirc;ncias T&eacute;cnicas</p>
               <ul>
-                <li><a href="soldador.html">Soldador</a></li>
-                <li><a href="serralheiro.html">Serralheiro</a></li>
-                <li><a href="pintor-industrial.html">Pintor Industrial</a></li>
-                <li><a href="candidatos.html">&#193;rea de Profissionais</a></li>
+                <li><a href="competencias.html">Compet&ecirc;ncias t&eacute;cnicas</a></li>
+                <li><a href="servicos.html">Servi&ccedil;os</a></li>
+                <li><a href="regioes.html">Regi&otilde;es</a></li>
+                <li><a href="candidatos.html">&Aacute;rea de Profissionais</a></li>
               </ul>
             </div>
 
@@ -322,7 +294,7 @@
               <ul>
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="faq.html">FAQ</a></li>
-                <li><a href="privacidade.html">Privacidade</a></li>
+                <li><a href="politica-de-privacidade.html">Privacidade</a></li>
               </ul>
             </div>
 
@@ -330,7 +302,9 @@
 
           <div class="footer-v2__bottom">
             <nav aria-label="Rod&aacute;p&eacute; legal">
-              <a href="privacidade.html">Pol&iacute;tica de privacidade</a>
+              <a href="politica-de-privacidade.html">Pol&iacute;tica de privacidade</a>
+              <span aria-hidden="true">|</span>
+              <button type="button" class="cookie-manage-link" data-cookie-manage aria-label="Gerir prefer&ecirc;ncias de cookies">Gerir cookies</button>
               <span aria-hidden="true">|</span>
               <span>Miranda do Douro, Portugal</span>
             </nav>
@@ -342,6 +316,7 @@
     </footer>
 
     <script src="main.js" defer></script>
+    <script src="cookies.js" defer></script>
     <script src="animations.js" defer></script>
   </body>
 </html>

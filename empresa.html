@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="design-tokens.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="cookies.css">
   </head>
   <body data-barba="wrapper">
     <script>document.documentElement.classList.add("js");</script>
@@ -26,19 +27,19 @@
     <header class="site-header" data-site-header>
       <nav class="navbar" aria-label="Navegação principal">
         <a class="brand" href="index.html">
-          <img class="brand__logo" src="assets/logo-transparente.png" alt="" width="48" height="40" loading="eager" decoding="async"><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
+          <img class="brand__logo" src="assets/logo-transparente.png" alt="" width="64" height="54" loading="eager" decoding="async"><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
         </a>
         <div class="nav-links" data-nav-links>
-          <a href="empresa.html" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg></span><span class="nav-text">Empresa</span></a>
+          <a href="empresa.html" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg></span><span class="nav-text">Sobre</span></a>
           <a href="servicos.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="nav-text">Serviços</span></a>
-          <a href="para-empresas.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-text">Empresas</span></a>
-          <a href="profissoes.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span><span class="nav-text">Áreas Técnicas</span></a>
+          <a href="para-empresas.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-text">Para Empresas</span></a>
+          <a href="competencias.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span><span class="nav-text">Competências Técnicas</span></a>
           <a href="regioes.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="nav-text">Regiões</span></a>
           <a href="candidatos.html" class="nav-link--secondary"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="nav-text">Profissionais</span></a>
           <a href="contacto.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><span class="nav-text">Contacto</span></a>
         </div>
         <div class="nav-actions">
-          <a class="nav-phone" href="tel:+351936525992">+351 936 525 992</a>
+          <a class="nav-phone" href="tel:+351937920005">+351 937 920 005</a>
           <a class="nav-cta" href="contacto.html"><span class="nav-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="nav-cta__text">Falar connosco</span></a>
         </div>
         <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
@@ -49,14 +50,14 @@
 
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true" data-mobile-menu>
       <div class="mobile-menu__inner">
-        <a href="empresa.html">Empresa</a>
+        <a href="empresa.html">Sobre</a>
         <a href="servicos.html">Serviços</a>
-        <a href="para-empresas.html">Empresas</a>
-        <a href="profissoes.html">Áreas Técnicas</a>
+        <a href="para-empresas.html">Para Empresas</a>
+        <a href="competencias.html">Competências Técnicas</a>
         <a href="regioes.html">Regiões</a>
         <a href="candidatos.html" class="nav-link--secondary">Profissionais</a>
         <a href="contacto.html">Contacto</a>
-        <a class="mobile-menu__cta" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20M%26A%20Elo%20Profissional." target="_blank" rel="noopener">Falar pelo WhatsApp</a>
+        <a class="mobile-menu__cta" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20M%26A%20Elo%20Profissional." target="_blank" rel="noopener">Falar pelo WhatsApp</a>
       </div>
     </div>
 
@@ -66,48 +67,205 @@
       <section class="page-hero page-hero--empresa" aria-labelledby="empresa-title">
         <span class="page-hero__bg-mark" aria-hidden="true">M&amp;A</span>
         <div class="page-hero__inner">
-          <p class="section-label section-label--light" data-reveal data-scramble>Empresa</p>
-          <h1 id="empresa-title" data-reveal>M&amp;A Elo Profissional, Unipessoal, Lda.</h1>
+          <p class="section-label section-label--light section-label--navy" data-reveal data-scramble>Empresa</p>
+          <h1 id="empresa-title" data-reveal>Prestação de serviços técnicos industriais &mdash; com equipa própria e responsabilidade pelo resultado.</h1>
           <span class="page-hero__copper"></span>
-          <p data-reveal>Empresa portuguesa de execução de serviços técnicos industriais. Atuação em projetos de metalomecânica, obras e manutenção industrial — com equipa própria, análise técnica de cada projeto e responsabilidade institucional.</p>
+          <p data-reveal>A M&amp;A Elo Profissional é uma empresa portuguesa de execução de projectos industriais &mdash; soldadura, serralharia, caldeiraria, tubagem, pintura industrial e manutenção. Sede em Miranda do Douro, na fronteira com Espanha. Actuação em Portugal e na Europa.</p>
           <div class="page-actions" data-reveal>
-            <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20sou%20uma%20empresa%20e%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo%20sobre%20uma%20necessidade%20operacional." target="_blank" rel="noopener" data-cta="empresa-hero-whatsapp">Falar pelo WhatsApp</a>
-            <a class="button button--secondary" href="servicos.html" data-cta="empresa-hero-servicos">Ver serviços</a>
+            <a class="button button--whatsapp" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="empresa-hero-whatsapp">Falar pelo WhatsApp</a>
+            <a class="button button--secondary" href="contacto.html" data-cta="empresa-hero-contacto">Solicitar proposta</a>
           </div>
         </div>
         <span class="page-hero__scroll-indicator" aria-hidden="true"><span class="scroll-indicator__track"><span class="scroll-indicator__dot"></span></span>Continuar</span>
       </section>
 
-      <!-- ═══ ABOUT ═══ -->
+      <!-- ═══ QUEM SOMOS ═══ -->
       <section class="page-section" aria-labelledby="about-title">
         <div class="section__shell page-grid">
           <div class="page-copy">
-            <p class="page-kicker">Presença institucional</p>
-            <h2 id="about-title" data-reveal>Execução técnica responsável. Equipa própria. Resposta identificada.</h2>
-            <p data-reveal>A M&amp;A Elo Profissional executa intervenções técnicas em obra, indústria, metalúrgica e metalomecânica — com análise do âmbito antes da proposta, equipa qualificada própria e supervisão técnica em todas as fases. Sem improviso, sem subcontratação não declarada.</p>
-            <p data-reveal>O posicionamento é claro: empresa de execução técnica industrial, não portal de vagas nem cedência de mão de obra. Cada projeto é avaliado em contexto e respondido com plano técnico, prazo e capacidade real.</p>
+            <p class="page-kicker">Quem somos</p>
+            <h2 id="about-title" data-reveal>Executamos. Gerimos a equipa. Respondemos pelo resultado.</h2>
+            <p data-reveal>A M&amp;A Elo Profissional é uma empresa portuguesa de prestação de serviços técnicos industriais, sediada em Miranda do Douro. Executamos projectos de soldadura, serralharia, caldeiraria, tubagem, pintura industrial e manutenção &mdash; com equipa constituída por projecto, gestão operacional própria e responsabilidade técnica e contratual pelo resultado.</p>
+            <p class="anti-ett-statement" data-reveal><strong>Não somos uma empresa de trabalho temporário. Não cedemos trabalhadores.</strong> Assumimos a execução, gerimos a equipa e respondemos pelo resultado &mdash; independentemente do local onde o trabalho é realizado.</p>
+            <p data-reveal>Cada projecto é executado com equipa dimensionada para o âmbito, prazo e exigências técnicas do cliente. A M&amp;A Elo assume a coordenação operacional completa &mdash; selecção, mobilização, supervisão e entrega.</p>
           </div>
           <aside class="credential-panel" data-reveal>
-            <p class="credential-panel__heading">Capacidades operacionais</p>
+            <p class="credential-panel__heading">Identificação institucional</p>
             <dl>
               <div>
-                <dt>Empresa</dt>
+                <dt>Razão social</dt>
                 <dd>M&amp;A Elo Profissional, Unipessoal, Lda.</dd>
               </div>
               <div>
-                <dt>Especialidades</dt>
-                <dd>Soldadura · Serralharia · Tubagem · Montagem · Manutenção · Estruturas metálicas</dd>
+                <dt>NIF</dt>
+                <dd>518 954 170</dd>
               </div>
               <div>
-                <dt>Sede</dt>
-                <dd>Miranda do Douro, Portugal</dd>
+                <dt>Morada</dt>
+                <dd>Rua 1.&ordm; de Maio, n.&ordm; 39, 1.&ordm; Drt<br>5210-191 Miranda do Douro</dd>
               </div>
               <div>
-                <dt>Contacto técnico</dt>
-                <dd>+351 936 525 992</dd>
+                <dt>Contacto B2B</dt>
+                <dd><a href="tel:+351937920005">+351 937 920 005</a> &mdash; Alexandre Luchini Neto, CEO</dd>
               </div>
             </dl>
           </aside>
+        </div>
+      </section>
+
+      <!-- ═══ QUEM LIDERA ═══ -->
+      <section class="page-section page-section--alt" aria-labelledby="ceo-title">
+        <div class="section__shell page-grid">
+          <div class="page-copy">
+            <p class="page-kicker">Quem lidera</p>
+            <h2 id="ceo-title" data-reveal>Alexandre Luchini Neto &mdash; Fundador e CEO.</h2>
+            <p data-reveal>Com cinco anos de experiência no sector técnico industrial, Alexandre Luchini Neto fundou a M&amp;A Elo com um modelo claro: execução técnica com responsabilidade total, sem intermediários. O percurso inclui operação directa em obra, gestão de equipas técnicas e desenvolvimento de relações com clientes industriais em Portugal e na Península Ibérica.</p>
+            <p data-reveal>A M&amp;A Elo foi constituída em Agosto de 2025. A curta existência formal é acompanhada por experiência operacional acumulada e por um conjunto de projectos executados que demonstram capacidade técnica real.</p>
+            <div class="page-actions" data-reveal>
+              <a class="button button--whatsapp" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="empresa-ceo-whatsapp">Contacto directo com o CEO</a>
+            </div>
+          </div>
+          <aside class="credential-panel" data-reveal>
+            <p class="credential-panel__heading">Credenciais e documentação</p>
+            <ul class="credential-checklist">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Empresa registada em Portugal &mdash; NIF 518 954 170</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Seguro de responsabilidade civil &mdash; Fidelidade, cobertura activa</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Seguro de acidentes de trabalho activo para todos os profissionais em projecto</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Formação em segurança adequada a cada projecto e cliente</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Documentação técnica de fases entregue em cada projecto</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ═══ PROJECTOS EXECUTADOS — 6 cases completos ═══ -->
+      <section class="cases section section--spacious" id="projectos" aria-labelledby="empresa-cases-title">
+        <div class="section__shell">
+          <div class="cases__header">
+            <p class="section-label" data-reveal>Projectos executados</p>
+            <h2 id="empresa-cases-title" class="cases__h2" data-reveal>Seis intervenções reais &mdash; âmbito, equipa e prazo identificados.</h2>
+            <p class="cases__lead" data-reveal>Curta existência formal, experiência operacional acumulada. Cada caso descreve âmbito técnico, equipa mobilizada e duração.</p>
+          </div>
+
+          <ol class="cases__grid cases__grid--six" data-reveal>
+            <li class="case-card">
+              <div class="case-card__meta"><span>Estarreja, Aveiro</span><span>2025</span></div>
+              <h3 class="case-card__title">Fabricação de tubagens em aço carbono</h3>
+              <p class="case-card__desc">Fabrico de rede de tubagens nas instalações do cliente, em processos TIG e Eletrodo. Equipa de 4 soldadores e 2 serralheiros, 4 semanas com supervisão técnica M&amp;A Elo em todas as fases. Entrega documentada conforme especificações técnicas do cliente.</p>
+              <p class="case-card__client">Indústria de fabrico de matéria-prima para poliuretano.</p>
+            </li>
+            <li class="case-card">
+              <div class="case-card__meta"><span>Aveiro</span><span>2025 / 2026</span></div>
+              <h3 class="case-card__title">Fabricação de pás de escavadeiras</h3>
+              <p class="case-card__desc">Fabrico em série em aço estrutural, processo MAG, nas instalações do cliente. Equipa de 6 soldadores e 3 ajudantes, 9 semanas com supervisão técnica M&amp;A Elo. Entrega conforme especificações dimensionais e técnicas.</p>
+              <p class="case-card__client">Sector de equipamentos de construção e movimentação de terras.</p>
+            </li>
+            <li class="case-card">
+              <div class="case-card__meta"><span>Barragem Hidroeléctrica</span><span>2026</span></div>
+              <h3 class="case-card__title">Manutenção do circuito de arrefecimento de grupo gerador</h3>
+              <p class="case-card__desc">Desmontagem, manutenção completa e remontagem do circuito de arrefecimento de radiadores em paragem programada. Equipa de 2 mecânicos e 4 ajudantes, 2 semanas com supervisão M&amp;A Elo. Entrega documentada com registo de cada fase.</p>
+              <p class="case-card__client">Operador de barragem hidroeléctrica.</p>
+            </li>
+            <li class="case-card">
+              <div class="case-card__meta"><span>Barragem Hidroeléctrica</span><span>Março 2026</span></div>
+              <h3 class="case-card__title">Manutenção de chumaceira, turbina e anel distribuidor</h3>
+              <p class="case-card__desc">Desmontagem parcial e limpeza da fossa da turbina, montagem de pás das guias do anel distribuidor, substituição de peças e remontagem de chumaceira em paragem programada. Equipa de 2 mecânicos e 3 ajudantes, 12 semanas com supervisão M&amp;A Elo.</p>
+              <p class="case-card__client">Operador de barragem hidroeléctrica.</p>
+            </li>
+            <li class="case-card">
+              <div class="case-card__meta"><span>Barragem Hidroeléctrica</span><span>2026</span></div>
+              <h3 class="case-card__title">Limpeza e manutenção de filtros de escalão</h3>
+              <p class="case-card__desc">Desmontagem e limpeza de filtros de 1.&ordm; e 2.&ordm; escalão em paragem programada, com inspecção técnica e verificação de componentes. Equipa de 1 mecânico e 3 ajudantes, 4 semanas com supervisão M&amp;A Elo.</p>
+              <p class="case-card__client">Operador de barragem hidroeléctrica.</p>
+            </li>
+            <li class="case-card">
+              <div class="case-card__meta"><span>Vila Real</span><span>2025 / 2026</span></div>
+              <h3 class="case-card__title">Pintura industrial de armazém</h3>
+              <p class="case-card__desc">Pintura industrial em 3.000 m&sup2; de estruturas metálicas e paredes. Preparação de superfície, primário anticorrosivo e acabamento industrial. 4 pintores e 3 ajudantes, 8 semanas com supervisão M&amp;A Elo. Verificação final de conformidade.</p>
+              <p class="case-card__client">Sector da construção civil.</p>
+            </li>
+          </ol>
+
+          <aside class="sector-spotlight" aria-label="Destaque sectorial &mdash; Infraestrutura Hidroeléctrica" data-reveal>
+            <div class="sector-spotlight__inner">
+              <span class="sector-spotlight__icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+              </span>
+              <p class="sector-spotlight__label">Destaque sectorial &mdash; Infraestrutura Hidroeléctrica</p>
+              <p class="sector-spotlight__quote">&laquo;Três intervenções distintas em infraestrutura hidroeléctrica &mdash; turbinas, circuitos de arrefecimento e sistemas de filtragem. Um sector onde rigor técnico, segurança e precisão não são opcionais. A M&amp;A Elo tem presença confirmada neste contexto.&raquo;</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ═══ ONDE ACTUAMOS — com mapa SVG ibérico ═══ -->
+      <section class="page-section" aria-labelledby="onde-title">
+        <div class="section__shell">
+          <div class="section-intro">
+            <p class="section-label" data-reveal>Onde actuamos</p>
+            <h2 id="onde-title" data-reveal>Mobilidade nacional e europeia como competência central.</h2>
+            <p data-reveal>Miranda do Douro &middot; Lisboa &middot; Aveiro &middot; Viana do Castelo &middot; Vila Real &mdash; e outras regiões conforme projectos em curso. Projectos internacionais em Espanha, França, Bélgica e Alemanha.</p>
+          </div>
+
+          <figure class="map-iberia" role="img" aria-labelledby="onde-title empresa-mapa-desc" data-reveal>
+            <p class="map-iberia__label">Cobertura geográfica</p>
+            <h3 class="map-iberia__title">Cinco cidades, mobilidade ibérica.</h3>
+            <p id="empresa-mapa-desc" class="sr-only">Mapa da Península Ibérica com marcadores nas cinco cidades de actuação: Miranda do Douro (sede), Lisboa, Aveiro/Estarreja, Viana do Castelo e Vila Real.</p>
+
+            <svg class="map-iberia__svg" viewBox="0 0 820 540" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect class="map-iberia__sea" x="0" y="0" width="820" height="540" rx="14"/>
+
+              <path class="map-iberia__country" d="M 245,90 C 290,82  340,78  395,80 C 460,82  530,90  600,100 C 660,108  720,120  760,135 L 778,150 L 780,180 C 770,210  760,240  765,275 C 770,305  780,335  775,365 L 760,395 C 730,420  690,430  650,440 C 600,450  545,455  490,460 C 430,462  370,460  315,455 L 285,430 C 280,400  282,370  280,340 C 278,310  278,278  270,250 C 264,220  254,190  248,160 C 244,135  242,110  245,90 Z"/>
+
+              <path class="map-iberia__country map-iberia__country--pt" d="M 115,135 C 130,128  148,128  165,132 L 195,140 C 210,150  220,165  225,185 L 230,215 C 232,245  234,275  240,305 C 245,335  252,360  255,390 L 250,420 C 240,438  220,450  200,452 L 170,455 C 145,452  125,442  118,420 L 110,395 C 108,365  106,335  108,305 C 110,275  113,245  112,215 L 110,185 C 108,165  110,148  115,135 Z"/>
+
+              <path class="map-iberia__border" d="M 245,145 C 240,200  245,260  248,320  C 250,380  252,420  255,440"/>
+
+              <text class="map-iberia__country-label" x="490" y="270" text-anchor="middle">ESPANHA</text>
+              <text class="map-iberia__country-label" x="175" y="298" text-anchor="middle" style="font-size:16px;">PORTUGAL</text>
+
+              <g class="map-iberia__pin" transform="translate(155,170)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
+                <text class="map-iberia__pin-label" x="-13" y="3" text-anchor="end">Viana do Castelo</text>
+              </g>
+              <g class="map-iberia__pin" transform="translate(205,205)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
+                <text class="map-iberia__pin-label" x="13" y="3" text-anchor="start">Vila Real</text>
+              </g>
+              <g class="map-iberia__pin" transform="translate(245,215)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="9"/>
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="9" style="animation-delay:1.3s"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="7"/>
+                <circle cx="0" cy="0" r="3" fill="#fff"/>
+                <text class="map-iberia__pin-sublabel" x="13" y="-14" text-anchor="start" style="fill:var(--ink,#111);font-weight:600;">SEDE</text>
+                <text class="map-iberia__pin-label" x="13" y="2" text-anchor="start" style="font-weight:700;">Miranda do Douro</text>
+              </g>
+              <g class="map-iberia__pin" transform="translate(145,265)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
+                <text class="map-iberia__pin-label" x="-13" y="3" text-anchor="end">Aveiro &middot; Estarreja</text>
+              </g>
+              <g class="map-iberia__pin" transform="translate(145,380)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
+                <text class="map-iberia__pin-label" x="-13" y="3" text-anchor="end">Lisboa</text>
+              </g>
+
+              <g transform="translate(720,250)" opacity="0.55">
+                <path d="M 0,-30 L 30,0 L 0,30 M 0,0 L -40,0" stroke="var(--copper,#B87B51)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="-50" y="-8" text-anchor="end" class="map-iberia__pin-sublabel" style="fill:var(--copper,#B87B51);">+ Europa</text>
+                <text x="-50" y="14" text-anchor="end" class="map-iberia__pin-label" style="fill:rgba(17,17,17,0.62);font-size:11px;">FR &middot; BE &middot; DE</text>
+              </g>
+            </svg>
+          </figure>
+
+          <div class="page-actions" data-reveal style="margin-top:40px;">
+            <a class="button button--dark" href="regioes.html">Ver regiões de actuação</a>
+          </div>
         </div>
       </section>
 
@@ -271,7 +429,7 @@
           <h2 class="block-cta__heading" id="empresa-cta-title" data-reveal>Pronto para falar com a equipa técnica?</h2>
           <p class="block-cta__sub" data-reveal>Para empresas com projeto técnico industrial ou profissionais qualificados a integrar equipas, o canal direto é o WhatsApp da M&amp;A Elo.</p>
           <div class="block-cta__actions" data-reveal>
-            <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo%20sobre%20um%20projeto%20t%C3%A9cnico." target="_blank" rel="noopener" data-cta="empresa-cta-whatsapp">Falar pelo WhatsApp</a>
+            <a class="button button--whatsapp" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo%20sobre%20um%20projeto%20t%C3%A9cnico." target="_blank" rel="noopener" data-cta="empresa-cta-whatsapp">Falar pelo WhatsApp</a>
             <a class="button button--secondary" href="para-empresas.html" data-cta="empresa-cta-empresas">Ver opções para empresas</a>
           </div>
         </div>
@@ -291,7 +449,7 @@
                 <span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
               </p>
               <p class="footer-v2__desc">M&amp;A Elo Profissional, Unipessoal, Lda. — execução de serviços técnicos industriais em soldadura, serralharia, tubagem, montagem e manutenção metalomecânica em Portugal.</p>
-              <a class="footer-v2__cta" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="footer-whatsapp">
+              <a class="footer-v2__cta" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="footer-whatsapp">
                 <span class="footer-v2__cta-aura"></span>
                 <span class="footer-v2__cta-inner">
                   <span class="footer-v2__cta-icon">
@@ -300,7 +458,8 @@
                   <span>Falar pelo WhatsApp</span>
                 </span>
               </a>
-              <p class="footer-v2__tel">+351 936 525 992</p>
+              <p class="footer-v2__tel">+351 937 920 005</p>
+              <p class="footer-v2__tel-secondary">Canal RH (profissionais): <a href="candidatos.html">+351 936 525 992</a></p>
             </div>
 
             <div class="footer-v2__col" data-reveal>
@@ -314,12 +473,12 @@
             </div>
 
             <div class="footer-v2__col" data-reveal>
-              <p class="footer-v2__col-heading">&#193;reas T&eacute;cnicas</p>
+              <p class="footer-v2__col-heading">Compet&ecirc;ncias T&eacute;cnicas</p>
               <ul>
-                <li><a href="soldador.html">Soldador</a></li>
-                <li><a href="serralheiro.html">Serralheiro</a></li>
-                <li><a href="pintor-industrial.html">Pintor Industrial</a></li>
-                <li><a href="candidatos.html">&#193;rea de Profissionais</a></li>
+                <li><a href="competencias.html">Compet&ecirc;ncias t&eacute;cnicas</a></li>
+                <li><a href="servicos.html">Servi&ccedil;os</a></li>
+                <li><a href="regioes.html">Regi&otilde;es</a></li>
+                <li><a href="candidatos.html">&Aacute;rea de Profissionais</a></li>
               </ul>
             </div>
 
@@ -328,7 +487,7 @@
               <ul>
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="faq.html">FAQ</a></li>
-                <li><a href="privacidade.html">Privacidade</a></li>
+                <li><a href="politica-de-privacidade.html">Privacidade</a></li>
               </ul>
             </div>
 
@@ -336,7 +495,9 @@
 
           <div class="footer-v2__bottom">
             <nav aria-label="Rod&aacute;p&eacute; legal">
-              <a href="privacidade.html">Pol&iacute;tica de privacidade</a>
+              <a href="politica-de-privacidade.html">Pol&iacute;tica de privacidade</a>
+              <span aria-hidden="true">|</span>
+              <button type="button" class="cookie-manage-link" data-cookie-manage aria-label="Gerir prefer&ecirc;ncias de cookies">Gerir cookies</button>
               <span aria-hidden="true">|</span>
               <span>Miranda do Douro, Portugal</span>
             </nav>
@@ -348,6 +509,7 @@
     </footer>
 
     <script src="main.js" defer></script>
+    <script src="cookies.js" defer></script>
     <script src="animations.js" defer></script>
   </body>
 </html>

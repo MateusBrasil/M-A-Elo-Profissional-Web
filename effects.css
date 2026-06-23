@@ -1862,7 +1862,7 @@ body .hero--screen .hero__title,
   }
 }
 
-/* CTA Split — pill preto + box accent laranja com seta */
+/* ═══ HERO CTA SPLIT (Primary) — pill preto premium + box laranja seta ═══ */
 .hero--screen .hero__cta-split {
   position: relative;
   display: inline-flex;
@@ -1870,6 +1870,12 @@ body .hero--screen .hero__title,
   text-decoration: none;
   cursor: pointer;
   isolation: isolate;
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.hero--screen .hero__cta-split:hover {
+  transform: translateY(-2px);
 }
 
 .hero--screen .hero__cta-split-bg {
@@ -1878,16 +1884,20 @@ body .hero--screen .hero__title,
   top: 0;
   bottom: 0;
   width: calc(100% - 2rem);
-  background: var(--hero-accent);
+  background: linear-gradient(180deg, #FF7A1A 0%, #E65100 100%);
   border-radius: 12px;
   z-index: 1;
-  transition: background-color 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    0 8px 24px rgba(230, 81, 0, 0.32),
+    0 2px 6px rgba(230, 81, 0, 0.18);
+  transition: background 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero--screen .hero__cta-split-label {
   position: relative;
   z-index: 2;
-  background: #000;
+  background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
   color: #fff;
   font-family: var(--font-body);
   font-size: 15px;
@@ -1896,7 +1906,12 @@ body .hero--screen .hero__title,
   padding: 13px 22px;
   border-radius: 12px;
   white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 8px 24px rgba(10, 10, 10, 0.28),
+    0 2px 6px rgba(10, 10, 10, 0.14);
+  transition: background 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero--screen .hero__cta-split-icon {
@@ -1908,9 +1923,9 @@ body .hero--screen .hero__title,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #000;
+  color: #fff;
   border-radius: 12px;
-  background: var(--hero-accent);
+  background: linear-gradient(180deg, #FF7A1A 0%, #E65100 100%);
 }
 
 .hero--screen .hero__cta-split-icon svg {
@@ -1920,39 +1935,73 @@ body .hero--screen .hero__title,
 }
 
 .hero--screen .hero__cta-split:hover .hero__cta-split-icon svg {
-  transform: rotate(-45deg);
+  transform: rotate(-45deg) scale(1.1);
 }
 
-.hero--screen .hero__cta-split:hover .hero__cta-split-bg {
-  background: var(--hero-accent-soft);
+.hero--screen .hero__cta-split:hover .hero__cta-split-label {
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 12px 32px rgba(10, 10, 10, 0.42),
+    0 4px 10px rgba(10, 10, 10, 0.22);
 }
 
+.hero--screen .hero__cta-split:hover .hero__cta-split-bg,
 .hero--screen .hero__cta-split:hover .hero__cta-split-icon {
-  background: var(--hero-accent-soft);
+  background: linear-gradient(180deg, #FF8F3A 0%, #FF6100 100%);
+  box-shadow:
+    0 12px 32px rgba(230, 81, 0, 0.48),
+    0 4px 10px rgba(230, 81, 0, 0.28);
 }
 
-/* Ghost CTA — WhatsApp */
+/* ═══ HERO CTA GHOST (Secondary/WhatsApp) — verde brand com ícone ═══ */
 .hero--screen .hero__cta-ghost {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   padding: 13px 22px;
   border-radius: 12px;
-  background: transparent;
-  color: #0a0a0a;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: linear-gradient(180deg, #34D77B 0%, #25D366 100%);
+  color: #fff;
+  border: 1px solid #25D366;
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 500;
   letter-spacing: -0.003em;
   text-decoration: none;
-  transition: background-color 320ms cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 8px 24px rgba(37, 211, 102, 0.34),
+    0 2px 6px rgba(37, 211, 102, 0.18);
+  transition: background 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.hero--screen .hero__cta-ghost::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 2px;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  opacity: 0.95;
 }
 
 .hero--screen .hero__cta-ghost:hover {
-  background: rgba(0, 0, 0, 0.04);
-  border-color: rgba(0, 0, 0, 0.2);
-  color: #0a0a0a;
+  background: linear-gradient(180deg, #25D366 0%, #1DA851 100%);
+  border-color: #1DA851;
+  color: #fff;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25) inset,
+    0 12px 32px rgba(37, 211, 102, 0.48),
+    0 4px 10px rgba(37, 211, 102, 0.24);
+  transform: translateY(-2px) scale(1.02);
 }
 
 @media (max-width: 849px) {
@@ -2889,43 +2938,145 @@ section.section h2,
   letter-spacing: -0.003em !important;
 }
 
-/* Botões primários → pill preto Apple-style */
-.button--primary {
-  background: #0a0a0a !important;
+/* ═══════════════════════════════════════════════════════════════
+   SISTEMA DE BOTÕES PREMIUM — 3 níveis + 3 cores distintas
+   Primary (preto) · Secondary (laranja accent) · WhatsApp (verde)
+   Glassmorphism + sombras coloridas + hover states bem diferenciados
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Base shared para todos — transitions, font, padding, radius */
+.button,
+.button--primary,
+.button--dark,
+.button--secondary,
+.button--whatsapp,
+.button--ghost {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 13px 26px !important;
+  border-radius: var(--radius-pill-xl) !important;
+  font-family: var(--font-body) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  isolation: isolate !important;
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              color 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform;
+}
+
+.button:active,
+.button--primary:active,
+.button--dark:active,
+.button--secondary:active,
+.button--whatsapp:active,
+.button--ghost:active {
+  transform: scale(0.98) !important;
+}
+
+/* ═══ PRIMARY (preto profundo · acção principal) ═══ */
+.button--primary,
+.button--dark {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%) !important;
   color: #fff !important;
   border: 1px solid #0a0a0a !important;
-  border-radius: var(--radius-pill-xl) !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.003em !important;
-  padding: 13px 24px !important;
-  box-shadow: var(--shadow-ios-cta) !important;
-  transition: transform var(--duration-ios) var(--ease-ios),
-              background-color var(--duration-ios) var(--ease-ios) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 10px 28px rgba(10, 10, 10, 0.32),
+    0 2px 6px rgba(10, 10, 10, 0.18) !important;
 }
 
-.button--primary:hover {
-  background: #1a1a1a !important;
-  transform: scale(1.03) !important;
+.button--primary:hover,
+.button--dark:hover {
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%) !important;
+  border-color: #1a1a1a !important;
+  color: #fff !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 14px 36px rgba(10, 10, 10, 0.42),
+    0 4px 10px rgba(10, 10, 10, 0.22) !important;
+  transform: translateY(-2px) scale(1.02) !important;
 }
 
-/* WhatsApp button — preserva brand verde + iOS polish */
+/* ═══ SECONDARY (glass cream + border laranja · acção alternativa) ═══ */
+.button--secondary {
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: var(--color-ink-deep) !important;
+  border: 1.5px solid var(--accent-spark) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 2px 8px rgba(230, 81, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+
+.button--secondary:hover {
+  background: linear-gradient(180deg, #FF7A1A 0%, #E65100 100%) !important;
+  border-color: #E65100 !important;
+  color: #fff !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 14px 36px rgba(230, 81, 0, 0.42),
+    0 4px 10px rgba(230, 81, 0, 0.22) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* Page-hero é cream — mesmo padrão glassmorphism */
+.page-hero .button--secondary {
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: var(--color-ink-deep) !important;
+  border: 1.5px solid var(--accent-spark) !important;
+}
+
+.page-hero .button--secondary:hover {
+  background: linear-gradient(180deg, #FF7A1A 0%, #E65100 100%) !important;
+  border-color: #E65100 !important;
+  color: #fff !important;
+}
+
+/* ═══ WHATSAPP (verde brand · contacto directo) ═══ */
 .button--whatsapp {
-  background: #25D366 !important;
+  background: linear-gradient(180deg, #34D77B 0%, #25D366 100%) !important;
   color: #fff !important;
   border: 1px solid #25D366 !important;
-  border-radius: var(--radius-pill-xl) !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.003em !important;
-  padding: 13px 24px !important;
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.28), 0 2px 6px rgba(37, 211, 102, 0.12) !important;
-  transition: transform var(--duration-ios) var(--ease-ios),
-              background-color var(--duration-ios) var(--ease-ios) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 10px 28px rgba(37, 211, 102, 0.36),
+    0 2px 6px rgba(37, 211, 102, 0.18) !important;
 }
 
 .button--whatsapp:hover {
-  background: #1DA851 !important;
+  background: linear-gradient(180deg, #25D366 0%, #1DA851 100%) !important;
   border-color: #1DA851 !important;
-  transform: scale(1.03) !important;
+  color: #fff !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25) inset,
+    0 14px 36px rgba(37, 211, 102, 0.48),
+    0 4px 10px rgba(37, 211, 102, 0.24) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* Ícone WhatsApp opcional antes do texto */
+.button--whatsapp::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  opacity: 0.95;
 }
 
 /* Sector card copper line → accent spark laranja */
@@ -2935,62 +3086,177 @@ section.section h2,
   background: var(--accent-spark) !important;
 }
 
-/* Button secondary — branco sólido com border accent spark para destaque
-   visível sobre fundos cream warm (não transparente como antes) */
-.button--secondary {
-  background: #fff !important;
-  color: var(--color-ink-deep) !important;
-  border: 1.5px solid var(--accent-spark) !important;
-  border-radius: var(--radius-pill-xl) !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.003em !important;
-  padding: 13px 24px !important;
-  box-shadow: 0 2px 8px rgba(230, 81, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
-  transition: background-color var(--duration-ios) var(--ease-ios),
-              border-color var(--duration-ios) var(--ease-ios),
-              color var(--duration-ios) var(--ease-ios),
-              box-shadow var(--duration-ios) var(--ease-ios),
-              transform var(--duration-ios) var(--ease-ios) !important;
-}
-
-.button--secondary:hover {
-  background: var(--accent-spark) !important;
-  border-color: var(--accent-spark) !important;
-  color: #fff !important;
-  box-shadow: 0 10px 28px rgba(230, 81, 0, 0.32), 0 2px 6px rgba(230, 81, 0, 0.14) !important;
-  transform: scale(1.03) !important;
-}
-
-/* Page-hero é cream — mantém o mesmo padrão branco+border laranja */
-.page-hero .button--secondary {
-  background: #fff !important;
-  color: var(--color-ink-deep) !important;
-  border: 1.5px solid var(--accent-spark) !important;
-}
-
-.page-hero .button--secondary:hover {
-  background: var(--accent-spark) !important;
-  border-color: var(--accent-spark) !important;
-  color: #fff !important;
-}
-
-/* Block-CTA + feature-split--dark + screen-section--dark continuam dark → ghost glass branco */
+/* ═══ Block-CTA + feature-split--dark + screen-section--dark
+   contextos dark → ghost glass branco com border laranja accent ═══ */
 .block-cta .button--secondary,
 .feature-split--dark .button--secondary,
 .screen-section--dark .button--secondary {
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.10) !important;
   color: #fff !important;
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(255, 122, 26, 0.55) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 4px 16px rgba(0, 0, 0, 0.18) !important;
 }
 
 .block-cta .button--secondary:hover,
 .feature-split--dark .button--secondary:hover,
 .screen-section--dark .button--secondary:hover {
-  background: rgba(255, 255, 255, 0.18) !important;
-  border-color: rgba(255, 255, 255, 0.45) !important;
+  background: linear-gradient(180deg, #FF7A1A 0%, #E65100 100%) !important;
+  border-color: #E65100 !important;
   color: #fff !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 14px 36px rgba(230, 81, 0, 0.48),
+    0 4px 10px rgba(230, 81, 0, 0.28) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* ═══ AZUL NAVY DA LOGO M&A ELO ═══
+   Cor secundária institucional usada em accents específicos para enriquecer
+   o sistema visual sem competir com o laranja (spark).
+   Aplicação seletiva: borders premium, pills sparkle alternativo, numeração de
+   process-rail, links institucionais. */
+
+/* Section-label "navy" alternativo — para secções/páginas institucionais
+   (Empresa, Privacidade, FAQ, Contacto). Distingue do laranja spark que
+   marca áreas comerciais/técnicas. */
+.section-label--navy,
+.section-label.section-label--navy,
+.section-label.section-label--light.section-label--navy,
+.pill-eyebrow--navy,
+.page-hero .section-label--navy {
+  background: rgba(27, 42, 78, 0.06) !important;
+  border: 1px solid rgba(27, 42, 78, 0.22) !important;
+  color: var(--accent-navy) !important;
+  box-shadow: 0 1px 2px rgba(27, 42, 78, 0.08) !important;
+}
+
+.section-label--navy .pill-spark,
+.pill-eyebrow--navy .pill-spark,
+.page-hero .section-label--navy .pill-spark {
+  color: var(--accent-navy-bright) !important;
+}
+
+/* Border accent navy em cards institucionais selectos */
+.cred-item__icon,
+.value-item__icon {
+  background: linear-gradient(135deg, var(--accent-spark-tint) 0%, var(--accent-navy-tint) 100%) !important;
+  border: 1px solid rgba(27, 42, 78, 0.08);
+}
+
+/* Links institucionais (sem CTA) ganham azul navy hover */
+.applications__roles,
+.regions__note a,
+a[href="empresa.html"]:not(.button):not(.nav-cta):not(.nav-link):not(.brand) {
+  transition: color 240ms ease !important;
+}
+
+.regions__note a:hover,
+.applications__roles a:hover {
+  color: var(--accent-navy-bright) !important;
+}
+
+/* Process-rail números ganham gradient spark + navy (institucional) */
+.process-rail__num,
+.process-rail__index,
+.process-line > li > span:first-child {
+  background: linear-gradient(135deg, var(--accent-spark) 0%, var(--accent-navy) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Underline links institucionais ganham navy subtle */
+.footer a:hover,
+.footer-v2 a:hover {
+  color: var(--accent-navy-bright) !important;
+}
+
+/* Brand sub no header pode usar navy soft */
+.brand__sub {
+  color: var(--accent-navy) !important;
+}
+
+/* ═══ OUTLINE-DARK (legacy) — converter para glass laranja em vez de preto ═══
+   Usado em candidatos.html, candidaturas, contacto, etc.
+   Default: glass cream + border laranja
+   Hover: vira gradient laranja sólido (NÃO preto como antes) */
+.button--outline-dark {
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: var(--color-ink-deep) !important;
+  border: 1.5px solid var(--accent-spark) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 2px 8px rgba(230, 81, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  transition: background 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              color 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 260ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.button--outline-dark:hover {
+  background: linear-gradient(180deg, #FF7A1A 0%, #E65100 100%) !important;
+  border-color: #E65100 !important;
+  color: #fff !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 14px 36px rgba(230, 81, 0, 0.42),
+    0 4px 10px rgba(230, 81, 0, 0.22) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* ═══ GHOST (4º nível · acção terciária discreta) ═══ */
+.button--ghost {
+  background: transparent !important;
+  color: var(--color-ink-deep) !important;
+  border: 1px solid rgba(0, 0, 0, 0.18) !important;
+  box-shadow: none !important;
+}
+
+.button--ghost:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: var(--accent-spark) !important;
+  color: var(--accent-spark) !important;
+  box-shadow: 0 4px 12px rgba(230, 81, 0, 0.14) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ═══ FOCUS VISIBLE (acessibilidade · todos os botões) ═══ */
+.button:focus-visible,
+.button--primary:focus-visible,
+.button--dark:focus-visible,
+.button--secondary:focus-visible,
+.button--whatsapp:focus-visible,
+.button--ghost:focus-visible {
+  outline: 3px solid var(--accent-spark) !important;
+  outline-offset: 3px !important;
+}
+
+/* ═══ Reduced motion: hover sem scale/translate, manter cor ═══ */
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .button--primary,
+  .button--dark,
+  .button--secondary,
+  .button--whatsapp,
+  .button--ghost {
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease !important;
+  }
+  .button:hover,
+  .button--primary:hover,
+  .button--dark:hover,
+  .button--secondary:hover,
+  .button--whatsapp:hover,
+  .button--ghost:hover {
+    transform: none !important;
+  }
 }
 
 /* Process-rail números — Inter 500 grande preto, accent spark no dot */

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="design-tokens.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="cookies.css">
   </head>
   <body data-barba="wrapper">
     <script>document.documentElement.classList.add("js");</script>
@@ -26,19 +27,19 @@
     <header class="site-header" data-site-header>
       <nav class="navbar" aria-label="Navegação principal">
         <a class="brand" href="index.html">
-          <img class="brand__logo" src="assets/logo-transparente.png" alt="" width="48" height="40" loading="eager" decoding="async"><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
+          <img class="brand__logo" src="assets/logo-transparente.png" alt="" width="64" height="54" loading="eager" decoding="async"><span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
         </a>
         <div class="nav-links" data-nav-links>
-          <a href="empresa.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg></span><span class="nav-text">Empresa</span></a>
+          <a href="empresa.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21V12h6v9"/></svg></span><span class="nav-text">Sobre</span></a>
           <a href="servicos.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="nav-text">Serviços</span></a>
-          <a href="para-empresas.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-text">Empresas</span></a>
-          <a href="profissoes.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span><span class="nav-text">Áreas Técnicas</span></a>
+          <a href="para-empresas.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-text">Para Empresas</span></a>
+          <a href="competencias.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span><span class="nav-text">Competências Técnicas</span></a>
           <a href="regioes.html" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="nav-text">Regiões</span></a>
           <a href="candidatos.html" class="nav-link--secondary"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="nav-text">Profissionais</span></a>
           <a href="contacto.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><span class="nav-text">Contacto</span></a>
         </div>
         <div class="nav-actions">
-          <a class="nav-phone" href="tel:+351936525992">+351 936 525 992</a>
+          <a class="nav-phone" href="tel:+351937920005">+351 937 920 005</a>
           <a class="nav-cta" href="contacto.html"><span class="nav-cta__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="nav-cta__text">Falar connosco</span></a>
         </div>
         <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
@@ -49,14 +50,14 @@
 
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true" data-mobile-menu>
       <div class="mobile-menu__inner">
-        <a href="empresa.html">Empresa</a>
+        <a href="empresa.html">Sobre</a>
         <a href="servicos.html">Serviços</a>
-        <a href="para-empresas.html">Empresas</a>
-        <a href="profissoes.html">Áreas Técnicas</a>
+        <a href="para-empresas.html">Para Empresas</a>
+        <a href="competencias.html">Competências Técnicas</a>
         <a href="regioes.html">Regiões</a>
         <a href="candidatos.html" class="nav-link--secondary">Profissionais</a>
         <a href="contacto.html">Contacto</a>
-        <a class="mobile-menu__cta" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20sobre%20as%20regi%C3%B5es%20de%20atua%C3%A7%C3%A3o%20da%20M%26A%20Elo." target="_blank" rel="noopener">Falar pelo WhatsApp</a>
+        <a class="mobile-menu__cta" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20sobre%20as%20regi%C3%B5es%20de%20atua%C3%A7%C3%A3o%20da%20M%26A%20Elo." target="_blank" rel="noopener">Falar pelo WhatsApp</a>
       </div>
     </div>
 
@@ -65,42 +66,44 @@
       <!-- ═══ PAGE HERO ═══ -->
       <section class="page-hero page-hero--obras" aria-labelledby="regioes-title">
         <div class="page-hero__inner">
-          <p class="section-label section-label--light" data-reveal>Regiões</p>
-          <h1 id="regioes-title" data-reveal>Atuação em Portugal conforme projetos e obras em curso.</h1>
+          <p class="section-label section-label--light" data-reveal>Onde actuamos</p>
+          <h1 id="regioes-title" data-reveal>Mobilidade nacional e europeia como competência central.</h1>
           <span class="page-hero__copper"></span>
-          <p data-reveal>As regiões comunicadas refletem obras e necessidades operacionais atuais. Novas regiões podem ser adicionadas conforme projetos em desenvolvimento e novos contactos empresariais.</p>
+          <p data-reveal>A M&amp;A Elo desloca-se ao projecto &mdash; não o contrário. Sede em Miranda do Douro, na fronteira com Espanha. Mobilidade ibérica activa e projectos confirmados em quatro países europeus.</p>
           <div class="page-actions" data-reveal>
-            <a class="button button--primary" href="para-empresas.html" data-cta="regioes-hero-empresas">Sou empresa — falar sobre obra</a>
-            <a class="button button--whatsapp" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20sobre%20as%20regi%C3%B5es%20de%20atua%C3%A7%C3%A3o%20da%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="regioes-hero-whatsapp">Tirar dúvidas</a>
+            <a class="button button--primary" href="contacto.html" data-cta="regioes-hero-proposta">Solicitar proposta</a>
+            <a class="button button--whatsapp" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="regioes-hero-whatsapp">Falar pelo WhatsApp</a>
           </div>
         </div>
       </section>
 
-      <!-- ═══ REGIÕES ═══ -->
+      <!-- ═══ REGIÕES NACIONAIS — 6 regiões ═══ -->
       <section class="page-section" aria-labelledby="regioes-lista-title">
         <div class="section__shell">
           <div class="page-copy">
-            <p class="page-kicker">Regiões ativas</p>
-            <h2 id="regioes-lista-title" data-reveal>Onde a M&amp;A Elo opera atualmente.</h2>
-            <p data-reveal>Três regiões com obras e projetos confirmados em curso. O contacto deve indicar região, setor e função para análise correcta da necessidade operacional.</p>
+            <p class="page-kicker">Regiões nacionais</p>
+            <h2 id="regioes-lista-title" data-reveal>Seis regiões com projectos executados ou em curso.</h2>
+            <p data-reveal>Miranda do Douro como posição estratégica. Lisboa e Aveiro como zonas de execução activa. Norte do país e outras regiões conforme projectos em curso.</p>
           </div>
           <div class="region-list" data-reveal>
+            <article class="region-card region-card--with-photo">
+              <figure class="region-card__photo">
+                <img src="assets/viana-city.jpg" alt="Vista de Miranda do Douro" loading="lazy" decoding="async" width="800" height="500">
+              </figure>
+              <div class="region-card__body">
+                <span>01</span>
+                <h3>Miranda do Douro &mdash; sede</h3>
+                <p>Sede da M&amp;A Elo. Fronteira com Espanha &mdash; posição estratégica para mobilidade ibérica. Transmontana e Nordeste português.</p>
+              </div>
+            </article>
             <article class="region-card region-card--with-photo">
               <figure class="region-card__photo">
                 <img src="assets/lisboa-city.jpg" alt="Parque das Nações, Lisboa" loading="lazy" decoding="async" width="800" height="500">
               </figure>
               <div class="region-card__body">
-                <span>01</span>
-                <h3>Lisboa — Parque das Nações</h3>
-                <p>Obras em curso em contexto urbano e de infraestruturas. Região com necessidades ativas em obra civil e metalomecânica.</p>
-                <ul>
-                  <li>Obra civil e estruturas metálicas</li>
-                  <li>Soldador, serralheiro, pintor industrial</li>
-                  <li>Perfis técnicos disponíveis para Lisboa</li>
-                </ul>
-                <div class="role-actions">
-                  <a class="button button--dark" href="obras-lisboa-parque-das-nacoes.html">Ver obra</a>
-                </div>
+                <span>02</span>
+                <h3>Lisboa e área metropolitana</h3>
+                <p>Intervenções em indústria, construção e infraestrutura na região de Lisboa e Setúbal.</p>
               </div>
             </article>
             <article class="region-card region-card--with-photo">
@@ -108,17 +111,9 @@
                 <img src="assets/aveiro-city.jpg" alt="Canal central de Aveiro" loading="lazy" decoding="async" width="800" height="500">
               </figure>
               <div class="region-card__body">
-                <span>02</span>
-                <h3>Estarreja — Aveiro</h3>
-                <p>Contexto industrial em Estarreja com atuação ligada a metalúrgica, manutenção e apoio técnico especializado.</p>
-                <ul>
-                  <li>Metalúrgica e manutenção industrial</li>
-                  <li>Apoio técnico especializado</li>
-                  <li>Perfis técnicos com deslocação confirmada</li>
-                </ul>
-                <div class="role-actions">
-                  <a class="button button--dark" href="obras-estarreja-aveiro.html">Ver obra</a>
-                </div>
+                <span>03</span>
+                <h3>Aveiro / Estarreja</h3>
+                <p>Experiência em indústria química e metalomecânica. Projecto de tubagens em aço carbono executado em 2025.</p>
               </div>
             </article>
             <article class="region-card region-card--with-photo">
@@ -126,17 +121,19 @@
                 <img src="assets/viana-city.jpg" alt="Viana do Castelo, rio Lima" loading="lazy" decoding="async" width="800" height="500">
               </figure>
               <div class="region-card__body">
-                <span>03</span>
+                <span>04</span>
                 <h3>Viana do Castelo</h3>
-                <p>Projetos no norte do país — obra civil, metalomecânica e estruturas metálicas com perfis disponíveis para a região.</p>
-                <ul>
-                  <li>Estruturas e metalomecânica</li>
-                  <li>Obra e montagem industrial</li>
-                  <li>Região norte — disponibilidade confirmada</li>
-                </ul>
-                <div class="role-actions">
-                  <a class="button button--dark" href="obras-viana-do-castelo.html">Ver obra</a>
-                </div>
+                <p>Intervenções em construção metálica e indústria na região do Minho.</p>
+              </div>
+            </article>
+            <article class="region-card region-card--with-photo">
+              <figure class="region-card__photo">
+                <img src="assets/estruturas-metalicas.webp" alt="Estrutura metálica em obra exterior" loading="lazy" decoding="async" width="800" height="500">
+              </figure>
+              <div class="region-card__body">
+                <span>05</span>
+                <h3>Vila Real</h3>
+                <p>Projectos executados na região &mdash; pintura industrial e construção civil metálica em 2025/2026.</p>
               </div>
             </article>
             <article class="region-card region-card--with-photo region-card--expand">
@@ -147,20 +144,15 @@
                     <path d="M30 4C16 4 6 14 6 28c0 18 24 48 24 48s24-30 24-48c0-14-10-24-24-24z" fill="rgba(230, 81, 0, 0.18)" stroke="#E65100" stroke-width="2.5" stroke-linejoin="round"/>
                     <circle cx="30" cy="28" r="8" fill="#E65100"/>
                   </svg>
-                  <span class="region-card__photo-label">Portugal · Em expansão</span>
+                  <span class="region-card__photo-label">Mobilidade rápida</span>
                 </div>
               </figure>
               <div class="region-card__body">
-                <span>04</span>
+                <span>06</span>
                 <h3>Outras regiões</h3>
-                <p>Novas regiões são integradas conforme obras, pedidos empresariais e projetos em desenvolvimento. Fale com a equipa para confirmar.</p>
-                <ul>
-                  <li>Atuação conforme projetos em curso</li>
-                  <li>Disponibilidade confirmada com a equipa</li>
-                  <li>Consulta directa sem compromisso</li>
-                </ul>
+                <p>A M&amp;A Elo actua em todo o território nacional conforme projectos em curso. Mobilidade rápida.</p>
                 <div class="role-actions">
-                  <a class="button button--dark" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20se%20a%20M%26A%20Elo%20atua%20na%20nossa%20regi%C3%A3o." target="_blank" rel="noopener">Consultar região</a>
+                  <a class="button button--dark" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener">Consultar região</a>
                 </div>
               </div>
             </article>
@@ -168,47 +160,156 @@
         </div>
       </section>
 
-      <!-- ═══ PRÓXIMO PASSO ═══ -->
-      <section class="page-section page-section--warm" aria-labelledby="regioes-cta-title">
-        <div class="section__shell page-grid">
-          <div class="page-copy">
-            <p class="page-kicker">Próximo passo</p>
-            <h2 id="regioes-cta-title" data-reveal>Tem uma obra ou necessidade operacional numa destas regiões?</h2>
-            <p data-reveal>Fale com a equipa M&amp;A Elo indicando a região, o setor e a função pretendida. A equipa analisa e responde com disponibilidade e próximos passos.</p>
-            <div class="page-actions" data-reveal>
-              <a class="button button--dark" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20sou%20uma%20empresa%20e%20tenho%20uma%20necessidade%20operacional%20numa%20das%20regi%C3%B5es%20comunicadas." target="_blank" rel="noopener">Pedir apoio técnico</a>
-              <a class="button button--outline-dark" href="para-empresas.html">Como funciona para empresas</a>
+      <!-- ═══ MAPA SVG IBÉRICO ═══ -->
+      <section class="page-section" aria-labelledby="mapa-title">
+        <div class="section__shell">
+          <figure class="map-iberia" role="img" aria-labelledby="mapa-title mapa-desc">
+            <p class="map-iberia__label">Cobertura geográfica</p>
+            <h2 class="map-iberia__title" id="mapa-title">Sede em Miranda do Douro &mdash; mobilidade ibérica activa.</h2>
+            <p id="mapa-desc" class="sr-only">Mapa simplificado da Península Ibérica com marcadores nas cinco cidades de actuação da M&amp;A Elo: Miranda do Douro (sede), Lisboa, Aveiro/Estarreja, Viana do Castelo e Vila Real.</p>
+
+            <svg class="map-iberia__svg" viewBox="0 0 820 540" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+              <!-- Mar / Oceano (fundo) -->
+              <rect class="map-iberia__sea" x="0" y="0" width="820" height="540" rx="14"/>
+
+              <!-- Espanha (silhueta simplificada) -->
+              <path class="map-iberia__country" d="
+                M 245,90
+                C 290,82  340,78  395,80
+                C 460,82  530,90  600,100
+                C 660,108  720,120  760,135
+                L 778,150
+                L 780,180
+                C 770,210  760,240  765,275
+                C 770,305  780,335  775,365
+                L 760,395
+                C 730,420  690,430  650,440
+                C 600,450  545,455  490,460
+                C 430,462  370,460  315,455
+                L 285,430
+                C 280,400  282,370  280,340
+                C 278,310  278,278  270,250
+                C 264,220  254,190  248,160
+                C 244,135  242,110  245,90 Z
+              "/>
+
+              <!-- Portugal (silhueta simplificada) -->
+              <path class="map-iberia__country map-iberia__country--pt" d="
+                M 115,135
+                C 130,128  148,128  165,132
+                L 195,140
+                C 210,150  220,165  225,185
+                L 230,215
+                C 232,245  234,275  240,305
+                C 245,335  252,360  255,390
+                L 250,420
+                C 240,438  220,450  200,452
+                L 170,455
+                C 145,452  125,442  118,420
+                L 110,395
+                C 108,365  106,335  108,305
+                C 110,275  113,245  112,215
+                L 110,185
+                C 108,165  110,148  115,135 Z
+              "/>
+
+              <!-- Fronteira PT/ES tracejada (vertical decorativa, já implícita) -->
+              <path class="map-iberia__border" d="M 245,145 C 240,200  245,260  248,320  C 250,380  252,420  255,440"/>
+
+              <!-- Labels países -->
+              <text class="map-iberia__country-label" x="490" y="270" text-anchor="middle">ESPANHA</text>
+              <text class="map-iberia__country-label" x="175" y="298" text-anchor="middle" style="font-size:16px;">PORTUGAL</text>
+
+              <!-- ═══ PINS — 5 cidades ═══ -->
+
+              <!-- 01 — Viana do Castelo (norte) -->
+              <g class="map-iberia__pin" transform="translate(155,170)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
+                <text class="map-iberia__pin-sublabel" x="-13" y="-12" text-anchor="end">01</text>
+                <text class="map-iberia__pin-label" x="-13" y="3" text-anchor="end">Viana do Castelo</text>
+              </g>
+
+              <!-- 02 — Vila Real (norte interior) -->
+              <g class="map-iberia__pin" transform="translate(205,205)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
+                <text class="map-iberia__pin-sublabel" x="13" y="-12" text-anchor="start">02</text>
+                <text class="map-iberia__pin-label" x="13" y="3" text-anchor="start">Vila Real</text>
+              </g>
+
+              <!-- 03 — MIRANDA DO DOURO (sede — destacado) -->
+              <g class="map-iberia__pin" transform="translate(245,215)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="9"/>
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="9" style="animation-delay:1.3s"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="7"/>
+                <circle cx="0" cy="0" r="3" fill="#fff"/>
+                <text class="map-iberia__pin-sublabel" x="13" y="-14" text-anchor="start" style="fill:var(--ink,#111);font-weight:600;">SEDE</text>
+                <text class="map-iberia__pin-label" x="13" y="2" text-anchor="start" style="font-weight:700;">Miranda do Douro</text>
+                <text class="map-iberia__pin-sublabel" x="13" y="16" text-anchor="start">Fronteira ES</text>
+              </g>
+
+              <!-- 04 — Aveiro / Estarreja (centro-oeste) -->
+              <g class="map-iberia__pin" transform="translate(145,265)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
+                <text class="map-iberia__pin-sublabel" x="-13" y="-12" text-anchor="end">04</text>
+                <text class="map-iberia__pin-label" x="-13" y="3" text-anchor="end">Aveiro &middot; Estarreja</text>
+              </g>
+
+              <!-- 05 — Lisboa (sul) -->
+              <g class="map-iberia__pin" transform="translate(145,380)">
+                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
+                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
+                <text class="map-iberia__pin-sublabel" x="-13" y="-12" text-anchor="end">05</text>
+                <text class="map-iberia__pin-label" x="-13" y="3" text-anchor="end">Lisboa</text>
+              </g>
+
+              <!-- Seta cobertura europeia (chevron a apontar para fora, leste) -->
+              <g transform="translate(720,250)" opacity="0.55">
+                <path d="M 0,-30 L 30,0 L 0,30 M 0,0 L -40,0" stroke="var(--copper,#B87B51)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="-50" y="-8" text-anchor="end" class="map-iberia__pin-sublabel" style="fill:var(--copper,#B87B51);">+ Europa</text>
+                <text x="-50" y="14" text-anchor="end" class="map-iberia__pin-label" style="fill:rgba(17,17,17,0.62);font-size:11px;">FR &middot; BE &middot; DE</text>
+              </g>
+
+            </svg>
+
+            <div class="map-iberia__legend">
+              <span class="map-iberia__legend-item"><span class="map-iberia__legend-dot map-iberia__legend-dot--pt"></span>Portugal &mdash; território principal</span>
+              <span class="map-iberia__legend-item"><span class="map-iberia__legend-dot map-iberia__legend-dot--es"></span>Espanha &mdash; mobilidade ibérica</span>
+              <span class="map-iberia__legend-item"><span class="map-iberia__legend-dot"></span>Cidades com projectos executados</span>
             </div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ═══ ACTUAÇÃO INTERNACIONAL ═══ -->
+      <section class="page-section page-section--alt" aria-labelledby="internacional-title">
+        <div class="section__shell">
+          <div class="page-copy">
+            <p class="page-kicker">Actuação internacional</p>
+            <h2 id="internacional-title" data-reveal>Projectos confirmados em quatro países europeus.</h2>
+            <p data-reveal>A M&amp;A Elo tem disponibilidade e experiência para projectos na Europa. Os profissionais mobilizados têm documentação legal para trabalhar nos países indicados.</p>
           </div>
-          <aside class="credential-panel" data-reveal>
-            <p class="credential-panel__heading">Cobertura atual</p>
-            <dl>
-              <div>
-                <dt>Regiões ativas</dt>
-                <dd>Lisboa, Estarreja/Aveiro, Viana do Castelo</dd>
-              </div>
-              <div>
-                <dt>Outras regiões</dt>
-                <dd>Consulta directa com a equipa</dd>
-              </div>
-              <div>
-                <dt>Contacto</dt>
-                <dd>+351 936 525 992</dd>
-              </div>
-            </dl>
-          </aside>
+          <ul class="country-chips" data-reveal>
+            <li><span class="country-chips__flag" aria-hidden="true">&#x1F1EA;&#x1F1F8;</span> Espanha</li>
+            <li><span class="country-chips__flag" aria-hidden="true">&#x1F1EB;&#x1F1F7;</span> França</li>
+            <li><span class="country-chips__flag" aria-hidden="true">&#x1F1E7;&#x1F1EA;</span> Bélgica</li>
+            <li><span class="country-chips__flag" aria-hidden="true">&#x1F1E9;&#x1F1EA;</span> Alemanha</li>
+          </ul>
         </div>
       </section>
 
       <!-- ═══ BLOCK CTA ═══ -->
       <section class="block-cta" aria-labelledby="regioes-final-cta">
         <div class="block-cta__inner">
-          <p class="block-cta__eyebrow" data-reveal>Tem um projeto ou obra em curso?</p>
-          <h2 class="block-cta__heading" id="regioes-final-cta" data-reveal>Fale com a equipa sobre a vossa necessidade operacional.</h2>
-          <p class="block-cta__sub" data-reveal>A equipa M&amp;A Elo analisa cada pedido com critério técnico e responde com clareza sobre o que é possível para a vossa região e projeto.</p>
+          <p class="block-cta__eyebrow" data-reveal>A localização do projecto não é obstáculo</p>
+          <h2 class="block-cta__heading" id="regioes-final-cta" data-reveal>Tem um projecto numa região não listada?</h2>
+          <p class="block-cta__sub" data-reveal>A M&amp;A Elo desloca-se ao projecto. Descreva o âmbito e a região &mdash; respondemos com plano técnico e prazo.</p>
           <div class="block-cta__actions" data-reveal>
-            <a class="button button--primary" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20sou%20uma%20empresa%20e%20tenho%20uma%20necessidade%20operacional%20numa%20das%20regi%C3%B5es%20comunicadas." target="_blank" rel="noopener" data-cta="regioes-cta-whatsapp">Pedir apoio técnico</a>
-            <a class="button button--secondary" href="para-empresas.html" data-cta="regioes-cta-empresas">Como funciona para empresas</a>
+            <a class="button button--primary" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="regioes-cta-whatsapp">Falar com a M&amp;A Elo</a>
+            <a class="button button--secondary" href="contacto.html" data-cta="regioes-cta-contacto">Solicitar proposta</a>
           </div>
         </div>
       </section>
@@ -227,7 +328,7 @@
                 <span class="brand__sub">Elo Profissional Unipessoal, Lda.</span>
               </p>
               <p class="footer-v2__desc">M&amp;A Elo Profissional, Unipessoal, Lda. — execução de serviços técnicos industriais em soldadura, serralharia, tubagem, montagem e manutenção metalomecânica em Portugal.</p>
-              <a class="footer-v2__cta" href="https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="footer-whatsapp">
+              <a class="footer-v2__cta" href="https://wa.me/351937920005?text=Ol%C3%A1%2C%20gostaria%20de%20discutir%20um%20projecto%20com%20a%20M%26A%20Elo." target="_blank" rel="noopener" data-cta="footer-whatsapp">
                 <span class="footer-v2__cta-aura"></span>
                 <span class="footer-v2__cta-inner">
                   <span class="footer-v2__cta-icon">
@@ -236,7 +337,8 @@
                   <span>Falar pelo WhatsApp</span>
                 </span>
               </a>
-              <p class="footer-v2__tel">+351 936 525 992</p>
+              <p class="footer-v2__tel">+351 937 920 005</p>
+              <p class="footer-v2__tel-secondary">Canal RH (profissionais): <a href="candidatos.html">+351 936 525 992</a></p>
             </div>
 
             <div class="footer-v2__col" data-reveal>
@@ -250,12 +352,12 @@
             </div>
 
             <div class="footer-v2__col" data-reveal>
-              <p class="footer-v2__col-heading">&#193;reas T&eacute;cnicas</p>
+              <p class="footer-v2__col-heading">Compet&ecirc;ncias T&eacute;cnicas</p>
               <ul>
-                <li><a href="soldador.html">Soldador</a></li>
-                <li><a href="serralheiro.html">Serralheiro</a></li>
-                <li><a href="pintor-industrial.html">Pintor Industrial</a></li>
-                <li><a href="candidatos.html">&#193;rea de Profissionais</a></li>
+                <li><a href="competencias.html">Compet&ecirc;ncias t&eacute;cnicas</a></li>
+                <li><a href="servicos.html">Servi&ccedil;os</a></li>
+                <li><a href="regioes.html">Regi&otilde;es</a></li>
+                <li><a href="candidatos.html">&Aacute;rea de Profissionais</a></li>
               </ul>
             </div>
 
@@ -264,7 +366,7 @@
               <ul>
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="faq.html">FAQ</a></li>
-                <li><a href="privacidade.html">Privacidade</a></li>
+                <li><a href="politica-de-privacidade.html">Privacidade</a></li>
               </ul>
             </div>
 
@@ -272,7 +374,9 @@
 
           <div class="footer-v2__bottom">
             <nav aria-label="Rod&aacute;p&eacute; legal">
-              <a href="privacidade.html">Pol&iacute;tica de privacidade</a>
+              <a href="politica-de-privacidade.html">Pol&iacute;tica de privacidade</a>
+              <span aria-hidden="true">|</span>
+              <button type="button" class="cookie-manage-link" data-cookie-manage aria-label="Gerir prefer&ecirc;ncias de cookies">Gerir cookies</button>
               <span aria-hidden="true">|</span>
               <span>Miranda do Douro, Portugal</span>
             </nav>
@@ -284,6 +388,7 @@
     </footer>
 
     <script src="main.js" defer></script>
+    <script src="cookies.js" defer></script>
     <script src="animations.js" defer></script>
   </body>
 </html>

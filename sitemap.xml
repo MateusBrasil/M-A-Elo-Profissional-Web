@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://maelo.pt/</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://maelo.pt/empresa.html</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://maelo.pt/servicos.html</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://maelo.pt/apoio-operacional-obras.html</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://maelo.pt/profissionais-industria-metalomecanica.html</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://maelo.pt/organizacao-candidatos-obra-industria.html</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://maelo.pt/para-empresas.html</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://maelo.pt/profissoes.html</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://maelo.pt/soldador.html</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://maelo.pt/serralheiro.html</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://maelo.pt/pintor-industrial.html</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://maelo.pt/candidatos.html</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://maelo.pt/regioes.html</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://maelo.pt/obras-lisboa-parque-das-nacoes.html</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://maelo.pt/obras-estarreja-aveiro.html</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://maelo.pt/obras-viana-do-castelo.html</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://maelo.pt/faq.html</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://maelo.pt/contacto.html</loc><lastmod>2026-05-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://maelo.pt/privacidade.html</loc><lastmod>2026-05-10</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://maelo.pt/</loc><lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://maelo.pt/empresa.html</loc><lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://maelo.pt/servicos.html</loc><lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://maelo.pt/para-empresas.html</loc><lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://maelo.pt/competencias.html</loc><lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://maelo.pt/regioes.html</loc><lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://maelo.pt/candidatos.html</loc><lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://maelo.pt/contacto.html</loc><lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://maelo.pt/faq.html</loc><lastmod>2026-06-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://maelo.pt/politica-de-privacidade.html</loc><lastmod>2026-06-23</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

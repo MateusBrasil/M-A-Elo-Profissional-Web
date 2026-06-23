@@ -164,6 +164,13 @@
   --accent-spark-glow: rgba(230, 81, 0, 0.18);
   --accent-spark-tint: rgba(230, 81, 0, 0.08);
 
+  /* Azul navy da logo M&A Elo (cor do wordmark "M&A") */
+  --accent-navy: #1B2A4E;
+  --accent-navy-soft: #2A3D6B;
+  --accent-navy-glow: rgba(27, 42, 78, 0.18);
+  --accent-navy-tint: rgba(27, 42, 78, 0.06);
+  --accent-navy-bright: #3B5BA5;
+
   /* Preto industrial "M&A" — mais profundo que --color-ink */
   --color-ink-deep: #0a0a0a;
   --color-ink-neutral: #525252;     /* cinza engrenagem · texto lead */

@@ -412,10 +412,24 @@ strong {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex: 0 0 auto;
   color: var(--color-ink);
   text-decoration: none;
+}
+
+.brand__logo {
+  width: 64px;
+  height: 54px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.brand:hover .brand__logo {
+  transform: scale(1.06);
+}
+@media (max-width: 760px) {
+  .brand__logo { width: 52px; height: 44px; }
 }
 
 .brand__mark {
@@ -4982,6 +4996,702 @@ h1, h2, h3 {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.30);
   letter-spacing: 0.06em;
+}
+.footer-v2__tel-secondary {
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: 0.04em;
+}
+.footer-v2__tel-secondary a {
+  color: rgba(255, 255, 255, 0.42);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.22);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.footer-v2__tel-secondary a:hover {
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.55);
+}
+
+/* ─── HOMEPAGE — Como Trabalhamos ─── */
+.how-we-work {
+  background: var(--paper-warm, #EBE5DB);
+  position: relative;
+}
+.how-we-work__header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 56px;
+}
+.how-we-work__h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(34px, 4.4vw, 56px);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--ink, #111);
+  margin: 16px 0 12px;
+}
+.how-we-work__sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(18px, 1.6vw, 22px);
+  color: var(--copper, #B87B51);
+  margin: 0;
+}
+.how-we-work__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.how-we-work__step {
+  background: var(--paper, #F3EFE9);
+  border: 1px solid rgba(184, 123, 81, 0.18);
+  border-radius: 18px;
+  padding: 36px 30px;
+  position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.how-we-work__step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -22px rgba(184, 123, 81, 0.40);
+  border-color: rgba(184, 123, 81, 0.45);
+}
+.how-we-work__num {
+  display: inline-block;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--copper, #B87B51);
+  margin-bottom: 18px;
+}
+.how-we-work__step h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(22px, 2vw, 28px);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--ink, #111);
+  margin: 0 0 12px;
+}
+.how-we-work__step p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-soft, #262626);
+  margin: 0;
+}
+@media (max-width: 880px) {
+  .how-we-work__steps { grid-template-columns: 1fr; }
+}
+
+.spec-edit__hint {
+  text-align: center;
+  margin: 40px auto 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink-soft, #262626);
+}
+.spec-edit__hint a {
+  color: var(--copper, #B87B51);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: color 0.25s ease;
+}
+.spec-edit__hint a:hover { color: var(--copper-soft, #D99C73); }
+
+/* ─── HOMEPAGE — Projectos Executados (cases) ─── */
+.cases {
+  background: var(--paper, #F3EFE9);
+}
+.cases__header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 56px;
+}
+.cases__h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(36px, 4.6vw, 60px);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--ink, #111);
+  margin: 16px 0 14px;
+}
+.cases__lead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-soft, #262626);
+  margin: 0;
+}
+.cases__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.case-card {
+  background: #fff;
+  border: 1px solid rgba(184, 123, 81, 0.18);
+  border-left: 4px solid var(--copper, #B87B51);
+  border-radius: 16px;
+  padding: 32px 28px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.case-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 50px -28px rgba(184, 123, 81, 0.45);
+}
+.case-card__meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--copper, #B87B51);
+  margin-bottom: 18px;
+}
+.case-card__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(20px, 1.8vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--ink, #111);
+  margin: 0 0 14px;
+}
+.case-card__desc {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-soft, #262626);
+  margin: 0 0 16px;
+}
+.case-card__client {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(17, 17, 17, 0.55);
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+  padding-top: 14px;
+  margin: 0;
+}
+@media (max-width: 980px) {
+  .cases__grid { grid-template-columns: 1fr; }
+}
+
+.sector-spotlight {
+  background: var(--night, #090909);
+  color: #fff;
+  padding: 64px 0;
+  margin-top: 56px;
+  border-radius: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.sector-spotlight__inner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 36px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.sector-spotlight__icon {
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(184, 123, 81, 0.14);
+  color: var(--copper-soft, #D99C73);
+  margin-bottom: 24px;
+}
+.sector-spotlight__label {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper-soft, #D99C73);
+  margin: 0 0 18px;
+}
+.sector-spotlight__quote {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(22px, 2.6vw, 32px);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: #fff;
+  margin: 0;
+}
+.cases__cta-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+.cases__grid--six {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 1100px) { .cases__grid--six { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 720px) { .cases__grid--six { grid-template-columns: 1fr; } }
+
+/* ─── EMPRESA — anti-ETT statement ─── */
+.anti-ett-statement {
+  background: rgba(184, 123, 81, 0.08);
+  border-left: 4px solid var(--copper, #B87B51);
+  padding: 22px 26px;
+  margin: 22px 0;
+  font-family: var(--font-body);
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--ink, #111);
+  border-radius: 0 12px 12px 0;
+}
+.anti-ett-statement strong {
+  color: var(--copper, #B87B51);
+  font-weight: 600;
+}
+
+/* ─── EMPRESA — checklist credenciais ─── */
+.credential-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.credential-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-soft, #262626);
+}
+.credential-checklist li:last-child { border-bottom: 0; }
+.credential-checklist li svg {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  color: var(--copper, #B87B51);
+  margin-top: 2px;
+}
+
+.page-section--alt {
+  background: var(--paper-warm, #EBE5DB);
+}
+
+/* ─── PARA EMPRESAS — Accordion de objecções ─── */
+.objections {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+.objection {
+  background: #fff;
+  border: 1px solid rgba(184, 123, 81, 0.18);
+  border-radius: 14px;
+  padding: 0;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.objection[open] {
+  border-color: var(--copper, #B87B51);
+  box-shadow: 0 18px 40px -28px rgba(184, 123, 81, 0.42);
+}
+.objection summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.3;
+  color: var(--ink, #111);
+}
+.objection summary::-webkit-details-marker { display: none; }
+.objection__q {
+  flex: 1;
+}
+.objection__icon {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(184, 123, 81, 0.12);
+  color: var(--copper, #B87B51);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.objection[open] .objection__icon {
+  transform: rotate(45deg);
+  background: var(--copper, #B87B51);
+  color: #fff;
+}
+.objection__a {
+  padding: 0 26px 24px;
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--ink-soft, #262626);
+}
+.objection__a a {
+  color: var(--copper, #B87B51);
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+}
+.objection__a a:hover { color: var(--copper-soft, #D99C73); }
+
+/* ─── REGIÕES — Country chips Internacional ─── */
+.country-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 0;
+  margin: 32px 0 0;
+}
+.country-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  background: #fff;
+  border: 1px solid rgba(184, 123, 81, 0.25);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink, #111);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.country-chips li:hover {
+  transform: translateY(-2px);
+  border-color: var(--copper, #B87B51);
+  box-shadow: 0 10px 22px -14px rgba(184, 123, 81, 0.45);
+}
+.country-chips__flag {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ─── REGIÕES — Mapa SVG estático Portugal + Espanha ─── */
+.map-iberia {
+  margin: 56px auto 0;
+  max-width: 880px;
+  background: #FFFFFF;
+  border: 1px solid rgba(184, 123, 81, 0.18);
+  border-radius: 22px;
+  padding: 36px 32px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.map-iberia__label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--copper, #B87B51);
+  margin: 0 0 6px;
+}
+.map-iberia__title {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--ink, #111);
+  margin: 0 0 22px;
+}
+.map-iberia__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.map-iberia__country {
+  fill: var(--paper, #F3EFE9);
+  stroke: rgba(17, 17, 17, 0.18);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  transition: fill 0.4s ease;
+}
+.map-iberia__country--pt {
+  fill: var(--paper-warm, #EBE5DB);
+  stroke: var(--copper, #B87B51);
+  stroke-width: 1.5;
+}
+.map-iberia__border {
+  stroke: rgba(184, 123, 81, 0.45);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+  fill: none;
+}
+.map-iberia__sea {
+  fill: rgba(184, 123, 81, 0.04);
+}
+.map-iberia__pin {
+  cursor: default;
+}
+.map-iberia__pin-dot {
+  fill: var(--copper, #B87B51);
+  filter: drop-shadow(0 2px 4px rgba(184, 123, 81, 0.45));
+}
+.map-iberia__pin-pulse {
+  fill: var(--copper, #B87B51);
+  opacity: 0.22;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: pinPulse 2.6s ease-out infinite;
+}
+@keyframes pinPulse {
+  0% { transform: scale(0.6); opacity: 0.55; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+.map-iberia__pin-label {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--ink, #111);
+  letter-spacing: 0.01em;
+}
+.map-iberia__pin-sublabel {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: var(--copper, #B87B51);
+}
+.map-iberia__country-label {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  fill: rgba(17, 17, 17, 0.16);
+  letter-spacing: 0.04em;
+}
+.map-iberia__legend {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 12.5px;
+  color: var(--ink-soft, #262626);
+}
+.map-iberia__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.map-iberia__legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--copper, #B87B51);
+  flex-shrink: 0;
+}
+.map-iberia__legend-dot--pt {
+  background: var(--paper-warm, #EBE5DB);
+  border: 1.5px solid var(--copper, #B87B51);
+  border-radius: 3px;
+}
+.map-iberia__legend-dot--es {
+  background: var(--paper, #F3EFE9);
+  border: 1.2px solid rgba(17, 17, 17, 0.25);
+  border-radius: 3px;
+}
+@media (max-width: 640px) {
+  .map-iberia { padding: 24px 18px 20px; border-radius: 16px; }
+  .map-iberia__pin-label { font-size: 11px; }
+  .map-iberia__pin-sublabel { font-size: 8.5px; }
+  .map-iberia__country-label { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-iberia__pin-pulse { animation: none; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── CONTACTO — Formulário B2B ─── */
+.contact-form {
+  display: grid;
+  gap: 22px;
+  background: #fff;
+  border: 1px solid rgba(184, 123, 81, 0.18);
+  border-radius: 16px;
+  padding: 36px 32px;
+}
+.contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+@media (max-width: 700px) {
+  .contact-form__row { grid-template-columns: 1fr; }
+}
+.contact-form__field {
+  display: grid;
+  gap: 8px;
+}
+.contact-form__field > span {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink, #111);
+  letter-spacing: 0.02em;
+}
+.contact-form__field input,
+.contact-form__field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink, #111);
+  background: var(--paper, #F3EFE9);
+  border: 1px solid rgba(184, 123, 81, 0.22);
+  border-radius: 10px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.contact-form__field input:focus,
+.contact-form__field textarea:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--copper, #B87B51);
+  box-shadow: 0 0 0 4px rgba(184, 123, 81, 0.14);
+}
+.contact-form__field textarea { resize: vertical; min-height: 130px; }
+.contact-form__consent {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft, #262626);
+}
+.contact-form__consent input[type="checkbox"] {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--copper, #B87B51);
+}
+.contact-form__consent a {
+  color: var(--copper, #B87B51);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.contact-form__note {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(17, 17, 17, 0.55);
+  margin: 0;
+}
+
+/* ─── CONTACTO — Canal RH secundário ─── */
+.rh-channel {
+  max-width: 880px;
+  margin: 0 auto;
+  background: rgba(17, 17, 17, 0.04);
+  border-left: 4px solid rgba(17, 17, 17, 0.3);
+  border-radius: 0 14px 14px 0;
+  padding: 28px 32px;
+}
+.rh-channel h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(22px, 2vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--ink, #111);
+  margin: 12px 0;
+}
+.rh-channel p {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-soft, #262626);
+  margin: 0;
+}
+.rh-channel a {
+  color: var(--copper, #B87B51);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+/* ─── PRIVACIDADE — Tabela RGPD ─── */
+.privacy-table-wrap {
+  background: #fff;
+  border: 1px solid rgba(184, 123, 81, 0.18);
+  border-radius: 14px;
+  padding: 8px;
+  overflow-x: auto;
+}
+.privacy-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+.privacy-table th,
+.privacy-table td {
+  text-align: left;
+  padding: 14px 16px;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.06);
+}
+.privacy-table thead th {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--copper, #B87B51);
+  border-bottom: 2px solid rgba(184, 123, 81, 0.25);
+}
+.privacy-table tbody tr:last-child td { border-bottom: 0; }
+.privacy-table td:first-child {
+  font-weight: 600;
+  color: var(--ink, #111);
 }
 
 /* Nav columns */
