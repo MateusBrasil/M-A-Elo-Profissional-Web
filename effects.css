@@ -3509,12 +3509,11 @@ a[href="empresa.html"]:not(.button):not(.nav-cta):not(.nav-link):not(.brand) {
   height: 24px;
 }
 
-.cred-item:hover .cred-item__icon,
-.value-item:hover .value-item__icon {
-  background: var(--accent-spark);
-  color: #fff;
-  transform: scale(1.05) rotate(-3deg);
-}
+/* Hover state removido — anteriormente fazia o background ficar laranja
+   e o glyph ficar branco, tornando o ícone visualmente ilegível em
+   alguns contextos. Os ícones permanecem com background tinted e cor
+   accent estáticos (ver regra base acima) para garantir contraste
+   contínuo em todos os estados. */
 
 /* Cred-item layout adjustment */
 .cred-item {
