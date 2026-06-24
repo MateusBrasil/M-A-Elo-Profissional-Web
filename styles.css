@@ -412,24 +412,28 @@ strong {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 18px;
   flex: 0 0 auto;
   color: var(--color-ink);
   text-decoration: none;
 }
 
 .brand__logo {
-  width: 64px;
-  height: 54px;
+  width: 88px;
+  height: 74px;
   object-fit: contain;
   flex-shrink: 0;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .brand:hover .brand__logo {
-  transform: scale(1.06);
+  transform: scale(1.05);
+}
+@media (max-width: 1024px) {
+  .brand__logo { width: 76px; height: 64px; }
 }
 @media (max-width: 760px) {
-  .brand__logo { width: 52px; height: 44px; }
+  .brand__logo { width: 64px; height: 54px; }
+  .brand { gap: 14px; }
 }
 
 .brand__mark {
