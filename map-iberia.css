@@ -106,7 +106,8 @@
     inset 0 30px 60px -30px rgba(15, 34, 68, 0.18);
 }
 
-#map-iberia-canvas {
+#map-iberia-canvas,
+.map-iberia-v3__canvas-target {
   position: absolute;
   inset: 0;
   width: 100%;

@@ -105,9 +105,21 @@
     map.addControl(new maplibregl.NavigationControl({ showCompass: false, visualizePitch: false }), 'bottom-right');
     map.scrollZoom.disable(); // evitar accidental scroll-zoom durante navegação da página
 
+    // Robustez: força resize quando o container ganha tamanho (layout shifts, fontes, etc.)
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(() => {
+        try { map.resize(); } catch (e) {}
+      });
+      ro.observe(canvasEl);
+    }
+
     map.on('load', () => {
       // Esconder loading
       if (loadingEl) loadingEl.classList.add('is-hidden');
+
+      // Resize defensivo após load (caso o container tenha mudado durante init)
+      setTimeout(() => { try { map.resize(); } catch (e) {} }, 100);
+      setTimeout(() => { try { map.resize(); } catch (e) {} }, 400);
 
       // Re-paint do mapa para tons mais neutros que combinam com M&A
       try {
