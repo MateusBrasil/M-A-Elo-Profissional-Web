@@ -5,13 +5,15 @@
 (function () {
   'use strict';
 
+  // Coordenadas verificadas contra Wikipedia/Google Maps — formato [longitude, latitude]
   const CITIES = [
     {
       id: 'miranda',
       name: 'Miranda do Douro',
       sublabel: 'Sede',
       sublabelMarker: '★ SEDE',
-      coords: [-6.2737, 41.4933],
+      coords: [-6.2737, 41.4933],            // 41°29'36"N 6°16'25"W
+      labelOffset: [14, 0],                  // label à direita do pin
       sede: true,
       desc: 'Sede da M&A Elo Profissional. Fronteira com Espanha — posição estratégica para mobilidade ibérica.',
     },
@@ -19,28 +21,32 @@
       id: 'viana',
       name: 'Viana do Castelo',
       sublabel: '01',
-      coords: [-8.8345, 41.6918],
+      coords: [-8.8326, 41.6932],            // 41°41'36"N 8°49'57"W
+      labelOffset: [14, 0],
       desc: 'Intervenções em construção metálica e indústria na região do Minho.',
     },
     {
       id: 'vilareal',
       name: 'Vila Real',
       sublabel: '02',
-      coords: [-7.7444, 41.3006],
+      coords: [-7.7441, 41.3006],            // 41°18'02"N 7°44'39"W
+      labelOffset: [14, 0],
       desc: 'Pintura industrial e construção civil metálica — projectos executados 2025/2026.',
     },
     {
       id: 'aveiro',
       name: 'Aveiro · Estarreja',
       sublabel: '03',
-      coords: [-8.5705, 40.7544],
+      coords: [-8.6082, 40.7000],            // ponto médio Aveiro–Estarreja
+      labelOffset: [14, 0],
       desc: 'Indústria química e metalomecânica. Fabricação de tubagens em aço carbono executada em 2025.',
     },
     {
       id: 'lisboa',
       name: 'Lisboa',
       sublabel: '04',
-      coords: [-9.1393, 38.7223],
+      coords: [-9.1393, 38.7223],            // 38°43'20"N 9°08'21"W
+      labelOffset: [14, 0],
       desc: 'Intervenções em indústria, construção e infraestrutura na região de Lisboa e Setúbal.',
     },
   ];
@@ -185,28 +191,21 @@
         },
       });
 
-      // ═══ Adicionar pins HTML customizados ═══
+      // ═══ Adicionar pins (dot only) + labels permanentes como popups separados ═══
       CITIES.forEach(city => {
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'relative';
+        // 1. DOT puro — sem wrapper, sem label dentro. Anchor 'center' = lat/lng exacto.
+        const dot = document.createElement('div');
+        dot.className = 'iberia-marker' + (city.sede ? ' iberia-marker--sede' : '');
+        dot.setAttribute('role', 'button');
+        dot.setAttribute('tabindex', '0');
+        dot.setAttribute('aria-label', city.name + (city.sede ? ' — sede da M&A Elo' : ''));
 
-        const marker = document.createElement('div');
-        marker.className = 'iberia-marker' + (city.sede ? ' iberia-marker--sede' : '');
-        marker.setAttribute('role', 'button');
-        marker.setAttribute('tabindex', '0');
-        marker.setAttribute('aria-label', city.name + (city.sede ? ' — sede da M&A Elo' : ''));
-
-        const label = document.createElement('div');
-        label.className = 'iberia-marker-label';
-        label.innerHTML = '<span class="iberia-marker-label__sub">' + (city.sublabelMarker || city.sublabel) + '</span>' + city.name;
-
-        wrapper.appendChild(marker);
-        wrapper.appendChild(label);
-
-        const popup = new maplibregl.Popup({
-          offset: 22,
+        // 2. Popup detalhado (abre on click)
+        const detailPopup = new maplibregl.Popup({
+          offset: city.sede ? 18 : 14,
           closeButton: true,
           closeOnClick: true,
+          maxWidth: '260px',
           className: 'iberia-popup-wrapper',
         }).setHTML(
           '<p class="iberia-popup__meta">' + (city.sede ? '★ SEDE' : city.sublabel + ' · Cidade activa') + '</p>' +
@@ -214,9 +213,28 @@
           '<p class="iberia-popup__desc">' + city.desc + '</p>'
         );
 
-        new maplibregl.Marker({ element: wrapper, anchor: 'center' })
+        // 3. Marker = só o dot, ancorado no centro = posição lat/lng EXACTA
+        new maplibregl.Marker({ element: dot, anchor: 'center' })
           .setLngLat(city.coords)
-          .setPopup(popup)
+          .setPopup(detailPopup)
+          .addTo(map);
+
+        // 4. Label permanente como popup separado (não fecha, sem botão close, ancorado à esquerda do pin)
+        const labelEl = document.createElement('div');
+        labelEl.className = 'iberia-label-pill' + (city.sede ? ' iberia-label-pill--sede' : '');
+        labelEl.innerHTML =
+          '<span class="iberia-label-pill__sub">' + (city.sublabelMarker || city.sublabel) + '</span>' +
+          '<span class="iberia-label-pill__name">' + city.name + '</span>';
+
+        // Posicionar label como marker separado, anchor 'left' = lado esquerdo do label fica no lat/lng,
+        // mas com offset horizontal para empurrar para a direita do dot
+        const labelOffsetX = city.sede ? 18 : 14;
+        new maplibregl.Marker({
+          element: labelEl,
+          anchor: 'left',
+          offset: [labelOffsetX, 0],
+        })
+          .setLngLat(city.coords)
           .addTo(map);
       });
 
