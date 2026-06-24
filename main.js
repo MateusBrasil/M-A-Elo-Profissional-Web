@@ -255,28 +255,7 @@
     document.body.appendChild(btn);
   };
 
-  const injectGdprBanner = () => {
-    if (localStorage.getItem("maelo_gdpr_accepted")) return;
-    const banner = document.createElement("div");
-    banner.className = "gdpr-banner";
-    banner.setAttribute("role", "region");
-    banner.setAttribute("aria-label", "Aviso de privacidade");
-    banner.innerHTML = [
-      '<div class="gdpr-banner__inner">',
-        '<p>Este site utiliza Google Fonts e recursos externos. Ao continuar, aceita o tratamento de dados conforme a nossa <a href="privacidade.html">política de privacidade</a>.</p>',
-        '<div class="gdpr-banner__actions">',
-          '<button class="gdpr-accept" type="button">Aceitar e continuar</button>',
-        "</div>",
-      "</div>"
-    ].join("");
-    document.body.appendChild(banner);
-    requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add("is-visible")));
-    banner.querySelector(".gdpr-accept").addEventListener("click", () => {
-      localStorage.setItem("maelo_gdpr_accepted", "1");
-      banner.classList.remove("is-visible");
-      banner.addEventListener("transitionend", () => banner.remove(), { once: true });
-    });
-  };
+  // injectGdprBanner removido — substituído pelo novo banner premium em cookies.js
 
   /* ─────────────────────────────────────────────────────────────
      Lazy hero video — promotes data-src to src once visible/idle
@@ -384,5 +363,5 @@
   initScrollProgress();
   initCtaRipple();
   // injectWhatsappFloat(); — removed per design decision
-  injectGdprBanner();
+  // injectGdprBanner(); — removido; agora gerido por cookies.js (banner premium v2)
 })();

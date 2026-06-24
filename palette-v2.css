@@ -1,0 +1,138 @@
+/* ═══ PALETA V2 — Híbrido alinhado com logo M&A Elo ═══
+   Carregar APÓS styles.css para fazer override das variáveis principais.
+   Mantém cream como base + introduz laranja faísca (#F07814) e navy corporativo (#1E3C64) do logo.
+   Reversível: remover <link> de palette-v2.css restaura paleta original. */
+
+:root {
+  /* === Cores oficiais do logo === */
+  --orange-spark: #F07814;        /* Laranja faísca — accent principal (logo) */
+  --orange-deep: #C95F08;         /* Hover/pressed */
+  --orange-soft: #FEF0E4;         /* Fundo suave */
+  --navy: #1E3C64;                /* Azul corporativo (logo) */
+  --navy-deep: #0F2244;           /* Navy profundo — heroes, footer */
+  --navy-soft: #E8EFF7;           /* Fundo azul suave */
+
+  /* === Re-mapear variáveis existentes do design system === */
+  --copper: var(--orange-spark);
+  --copper-soft: #F89C4F;
+  --copper-deep: var(--orange-deep);
+
+  --night: var(--navy-deep);
+
+  /* Spark (já existia como accent secundário) — agora sincronizado */
+  --accent-spark: var(--orange-spark);
+
+  /* === Color tokens institucionais (Botões/Links) === */
+  --color-ink: #1C2B3A;
+  --color-ink-soft: #2B3B4D;
+  --color-ink-muted: #5C6E83;
+
+  /* Mantém papel/cream como base (não toca) */
+  /* --paper: #F3EFE9; (já definido em design-tokens.css) */
+}
+
+/* === Overrides específicos que dependem de cores hardcoded === */
+
+/* Heros e footer dark — usar navy em vez de preto absoluto */
+.hero,
+.hero--screen,
+.page-hero,
+.footer-v2,
+.sector-spotlight {
+  background-color: var(--navy-deep) !important;
+}
+
+/* Spark icons SVG (homepage hero, block-cta) — laranja do logo */
+.hero__spark g,
+.block-cta__spark g {
+  stroke: var(--orange-spark) !important;
+}
+.hero__spark circle,
+.block-cta__spark circle {
+  fill: var(--orange-spark) !important;
+}
+
+/* Mapa ibérico — pins copper → laranja faísca */
+.map-iberia__pin-dot,
+.map-iberia__pin-pulse {
+  fill: var(--orange-spark);
+}
+.map-iberia__pin-sublabel {
+  fill: var(--orange-spark);
+}
+.map-iberia__country--pt {
+  stroke: var(--orange-spark);
+}
+.map-iberia__legend-dot {
+  background: var(--orange-spark);
+}
+.map-iberia__legend-dot--pt {
+  border-color: var(--orange-spark);
+}
+
+/* Cookie banner — botão accept escuro → navy */
+.cookie-banner__btn--accept {
+  background: var(--navy-deep);
+}
+
+/* Footer copper accent line */
+.footer-v2::before,
+.cred-strip {
+  background-image: linear-gradient(90deg, var(--orange-spark) 0%, transparent 70%);
+}
+
+/* Anti-ETT statement e secções de destaque */
+.anti-ett-statement {
+  border-left-color: var(--orange-spark);
+  background: var(--orange-soft);
+}
+.anti-ett-statement strong {
+  color: var(--orange-deep);
+}
+
+/* Cases — barra lateral laranja */
+.case-card {
+  border-left-color: var(--orange-spark);
+}
+
+/* Objection accordion — copper → laranja */
+.objection[open] {
+  border-color: var(--orange-spark);
+}
+.objection__icon {
+  background: rgba(240, 120, 20, 0.12);
+  color: var(--orange-spark);
+}
+.objection[open] .objection__icon {
+  background: var(--orange-spark);
+}
+
+/* Page kickers + section labels — copper → navy (secundário) */
+.section-label,
+.page-kicker {
+  color: var(--navy);
+}
+
+/* Hover states copper → orange */
+.spec-edit__hint a:hover,
+.objection__a a:hover,
+.rh-channel a:hover,
+.contact-form__consent a:hover {
+  color: var(--orange-deep);
+}
+
+/* CSS variables compat (caso alguma regra antiga use os nomes do PDF) */
+:root {
+  --orange: var(--orange-spark);
+  --blue: var(--navy);
+  --blue-deep: var(--navy-deep);
+  --blue-light: var(--navy-soft);
+  --orange-light: var(--orange-soft);
+  --dark: var(--navy-deep);
+  --gray: var(--color-ink-muted);
+  --gray-light: #F1F4F8;          /* corrigido — DIFERENTE de blue-light */
+  --gray-med: #D1D9E2;
+  --red: #C0392B;
+  --red-light: #FDECEA;
+  --white: #FFFFFF;
+}
