@@ -25,7 +25,7 @@
   /* === Color tokens institucionais (Botões/Links) === */
   --color-ink: #1C2B3A;
   --color-ink-soft: #2B3B4D;
-  --color-ink-muted: #5C6E83;
+  --color-ink-muted: #6B7E94;          /* match 100% paleta cliente */
 
   /* Mantém papel/cream como base (não toca) */
   /* --paper: #F3EFE9; (já definido em design-tokens.css) */
@@ -130,7 +130,7 @@
   --orange-light: var(--orange-soft);
   --dark: var(--navy-deep);
   --gray: var(--color-ink-muted);
-  --gray-light: #F1F4F8;          /* corrigido — DIFERENTE de blue-light */
+  --gray-light: #F0F4F8;          /* match 100% paleta cliente */
   --gray-med: #D1D9E2;
   --red: #C0392B;
   --red-light: #FDECEA;

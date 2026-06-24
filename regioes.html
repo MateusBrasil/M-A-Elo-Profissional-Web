@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="effects.css">
     <link rel="stylesheet" href="cookies.css">
     <link rel="stylesheet" href="palette-v2.css">
+    <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="stylesheet" href="map-iberia.css">
   </head>
   <body data-barba="wrapper">
     <script>document.documentElement.classList.add("js");</script>
@@ -161,125 +164,64 @@
         </div>
       </section>
 
-      <!-- ═══ MAPA SVG IBÉRICO ═══ -->
+      <!-- ═══ MAPA IBÉRICO PREMIUM v3 — MapLibre GL JS ═══ -->
       <section class="page-section" aria-labelledby="mapa-title">
         <div class="section__shell">
-          <figure class="map-iberia" role="img" aria-labelledby="mapa-title mapa-desc">
-            <p class="map-iberia__label">Cobertura geográfica</p>
-            <h2 class="map-iberia__title" id="mapa-title">Sede em Miranda do Douro &mdash; mobilidade ibérica activa.</h2>
-            <p id="mapa-desc" class="sr-only">Mapa simplificado da Península Ibérica com marcadores nas cinco cidades de actuação da M&amp;A Elo: Miranda do Douro (sede), Lisboa, Aveiro/Estarreja, Viana do Castelo e Vila Real.</p>
+          <figure class="map-iberia-v3" data-map-iberia role="img" aria-labelledby="mapa-title mapa-desc">
+            <div class="map-iberia-v3__header">
+              <div>
+                <p class="map-iberia-v3__label">Cobertura geográfica · 2026</p>
+                <h2 class="map-iberia-v3__title" id="mapa-title">Sede em Miranda do Douro &mdash; <em>mobilidade ibérica</em> activa.</h2>
+                <p id="mapa-desc" class="sr-only">Mapa interactivo da Península Ibérica com marcadores nas cinco cidades de actuação da M&amp;A Elo: Miranda do Douro (sede), Lisboa, Aveiro/Estarreja, Viana do Castelo e Vila Real. Inclui indicação de cobertura europeia em Espanha, França, Bélgica e Alemanha.</p>
+              </div>
+              <p class="map-iberia-v3__meta"><strong>5 cidades</strong> nacionais<br>+ <strong>4 países</strong> europeus<br>operação contínua</p>
+            </div>
 
-            <svg class="map-iberia__svg" viewBox="0 0 820 540" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <div class="map-iberia-v3__canvas">
+              <div id="map-iberia-canvas"></div>
 
-              <!-- Mar / Oceano (fundo) -->
-              <rect class="map-iberia__sea" x="0" y="0" width="820" height="540" rx="14"/>
+              <div class="iberia-overlay iberia-overlay--tl">
+                <span class="iberia-overlay__chip">
+                  <span class="iberia-overlay__chip-dot"></span>
+                  Mapa interactivo
+                </span>
+              </div>
 
-              <!-- Espanha (silhueta simplificada) -->
-              <path class="map-iberia__country" d="
-                M 245,90
-                C 290,82  340,78  395,80
-                C 460,82  530,90  600,100
-                C 660,108  720,120  760,135
-                L 778,150
-                L 780,180
-                C 770,210  760,240  765,275
-                C 770,305  780,335  775,365
-                L 760,395
-                C 730,420  690,430  650,440
-                C 600,450  545,455  490,460
-                C 430,462  370,460  315,455
-                L 285,430
-                C 280,400  282,370  280,340
-                C 278,310  278,278  270,250
-                C 264,220  254,190  248,160
-                C 244,135  242,110  245,90 Z
-              "/>
+              <aside class="iberia-overlay--europe">
+                <p class="iberia-overlay--europe__kicker">+ Europa</p>
+                <p class="iberia-overlay--europe__title">Projectos confirmados</p>
+                <div class="iberia-overlay--europe__countries">
+                  <span class="iberia-overlay--europe__flag">ES</span>
+                  <span class="iberia-overlay--europe__flag">FR</span>
+                  <span class="iberia-overlay--europe__flag">BE</span>
+                  <span class="iberia-overlay--europe__flag">DE</span>
+                </div>
+              </aside>
 
-              <!-- Portugal (silhueta simplificada) -->
-              <path class="map-iberia__country map-iberia__country--pt" d="
-                M 115,135
-                C 130,128  148,128  165,132
-                L 195,140
-                C 210,150  220,165  225,185
-                L 230,215
-                C 232,245  234,275  240,305
-                C 245,335  252,360  255,390
-                L 250,420
-                C 240,438  220,450  200,452
-                L 170,455
-                C 145,452  125,442  118,420
-                L 110,395
-                C 108,365  106,335  108,305
-                C 110,275  113,245  112,215
-                L 110,185
-                C 108,165  110,148  115,135 Z
-              "/>
+              <div class="map-iberia-v3__loading">
+                <span class="map-iberia-v3__loading-text">
+                  <span class="map-iberia-v3__loading-spinner"></span>
+                  A carregar cartografia
+                </span>
+              </div>
+            </div>
 
-              <!-- Fronteira PT/ES tracejada (vertical decorativa, já implícita) -->
-              <path class="map-iberia__border" d="M 245,145 C 240,200  245,260  248,320  C 250,380  252,420  255,440"/>
-
-              <!-- Labels países -->
-              <text class="map-iberia__country-label" x="490" y="270" text-anchor="middle">ESPANHA</text>
-              <text class="map-iberia__country-label" x="175" y="298" text-anchor="middle" style="font-size:16px;">PORTUGAL</text>
-
-              <!-- ═══ PINS — 5 cidades ═══ -->
-
-              <!-- 01 — Viana do Castelo (norte) -->
-              <g class="map-iberia__pin" transform="translate(155,170)">
-                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
-                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
-                <text class="map-iberia__pin-sublabel" x="-13" y="-12" text-anchor="end">01</text>
-                <text class="map-iberia__pin-label" x="-13" y="3" text-anchor="end">Viana do Castelo</text>
-              </g>
-
-              <!-- 02 — Vila Real (norte interior) -->
-              <g class="map-iberia__pin" transform="translate(205,205)">
-                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
-                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
-                <text class="map-iberia__pin-sublabel" x="13" y="-12" text-anchor="start">02</text>
-                <text class="map-iberia__pin-label" x="13" y="3" text-anchor="start">Vila Real</text>
-              </g>
-
-              <!-- 03 — MIRANDA DO DOURO (sede — destacado) -->
-              <g class="map-iberia__pin" transform="translate(245,215)">
-                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="9"/>
-                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="9" style="animation-delay:1.3s"/>
-                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="7"/>
-                <circle cx="0" cy="0" r="3" fill="#fff"/>
-                <text class="map-iberia__pin-sublabel" x="13" y="-14" text-anchor="start" style="fill:var(--ink,#111);font-weight:600;">SEDE</text>
-                <text class="map-iberia__pin-label" x="13" y="2" text-anchor="start" style="font-weight:700;">Miranda do Douro</text>
-                <text class="map-iberia__pin-sublabel" x="13" y="16" text-anchor="start">Fronteira ES</text>
-              </g>
-
-              <!-- 04 — Aveiro / Estarreja (centro-oeste) -->
-              <g class="map-iberia__pin" transform="translate(145,265)">
-                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
-                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
-                <text class="map-iberia__pin-sublabel" x="-13" y="-12" text-anchor="end">04</text>
-                <text class="map-iberia__pin-label" x="-13" y="3" text-anchor="end">Aveiro &middot; Estarreja</text>
-              </g>
-
-              <!-- 05 — Lisboa (sul) -->
-              <g class="map-iberia__pin" transform="translate(145,380)">
-                <circle class="map-iberia__pin-pulse" cx="0" cy="0" r="6"/>
-                <circle class="map-iberia__pin-dot" cx="0" cy="0" r="5"/>
-                <text class="map-iberia__pin-sublabel" x="-13" y="-12" text-anchor="end">05</text>
-                <text class="map-iberia__pin-label" x="-13" y="3" text-anchor="end">Lisboa</text>
-              </g>
-
-              <!-- Seta cobertura europeia (chevron a apontar para fora, leste) -->
-              <g transform="translate(720,250)" opacity="0.55">
-                <path d="M 0,-30 L 30,0 L 0,30 M 0,0 L -40,0" stroke="var(--copper,#B87B51)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                <text x="-50" y="-8" text-anchor="end" class="map-iberia__pin-sublabel" style="fill:var(--copper,#B87B51);">+ Europa</text>
-                <text x="-50" y="14" text-anchor="end" class="map-iberia__pin-label" style="fill:rgba(17,17,17,0.62);font-size:11px;">FR &middot; BE &middot; DE</text>
-              </g>
-
-            </svg>
-
-            <div class="map-iberia__legend">
-              <span class="map-iberia__legend-item"><span class="map-iberia__legend-dot map-iberia__legend-dot--pt"></span>Portugal &mdash; território principal</span>
-              <span class="map-iberia__legend-item"><span class="map-iberia__legend-dot map-iberia__legend-dot--es"></span>Espanha &mdash; mobilidade ibérica</span>
-              <span class="map-iberia__legend-item"><span class="map-iberia__legend-dot"></span>Cidades com projectos executados</span>
+            <div class="map-iberia-v3__footer">
+              <div class="map-iberia-v3__legend">
+                <span class="map-iberia-v3__legend-item">
+                  <span class="map-iberia-v3__legend-pin map-iberia-v3__legend-pin--sede"></span>
+                  Miranda do Douro &mdash; sede
+                </span>
+                <span class="map-iberia-v3__legend-item">
+                  <span class="map-iberia-v3__legend-pin"></span>
+                  Cidades com projectos executados
+                </span>
+                <span class="map-iberia-v3__legend-item">
+                  <span class="map-iberia-v3__legend-line"></span>
+                  Rotas operacionais
+                </span>
+              </div>
+              <p class="map-iberia-v3__hint">Clique no mapa para interagir &middot; zoom + pan</p>
             </div>
           </figure>
         </div>
@@ -390,6 +332,7 @@
 
     <script src="main.js" defer></script>
     <script src="cookies.js" defer></script>
+    <script src="map-iberia.js" defer></script>
     <script src="animations.js" defer></script>
   </body>
 </html>
