@@ -356,12 +356,38 @@
     }, { passive: true });
   };
 
+  // ──────────────────────────────────────────────────────────────
+  // Copy-to-clipboard para elementos com [data-copy]
+  // (usado no NIF da company-card em empresa.html)
+  // ──────────────────────────────────────────────────────────────
+  const initCopyToClipboard = () => {
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-copy]');
+      if (!el) return;
+      const value = el.getAttribute('data-copy');
+      if (!value || !navigator.clipboard) return;
+      navigator.clipboard.writeText(value).then(() => {
+        const originalText = el.textContent;
+        const originalTitle = el.getAttribute('title');
+        el.textContent = '✓ Copiado';
+        el.setAttribute('title', 'Copiado: ' + value);
+        el.classList.add('is-copied');
+        setTimeout(() => {
+          el.textContent = originalText;
+          if (originalTitle) el.setAttribute('title', originalTitle);
+          el.classList.remove('is-copied');
+        }, 1600);
+      }).catch(() => {});
+    });
+  };
+
   prepareApplicationLinks();
   setHeaderState();
   markActiveNavLink();
   initHeroVideo();
   initScrollProgress();
   initCtaRipple();
+  initCopyToClipboard();
   // injectWhatsappFloat(); — removed per design decision
   // injectGdprBanner(); — removido; agora gerido por cookies.js (banner premium v2)
 })();
