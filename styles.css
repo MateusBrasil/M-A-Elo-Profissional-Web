@@ -5345,8 +5345,8 @@ h1, h2, h3 {
 .about-min__label {
   font-family: var(--font-body, 'Inter', sans-serif);
   font-size: 13px;
-  font-weight: 500;
-  color: rgba(28, 43, 58, 0.55);
+  font-weight: 600;
+  color: var(--orange-spark, #F07814);
   letter-spacing: 0;
   text-transform: none;
   margin: 0 0 32px;
@@ -5363,6 +5363,11 @@ h1, h2, h3 {
   margin: 0 0 40px;
   max-width: 760px;
 }
+.about-min__title em {
+  font-style: normal;
+  color: var(--orange-spark, #F07814);
+  font-weight: 500;
+}
 
 .about-min__body {
   max-width: 640px;
@@ -5376,7 +5381,7 @@ h1, h2, h3 {
 }
 .about-min__body p:last-child { margin-bottom: 0; }
 .about-min__body strong {
-  color: var(--navy-deep, #0F2244);
+  color: var(--orange-spark, #F07814);
   font-weight: 600;
 }
 
@@ -5402,10 +5407,10 @@ h1, h2, h3 {
 .about-min__data dt {
   font-family: var(--font-body, 'Inter', sans-serif);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0;
   text-transform: none;
-  color: rgba(28, 43, 58, 0.55);
+  color: var(--orange-spark, #F07814);
 }
 .about-min__data dd {
   font-family: var(--font-body, 'Inter', sans-serif);
@@ -5416,13 +5421,14 @@ h1, h2, h3 {
   margin: 0;
 }
 .about-min__data dd a {
-  color: var(--navy-deep, #0F2244);
+  color: var(--orange-spark, #F07814);
   text-decoration: none;
   border-bottom: 1px solid currentColor;
   transition: color 0.2s ease, border-color 0.2s ease;
+  font-weight: 600;
 }
 .about-min__data dd a:hover {
-  color: var(--orange-spark, #F07814);
+  color: var(--orange-deep, #C95F08);
 }
 .about-min__data dd span {
   display: block;
