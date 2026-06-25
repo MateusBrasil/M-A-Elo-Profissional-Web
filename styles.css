@@ -1365,6 +1365,11 @@ strong {
   font-weight: 500;
   line-height: 0.92;
 }
+.page-hero h1 em {
+  font-style: normal;
+  color: var(--orange-spark, #F07814);
+  font-weight: inherit;
+}
 
 /* ─── Hero balanced — quebras controladas + text-wrap balance ─── */
 .page-hero--balanced h1 {
@@ -5344,8 +5349,13 @@ h1, h2, h3 {
   box-shadow: 0 10px 22px -14px rgba(184, 123, 81, 0.45);
 }
 .country-chips__flag {
-  font-size: 18px;
-  line-height: 1;
+  display: inline-block;
+  width: 22px;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(15, 34, 68, 0.18), 0 1px 2px rgba(15, 34, 68, 0.12);
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
 /* Mapa SVG amador antigo removido — substituído por MapLibre v3 em map-iberia.css */
