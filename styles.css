@@ -1366,6 +1366,32 @@ strong {
   line-height: 0.92;
 }
 
+/* ─── Hero balanced — quebras controladas + text-wrap balance ─── */
+.page-hero--balanced h1 {
+  max-width: 18ch;
+  font-size: clamp(40px, 5.6vw, 72px);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  margin-inline: auto;
+}
+.page-hero--balanced .page-hero__inner > p {
+  max-width: 56ch;
+  margin-inline: auto;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.page-hero--balanced .page-actions {
+  margin-top: 32px;
+}
+@media (max-width: 640px) {
+  .page-hero--balanced h1 {
+    font-size: clamp(32px, 9vw, 44px);
+    max-width: 100%;
+  }
+}
+
 .page-hero h1::after {
   display: none;
 }
