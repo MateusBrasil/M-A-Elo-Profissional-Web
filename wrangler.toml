@@ -1,0 +1,31 @@
+# ═══════════════════════════════════════════════════════════
+# Cloudflare Pages — wrangler config
+# Activa nodejs_compat para Functions usarem node:crypto, node:buffer.
+# ═══════════════════════════════════════════════════════════
+
+name = "maelo-pt"
+compatibility_date = "2025-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# Pages project config — usado quando fazes `wrangler pages deploy` ou
+# quando a Cloudflare detecta este wrangler.toml na raiz do repo.
+pages_build_output_dir = "."
+
+# Environment variables são geridas no Cloudflare dashboard:
+# Pages > maelo > Settings > Environment variables (Production + Preview)
+#
+# Variáveis necessárias:
+#   NEON_OWNER_CONN          → connection string Neon (full access, admin)
+#   NEON_FORM_CONN           → connection string Neon (low-privilege, public forms)
+#   ADMIN_EMAIL              → ex: admin@maelo.pt
+#   ADMIN_PASSWORD_HASH      → pbkdf2$200000$<saltB64>$<hashB64>  (gerar localmente)
+#   SESSION_SECRET           → string aleatória ≥ 32 caracteres (HMAC)
+#   PUBLIC_BASE_URL          → https://maelo.pt
+#   RESEND_API_KEY           → opcional (sem isto, reset-link cai em logs)
+#   RESET_FROM_EMAIL         → ex: "M&A Elo <noreply@maelo.pt>"
+#
+# Para gerar SESSION_SECRET:
+#   node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+#
+# Para gerar ADMIN_PASSWORD_HASH:
+#   node -e "const c=require('crypto');const s=c.randomBytes(16);const d=c.pbkdf2Sync('A_TUA_PASSWORD',s,200000,32,'sha256');console.log('pbkdf2$200000$'+s.toString('base64')+'$'+d.toString('base64'))"

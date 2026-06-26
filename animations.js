@@ -481,7 +481,7 @@
 
       // Re-run all scroll-aware init functions
       initHeroMotion();
-      initHeroScramble();
+      // initHeroScramble();  // removido — ver boot()
       initScrollReveals();
       initCounterAnimations();
       initGridStagger();
@@ -767,18 +767,7 @@
 
   /* ─── Section label draws ────────────────────────────────────── */
   const initSectionLabels = () => {
-    // Inject sparkle ✦ in every .section-label / .page-kicker that doesn't have it
-    document.querySelectorAll(".section-label, .page-kicker").forEach(label => {
-      if (label.dataset.sparkleInjected === "true") return;
-      if (!label.querySelector(".pill-spark")) {
-        const spark = document.createElement("span");
-        spark.className = "pill-spark";
-        spark.setAttribute("aria-hidden", "true");
-        spark.textContent = "✦";
-        label.appendChild(spark);
-      }
-      label.dataset.sparkleInjected = "true";
-    });
+    // (injeção do sparkle ✦ removida — decoração genérica; labels ficam limpos. Animação de reveal mantida.)
 
     if (!window.gsap || !window.ScrollTrigger || prefersReducedMotion) return;
 
@@ -915,7 +904,7 @@
       // Critical path — visible above the fold
       initLenis();
       initHeroMotion();
-      initHeroScramble();
+      // initHeroScramble();  // removido — efeito "hacker" destoava da seriedade industrial; eyebrow fica estática
 
       // Non-critical — defer to idle so main thread is free for LCP/FID
       const ric = window.requestIdleCallback
@@ -923,7 +912,7 @@
         : (cb) => setTimeout(cb, 50);
 
       ric(() => {
-        initCustomCursor();
+        // initCustomCursor();  // removido — cursor custom + trail dava "cara de template"; devolve o cursor do sistema
         initScrollReveals();
         initCounterAnimations();
         initGridStagger();

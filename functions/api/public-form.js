@@ -1,16 +1,10 @@
-// Public endpoint for the candidate forms — strictly whitelisted operations.
-// Uses a low-privilege NEON_FORM_CONN connection (INSERT into candidatos + SELECT from formularios).
+// POST /api/public-form — endpoint público dos formulários de candidatura
+// Usa NEON_FORM_CONN (baixo privilégio: INSERT candidatos + SELECT formularios).
+import * as auth from "./_lib/auth.js";
 
-const auth = require("./_lib/auth");
-
-function getFormConn() {
-  const v = process.env.NEON_FORM_CONN;
-  if (!v) throw new Error("Missing NEON_FORM_CONN env var");
-  return v;
-}
-
-async function formQuery(sql, params) {
-  const connString = getFormConn();
+async function formQuery(env, sql, params) {
+  const connString = env.NEON_FORM_CONN;
+  if (!connString) throw new Error("Missing NEON_FORM_CONN env var");
   const url = new URL(connString);
   const host = url.host.replace("-pooler", "");
   const res = await fetch(`https://${host}/sql`, {
@@ -28,28 +22,24 @@ async function formQuery(sql, params) {
   return res.json();
 }
 
-module.exports = async function handler(req, res) {
-  auth.setSecurityHeaders(res);
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-
+export async function onRequestPost({ request, env }) {
   try {
-    const ip = auth.clientIp(req);
+    const ip = auth.clientIp(request);
     if (!auth.rateLimit(`public-form:${ip}`, 30, 60)) {
-      return res.status(429).json({ error: "Demasiados pedidos. Tenta novamente em alguns segundos." });
+      return auth.jsonError("Demasiados pedidos. Tenta novamente em alguns segundos.", 429);
     }
 
-    const body = await auth.readJsonBody(req);
+    const body = await auth.readJsonBody(request);
     const op = String(body.op || "");
 
     if (op === "loadForm") {
       const slug = String(body.slug || "").trim();
-      if (!slug) return res.status(400).json({ error: "slug obrigatório" });
-      const r = await formQuery(
+      if (!slug) return auth.jsonError("slug obrigatório", 400);
+      const r = await formQuery(env,
         "SELECT slug, nome, descricao, campos, ativo FROM formularios WHERE slug=$1 AND ativo=true LIMIT 1",
         [slug]
       );
-      return res.status(200).json(r);
+      return auth.jsonResponse(r);
     }
 
     if (op === "submitCandidate") {
@@ -76,15 +66,13 @@ module.exports = async function handler(req, res) {
       for (const [key, spec] of Object.entries(ALLOWED)) {
         let v = data[key];
         if (v === undefined || v === null || v === "") {
-          if (spec.required) return res.status(400).json({ error: `Campo '${key}' obrigatório.` });
+          if (spec.required) return auth.jsonError(`Campo '${key}' obrigatório.`, 400);
           if (spec.default !== undefined) v = spec.default;
           else continue;
         }
         if (spec.type === "bool") v = !!v;
         else {
           v = String(v).slice(0, spec.max || 5000);
-          // Campos usados como classe CSS no admin (ex.: profissao -> .b-<valor>)
-          // são normalizados para slug seguro, fechando XSS de atributo na origem.
           if (spec.slug) v = v.toLowerCase().replace(/[^a-z0-9_-]/g, "") || spec.default;
         }
         columns.push(key);
@@ -93,13 +81,18 @@ module.exports = async function handler(req, res) {
 
       const placeholders = columns.map((_, i) => `$${i + 1}`).join(",");
       const sql = `INSERT INTO candidatos (${columns.join(",")}) VALUES (${placeholders})`;
-      await formQuery(sql, values);
-      return res.status(200).json({ ok: true });
+      await formQuery(env, sql, values);
+      return auth.jsonResponse({ ok: true });
     }
 
-    return res.status(400).json({ error: "Operação desconhecida." });
+    return auth.jsonError("Operação desconhecida.", 400);
   } catch (err) {
     console.error("[public-form]", err.message);
-    return res.status(500).json({ error: "Erro ao processar pedido." });
+    return auth.jsonError("Erro ao processar pedido.", 500);
   }
-};
+}
+
+export async function onRequest({ request }) {
+  if (request.method === "OPTIONS") return new Response(null, { status: 204 });
+  return auth.jsonError("Method not allowed", 405);
+}

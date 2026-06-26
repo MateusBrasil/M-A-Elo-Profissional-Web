@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /admin-reset.html
+Disallow: /api/
 
 Sitemap: https://maelo.pt/sitemap.xml

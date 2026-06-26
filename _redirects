@@ -1,0 +1,27 @@
+# ═══════════════════════════════════════════════════════════
+# Cloudflare Pages — Redirects (preserva SEO de URLs antigas)
+# Equivalente ao vercel.json "redirects" — todos 301 permanent.
+# Sintaxe: <source> <destination> <code>
+# ═══════════════════════════════════════════════════════════
+
+# ─── Obras antigas → Regiões ──────────────────────────────
+/obras-lisboa-parque-das-nacoes.html       /regioes.html       301
+/obras-estarreja-aveiro.html               /regioes.html       301
+/obras-viana-do-castelo.html               /regioes.html       301
+
+# ─── Profissões antigas → Serviços ────────────────────────
+/soldador.html                             /servicos.html      301
+/serralheiro.html                          /servicos.html      301
+/pintor-industrial.html                    /servicos.html      301
+/apoio-operacional-obras.html              /servicos.html      301
+
+# ─── Páginas legacy → Candidatos ──────────────────────────
+/profissionais-industria-metalomecanica.html    /candidatos.html    301
+/organizacao-candidatos-obra-industria.html     /candidatos.html    301
+
+# ─── Renames principais ───────────────────────────────────
+/profissoes.html                           /competencias.html              301
+/privacidade.html                          /politica-de-privacidade.html   301
+
+# ─── Cloudflare Functions servem /api/* automaticamente ───
+# (ficheiros em /functions/api/*.js → resolvem em /api/*)

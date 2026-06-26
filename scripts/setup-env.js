@@ -10,11 +10,11 @@ const readline = require("readline");
 
 const ENV_PATH = path.join(__dirname, "..", ".env.local");
 
-// Old credentials previously hardcoded in the source — used as defaults so the
-// migration can complete without rotating immediately (but you should rotate after).
+// Placeholders only — NUNCA colocar credenciais reais aqui (este ficheiro é versionado).
+// Ao correr o script, cola as connection strings reais (do painel Neon) quando perguntado.
 const DEFAULTS = {
-  NEON_OWNER_CONN: "postgresql://neondb_owner:npg_ZNntQdzXOC23@ep-dry-term-alu2f51d-pooler.c-3.eu-central-1.aws.neon.tech/neondb?sslmode=require",
-  NEON_FORM_CONN:  "postgresql://form_user:form_maelo_2026@ep-dry-term-alu2f51d-pooler.c-3.eu-central-1.aws.neon.tech/neondb?sslmode=require",
+  NEON_OWNER_CONN: "postgresql://neondb_owner:CHANGE_ME@ep-xxx.region.aws.neon.tech/neondb?sslmode=require",
+  NEON_FORM_CONN:  "postgresql://form_user:CHANGE_ME@ep-xxx.region.aws.neon.tech/neondb?sslmode=require",
   ADMIN_EMAIL: "admin@maelo.pt",
   PUBLIC_BASE_URL: "https://m-a-elo-profissional-web.vercel.app",
 };
