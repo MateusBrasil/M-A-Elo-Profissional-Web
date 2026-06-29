@@ -21,11 +21,11 @@ export async function onRequestPost({ request, env }) {
 
     const admin = await auth.getAdminByEmail(env, session.email);
     if (!admin) return auth.jsonError("Conta não encontrada.", 404);
-    if (!auth.verifyPassword(current, admin.password_hash)) {
+    if (!(await auth.verifyPassword(current, admin.password_hash))) {
       return auth.jsonError("Password atual incorreta.", 401);
     }
 
-    const newHash = auth.hashPassword(next);
+    const newHash = await auth.hashPassword(next);
     await auth.updateAdminPassword(env, admin.email, newHash);
 
     return auth.jsonResponse({ ok: true });

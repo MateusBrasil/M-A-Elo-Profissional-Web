@@ -23,7 +23,7 @@ export async function onRequestPost({ request, env }) {
     const consumed = await auth.consumeResetToken(env, email, token);
     if (!consumed) return auth.jsonError("Link inválido ou expirado.", 400);
 
-    const newHash = auth.hashPassword(next);
+    const newHash = await auth.hashPassword(next);
     await auth.updateAdminPassword(env, email, newHash);
 
     return auth.jsonResponse({ ok: true });

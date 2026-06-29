@@ -36,24 +36,41 @@ function getNeonConn(env) {
 }
 
 // PBKDF2 hashing — stored as "pbkdf2$<iter>$<saltB64>$<hashB64>"
-export function hashPassword(password) {
+// Usa Web Crypto (crypto.subtle), nativo e fiável no runtime Workers do Cloudflare.
+// (crypto.pbkdf2Sync de node:crypto não é estável aqui — partia o login.)
+async function pbkdf2Bits(password, salt, iterations, keyBytes) {
+  const keyMaterial = await globalThis.crypto.subtle.importKey(
+    "raw", new TextEncoder().encode(password), { name: "PBKDF2" }, false, ["deriveBits"]
+  );
+  const bits = await globalThis.crypto.subtle.deriveBits(
+    { name: "PBKDF2", salt, iterations, hash: "SHA-256" },
+    keyMaterial, keyBytes * 8
+  );
+  return Buffer.from(new Uint8Array(bits));
+}
+
+export async function hashPassword(password) {
   if (typeof password !== "string" || password.length < 8) {
     throw new Error("password too short");
   }
-  const salt = crypto.randomBytes(16);
-  const derived = crypto.pbkdf2Sync(password, salt, PBKDF2_ITER, PBKDF2_KEYLEN, PBKDF2_DIGEST);
+  const salt = Buffer.from(globalThis.crypto.getRandomValues(new Uint8Array(16)));
+  const derived = await pbkdf2Bits(password, salt, PBKDF2_ITER, PBKDF2_KEYLEN);
   return `pbkdf2$${PBKDF2_ITER}$${salt.toString("base64")}$${derived.toString("base64")}`;
 }
 
-export function verifyPassword(password, stored) {
+export async function verifyPassword(password, stored) {
   if (!stored || typeof stored !== "string") return false;
   const parts = stored.split("$");
   if (parts.length !== 4 || parts[0] !== "pbkdf2") return false;
   const iter = parseInt(parts[1], 10);
   const salt = Buffer.from(parts[2], "base64");
   const expected = Buffer.from(parts[3], "base64");
-  const derived = crypto.pbkdf2Sync(password, salt, iter, expected.length, PBKDF2_DIGEST);
-  return crypto.timingSafeEqual(derived, expected);
+  const derived = await pbkdf2Bits(password, salt, iter, expected.length);
+  if (derived.length !== expected.length) return false;
+  // comparação em tempo constante
+  let diff = 0;
+  for (let i = 0; i < derived.length; i++) diff |= derived[i] ^ expected[i];
+  return diff === 0;
 }
 
 // Compact signed token — base64url(payload).base64url(sig). HMAC-SHA256 with SESSION_SECRET.

@@ -18,7 +18,7 @@ export async function onRequestPost({ request, env }) {
     const admin = await auth.getAdminByEmail(env, email);
     if (!admin) return auth.jsonError("Credenciais inválidas.", 401);
 
-    const ok = auth.verifyPassword(password, admin.password_hash);
+    const ok = await auth.verifyPassword(password, admin.password_hash);
     if (!ok) return auth.jsonError("Credenciais inválidas.", 401);
 
     const token = auth.signToken(env, { kind: "session", email: admin.email }, auth.SESSION_TTL_SECONDS);
