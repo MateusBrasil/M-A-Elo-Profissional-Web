@@ -88,7 +88,10 @@
             <p data-reveal>Preencha os campos abaixo. Quanto mais contexto técnico, mais rápida e precisa a resposta. Os campos opcionais ajudam a equipa a dimensionar a proposta.</p>
             <p data-reveal>Para contacto imediato, use o WhatsApp directo com o CEO. O formulário é encaminhado para análise técnica.</p>
           </div>
-          <form class="contact-form" aria-label="Formulário de contacto B2B" method="POST" action="https://formspree.io/f/your_form_id" data-reveal>
+          <form id="contact-form" class="contact-form" aria-label="Formulário de contacto B2B" novalidate data-reveal>
+            <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" tabindex="-1">
+              <label>Não preencha este campo<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
             <div class="contact-form__row">
               <label class="contact-form__field">
                 <span>Nome completo *</span>
@@ -132,6 +135,7 @@
               <span>Concordo com a <a href="politica-de-privacidade.html">Política de Privacidade</a> da M&amp;A Elo Profissional, Lda. *</span>
             </label>
             <button type="submit" class="button button--dark">Enviar pedido de proposta</button>
+            <p id="contact-status" class="contact-form__status" role="status" aria-live="polite"></p>
             <p class="contact-form__note">* Campos obrigatórios. Os dados enviados são tratados conforme RGPD.</p>
           </form>
         </div>
@@ -164,6 +168,10 @@
               <div>
                 <dt>Telefone B2B</dt>
                 <dd><a href="tel:+351937920005">+351 937 920 005</a></dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd><a href="mailto:contacto@maelo.pt">contacto@maelo.pt</a></dd>
               </div>
               <div>
                 <dt>Seguro RC</dt>
@@ -254,12 +262,19 @@
               <li>
                 <span class="footer-v3__contact-label">B2B &middot; CEO</span>
                 <a class="footer-v3__contact-tel" href="tel:+351937920005">+351 937 920 005</a>
+                <a class="footer-v3__contact-email" href="mailto:clientes@maelo.pt">clientes@maelo.pt</a>
                 <span class="footer-v3__contact-meta">Alexandre Luchini Neto</span>
               </li>
               <li>
                 <span class="footer-v3__contact-label">RH &middot; Profissionais</span>
                 <a class="footer-v3__contact-tel" href="tel:+351936525992">+351 936 525 992</a>
+                <a class="footer-v3__contact-email" href="mailto:talento@maelo.pt">talento@maelo.pt</a>
                 <span class="footer-v3__contact-meta">Canal de candidaturas</span>
+              </li>
+              <li>
+                <span class="footer-v3__contact-label">Geral &middot; Propostas</span>
+                <a class="footer-v3__contact-email" href="mailto:contacto@maelo.pt">contacto@maelo.pt</a>
+                <span class="footer-v3__contact-meta">Parcerias, imprensa, LinkedIn</span>
               </li>
             </ul>
           </section>
@@ -304,6 +319,8 @@
     </footer>
 
 
+    <script src="neon.js" defer></script>
+    <script src="form-contact.js" defer></script>
     <script src="main.js" defer></script>
     <script src="cookies.js" defer></script>
     <script src="animations.js" defer></script>

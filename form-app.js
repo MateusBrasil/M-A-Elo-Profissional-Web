@@ -330,28 +330,11 @@ async function loadForm() {
   const titleEl = byId('form-title');
   if (!roleKey || !form || !fieldsRoot) return;
 
-  // Soldador uses the curated in-code definition (ignores DB) so the latest copy ships immediately.
-  let formDefinition = null;
-  if (roleKey === 'soldador') {
-    formDefinition = createSoldadorDefinition();
-  } else {
-    // Try DB first — slug matches role (generic → geral)
-    const dbSlug = roleKey === 'generic' ? 'geral' : roleKey;
-    try {
-      const r = await neonQuery(NEON_FORM_CONN,
-        'SELECT * FROM formularios WHERE slug=$1 AND ativo=true LIMIT 1', [dbSlug]);
-      const dbRow = r.rows?.[0];
-      if (dbRow) {
-        const campos = typeof dbRow.campos === 'string' ? JSON.parse(dbRow.campos) : (dbRow.campos || []);
-        if (campos.length > 0) {
-          formDefinition = _buildFromDB(dbRow, campos, roleKey);
-        }
-      }
-    } catch (e) {
-      console.warn('DB load failed, using fallback:', e);
-    }
-  }
-  if (!formDefinition) formDefinition = createFormDefinition(roleKey);
+  // Definições curadas em código são a fonte da verdade (a role pública form_user
+  // só tem INSERT, nunca SELECT — ler formularios daria 'permission denied' by design).
+  const formDefinition = roleKey === 'soldador'
+    ? createSoldadorDefinition()
+    : createFormDefinition(roleKey);
   currentFormDefinition = formDefinition;
 
   if (titleEl) titleEl.textContent = formDefinition.title;
@@ -428,6 +411,8 @@ async function loadForm() {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const status = byId('form-status');
+    // Honeypot anti-spam: bots preenchem o campo oculto "website"; humanos não o veem.
+    if (form.website && form.website.value) { status.className = 'status success'; status.textContent = 'Candidatura recebida com sucesso.'; return; }
     const submitButton = form.querySelector('button[type="submit"]');
     status.className = 'status';
     status.textContent = 'A enviar candidatura...';

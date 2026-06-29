@@ -21,6 +21,10 @@ async function submitCandidate(data) {
   return publicFormCall({ op: "submitCandidate", data });
 }
 
+async function submitContact(data) {
+  return publicFormCall({ op: "submitContact", data });
+}
+
 // Back-compat shim — old callers pass (connString, sql, params) and expect rows.
 // We map the few known queries used by the public forms to the new whitelisted ops.
 async function neonQuery(_connString, sql, params) {

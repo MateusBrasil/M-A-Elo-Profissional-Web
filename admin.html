@@ -733,6 +733,11 @@ select.fc{cursor:pointer}
         Candidaturas
         <span class="nbadge" id="nb-pend">0</span>
       </button>
+      <button class="ni" data-view="contacts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contactos B2B
+        <span class="nbadge" id="nb-contacts">0</span>
+      </button>
       <div class="nav-sec">Configurar</div>
       <button class="ni" data-view="forms">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -873,6 +878,30 @@ select.fc{cursor:pointer}
             </table>
           </div>
           <div class="pag" id="cand-pag"></div>
+        </div>
+      </div>
+
+      <!-- ═══ CONTACTS B2B ═══ -->
+      <div class="view" id="view-contacts">
+        <div class="sec-head">
+          <div><div class="sec-title">Contactos B2B</div><div class="sec-sub" id="contacts-count-lbl">A carregar…</div></div>
+          <div class="gap">
+            <button class="btn btn-ghost btn-sm" id="contacts-refresh-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Atualizar
+            </button>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <input type="search" class="fi fi-search" id="contacts-search" placeholder="Nome, empresa, email…">
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Data</th><th>Nome</th><th>Empresa</th><th>Contacto</th><th>Necessidade</th></tr></thead>
+              <tbody id="contacts-tbody"></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -1329,6 +1358,7 @@ const AUTH = {
 const VIEWS = {
   dashboard:{title:'Dashboard',init:DASH_init},
   candidates:{title:'Candidaturas',init:CANDS_init},
+  contacts:{title:'Contactos B2B',init:CONTACTS_init},
   forms:{title:'Formulários',init:FORMS_init},
   settings:{title:'Configurações',init:SETTINGS_init}
 };
@@ -1349,6 +1379,51 @@ const APP = {
     if(APP.current!==view){ APP.current=view; VIEWS[view].init && VIEWS[view].init(); }
   }
 };
+
+// ══════════════════════════════════════════════════
+//  CONTACTOS B2B
+// ══════════════════════════════════════════════════
+let contactsLoaded=false, contactsAll=[];
+function CONTACTS_init(){
+  if(!contactsLoaded) CONTACTS_load();
+  const rb=$('contacts-refresh-btn'); if(rb) rb.onclick=()=>{ contactsLoaded=false; CONTACTS_load(); };
+  const se=$('contacts-search'); if(se) se.oninput=CONTACTS_render;
+}
+async function CONTACTS_load(){
+  contactsLoaded=true;
+  const tb=$('contacts-tbody');
+  if(tb) tb.innerHTML='<tr><td colspan="5"><div class="loading"><div class="spin"></div>A carregar…</div></td></tr>';
+  try{
+    const r=await DB.q('SELECT * FROM contactos ORDER BY criado_em DESC',[]);
+    contactsAll=r.rows||[];
+    const nb=$('nb-contacts'); if(nb) nb.textContent=contactsAll.length;
+    CONTACTS_render();
+  }catch(e){
+    if(tb) tb.innerHTML='<tr><td colspan="5">Erro ao carregar contactos: '+esc(e.message)+'</td></tr>';
+  }
+}
+function CONTACTS_render(){
+  const tb=$('contacts-tbody'); if(!tb) return;
+  const se=$('contacts-search');
+  const term=(se&&se.value?se.value:'').toLowerCase().trim();
+  let rows=contactsAll;
+  if(term) rows=rows.filter(c=>[c.nome,c.empresa,c.email,c.telefone,c.cargo].some(v=>(v||'').toLowerCase().includes(term)));
+  const lbl=$('contacts-count-lbl'); if(lbl) lbl.textContent=contactsAll.length+' contacto(s)'+(term?' · '+rows.length+' no filtro':'');
+  if(!rows.length){ tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:32px;opacity:.6">'+(term?'Nenhum resultado.':'Ainda não há contactos B2B.')+'</td></tr>'; return; }
+  tb.innerHTML=rows.map(c=>{
+    const contacto=[c.email?'<a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a>':'', c.telefone?esc(c.telefone):''].filter(Boolean).join('<br>')||'—';
+    const cargo=c.cargo?'<br><span style="font-size:11px;opacity:.6">'+esc(c.cargo)+'</span>':'';
+    const regiao=c.regiao?'<br><span style="font-size:11px;opacity:.6">'+esc(c.regiao)+'</span>':'';
+    const prazo=c.prazo?'<div style="font-size:11px;opacity:.6;margin-top:4px">Prazo: '+esc(c.prazo)+'</div>':'';
+    return '<tr>'
+      +'<td style="white-space:nowrap">'+fmtDT(c.criado_em)+'</td>'
+      +'<td class="td-name">'+esc(c.nome)+cargo+'</td>'
+      +'<td>'+esc(c.empresa||'—')+regiao+'</td>'
+      +'<td style="font-size:12.5px">'+contacto+'</td>'
+      +'<td style="max-width:360px"><div style="white-space:pre-wrap;font-size:12.5px;line-height:1.5">'+esc(c.projecto||'')+'</div>'+prazo+'</td>'
+      +'</tr>';
+  }).join('');
+}
 
 // ══════════════════════════════════════════════════
 //  DASHBOARD

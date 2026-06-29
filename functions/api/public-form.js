@@ -85,6 +85,35 @@ export async function onRequestPost({ request, env }) {
       return auth.jsonResponse({ ok: true });
     }
 
+    if (op === "submitContact") {
+      const data = body.data || {};
+      const ALLOWED = {
+        nome:     { max: 200, required: true },
+        empresa:  { max: 200 },
+        cargo:    { max: 120 },
+        email:    { max: 200 },
+        telefone: { max: 64 },
+        regiao:   { max: 200 },
+        prazo:    { max: 120 },
+        projecto: { max: 5000, required: true },
+      };
+      const columns = [];
+      const values = [];
+      for (const [key, spec] of Object.entries(ALLOWED)) {
+        let v = data[key];
+        if (v === undefined || v === null || v === "") {
+          if (spec.required) return auth.jsonError(`Campo '${key}' obrigatório.`, 400);
+          else continue;
+        }
+        columns.push(key);
+        values.push(String(v).slice(0, spec.max || 5000));
+      }
+      const placeholders = columns.map((_, i) => `$${i + 1}`).join(",");
+      const sql = `INSERT INTO contactos (${columns.join(",")}) VALUES (${placeholders})`;
+      await formQuery(env, sql, values);
+      return auth.jsonResponse({ ok: true });
+    }
+
     return auth.jsonError("Operação desconhecida.", 400);
   } catch (err) {
     console.error("[public-form]", err.message);

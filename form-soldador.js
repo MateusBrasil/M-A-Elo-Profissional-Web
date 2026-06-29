@@ -32,6 +32,8 @@
     e.preventDefault();
     clearErrors();
     if (!validate()) return;
+    // Honeypot anti-spam: bots preenchem o campo oculto "website"; humanos não o veem.
+    if (form.website && form.website.value) { form.style.display = "none"; successState.classList.add("is-visible"); return; }
 
     submitBtn.disabled = true;
     submitBtn.textContent = "A enviar…";
