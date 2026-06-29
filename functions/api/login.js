@@ -30,7 +30,7 @@ export async function onRequestPost({ request, env }) {
     );
   } catch (err) {
     console.error("[login]", err);
-    return auth.jsonError("Erro interno. Tente novamente.", 500);
+    return auth.jsonError("DEBUG2 " + (err && err.message ? err.message : String(err)), 500);
   }
 }
 
