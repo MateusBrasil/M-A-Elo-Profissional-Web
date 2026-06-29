@@ -7,7 +7,7 @@
 import { Buffer } from "node:buffer";
 import crypto from "node:crypto";
 
-const PBKDF2_ITER = 200000;
+const PBKDF2_ITER = 100000; // máximo suportado pelo Web Crypto do Cloudflare Workers
 const PBKDF2_KEYLEN = 32;
 const PBKDF2_DIGEST = "sha256";
 export const SESSION_TTL_SECONDS = 60 * 60 * 8; // 8 hours
