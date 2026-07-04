@@ -62,7 +62,7 @@ export function makeConversation({ store, aiAgent }) {
       }
 
       await store.save(telefone, session);
-      return { reply: turn.reply, done: turn.done, decision: turn.done ? turn.decision : null };
+      return { reply: turn.reply, done: turn.done, decision: turn.done ? turn.decision : null, data: session.data };
     },
   };
 }
