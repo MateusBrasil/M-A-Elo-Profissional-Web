@@ -2252,14 +2252,21 @@ AUTH.init();
     if(!sum) return;
     sum.textContent='A carregar…';
     try{
-      var er = await DB.q("SELECT etapa, erro, telefone, criado_em FROM wa_erros ORDER BY criado_em DESC LIMIT 20",[]).catch(function(){return {rows:[]};});
-      var pr = await DB.q("SELECT telefone, atualizado_em FROM wa_sessoes WHERE (estado->>'stage')='in_progress' AND atualizado_em < now() - interval '24 hours' ORDER BY atualizado_em DESC LIMIT 20",[]).catch(function(){return {rows:[]};});
+      // Sem .catch por query: uma falha real (permissões, proxy em baixo) tem de
+      // aparecer como ERRO, não ser mascarada como "sem erros" (falso "está tudo bem").
+      var er = await DB.q("SELECT etapa, erro, telefone, criado_em FROM wa_erros ORDER BY criado_em DESC LIMIT 20",[]);
+      var pr = await DB.q("SELECT telefone, atualizado_em FROM wa_sessoes WHERE (estado->>'stage')='in_progress' AND atualizado_em < now() - interval '24 hours' ORDER BY atualizado_em DESC LIMIT 20",[]);
       var erros=(er&&er.rows)||[], presas=(pr&&pr.rows)||[];
       sum.textContent = erros.length+' erro(s) recentes · '+presas.length+' conversa(s) presa(s) há mais de 24h';
       erosEl.innerHTML = '<strong>Erros recentes</strong><br>' + (erros.length? erros.map(function(r){return esc(fmt(r.criado_em))+' · <b>'+esc(r.etapa)+'</b> · '+esc(r.telefone||'')+' — '+esc(r.erro);}).join('<br>') : 'Sem erros registados.');
       presasEl.innerHTML = '<strong>Conversas em curso há mais de 24h</strong><br>' + (presas.length? presas.map(function(r){return esc(r.telefone)+' · desde '+esc(fmt(r.atualizado_em));}).join('<br>') : 'Nenhuma conversa presa.');
     }catch(e){
-      sum.textContent='Ainda sem atividade do agente (as tabelas são criadas na primeira mensagem recebida).';
+      var m=(e&&e.message)||'';
+      if(/does not exist|relation|não existe|no such/i.test(m)){
+        sum.textContent='Ainda sem atividade do agente (as tabelas são criadas na primeira mensagem recebida).';
+      } else {
+        sum.textContent='ERRO ao consultar o diagnóstico: '+esc(m)+'. Isto NÃO significa que está tudo bem — é uma falha a ler os dados.';
+      }
       erosEl.innerHTML='—'; presasEl.innerHTML='—';
     }
   }

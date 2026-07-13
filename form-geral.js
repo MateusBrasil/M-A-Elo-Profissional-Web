@@ -38,12 +38,14 @@
     submitBtn.disabled = true;
     submitBtn.textContent = "A enviar…";
 
+    const funcao = form.funcao.value.trim();
     const idiomas = collectChecked("idiomas").join(", ");
     const zonas = collectChecked("zonas").join(", ");
     const experienciaPratica = form.experiencia_pratica.value.trim();
     const mensagemBase = form.mensagem.value.trim();
 
     const mensagemExtra = [
+      funcao ? "Função pretendida: " + funcao : "",
       idiomas ? "Idiomas: " + idiomas : "",
       zonas ? "Zonas: " + zonas : "",
       experienciaPratica ? "Experiência prática: " + experienciaPratica : "",
@@ -61,7 +63,7 @@
           form.regiao.value.trim() || null,
           form.experiencia.value || null,
           zonas.length > 0,
-          form.funcao.value.trim(),
+          null,
           mensagemExtra,
         ]
       );
