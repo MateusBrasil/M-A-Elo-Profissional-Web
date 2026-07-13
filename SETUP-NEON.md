@@ -34,34 +34,29 @@ O sistema de candidaturas e o painel de administração estão ligados ao **Neon
 
 ## Credenciais
 
-### Formulários públicos (INSERT-only)
-Estas credenciais estão em `neon.js` e são seguras para expor publicamente — o utilizador `form_user` só pode inserir dados, nunca ler.
+> **As credenciais NÃO ficam neste ficheiro — nem em nenhum ficheiro do repositório.**
+> Vivem apenas nas **variáveis de ambiente encriptadas da Cloudflare** (`NEON_OWNER_CONN`,
+> `NEON_FORM_CONN`, `SESSION_SECRET`, `ADMIN_PASSWORD_HASH`, `AI_API_KEY`…). Ver
+> `SETUP-CLOUDFLARE.md` e `DEPLOY-AGENTE.md`.
+>
+> ⚠️ **Histórico:** versões anteriores deste ficheiro continham as passwords em texto e o
+> repositório foi público. Essas passwords têm de ser tratadas como **comprometidas** e
+> **rotacionadas no Neon** (`neondb_owner` + `form_user`), a par do `SESSION_SECRET` e do
+> `ADMIN_PASSWORD_HASH`.
 
-```
-Utilizador: form_user
-Password:   form_maelo_2026
-```
-
-### Painel de administração
-O administrador entra a password no login do `admin.html`. A ligação é verificada diretamente contra a base de dados.
-
-```
-Utilizador: neondb_owner
-Password:   npg_ZNntQdzXOC23
-```
-
-> Guardar esta password em lugar seguro. É a chave de acesso total à base de dados.
+- **Role pública** `form_user` — apenas INSERT em `candidatos` (baixo privilégio) → `NEON_FORM_CONN`.
+- **Role admin** `neondb_owner` — acesso total → `NEON_OWNER_CONN` (só no servidor, nunca no browser).
 
 ---
 
 ## Como usar o painel de administração
 
-1. Abrir `admin.html` no browser (localmente ou no servidor)
-2. Colocar qualquer email no campo "O seu email" (é só para exibição)
-3. Colocar a password `npg_ZNntQdzXOC23` no campo "Password de acesso"
-4. Clicar em **Entrar**
+1. Abrir `admin.html` (em `https://maelo.pt/admin.html`)
+2. Entrar com o **email autorizado** (`ADMIN_EMAIL`) e a **password de admin** — definida no
+   arranque via `ADMIN_PASSWORD_HASH` e alterável no próprio painel. **Não** é a password da base de dados.
+3. Clicar em **Entrar**
 
-A sessão mantém-se enquanto o separador estiver aberto. Ao fechar o separador, é necessário fazer login novamente.
+A sessão dura ~8h (cookie HttpOnly). O login e as queries passam pelos endpoints `/api/*`; o browser nunca fala diretamente com o Neon.
 
 ---
 
