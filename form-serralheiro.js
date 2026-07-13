@@ -65,7 +65,7 @@
           form.experiencia.value || null,
           zonas.length > 0,
           tipo_trabalhos,
-          le_medidas_val === "sim",
+          le_medidas_val,
           mensagemExtra,
         ]
       );

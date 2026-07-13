@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "test:agent": "node --test functions/api/_lib/agent/screening.test.mjs functions/api/_lib/agent/sessions.test.mjs functions/api/_lib/agent/ai.test.mjs functions/api/_lib/agent/conversation.test.mjs functions/api/_lib/agent/whatsapp.test.mjs functions/api/_lib/agent/leads.test.mjs functions/api/_lib/agent/http.test.mjs functions/api/_lib/agent/inbound.test.mjs"
+  },
   "dependencies": {
     "sharp": "^0.35.2"
   }

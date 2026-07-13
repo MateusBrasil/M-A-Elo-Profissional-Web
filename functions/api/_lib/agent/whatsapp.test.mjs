@@ -1,0 +1,122 @@
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { parseInbound, parseInboundAll, verifySignature } from "./whatsapp.js";
+
+const textPayload = {
+  object: "whatsapp_business_account",
+  entry: [{
+    id: "0",
+    changes: [{
+      field: "messages",
+      value: {
+        messaging_product: "whatsapp",
+        metadata: { phone_number_id: "123" },
+        contacts: [{ profile: { name: "João Silva" }, wa_id: "351911111111" }],
+        messages: [{ from: "351911111111", id: "wamid.X", timestamp: "1", type: "text", text: { body: "olá, vi a vaga" } }],
+      },
+    }],
+  }],
+};
+
+const statusPayload = {
+  object: "whatsapp_business_account",
+  entry: [{ id: "0", changes: [{ field: "messages", value: { messaging_product: "whatsapp", statuses: [{ id: "wamid.X", status: "delivered" }] } }] }],
+};
+
+const imagePayload = {
+  object: "whatsapp_business_account",
+  entry: [{ id: "0", changes: [{ field: "messages", value: { messages: [{ from: "351922222222", type: "image", image: { id: "media123" } }] } }] }],
+};
+
+test("parseInbound extrai remetente, texto e nome de uma mensagem de texto", () => {
+  const m = parseInbound(textPayload);
+  assert.equal(m.from, "351911111111");
+  assert.equal(m.text, "olá, vi a vaga");
+  assert.equal(m.name, "João Silva");
+});
+
+test("parseInbound ignora webhooks de status (devolve null)", () => {
+  assert.equal(parseInbound(statusPayload), null);
+});
+
+test("parseInbound marca tipos nao suportados sem texto", () => {
+  const m = parseInbound(imagePayload);
+  assert.equal(m.from, "351922222222");
+  assert.equal(m.text, "");
+  assert.equal(m.unsupportedType, "image");
+});
+
+async function sign(secret, body) {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(body));
+  return "sha256=" + [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+test("verifySignature aceita uma assinatura valida da Meta", async () => {
+  const secret = "app-secret-123";
+  const body = JSON.stringify(textPayload);
+  const header = await sign(secret, body);
+  assert.equal(await verifySignature(secret, body, header), true);
+});
+
+test("verifySignature rejeita assinatura errada ou em falta", async () => {
+  const body = JSON.stringify(textPayload);
+  assert.equal(await verifySignature("app-secret-123", body, "sha256=deadbeef"), false);
+  assert.equal(await verifySignature("app-secret-123", body, null), false);
+});
+
+test("verifySignature FAIL-CLOSED: sem secret rejeita por omissao (producao)", async () => {
+  // Comportamento seguro por defeito: sem App Secret nao se consegue verificar,
+  // por isso rejeita. Antes isto passava (fail-open), o que era perigoso.
+  assert.equal(await verifySignature("", "qualquer corpo", null), false);
+});
+
+test("verifySignature so passa sem secret com allowUnsigned explicito (dev local)", async () => {
+  assert.equal(await verifySignature("", "qualquer corpo", null, { allowUnsigned: true }), true);
+});
+
+test("parseInbound extrai o wamid da mensagem", () => {
+  assert.equal(parseInbound(textPayload).wamid, "wamid.X");
+});
+
+test("parseInboundAll ignora reactions (nao dispara resposta)", () => {
+  const reactionPayload = {
+    entry: [{ changes: [{ value: { messages: [{ from: "351933333333", id: "wamid.R", type: "reaction", reaction: { emoji: "👍" } }] } }] }],
+  };
+  assert.deepEqual(parseInboundAll(reactionPayload), []);
+});
+
+test("parseInboundAll devolve TODAS as mensagens de um webhook em lote", () => {
+  const batch = {
+    entry: [{ changes: [{ value: {
+      contacts: [{ profile: { name: "Ana" } }],
+      messages: [
+        { from: "351944444444", id: "wamid.1", type: "text", text: { body: "primeira" } },
+        { from: "351944444444", id: "wamid.2", type: "text", text: { body: "segunda" } },
+      ],
+    } }] }],
+  };
+  const all = parseInboundAll(batch);
+  assert.equal(all.length, 2);
+  assert.equal(all[0].text, "primeira");
+  assert.equal(all[1].text, "segunda");
+  assert.equal(all[1].wamid, "wamid.2");
+});
+
+test("parseInboundAll ignora statuses", () => {
+  assert.deepEqual(parseInboundAll(statusPayload), []);
+});
+
+test("parseInboundAll mapeia resposta de botao para texto + buttonId", () => {
+  const payload = { entry: [{ changes: [{ value: { messages: [{ from: "351955555555", id: "wamid.B1", type: "interactive", interactive: { type: "button_reply", button_reply: { id: "authorized", title: "Tenho documentos" } } }] } }] }] };
+  const m = parseInboundAll(payload)[0];
+  assert.equal(m.buttonId, "authorized");
+  assert.equal(m.text, "Tenho documentos");
+});
+
+test("parseInboundAll mapeia resposta de lista para texto + buttonId", () => {
+  const payload = { entry: [{ changes: [{ value: { messages: [{ from: "351955555555", id: "wamid.L1", type: "interactive", interactive: { type: "list_reply", list_reply: { id: "soldador", title: "Soldador" } } }] } }] }] };
+  const m = parseInboundAll(payload)[0];
+  assert.equal(m.buttonId, "soldador");
+  assert.equal(m.text, "Soldador");
+});

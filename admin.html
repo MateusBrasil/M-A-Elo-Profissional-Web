@@ -979,6 +979,20 @@ select.fc{cursor:pointer}
         </div>
         <div class="set-sec">
           <div class="set-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <div><div class="set-title">Agente WhatsApp — diagnóstico</div><div class="set-sub">Erros recentes e conversas presas na pré-triagem</div></div>
+          </div>
+          <div class="set-body">
+            <div class="set-row">
+              <div><div class="set-rlbl">Estado do agente</div><div class="set-rsub" id="agentdiag-summary">Carregue para ver a atividade recente.</div></div>
+              <button class="btn btn-ghost btn-sm" id="agentdiag-refresh">Atualizar</button>
+            </div>
+            <div class="info-box" id="agentdiag-erros" style="margin-top:12px">—</div>
+            <div class="info-box" id="agentdiag-presas" style="margin-top:12px">—</div>
+          </div>
+        </div>
+        <div class="set-sec">
+          <div class="set-head">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             <div><div class="set-title">Sobre o painel</div></div>
           </div>
@@ -1180,8 +1194,20 @@ const timeAgo = iso => {
   if(d<604800) return Math.floor(d/86400)+'d atrás';
   return fmtDate(iso);
 };
-const profLabel  = p=>({soldador:'Soldador',serralheiro:'Serralheiro',pintor:'Pintor ind.',geral:'Geral'}[p]??p??'—');
+const profLabel  = p=>({soldador:'Soldador',serralheiro:'Serralheiro',pintor:'Pintor ind.',tubista:'Tubista',caldeireiro:'Caldeireiro',mecanico:'Mecânico',ajudante:'Ajudante',geral:'Geral'}[p]??p??'—');
 const estadoLabel= e=>({pendente:'Pendente',aprovado:'Aprovado',rejeitado:'Rejeitado',em_espera:'Em espera'}[e]??e??'—');
+// Origem do lead (deriva da nota, sem coluna nova): WhatsApp (pré-triagem) vs Formulário.
+const originChip = c=>{
+  const wa=String(c.mensagem||'').startsWith('[Pré-triagem WhatsApp]');
+  const s='display:inline-block;margin-left:7px;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600;letter-spacing:.03em;vertical-align:middle;';
+  return wa
+    ?`<span style="${s}background:rgba(18,140,75,.14);color:#128C4B;border:1px solid rgba(18,140,75,.28)">WhatsApp</span>`
+    :`<span style="${s}background:rgba(120,120,120,.12);color:#777;border:1px solid rgba(120,120,120,.22)">Formulário</span>`;
+};
+// Pedido de revisão RGPD (Art. 22) — o candidato rejeitado pediu revisão humana.
+const reviewChip = c=>/\[Pedido de revis[aã]o/i.test(String(c.mensagem||''))
+  ?`<span style="display:inline-block;margin-left:7px;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:.03em;vertical-align:middle;background:rgba(192,57,43,.15);color:#c0392b;border:1px solid rgba(192,57,43,.32)">Revisão pedida</span>`
+  :'';
 
 function toast(msg, type='') {
   const box = $('toast-box');
@@ -1548,7 +1574,7 @@ const CANDS = (()=>{
     const q=$('f-search').value.toLowerCase().trim();
     const prof=$('f-prof').value, estado=$('f-estado').value, sort=$('f-sort').value;
     filtered=all.filter(c=>{
-      if(q&&!c.nome?.toLowerCase().includes(q)&&!c.telefone?.includes(q)&&!c.email?.toLowerCase().includes(q)) return false;
+      if(q&&!c.nome?.toLowerCase().includes(q)&&!c.telefone?.includes(q)&&!c.email?.toLowerCase().includes(q)&&!c.mensagem?.toLowerCase().includes(q)&&!c.regiao?.toLowerCase().includes(q)) return false;
       if(prof&&c.profissao!==prof) return false;
       if(estado&&c.estado!==estado) return false;
       return true;
@@ -1573,9 +1599,9 @@ const CANDS = (()=>{
       return `
       <tr class="tr-c${selected.has(c.id)?' sel':''}" data-id="${esc(c.id)}">
         <td class="check-col"><input type="checkbox" class="rchk row-chk" data-id="${esc(c.id)}" ${selected.has(c.id)?'checked':''}></td>
-        <td class="td-name">${esc(c.nome)}</td>
+        <td class="td-name">${esc(c.nome)}${originChip(c)}${reviewChip(c)}</td>
         <td>${esc(c.telefone)}</td>
-        <td><span class="badge b-${esc(c.profissao)}">${esc(profLabel(c.profissao))}</span></td>
+        <td><span class="badge b-${['soldador','serralheiro','pintor','geral'].includes(c.profissao)?esc(c.profissao):'geral'}">${esc(profLabel(c.profissao))}</span></td>
         <td class="td-muted">${esc(c.regiao??'—')}</td>
         <td class="td-muted">${fmtDate(c.criado_em)}</td>
         <td onclick="event.stopPropagation()">
@@ -2224,6 +2250,41 @@ document.addEventListener('DOMContentLoaded', ()=>{
 //  BOOT
 // ══════════════════════════════════════════════════
 AUTH.init();
+</script>
+<script>
+// Diagnostico do agente WhatsApp: le as tabelas wa_erros / wa_sessoes (criadas
+// pelo agente na primeira mensagem) via o mesmo DB.q autenticado do painel.
+(function(){
+  var esc = function(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); };
+  var fmt = function(ts){ if(!ts) return ''; try{ return new Date(ts).toLocaleString('pt-PT'); }catch(e){ return String(ts); } };
+  async function load(){
+    var sum=document.getElementById('agentdiag-summary');
+    var erosEl=document.getElementById('agentdiag-erros');
+    var presasEl=document.getElementById('agentdiag-presas');
+    if(!sum) return;
+    sum.textContent='A carregar…';
+    try{
+      // Sem .catch por query: uma falha real (permissões, proxy em baixo) tem de
+      // aparecer como ERRO, não ser mascarada como "sem erros" (falso "está tudo bem").
+      var er = await DB.q("SELECT etapa, erro, telefone, criado_em FROM wa_erros ORDER BY criado_em DESC LIMIT 20",[]);
+      var pr = await DB.q("SELECT telefone, atualizado_em FROM wa_sessoes WHERE (estado->>'stage')='in_progress' AND atualizado_em < now() - interval '24 hours' ORDER BY atualizado_em DESC LIMIT 20",[]);
+      var erros=(er&&er.rows)||[], presas=(pr&&pr.rows)||[];
+      sum.textContent = erros.length+' erro(s) recentes · '+presas.length+' conversa(s) presa(s) há mais de 24h';
+      erosEl.innerHTML = '<strong>Erros recentes</strong><br>' + (erros.length? erros.map(function(r){return esc(fmt(r.criado_em))+' · <b>'+esc(r.etapa)+'</b> · '+esc(r.telefone||'')+' — '+esc(r.erro);}).join('<br>') : 'Sem erros registados.');
+      presasEl.innerHTML = '<strong>Conversas em curso há mais de 24h</strong><br>' + (presas.length? presas.map(function(r){return esc(r.telefone)+' · desde '+esc(fmt(r.atualizado_em));}).join('<br>') : 'Nenhuma conversa presa.');
+    }catch(e){
+      var m=(e&&e.message)||'';
+      if(/does not exist|relation|não existe|no such/i.test(m)){
+        sum.textContent='Ainda sem atividade do agente (as tabelas são criadas na primeira mensagem recebida).';
+      } else {
+        sum.textContent='ERRO ao consultar o diagnóstico: '+esc(m)+'. Isto NÃO significa que está tudo bem — é uma falha a ler os dados.';
+      }
+      erosEl.innerHTML='—'; presasEl.innerHTML='—';
+    }
+  }
+  var btn=document.getElementById('agentdiag-refresh');
+  if(btn) btn.addEventListener('click', load);
+})();
 </script>
 </body>
 </html>

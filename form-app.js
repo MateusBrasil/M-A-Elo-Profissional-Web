@@ -100,7 +100,7 @@ function createSoldadorDefinition() {
       { section: 'Logística', name: 'travel_availability', label: 'Tem interesse e disponibilidade para se deslocar da sua morada caso não haja projetos próximos?', type: 'select', required: true, target: 'answers', options: ['Sim, tenho disponibilidade', 'Tenho preferência pela minha região'] },
       { section: 'Logística', name: 'transport_method', label: 'Tem viatura própria?', type: 'select', required: true, target: 'answers', options: ['Sim', 'Não'] },
       { section: 'Logística', name: 'international_interest', label: 'Tem disponibilidade e interesse para trabalhar em:', type: 'checkbox_group', required: false, target: 'answers', options: ['Espanha', 'França', 'Bélgica', 'Alemanha', 'Outros'], helpText: 'Opcional.' },
-      { section: 'Documentos', name: 'cv_files', label: 'Anexar currículo', type: 'file', required: true, target: 'answers', accept: '.pdf,.doc,.docx,.jpg,.jpeg,.png', multiple: true, helpText: 'PDF, Word ou imagem. Obrigatório para continuar com a candidatura — pode enviá-lo depois pelo WhatsApp.' },
+      { section: 'Documentos', name: 'cv_files', label: 'Anexar currículo', type: 'file', required: false, target: 'answers', accept: '.pdf,.doc,.docx,.jpg,.jpeg,.png', multiple: true, helpText: 'Opcional. O ficheiro em si envia-se depois pelo WhatsApp — aqui não fica guardado, só o registo de que existe.' },
       { section: 'Documentos', name: 'certificate_files', label: 'Anexar certificados dos processos assinalados', type: 'file', required: false, target: 'answers', accept: '.pdf,.jpg,.jpeg,.png', multiple: true },
       { section: 'Confirmação', name: 'truth_confirmation', label: 'Confirmo que as informações enviadas são verdadeiras', type: 'checkbox', required: true, target: 'answers' },
       { section: 'Confirmação', name: 'data_consent', label: 'Autorizo apenas guardar os meus dados para esta candidatura e oportunidades futuras', type: 'checkbox', required: true, target: 'answers' },
@@ -444,8 +444,10 @@ async function loadForm() {
     }
 
     // Build Neon payload
-    const roleMap = { soldador: 'soldador', serralheiro: 'serralheiro', pintor: 'pintor', generic: 'geral' };
-    const profissao = roleMap[roleKey] || 'geral';
+    // A profissao vem do roleKey (?role=...). Sem isto, tubista/caldeireiro/mecanico/
+    // ajudante caiam TODOS em "geral" e perdia-se a funcao pre-qualificada pelo agente.
+    const KNOWN_ROLES = ['soldador', 'serralheiro', 'pintor', 'mecanico', 'tubista', 'caldeireiro', 'ajudante'];
+    const profissao = KNOWN_ROLES.includes(roleKey) ? roleKey : 'geral';
 
     const disponibilidade = (answers.travel_availability || '').toLowerCase().startsWith('sim');
     const joinList = (v) => Array.isArray(v) ? v.join(', ') : (v || '');
