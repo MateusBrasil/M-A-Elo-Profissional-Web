@@ -11,89 +11,119 @@ function memStore() {
   };
 }
 
-function scriptedAgent(turns) {
-  let i = 0;
-  return { async turn() { return turns[Math.min(i++, turns.length - 1)]; } };
+// Agente de IA só usado na etapa da logística; devolve um turno já programado.
+function aiConcludes(reply, decision) {
+  return {
+    async turn(history, data) {
+      return { reply, extraction: { ...data, travel: true, housing_needed: false }, decision, done: true };
+    },
+  };
 }
 
-test("a abertura e do codigo (saudacao + consentimento + funcao), sem chamar a IA", async () => {
+test("a abertura e do codigo (lista com saudacao + consentimento), sem chamar a IA", async () => {
   let called = 0;
-  const agent = { async turn() { called++; return {}; } };
-  const convo = makeConversation({ store: memStore(), aiAgent: agent });
-
-  const r = await convo.handle("351900000010", "ola");
-
+  const convo = makeConversation({ store: memStore(), aiAgent: { async turn() { called++; return {}; } } });
+  const r = await convo.handle("351900000104", "ola");
   assert.equal(r.done, false);
-  assert.match(r.reply, /M&A Elo/);
-  assert.match(r.reply, /política de privacidade/i);
+  assert.ok(r.interactive, "a abertura envia uma lista interativa");
+  assert.match(r.interactive.body, /M&A Elo/);
+  assert.match(r.interactive.body, /política de privacidade/i);
   assert.equal(called, 0);
 });
 
-test("a IA conduz a conversa e o codigo conclui com o formulario, persistindo o estado", async () => {
+test("fluxo por toques: funcao (lista) -> documentos (botoes) -> logistica (IA) -> formulario", async () => {
   const store = memStore();
-  const agent = scriptedAgent([
-    { reply: "Tem documentos para Portugal?", extraction: { role: "soldador" }, decision: { decision: "continue" }, done: false },
-    { reply: "Consegue deslocar-se, sem alojamento?", extraction: { role: "soldador", work_auth: "authorized" }, decision: { decision: "continue" }, done: false },
-    { reply: "Há quantos anos?", extraction: { role: "soldador", work_auth: "authorized", travel: true, housing_needed: false }, decision: { decision: "continue" }, done: false },
-    { reply: "Aqui o formulário de soldador.", extraction: { role: "soldador", work_auth: "authorized", travel: true, housing_needed: false, experience: "5 anos" }, decision: { decision: "proceed", roleKey: "soldador" }, done: true },
-  ]);
-  const convo = makeConversation({ store, aiAgent: agent });
-  const tel = "351900000011";
+  const aiAgent = aiConcludes(
+    "Aqui está o formulário de soldador: https://maelo.pt/candidatura-soldador.html",
+    { decision: "proceed", roleKey: "soldador", review: false }
+  );
+  const convo = makeConversation({ store, aiAgent });
+  const tel = "351900000100";
 
-  await convo.handle(tel, "ola");
-  await convo.handle(tel, "sou soldador");
-  await convo.handle(tel, "sim tenho");
-  await convo.handle(tel, "sim e sem alojamento");
-  const last = await convo.handle(tel, "5 anos");
+  const open = await convo.handle(tel, "olá");
+  assert.ok(open.interactive);
 
-  assert.equal(last.done, true);
-  assert.equal(last.decision.roleKey, "soldador");
+  const afterRole = await convo.handle(tel, "Soldador", { buttonId: "soldador" });
+  assert.equal(afterRole.interactive.type, "buttons"); // pergunta de documentos
 
-  const saved = await store.load(tel);
-  assert.equal(saved.stage, "completed");
-  assert.ok(saved.history.length >= 8); // abertura + 4 turnos, ida e volta
+  const afterAuth = await convo.handle(tel, "Tenho documentos", { buttonId: "authorized" });
+  assert.equal(afterAuth.done, false);
+  assert.match(afterAuth.reply, /alojamento/i); // logistica em texto
+
+  const done = await convo.handle(tel, "sim consigo e tenho onde ficar");
+  assert.equal(done.done, true);
+  assert.equal(done.decision.roleKey, "soldador");
+  assert.match(done.reply, /candidatura-soldador/);
+});
+
+test("botao 'Nao tenho' documentos corta de imediato, sem chamar a IA", async () => {
+  const store = memStore();
+  let aiCalled = 0;
+  const convo = makeConversation({ store, aiAgent: { async turn() { aiCalled++; return {}; } } });
+  const tel = "351900000101";
+
+  await convo.handle(tel, "olá");
+  await convo.handle(tel, "Soldador", { buttonId: "soldador" });
+  const r = await convo.handle(tel, "Não tenho", { buttonId: "not_authorized" });
+
+  assert.equal(r.done, true);
+  assert.equal(r.decision.decision, "reject");
+  assert.equal(r.decision.roleKey, "soldador"); // o reject mantem a funcao conhecida
+  assert.equal(aiCalled, 0);
+});
+
+test("funcao por texto livre (sem tocar na lista) avanca para os documentos", async () => {
+  const store = memStore();
+  const convo = makeConversation({ store, aiAgent: { async turn() { return {}; } } });
+  const tel = "351900000102";
+
+  await convo.handle(tel, "olá");
+  const r = await convo.handle(tel, "faço soldadura");
+  assert.equal(r.interactive.type, "buttons"); // documentos
+});
+
+test("depois de concluida, repete a ultima mensagem", async () => {
+  const store = memStore();
+  const aiAgent = aiConcludes(
+    "Formulário de pintor: https://maelo.pt/candidatura-pintor.html",
+    { decision: "proceed", roleKey: "pintor", review: false }
+  );
+  const convo = makeConversation({ store, aiAgent });
+  const tel = "351900000103";
+
+  await convo.handle(tel, "olá");
+  await convo.handle(tel, "Pintor", { buttonId: "pintor" });
+  await convo.handle(tel, "Tenho", { buttonId: "authorized" });
+  await convo.handle(tel, "sim consigo, tenho casa");
+  const again = await convo.handle(tel, "já enviei?");
+
+  assert.equal(again.done, true);
+  assert.match(again.reply, /candidatura-pintor/);
 });
 
 test("teto de turnos: passa a revisao humana em vez de continuar em loop", async () => {
   const store = memStore();
-  // Agente que nunca conclui (responde sempre "continua").
-  const agent = { async turn() { return { reply: "continua", extraction: {}, decision: { decision: "continue" }, done: false }; } };
-  const convo = makeConversation({ store, aiAgent: agent });
-  const tel = "351900000030";
+  const convo = makeConversation({ store, aiAgent: { async turn() { return { reply: "x", extraction: {}, decision: { decision: "continue" }, done: false }; } } });
+  const tel = "351900000105";
 
+  await convo.handle(tel, "olá"); // abertura
   let last;
-  for (let i = 0; i < 40; i += 1) last = await convo.handle(tel, "mensagem " + i);
+  for (let i = 0; i < 20; i += 1) last = await convo.handle(tel, "zzz" + i); // texto que nao resolve funcao
 
   assert.equal(last.done, true);
-  assert.equal(last.decision.review, true); // vai para revisao humana
-  assert.match(last.reply, /colega/i); // mensagem de handoff
+  assert.equal(last.decision.review, true);
+  assert.match(last.reply, /colega/i);
 });
 
 test("propaga saved=false quando o store deteta conflito de concorrencia", async () => {
   const store = {
-    async load() { return { stage: "in_progress", history: [{ role: "user", content: "a" }, { role: "assistant", content: "b" }], data: {} }; },
-    async save() { return false; }, // conflito
+    async load() { return { stage: "awaiting_logistics", data: { role: "soldador", work_auth: "authorized" }, history: [{ role: "assistant", content: "logística?" }] }; },
+    async save() { return false; },
     async remove() {},
   };
-  const agent = { async turn() { return { reply: "ok", extraction: {}, decision: { decision: "continue" }, done: false }; } };
-  const convo = makeConversation({ store, aiAgent: agent });
+  const aiAgent = { async turn() { return { reply: "ok", extraction: { role: "soldador", work_auth: "authorized", travel: null, housing_needed: null }, decision: { decision: "continue" }, done: false }; } };
+  const convo = makeConversation({ store, aiAgent });
 
-  const r = await convo.handle("351900000031", "resposta");
+  const r = await convo.handle("351900000106", "talvez");
   assert.equal(r.saved, false);
-});
-
-test("depois de concluida, repete a ultima mensagem em vez de recomecar", async () => {
-  const store = memStore();
-  const agent = scriptedAgent([
-    { reply: "Aqui o formulário de pintor.", extraction: { role: "pintor", work_auth: "authorized", travel: true, housing_needed: false, experience: "3" }, decision: { decision: "proceed", roleKey: "pintor" }, done: true },
-  ]);
-  const convo = makeConversation({ store, aiAgent: agent });
-  const tel = "351900000012";
-
-  await convo.handle(tel, "ola");
-  await convo.handle(tel, "sou pintor com tudo tratado");
-  const again = await convo.handle(tel, "ja enviei?");
-
-  assert.equal(again.done, true);
-  assert.match(again.reply, /formulário de pintor/i);
 });

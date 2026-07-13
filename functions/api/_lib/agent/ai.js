@@ -57,7 +57,7 @@ export function buildSystemPrompt(known = {}) {
     `2. work_auth (documentos para trabalhar em Portugal). "authorized"=tem; "pending"=em processo/regularização/manifestação de interesse; "not_authorized"=disse CLARAMENTE que não tem; "unknown"=ainda não sabes.`,
     `3. travel: true se aceita deslocar-se às obras em ${zonas}; false SÓ se recusar trabalhar nessas zonas; null se ainda não sabes. Não ter carro/transporte próprio NÃO é false.`,
     `   housing_needed: true APENAS se precisar que a EMPRESA lhe forneça alojamento (a empresa não fornece). "Não preciso de alojamento", "tenho onde ficar", "arranjo quarto por minha conta" = false. null se ainda não sabes.`,
-    `4. experience: anos de experiência na função, em texto curto ("10 anos"). null se ainda não sabes.`,
+    `experience (OPCIONAL): se a pessoa mencionar anos de experiência, capta em texto curto ("10 anos"); NÃO perguntes por isso — fica para o formulário. null se não foi mencionado.`,
     ``,
     `Responde SEMPRE só com JSON válido, sem nada fora do JSON:`,
     `{"extraction":{"role":...,"work_auth":...,"travel":...,"housing_needed":...,"experience":...},"reply":"a tua próxima mensagem, curta e natural"}`,
@@ -69,7 +69,7 @@ export function buildSystemPrompt(known = {}) {
     `Candidato: "posso ir mas precisava que arranjassem quarto"`,
     `{"extraction":{"role":"soldador","work_auth":"authorized","travel":true,"housing_needed":true,"experience":"10 anos"},"reply":"Entendido, obrigada por dizer."}`,
     `Candidato: "to esperando a manifestacao de interesse sair, faço tubagem"`,
-    `{"extraction":{"role":"tubista","work_auth":"pending","travel":null,"housing_needed":null,"experience":null},"reply":"Certo, documentos em regularização. Tem quantos anos de experiência em tubagem?"}`,
+    `{"extraction":{"role":"tubista","work_auth":"pending","travel":null,"housing_needed":null,"experience":null},"reply":"Certo, documentos em regularização. Temos obras em ${workRegions[0]}, ${workRegions[1]} e ${workRegions[2]}, sem alojamento da empresa. Consegue deslocar-se e tem onde ficar?"}`,
   ];
   const kb = knownBlock(known);
   if (kb) parts.push(``, kb);

@@ -51,13 +51,13 @@ export const retention = {
   sessionDays: 90,
 };
 
-// As 4 perguntas essenciais da pre-triagem, por ordem. `key` e o campo que a
-// resposta preenche. Editar/reordenar aqui reflete-se no motor e no guiao da IA.
+// As 3 perguntas essenciais da pre-triagem, por ordem. `key` e o campo que a
+// resposta preenche. A experiencia NAO se pergunta no chat (o formulario do site
+// ja a recolhe); se o candidato a mencionar, e captada, mas nunca e obrigatoria.
 export const questions = [
   { key: "role", text: "Para começar, que função procura? (por exemplo: soldador, serralheiro, pintor, tubista, caldeireiro, mecânico, ajudante ou outra)" },
   { key: "work_auth", text: "Tem documentos para trabalhar em Portugal?" },
   { key: "logistics", text: `Neste momento temos obras em ${workRegions.join(", ")}, e a empresa não disponibiliza alojamento. Tem disponibilidade para uma destas zonas e consegue avançar sem alojamento?` },
-  { key: "experience", text: "Há quantos anos trabalha nessa função?" },
 ];
 
 // Todas as mensagens que o agente pode enviar. Funcoes onde e preciso interpolar.
@@ -74,4 +74,32 @@ export const messages = {
   handoff: "Obrigado pela conversa. Para não a atrasar mais, vou pedir a um colega da equipa para continuar consigo em breve.",
   formSent: (roleLabel, url) =>
     `Perfeito, o seu perfil faz sentido para avançarmos. Aqui está o formulário de ${roleLabel} para preencher: ${url}\n\nAssim que enviar, a nossa equipa analisa a candidatura e, se houver seguimento, entra em contacto em até ${company.reviewSlaHours} horas.`,
+};
+
+// Definicoes das mensagens interativas (botoes/listas do WhatsApp) para as duas
+// perguntas fechadas. Limites da Meta: lista ate 10 linhas (titulo <=24 chars),
+// botoes ate 3 (titulo <=20 chars). A logistica fica em texto (pergunta nuancada,
+// tratada pela IA). Os `id` das opcoes mapeiam diretamente para os valores que as
+// regras esperam (role key / work_auth), por isso a resposta e determinista.
+export const roleList = Object.entries(roles).map(([id, r]) => ({
+  id,
+  title: id === "geral" ? "Outra função" : r.label,
+}));
+
+export const interactive = {
+  role: {
+    type: "list",
+    body: `${messages.greeting}\n\nPara começar, que função procura?`,
+    button: "Ver funções",
+    rows: roleList,
+  },
+  work_auth: {
+    type: "buttons",
+    body: "Tem documentos para trabalhar em Portugal?",
+    buttons: [
+      { id: "authorized", title: "Tenho documentos" },
+      { id: "pending", title: "Em regularização" },
+      { id: "not_authorized", title: "Não tenho" },
+    ],
+  },
 };

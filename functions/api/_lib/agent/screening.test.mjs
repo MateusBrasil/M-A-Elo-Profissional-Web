@@ -19,7 +19,6 @@ test("fluxo aprovado envia o formulario da funcao certa (soldador)", () => {
     "sou soldador e moro em Braga",
     "sim, tenho documentos para trabalhar em Portugal",
     "sim, consigo deslocar-me e nao preciso de alojamento",
-    "5 anos",
   ]);
   assert.equal(r.done, true);
   assert.equal(r.decision.decision, "proceed");
@@ -33,7 +32,6 @@ test("serralheiro recebe o formulario de serralheiro, nao o de soldador", () => 
     "serralheiro",
     "tenho residencia",
     "sim e nao preciso de alojamento",
-    "3 anos",
   ]);
   assert.equal(r.decision.roleKey, "serralheiro");
   assert.match(r.reply, /candidatura-serralheiro\.html/);

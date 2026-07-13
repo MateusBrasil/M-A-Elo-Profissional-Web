@@ -106,3 +106,17 @@ test("parseInboundAll devolve TODAS as mensagens de um webhook em lote", () => {
 test("parseInboundAll ignora statuses", () => {
   assert.deepEqual(parseInboundAll(statusPayload), []);
 });
+
+test("parseInboundAll mapeia resposta de botao para texto + buttonId", () => {
+  const payload = { entry: [{ changes: [{ value: { messages: [{ from: "351955555555", id: "wamid.B1", type: "interactive", interactive: { type: "button_reply", button_reply: { id: "authorized", title: "Tenho documentos" } } }] } }] }] };
+  const m = parseInboundAll(payload)[0];
+  assert.equal(m.buttonId, "authorized");
+  assert.equal(m.text, "Tenho documentos");
+});
+
+test("parseInboundAll mapeia resposta de lista para texto + buttonId", () => {
+  const payload = { entry: [{ changes: [{ value: { messages: [{ from: "351955555555", id: "wamid.L1", type: "interactive", interactive: { type: "list_reply", list_reply: { id: "soldador", title: "Soldador" } } }] } }] }] };
+  const m = parseInboundAll(payload)[0];
+  assert.equal(m.buttonId, "soldador");
+  assert.equal(m.text, "Soldador");
+});

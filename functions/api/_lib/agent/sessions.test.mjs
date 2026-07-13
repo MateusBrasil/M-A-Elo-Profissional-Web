@@ -85,7 +85,7 @@ test("o estado persiste entre mensagens separadas (nao recomeca)", async () => {
   const { runQuery } = makeFakeDb();
   const store = makeSessionStore(runQuery);
   const tel = "351900000002";
-  const inputs = ["ola", "sou soldador", "sim tenho documentos", "sim e nao preciso de alojamento", "5 anos"];
+  const inputs = ["ola", "sou soldador", "sim tenho documentos", "sim e nao preciso de alojamento"];
 
   let last;
   for (const msg of inputs) {

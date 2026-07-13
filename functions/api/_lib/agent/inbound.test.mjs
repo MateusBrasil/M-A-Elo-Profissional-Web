@@ -13,6 +13,7 @@ function baseCtx(over = {}) {
     convo: { handle: async () => ({ reply: "resposta", done: false, saved: true }) },
     leads: { saveFromScreening: async () => {} },
     send: async () => {},
+    sendInteractive: async () => {},
     typing: () => {},
     ...over,
   };
@@ -93,6 +94,27 @@ test("conflito de concorrencia: nao envia esse turno", async () => {
   await processOne({ from: "351900000006", wamid: "w6", text: "ola" }, ctx);
   assert.equal(sent, 0);
   assert.ok(errors.some((e) => e.etapa === "concorrencia"));
+});
+
+test("resultado interativo (lista/botoes) e enviado via sendInteractive", async () => {
+  const listsSent = []; const textsSent = [];
+  const ctx = baseCtx({
+    convo: { handle: async () => ({ interactive: { type: "list", body: "?", rows: [] }, done: false, saved: true }) },
+    sendInteractive: async (to, spec) => listsSent.push(spec),
+    send: async (to, text) => textsSent.push(text),
+  });
+  await processOne({ from: "351900000008", wamid: "w8", text: "ola" }, ctx);
+  assert.equal(listsSent.length, 1);
+  assert.equal(textsSent.length, 0);
+});
+
+test("resposta de botao (buttonId) e encaminhada a conversa", async () => {
+  let got;
+  const ctx = baseCtx({
+    convo: { handle: async (from, text, opts) => { got = { text, opts }; return { reply: "ok", done: false, saved: true }; } },
+  });
+  await processOne({ from: "351900000009", wamid: "w9", text: "Soldador", buttonId: "soldador" }, ctx);
+  assert.equal(got.opts.buttonId, "soldador");
 });
 
 test("mensagem nao-texto: pede texto de volta, sem chamar a IA", async () => {

@@ -59,14 +59,15 @@ export function checkCutoffs(data = {}) {
   return null;
 }
 
-// Ja se sabe o suficiente para concluir a pre-triagem? (as 4 respostas)
+// Ja se sabe o suficiente para concluir a pre-triagem? As 3 respostas essenciais
+// (funcao, documentos, logistica). A experiencia NAO e obrigatoria aqui: fica
+// para o formulario do site. Se for mencionada, e captada, mas nao trava a triagem.
 export function isComplete(data = {}) {
   return Boolean(
     data.role &&
     data.work_auth && data.work_auth !== "unknown" &&
     data.travel !== null && data.travel !== undefined &&
-    data.housing_needed !== null && data.housing_needed !== undefined &&
-    String(data.experience || "").trim()
+    data.housing_needed !== null && data.housing_needed !== undefined
   );
 }
 
@@ -142,13 +143,9 @@ export function handleMessage(session, rawText) {
         if (s.data.travel === null) s.data.travel = true;
         if (s.data.housing_needed === null) s.data.housing_needed = false;
       }
-      s.stage = "awaiting_experience";
-      return say(s, questions[3].text);
-    }
-
-    case "awaiting_experience":
-      s.data.experience = text;
+      // Logistica resolvida: conclui. A experiencia nao se pergunta no chat.
       return finish(s, evaluatePreScreen(s.data));
+    }
 
     case "completed":
       return say(s, s.lastMessage || messages.alreadyDone);

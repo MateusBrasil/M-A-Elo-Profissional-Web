@@ -1,22 +1,27 @@
-// Orquestrador da conversa: a unica entrada que junta tudo.
-// Carrega a sessao do numero, conduz o turno e guarda de volta.
+// Orquestrador da conversa (fluxo hibrido).
 //
-// A primeira mensagem e sempre respondida pelo CODIGO (saudacao + consentimento
-// RGPD + a primeira pergunta), para o consentimento ser explicito e auditavel.
-// A partir dai a IA conduz a conversa, e o codigo continua a decidir os cortes e
-// a conclusao (ver ai.js + screening.js).
+// As duas perguntas fechadas mais sensiveis sao tratadas por CODIGO com mensagens
+// interativas do WhatsApp (fiaveis, sem erros de escrita, sem gastar o modelo):
+//   - funcao  -> lista de opcoes (config.interactive.role)
+//   - documentos -> botoes (config.interactive.work_auth)
+// A logistica (deslocacao + alojamento) e nuancada, por isso e a IA que interpreta.
+// Quem prefere escrever em vez de tocar tambem e entendido (parsers de text.js na
+// funcao/documentos; a IA na logistica). A DECISAO continua deterministica
+// (screening.js), auditavel e conforme RGPD.
 //
-// Devolve sempre `saved` (resultado do store.save): em conflito de concorrencia
-// o save devolve false e o inbound trata isso (regista e nao envia esse turno).
+// handle() devolve OU { reply } (texto) OU { interactive } (spec de lista/botoes),
+// mais sempre `saved` (resultado do store.save; false = conflito de concorrencia).
 
-import { messages, questions, limits } from "./config.js";
+import { messages, questions, limits, interactive, roles } from "./config.js";
+import { detectRole, checkCutoffs } from "./screening.js";
+import { workAuthorizationFromText } from "./text.js";
+
+const AUTH_VALUES = ["authorized", "pending", "not_authorized"];
 
 function nowIso() {
   return new Date().toISOString();
 }
 
-// Marca a sessao como concluida e guarda o que o inbound precisa para (re)gravar
-// o lead. leadSaved=false: o inbound reivindica-o atomicamente depois.
 function finalizeSession(session, decision, lastMessage) {
   session.stage = "completed";
   session.decision = decision.decision;
@@ -27,7 +32,6 @@ function finalizeSession(session, decision, lastMessage) {
   session.leadSaved = false;
 }
 
-// Reconstroi a decisao a partir de uma sessao ja concluida (branch de repeticao).
 function decisionFromSession(session) {
   if (!session.decision) return null;
   return {
@@ -38,20 +42,98 @@ function decisionFromSession(session) {
   };
 }
 
-export function makeConversation({ store, aiAgent }) {
-  return {
-    async handle(telefone, rawText) {
-      // Trunca respostas gigantes: uma resposta de triagem e curta, e isto trava
-      // o custo (input enorme) e o abuso.
-      const text = String(rawText || "").trim().slice(0, limits.maxInputChars);
-      let session = (await store.load(telefone)) || { stage: "new", history: [], data: {} };
+// Lista de re-pergunta da funcao (corpo curto, sem repetir a saudacao longa).
+const roleReask = {
+  type: "list",
+  body: messages.askRoleAgain,
+  button: interactive.role.button,
+  rows: interactive.role.rows,
+};
 
-      if (!text) {
+export function makeConversation({ store, aiAgent }) {
+  // Conclusao deterministica (corte ou formulario decididos pelas regras).
+  async function conclude(telefone, session, decision) {
+    const enriched = { ...decision, roleKey: decision.roleKey || session.data.role || null };
+    finalizeSession(session, enriched, enriched.message);
+    const saved = await store.save(telefone, session);
+    return { reply: enriched.message, done: true, decision: enriched, data: session.data, saved };
+  }
+
+  async function ask(telefone, session, payload) {
+    const saved = await store.save(telefone, session);
+    return { ...payload, done: false, saved };
+  }
+
+  // Etapa da funcao: tap na lista ou texto livre (detectRole). Aproveita para
+  // captar os documentos se o texto ja os revelar.
+  async function handleRole(telefone, session, text, buttonId) {
+    let role = null;
+    if (buttonId && roles[buttonId]) role = buttonId;
+    else if (text) role = detectRole(text);
+    if (!role) return ask(telefone, session, { interactive: roleReask });
+
+    session.data.role = role;
+    if (text) {
+      const auth = workAuthorizationFromText(text);
+      if (auth && auth !== "unknown") session.data.work_auth = auth;
+    }
+    const cut = checkCutoffs(session.data);
+    if (cut) return conclude(telefone, session, cut);
+
+    if (session.data.work_auth && session.data.work_auth !== "unknown") {
+      // Documentos ja conhecidos: salta para a logistica.
+      session.stage = "awaiting_logistics";
+      session.history.push({ role: "assistant", content: questions[2].text });
+      return ask(telefone, session, { reply: questions[2].text });
+    }
+    session.stage = "awaiting_auth";
+    session.history.push({ role: "assistant", content: interactive.work_auth.body });
+    return ask(telefone, session, { interactive: interactive.work_auth });
+  }
+
+  // Etapa dos documentos: tap nos botoes ou texto livre (workAuthorizationFromText).
+  async function handleAuth(telefone, session, text, buttonId) {
+    let auth = null;
+    if (buttonId && AUTH_VALUES.includes(buttonId)) auth = buttonId;
+    else if (text) auth = workAuthorizationFromText(text);
+    if (!auth || auth === "unknown") {
+      return ask(telefone, session, { interactive: interactive.work_auth });
+    }
+    session.data.work_auth = auth;
+    const cut = checkCutoffs(session.data);
+    if (cut) return conclude(telefone, session, cut);
+
+    session.stage = "awaiting_logistics";
+    session.history.push({ role: "assistant", content: questions[2].text });
+    return ask(telefone, session, { reply: questions[2].text });
+  }
+
+  // Etapa da logistica (e fallback): a IA interpreta a resposta nuancada.
+  async function handleLogistics(telefone, session, text) {
+    const turn = await aiAgent.turn(session.history, session.data);
+    session.history.push({ role: "assistant", content: turn.reply });
+    session.data = turn.extraction;
+    if (turn.done) {
+      finalizeSession(session, turn.decision, turn.reply);
+      const saved = await store.save(telefone, session);
+      return { reply: turn.reply, done: true, decision: turn.decision, data: session.data, saved };
+    }
+    const saved = await store.save(telefone, session);
+    return { reply: turn.reply, done: false, decision: null, data: session.data, saved };
+  }
+
+  return {
+    async handle(telefone, rawText, opts = {}) {
+      const buttonId = opts.buttonId || null;
+      const text = String(rawText || "").trim().slice(0, limits.maxInputChars);
+      let session = (await store.load(telefone)) || { stage: "new", data: {}, history: [] };
+
+      if (!text && !buttonId) {
         return { reply: messages.emptyMessage, done: false, saved: true };
       }
 
-      // Ja concluida: repete a ultima mensagem util e devolve a decisao, para o
-      // inbound poder gravar o lead caso a gravacao anterior tenha falhado.
+      // Ja concluida: repete a ultima mensagem e devolve a decisao (para o inbound
+      // poder (re)gravar o lead se a gravacao anterior falhou).
       if (session.stage === "completed") {
         return {
           reply: session.lastMessage || messages.alreadyDone,
@@ -62,59 +144,37 @@ export function makeConversation({ store, aiAgent }) {
         };
       }
 
-      // Primeira mensagem: abertura controlada pelo codigo (consentimento + 1a pergunta).
+      // Primeira mensagem: abertura com a LISTA de funcoes (saudacao + consentimento
+      // no corpo). O consentimento so se carimba quando o candidato RESPONDER.
       if (session.stage === "new") {
-        const opening = `${messages.greeting}\n\n${questions[0].text}`;
-        session = {
-          stage: "in_progress",
-          consentAt: nowIso(),
-          data: {},
-          history: [
-            { role: "user", content: text },
-            { role: "assistant", content: opening },
-          ],
-        };
+        session = { stage: "awaiting_role", data: {}, history: [] };
         const saved = await store.save(telefone, session);
-        return { reply: opening, done: false, saved };
+        return { interactive: interactive.role, done: false, saved };
       }
 
-      // Conversa a decorrer: a IA conduz, o codigo decide.
+      // A partir daqui houve consentimento (viu o aviso na abertura e respondeu).
+      if (!session.consentAt) session.consentAt = nowIso();
+      session.data = session.data || {};
       session.history = session.history || [];
-      session.history.push({ role: "user", content: text });
+      session.history.push({ role: "user", content: text || `[${buttonId}]` });
 
-      // Teto de turnos: se a conversa se arrasta (ou alguem esta a abusar), em vez
-      // de continuar em loop (custo), passa a revisao humana e fecha.
+      // Teto de turnos: passa a revisao humana em vez de continuar em loop.
       const userTurns = session.history.filter((m) => m.role === "user").length;
       if (userTurns > limits.maxTurns) {
         const decision = {
           decision: "proceed",
           review: true,
-          roleKey: (session.data && session.data.role) || "geral",
+          roleKey: session.data.role || "geral",
           reason: "Conversa excedeu o limite de mensagens; revisao humana.",
         };
-        session.history.push({ role: "assistant", content: messages.handoff });
         finalizeSession(session, decision, messages.handoff);
         const saved = await store.save(telefone, session);
         return { reply: messages.handoff, done: true, decision, data: session.data, saved };
       }
 
-      const turn = await aiAgent.turn(session.history, session.data || {});
-
-      session.history.push({ role: "assistant", content: turn.reply });
-      session.data = turn.extraction;
-
-      if (turn.done) {
-        finalizeSession(session, turn.decision, turn.reply);
-      }
-
-      const saved = await store.save(telefone, session);
-      return {
-        reply: turn.reply,
-        done: turn.done,
-        decision: turn.done ? turn.decision : null,
-        data: session.data,
-        saved,
-      };
+      if (session.stage === "awaiting_role") return handleRole(telefone, session, text, buttonId);
+      if (session.stage === "awaiting_auth") return handleAuth(telefone, session, text, buttonId);
+      return handleLogistics(telefone, session, text); // awaiting_logistics + fallback
     },
   };
 }

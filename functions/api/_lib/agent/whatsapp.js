@@ -42,8 +42,18 @@ export async function verifySignature(appSecret, rawBody, signatureHeader, { all
 function mapMessage(message, change) {
   if (!message || message.type === "reaction") return null;
   const base = { from: message.from, name: contactName(change), wamid: message.id || null };
+  // Resposta a uma lista/botoes interativos: traz um id inequivoco (a resposta
+  // determinista) + o titulo escolhido como texto.
+  if (message.type === "interactive") {
+    const reply = message.interactive?.button_reply || message.interactive?.list_reply;
+    return { ...base, text: reply?.title || "", buttonId: reply?.id || null };
+  }
+  // Quick-reply de template (type "button").
+  if (message.type === "button") {
+    return { ...base, text: message.button?.text || "", buttonId: message.button?.payload || null };
+  }
   if (message.type !== "text") {
-    // Nao e texto (imagem, audio, botao...). Sem texto, para o orquestrador pedir texto.
+    // Nao e texto (imagem, audio...). Sem texto, para o orquestrador pedir texto.
     return { ...base, text: "", unsupportedType: message.type };
   }
   return { ...base, text: message.text?.body || "" };
@@ -93,6 +103,38 @@ export async function sendMessage(env, to, text) {
     }),
   }, { timeoutMs: 8000, retries: 2 });
   if (!res.ok) throw new Error(`WhatsApp send failed (${res.status}): ${await res.text()}`);
+  return res.json();
+}
+
+// Envia uma mensagem interativa (lista ou botoes). O `spec` vem de
+// config.interactive; os ids das opcoes sao os valores que as regras esperam.
+export async function sendInteractive(env, to, spec) {
+  const phoneId = env.WHATSAPP_PHONE_ID;
+  const token = env.WHATSAPP_TOKEN;
+  const endpoint = `https://graph.facebook.com/${GRAPH_VERSION}/${phoneId}/messages`;
+  let interactive;
+  if (spec.type === "buttons") {
+    interactive = {
+      type: "button",
+      body: { text: spec.body },
+      action: { buttons: (spec.buttons || []).slice(0, 3).map((b) => ({ type: "reply", reply: { id: b.id, title: b.title } })) },
+    };
+  } else {
+    interactive = {
+      type: "list",
+      body: { text: spec.body },
+      action: {
+        button: spec.button || "Escolher",
+        sections: [{ rows: (spec.rows || []).slice(0, 10).map((r) => ({ id: r.id, title: r.title })) }],
+      },
+    };
+  }
+  const res = await fetchResilient(endpoint, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ messaging_product: "whatsapp", to, type: "interactive", interactive }),
+  }, { timeoutMs: 8000, retries: 2 });
+  if (!res.ok) throw new Error(`WhatsApp interactive send failed (${res.status}): ${await res.text()}`);
   return res.json();
 }
 

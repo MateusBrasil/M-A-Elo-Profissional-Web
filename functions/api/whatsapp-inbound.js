@@ -17,7 +17,7 @@ import { makeAiAgent, mistralCaller } from "./_lib/agent/ai.js";
 import { makeConversation } from "./_lib/agent/conversation.js";
 import { makeLeadStore } from "./_lib/agent/leads.js";
 import { makeErrorLog } from "./_lib/agent/observability.js";
-import { parseInboundAll, verifySignature, sendMessage, markReadAndTyping } from "./_lib/agent/whatsapp.js";
+import { parseInboundAll, verifySignature, sendMessage, sendInteractive, markReadAndTyping } from "./_lib/agent/whatsapp.js";
 import { messages, retention } from "./_lib/agent/config.js";
 
 // Neon SQL com a ligacao de baixo privilegio (so INSERT candidatos), tal como o
@@ -90,6 +90,7 @@ async function processInbound(env, inbound) {
     convo: makeConversation({ store, aiAgent: makeAiAgent(mistralCaller(env)) }),
     leads: makeLeadStore(runFormQuery),
     send: (to, text) => sendMessage(env, to, text),
+    sendInteractive: (to, spec) => sendInteractive(env, to, spec),
     typing: (wamid) => markReadAndTyping(env, wamid),
   };
 
@@ -122,8 +123,9 @@ export async function processOne(msg, ctx) {
   // Marca como lida + "a escrever" enquanto a IA pensa (nao faturavel, best-effort).
   if (typing) typing(msg.wamid);
 
-  // Tipos nao-texto (imagem, audio): pede texto de volta.
-  if (!msg.text) {
+  // Tipos nao-texto sem escolha (imagem, audio): pede texto de volta. Respostas de
+  // botao/lista trazem buttonId (e o titulo como texto), por isso passam.
+  if (!msg.text && !msg.buttonId) {
     await safeSend(ctx, msg.from, "De momento só consigo ler mensagens de texto. Pode escrever a sua resposta, por favor?", msg);
     return;
   }
@@ -131,7 +133,7 @@ export async function processOne(msg, ctx) {
   // Conduz o turno. Se a IA falhar, responde com desculpa em vez de silencio total.
   let result;
   try {
-    result = await convo.handle(msg.from, msg.text);
+    result = await convo.handle(msg.from, msg.text, { buttonId: msg.buttonId });
   } catch (err) {
     await errorLog.record({ telefone: msg.from, wamid: msg.wamid, etapa: "conversa", erro: err });
     await safeSend(ctx, msg.from, messages.aiError, msg);
@@ -151,8 +153,18 @@ export async function processOne(msg, ctx) {
     await saveLead(store, leads, msg, d, result.data, errorLog);
   }
 
-  // Envia a resposta ao candidato (com retry interno). O lead ja esta seguro.
-  await safeSend(ctx, msg.from, result.reply, msg);
+  // Envia a resposta ao candidato (texto ou interativo). O lead ja esta seguro.
+  await safeReply(ctx, msg.from, result, msg);
+}
+
+// Envia o resultado do turno: uma lista/botoes (interactive) ou texto simples.
+async function safeReply(ctx, to, result, msg) {
+  try {
+    if (result.interactive) await ctx.sendInteractive(to, result.interactive);
+    else if (result.reply) await ctx.send(to, result.reply);
+  } catch (err) {
+    await ctx.errorLog.record({ telefone: to, wamid: msg && msg.wamid, etapa: "envio", erro: err });
+  }
 }
 
 async function saveLead(store, leads, msg, decision, data, errorLog) {
