@@ -55,7 +55,10 @@ export function workAuthorizationFromText(text) {
   return "unknown";
 }
 
-// Certificacao estrangeira/brasileira (assinala revisao humana no formulario, nao na pre-triagem).
+// Certificacao obtida FORA de Portugal (assinala revisao humana no formulario).
+// Deteta a CERTIFICACAO, nunca a nacionalidade da pessoa: usar a origem/nacionalidade
+// como sinal de triagem seria discriminatorio e contrario ao RGPD.
 export function mentionsForeignCertification(text) {
-  return /\b(brasil|brasileira|estrangeira|fora de portugal|equivalente)\b/i.test(normalizeText(text));
+  const n = normalizeText(text);
+  return /\bfbts\b|\bsinete\b|equivalencia|certificad[oa]s? (no brasil|estrangeir|fora de portugal)|qualificacao (estrangeira|fora de portugal|de outro pais)/.test(n);
 }

@@ -60,15 +60,20 @@ export const questions = [
   { key: "logistics", text: `Neste momento temos obras em ${workRegions.join(", ")}, e a empresa não disponibiliza alojamento. Tem disponibilidade para uma destas zonas e consegue avançar sem alojamento?` },
 ];
 
+// Direito de recurso (RGPD Art. 22): toda a rejeicao automatizada oferece uma via
+// de intervencao humana. Anexado ao fim das mensagens de corte.
+const RECOURSE_HINT = ' Se acha que houve um engano, responda "REVER" e um colega da equipa analisa a sua situação.';
+
 // Todas as mensagens que o agente pode enviar. Funcoes onde e preciso interpolar.
 export const messages = {
   greeting: `Olá, tudo bem? Sou o assistente de recrutamento da ${company.name}. Vou fazer apenas algumas perguntas rápidas para perceber se o seu perfil encaixa nas obras atuais. Ao continuar, autoriza o tratamento dos seus dados para esta candidatura, conforme a nossa política de privacidade: ${company.privacyUrl}`,
   askRoleAgain: "Só para o direcionar bem: qual é a sua profissão principal? Por exemplo, soldador, serralheiro ou pintor.",
   clarifyLogistics: 'Só para confirmar: consegue deslocar-se a uma das zonas das obras (Lisboa, Estarreja ou Viana do Castelo) e avançar sem alojamento da empresa? Pode responder de forma simples, por exemplo "sim, consigo e não preciso de alojamento".',
   emptyMessage: "Pode escrever a sua resposta, por favor?",
-  rejectedNoAuth: "Obrigado pela sinceridade. Neste momento as obras exigem documentos válidos para trabalhar em Portugal, por isso não conseguimos avançar já. Guardamos o seu contacto para quando a situação mudar.",
-  rejectedTravel: "Obrigado por dizer. Como as obras são nestas zonas e não há alojamento, o seu perfil não encaixa nesta oportunidade. Guardamos o seu registo para obras mais perto de si no futuro.",
-  rejectedHousing: "Obrigado pelas informações. Como a empresa não disponibiliza alojamento, não conseguimos avançar nesta obra. Guardamos o seu registo para oportunidades futuras.",
+  rejectedNoAuth: `Obrigado pela sinceridade. Neste momento as obras exigem documentos válidos para trabalhar em Portugal, por isso não conseguimos avançar já. Guardamos o seu contacto para quando a situação mudar.${RECOURSE_HINT}`,
+  rejectedTravel: `Obrigado por dizer. Como as obras são nestas zonas e não há alojamento, o seu perfil não encaixa nesta oportunidade. Guardamos o seu registo para obras mais perto de si no futuro.${RECOURSE_HINT}`,
+  rejectedHousing: `Obrigado pelas informações. Como a empresa não disponibiliza alojamento, não conseguimos avançar nesta obra. Guardamos o seu registo para oportunidades futuras.${RECOURSE_HINT}`,
+  recourseAck: "Obrigado. Registámos o seu pedido de revisão — um colega da equipa vai analisar a sua situação e, se fizer sentido, entra em contacto consigo.",
   alreadyDone: "A sua pré-triagem já foi feita, obrigado. Se ainda não preencheu o formulário, é por aí que a equipa continua o processo.",
   aiError: "Peço desculpa, tive um problema técnico neste momento. Pode reenviar a sua última mensagem, por favor?",
   handoff: "Obrigado pela conversa. Para não a atrasar mais, vou pedir a um colega da equipa para continuar consigo em breve.",

@@ -101,6 +101,26 @@ test("depois de concluida, repete a ultima mensagem", async () => {
   assert.match(again.reply, /candidatura-pintor/);
 });
 
+test("candidato rejeitado que responde REVER e reaberto para revisao humana (RGPD Art. 22)", async () => {
+  const store = memStore();
+  const convo = makeConversation({ store, aiAgent: { async turn() { return {}; } } });
+  const tel = "351900000107";
+
+  await convo.handle(tel, "olá");
+  await convo.handle(tel, "Soldador", { buttonId: "soldador" });
+  const rej = await convo.handle(tel, "Não tenho", { buttonId: "not_authorized" });
+  assert.equal(rej.decision.decision, "reject");
+  assert.match(rej.reply, /REVER/); // a mensagem de rejeicao oferece o recurso
+
+  const rev = await convo.handle(tel, "REVER");
+  assert.equal(rev.done, true);
+  assert.equal(rev.decision.decision, "review_request");
+  assert.match(rev.reply, /revisão/i);
+
+  const again = await convo.handle(tel, "rever outra vez");
+  assert.notEqual(again.decision && again.decision.decision, "review_request"); // so uma vez
+});
+
 test("teto de turnos: passa a revisao humana em vez de continuar em loop", async () => {
   const store = memStore();
   const convo = makeConversation({ store, aiAgent: { async turn() { return { reply: "x", extraction: {}, decision: { decision: "continue" }, done: false }; } } });

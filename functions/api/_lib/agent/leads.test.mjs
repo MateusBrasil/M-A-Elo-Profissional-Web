@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { makeLeadStore, screeningToEstado } from "./leads.js";
+import { makeLeadStore, screeningToEstado, reviewByPhone } from "./leads.js";
 
 test("mapeia a decisao da pre-triagem para o estado do admin", () => {
   assert.equal(screeningToEstado("reject", false), "rejeitado");
@@ -41,4 +41,13 @@ test("um lead rejeitado fica com estado rejeitado e nome de fallback", async () 
   });
   assert.equal(captured[0], "(candidato via WhatsApp)");
   assert.equal(captured[5], "rejeitado");
+});
+
+test("reviewByPhone reabre o lead rejeitado para em_espera (recurso RGPD)", async () => {
+  let captured;
+  await reviewByPhone(async (sql, params) => { captured = { sql, params }; return { rows: [] }; }, "351911111111");
+  assert.match(captured.sql, /UPDATE candidatos/i);
+  assert.match(captured.sql, /em_espera/);
+  assert.match(captured.sql, /rejeitado/);
+  assert.equal(captured.params[0], "351911111111");
 });

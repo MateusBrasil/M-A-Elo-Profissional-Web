@@ -15,7 +15,7 @@ import * as auth from "./_lib/auth.js";
 import { makeSessionStore, makeDedupStore, purgeOldData } from "./_lib/agent/sessions.js";
 import { makeAiAgent, mistralCaller } from "./_lib/agent/ai.js";
 import { makeConversation } from "./_lib/agent/conversation.js";
-import { makeLeadStore } from "./_lib/agent/leads.js";
+import { makeLeadStore, reviewByPhone } from "./_lib/agent/leads.js";
 import { makeErrorLog } from "./_lib/agent/observability.js";
 import { parseInboundAll, verifySignature, sendMessage, sendInteractive, markReadAndTyping } from "./_lib/agent/whatsapp.js";
 import { messages, retention } from "./_lib/agent/config.js";
@@ -89,6 +89,7 @@ async function processInbound(env, inbound) {
     errorLog: makeErrorLog(runQuery),
     convo: makeConversation({ store, aiAgent: makeAiAgent(mistralCaller(env)) }),
     leads: makeLeadStore(runFormQuery),
+    reviewLead: (telefone) => reviewByPhone(runQuery, telefone), // owner conn (tem UPDATE)
     send: (to, text) => sendMessage(env, to, text),
     sendInteractive: (to, spec) => sendInteractive(env, to, spec),
     typing: (wamid) => markReadAndTyping(env, wamid),
@@ -151,6 +152,13 @@ export async function processOne(msg, ctx) {
   const d = result.decision;
   if (result.done && d && (d.decision === "proceed" || d.decision === "reject")) {
     await saveLead(store, leads, msg, d, result.data, errorLog);
+  } else if (result.done && d && d.decision === "review_request") {
+    // Recurso RGPD: reabre o lead rejeitado para revisao humana.
+    try {
+      await ctx.reviewLead(msg.from);
+    } catch (err) {
+      await errorLog.record({ telefone: msg.from, wamid: msg.wamid, etapa: "review", erro: err });
+    }
   }
 
   // Envia a resposta ao candidato (texto ou interativo). O lead ja esta seguro.

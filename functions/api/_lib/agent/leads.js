@@ -46,3 +46,16 @@ export function makeLeadStore(runQuery) {
     },
   };
 }
+
+// Recurso RGPD (Art. 22): o candidato pediu revisao humana de uma rejeicao.
+// Reabre o lead (rejeitado -> em_espera) para o humano o ver e decidir no painel.
+// Usa a ligacao OWNER (tem UPDATE), ao contrario da gravacao do lead.
+export async function reviewByPhone(runQuery, telefone) {
+  await runQuery(
+    `UPDATE candidatos
+     SET estado = 'em_espera',
+         mensagem = COALESCE(mensagem, '') || ' · [Pedido de revisão do candidato via WhatsApp]'
+     WHERE telefone = $1 AND estado = 'rejeitado'`,
+    [telefone]
+  );
+}

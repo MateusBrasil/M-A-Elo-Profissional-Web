@@ -12,6 +12,7 @@ function baseCtx(over = {}) {
     errorLog: { record: async () => {} },
     convo: { handle: async () => ({ reply: "resposta", done: false, saved: true }) },
     leads: { saveFromScreening: async () => {} },
+    reviewLead: async () => {},
     send: async () => {},
     sendInteractive: async () => {},
     typing: () => {},
@@ -94,6 +95,16 @@ test("conflito de concorrencia: nao envia esse turno", async () => {
   await processOne({ from: "351900000006", wamid: "w6", text: "ola" }, ctx);
   assert.equal(sent, 0);
   assert.ok(errors.some((e) => e.etapa === "concorrencia"));
+});
+
+test("pedido de revisao (review_request) reabre o lead via reviewLead", async () => {
+  let reviewed = null;
+  const ctx = baseCtx({
+    convo: { handle: async () => ({ reply: "ok", done: true, decision: { decision: "review_request" }, data: {}, saved: true }) },
+    reviewLead: async (tel) => { reviewed = tel; },
+  });
+  await processOne({ from: "351900000010", wamid: "w10", text: "REVER" }, ctx);
+  assert.equal(reviewed, "351900000010");
 });
 
 test("resultado interativo (lista/botoes) e enviado via sendInteractive", async () => {

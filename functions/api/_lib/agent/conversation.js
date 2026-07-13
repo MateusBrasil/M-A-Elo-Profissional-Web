@@ -14,9 +14,14 @@
 
 import { messages, questions, limits, interactive, roles } from "./config.js";
 import { detectRole, checkCutoffs } from "./screening.js";
-import { workAuthorizationFromText } from "./text.js";
+import { workAuthorizationFromText, normalizeText } from "./text.js";
 
 const AUTH_VALUES = ["authorized", "pending", "not_authorized"];
+
+// Pedido de recurso RGPD (Art. 22): o candidato rejeitado quer revisao humana.
+function mentionsRecourse(text) {
+  return /\brever\b|revisao|engano|enganou|percebeu mal|perceberam mal|esta errado|nao percebeu/.test(normalizeText(text));
+}
 
 function nowIso() {
   return new Date().toISOString();
@@ -132,9 +137,22 @@ export function makeConversation({ store, aiAgent }) {
         return { reply: messages.emptyMessage, done: false, saved: true };
       }
 
-      // Ja concluida: repete a ultima mensagem e devolve a decisao (para o inbound
-      // poder (re)gravar o lead se a gravacao anterior falhou).
+      // Ja concluida.
       if (session.stage === "completed") {
+        // Recurso RGPD (Art. 22): um candidato rejeitado pode pedir revisao humana.
+        if (session.decision === "reject" && !session.reviewRequested && mentionsRecourse(text)) {
+          session.reviewRequested = true;
+          const saved = await store.save(telefone, session);
+          return {
+            reply: messages.recourseAck,
+            done: true,
+            decision: { decision: "review_request", roleKey: session.roleKey || null },
+            data: session.data || {},
+            saved,
+          };
+        }
+        // Caso normal: repete a ultima mensagem e devolve a decisao (para o inbound
+        // poder (re)gravar o lead se a gravacao anterior falhou).
         return {
           reply: session.lastMessage || messages.alreadyDone,
           done: true,
