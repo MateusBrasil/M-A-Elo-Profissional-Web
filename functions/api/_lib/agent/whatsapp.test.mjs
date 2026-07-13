@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { parseInbound, verifySignature } from "./whatsapp.js";
+import { parseInbound, parseInboundAll, verifySignature } from "./whatsapp.js";
 
 const textPayload = {
   object: "whatsapp_business_account",
@@ -65,6 +65,44 @@ test("verifySignature rejeita assinatura errada ou em falta", async () => {
   assert.equal(await verifySignature("app-secret-123", body, null), false);
 });
 
-test("verifySignature nao bloqueia quando nao ha secret configurado (dev)", async () => {
-  assert.equal(await verifySignature("", "qualquer corpo", null), true);
+test("verifySignature FAIL-CLOSED: sem secret rejeita por omissao (producao)", async () => {
+  // Comportamento seguro por defeito: sem App Secret nao se consegue verificar,
+  // por isso rejeita. Antes isto passava (fail-open), o que era perigoso.
+  assert.equal(await verifySignature("", "qualquer corpo", null), false);
+});
+
+test("verifySignature so passa sem secret com allowUnsigned explicito (dev local)", async () => {
+  assert.equal(await verifySignature("", "qualquer corpo", null, { allowUnsigned: true }), true);
+});
+
+test("parseInbound extrai o wamid da mensagem", () => {
+  assert.equal(parseInbound(textPayload).wamid, "wamid.X");
+});
+
+test("parseInboundAll ignora reactions (nao dispara resposta)", () => {
+  const reactionPayload = {
+    entry: [{ changes: [{ value: { messages: [{ from: "351933333333", id: "wamid.R", type: "reaction", reaction: { emoji: "👍" } }] } }] }],
+  };
+  assert.deepEqual(parseInboundAll(reactionPayload), []);
+});
+
+test("parseInboundAll devolve TODAS as mensagens de um webhook em lote", () => {
+  const batch = {
+    entry: [{ changes: [{ value: {
+      contacts: [{ profile: { name: "Ana" } }],
+      messages: [
+        { from: "351944444444", id: "wamid.1", type: "text", text: { body: "primeira" } },
+        { from: "351944444444", id: "wamid.2", type: "text", text: { body: "segunda" } },
+      ],
+    } }] }],
+  };
+  const all = parseInboundAll(batch);
+  assert.equal(all.length, 2);
+  assert.equal(all[0].text, "primeira");
+  assert.equal(all[1].text, "segunda");
+  assert.equal(all[1].wamid, "wamid.2");
+});
+
+test("parseInboundAll ignora statuses", () => {
+  assert.deepEqual(parseInboundAll(statusPayload), []);
 });

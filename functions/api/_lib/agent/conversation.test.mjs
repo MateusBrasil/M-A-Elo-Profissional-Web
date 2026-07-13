@@ -54,6 +54,34 @@ test("a IA conduz a conversa e o codigo conclui com o formulario, persistindo o 
   assert.ok(saved.history.length >= 8); // abertura + 4 turnos, ida e volta
 });
 
+test("teto de turnos: passa a revisao humana em vez de continuar em loop", async () => {
+  const store = memStore();
+  // Agente que nunca conclui (responde sempre "continua").
+  const agent = { async turn() { return { reply: "continua", extraction: {}, decision: { decision: "continue" }, done: false }; } };
+  const convo = makeConversation({ store, aiAgent: agent });
+  const tel = "351900000030";
+
+  let last;
+  for (let i = 0; i < 40; i += 1) last = await convo.handle(tel, "mensagem " + i);
+
+  assert.equal(last.done, true);
+  assert.equal(last.decision.review, true); // vai para revisao humana
+  assert.match(last.reply, /colega/i); // mensagem de handoff
+});
+
+test("propaga saved=false quando o store deteta conflito de concorrencia", async () => {
+  const store = {
+    async load() { return { stage: "in_progress", history: [{ role: "user", content: "a" }, { role: "assistant", content: "b" }], data: {} }; },
+    async save() { return false; }, // conflito
+    async remove() {},
+  };
+  const agent = { async turn() { return { reply: "ok", extraction: {}, decision: { decision: "continue" }, done: false }; } };
+  const convo = makeConversation({ store, aiAgent: agent });
+
+  const r = await convo.handle("351900000031", "resposta");
+  assert.equal(r.saved, false);
+});
+
 test("depois de concluida, repete a ultima mensagem em vez de recomecar", async () => {
   const store = memStore();
   const agent = scriptedAgent([

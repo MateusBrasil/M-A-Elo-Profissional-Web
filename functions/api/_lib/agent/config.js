@@ -25,12 +25,30 @@ export const workRegions = [
 export const roles = {
   soldador: { label: "Soldador", aliases: ["soldador", "soldadura", "solda", "welder"], form: "/candidatura-soldador.html" },
   serralheiro: { label: "Serralheiro", aliases: ["serralheiro", "serralharia", "metalomecanica", "montador"], form: "/candidatura-serralheiro.html" },
-  pintor: { label: "Pintor", aliases: ["pintor", "pintura", "acabamento"], form: "/candidatura-pintor.html" },
-  tubista: { label: "Tubista", aliases: ["tubista", "tubagem", "tubos", "canalizador industrial"], form: "/candidatura-tubista.html" },
+  pintor: { label: "Pintor", aliases: ["pintor", "pintura", "acabamento", "jato", "jatista", "jateador", "decapagem"], form: "/candidatura-pintor.html" },
+  tubista: { label: "Tubista", aliases: ["tubista", "tubagem", "tubos", "tubulacao", "encanador", "picheleiro", "canalizador"], form: "/candidatura-tubista.html" },
   caldeireiro: { label: "Caldeireiro", aliases: ["caldeireiro", "caldeiraria"], form: "/candidatura-caldeireiro.html" },
   mecanico: { label: "Mecânico", aliases: ["mecanico", "manutencao mecanica"], form: "/candidatura-mecanico.html" },
-  ajudante: { label: "Ajudante", aliases: ["ajudante", "servente", "aprendiz"], form: "/candidatura-ajudante.html" },
+  ajudante: { label: "Ajudante", aliases: ["ajudante", "servente", "aprendiz", "auxiliar"], form: "/candidatura-ajudante.html" },
   geral: { label: "Candidatura geral", aliases: ["outro", "outra", "geral", "eletricista"], form: "/candidatura-geral.html" },
+};
+
+// Limites operacionais (custo e abuso). Editaveis sem tocar na logica.
+//  - maxInputChars: corta respostas gigantes antes de guardar/enviar ao modelo.
+//  - historyWindow: quantas mensagens recentes se enviam ao modelo por turno
+//    (a extracao ja carrega o estado acumulado, nao e preciso o historico todo).
+//  - maxTurns: teto de mensagens do candidato numa conversa; ao exceder, passa a
+//    revisao humana em vez de continuar em loop.
+export const limits = {
+  maxInputChars: 1000,
+  historyWindow: 12,
+  maxTurns: 14,
+};
+
+// Retencao RGPD do estado das conversas (nao dos candidatos, que ficam em
+// `candidatos`). Sessoes e wamids mais antigos do que isto sao apagados.
+export const retention = {
+  sessionDays: 90,
 };
 
 // As 4 perguntas essenciais da pre-triagem, por ordem. `key` e o campo que a
@@ -52,6 +70,8 @@ export const messages = {
   rejectedTravel: "Obrigado por dizer. Como as obras são nestas zonas e não há alojamento, o seu perfil não encaixa nesta oportunidade. Guardamos o seu registo para obras mais perto de si no futuro.",
   rejectedHousing: "Obrigado pelas informações. Como a empresa não disponibiliza alojamento, não conseguimos avançar nesta obra. Guardamos o seu registo para oportunidades futuras.",
   alreadyDone: "A sua pré-triagem já foi feita, obrigado. Se ainda não preencheu o formulário, é por aí que a equipa continua o processo.",
+  aiError: "Peço desculpa, tive um problema técnico neste momento. Pode reenviar a sua última mensagem, por favor?",
+  handoff: "Obrigado pela conversa. Para não a atrasar mais, vou pedir a um colega da equipa para continuar consigo em breve.",
   formSent: (roleLabel, url) =>
     `Perfeito, o seu perfil faz sentido para avançarmos. Aqui está o formulário de ${roleLabel} para preencher: ${url}\n\nAssim que enviar, a nossa equipa analisa a candidatura e, se houver seguimento, entra em contacto em até ${company.reviewSlaHours} horas.`,
 };

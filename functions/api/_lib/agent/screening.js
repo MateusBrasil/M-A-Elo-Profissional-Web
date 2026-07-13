@@ -22,6 +22,9 @@ import {
 
 export function detectRole(text) {
   const n = normalizeText(text);
+  // "ajudante/auxiliar/servente de soldador" e um AJUDANTE, nao um soldador. Sem
+  // isto, a iteracao apanharia "soldador" primeiro e enviaria o formulario errado.
+  if (/\b(ajudante|auxiliar|servente|aprendiz)\b/.test(n)) return "ajudante";
   for (const [key, role] of Object.entries(roles)) {
     if (key === "geral") continue; // geral e o fallback, nao se deteta por alias primeiro
     if (role.aliases.some((alias) => n.includes(normalizeText(alias)))) return key;

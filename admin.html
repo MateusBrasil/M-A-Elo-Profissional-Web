@@ -979,6 +979,20 @@ select.fc{cursor:pointer}
         </div>
         <div class="set-sec">
           <div class="set-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <div><div class="set-title">Agente WhatsApp — diagnóstico</div><div class="set-sub">Erros recentes e conversas presas na pré-triagem</div></div>
+          </div>
+          <div class="set-body">
+            <div class="set-row">
+              <div><div class="set-rlbl">Estado do agente</div><div class="set-rsub" id="agentdiag-summary">Carregue para ver a atividade recente.</div></div>
+              <button class="btn btn-ghost btn-sm" id="agentdiag-refresh">Atualizar</button>
+            </div>
+            <div class="info-box" id="agentdiag-erros" style="margin-top:12px">—</div>
+            <div class="info-box" id="agentdiag-presas" style="margin-top:12px">—</div>
+          </div>
+        </div>
+        <div class="set-sec">
+          <div class="set-head">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             <div><div class="set-title">Sobre o painel</div></div>
           </div>
@@ -2224,6 +2238,34 @@ document.addEventListener('DOMContentLoaded', ()=>{
 //  BOOT
 // ══════════════════════════════════════════════════
 AUTH.init();
+</script>
+<script>
+// Diagnostico do agente WhatsApp: le as tabelas wa_erros / wa_sessoes (criadas
+// pelo agente na primeira mensagem) via o mesmo DB.q autenticado do painel.
+(function(){
+  var esc = function(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); };
+  var fmt = function(ts){ if(!ts) return ''; try{ return new Date(ts).toLocaleString('pt-PT'); }catch(e){ return String(ts); } };
+  async function load(){
+    var sum=document.getElementById('agentdiag-summary');
+    var erosEl=document.getElementById('agentdiag-erros');
+    var presasEl=document.getElementById('agentdiag-presas');
+    if(!sum) return;
+    sum.textContent='A carregar…';
+    try{
+      var er = await DB.q("SELECT etapa, erro, telefone, criado_em FROM wa_erros ORDER BY criado_em DESC LIMIT 20",[]).catch(function(){return {rows:[]};});
+      var pr = await DB.q("SELECT telefone, atualizado_em FROM wa_sessoes WHERE (estado->>'stage')='in_progress' AND atualizado_em < now() - interval '24 hours' ORDER BY atualizado_em DESC LIMIT 20",[]).catch(function(){return {rows:[]};});
+      var erros=(er&&er.rows)||[], presas=(pr&&pr.rows)||[];
+      sum.textContent = erros.length+' erro(s) recentes · '+presas.length+' conversa(s) presa(s) há mais de 24h';
+      erosEl.innerHTML = '<strong>Erros recentes</strong><br>' + (erros.length? erros.map(function(r){return esc(fmt(r.criado_em))+' · <b>'+esc(r.etapa)+'</b> · '+esc(r.telefone||'')+' — '+esc(r.erro);}).join('<br>') : 'Sem erros registados.');
+      presasEl.innerHTML = '<strong>Conversas em curso há mais de 24h</strong><br>' + (presas.length? presas.map(function(r){return esc(r.telefone)+' · desde '+esc(fmt(r.atualizado_em));}).join('<br>') : 'Nenhuma conversa presa.');
+    }catch(e){
+      sum.textContent='Ainda sem atividade do agente (as tabelas são criadas na primeira mensagem recebida).';
+      erosEl.innerHTML='—'; presasEl.innerHTML='—';
+    }
+  }
+  var btn=document.getElementById('agentdiag-refresh');
+  if(btn) btn.addEventListener('click', load);
+})();
 </script>
 </body>
 </html>
