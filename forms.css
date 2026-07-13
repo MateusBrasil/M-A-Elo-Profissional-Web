@@ -6,7 +6,7 @@
 }
 
 .form-section-heading {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--color-night);
@@ -36,12 +36,12 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   margin-bottom: 8px;
 }
 
 .form-required {
-  color: var(--color-copper);
+  color: var(--color-copper-text);
   margin-left: 2px;
 }
 
@@ -50,8 +50,8 @@
 .form-textarea {
   width: 100%;
   padding: 13px 16px;
-  font-family: var(--font-sans);
-  font-size: 15px;
+  font-family: var(--font-body);
+  font-size: 16px; /* 16px+ evita o auto-zoom do Safari iOS ao focar o campo */
   color: var(--color-night);
   background: var(--color-paper);
   border: 1.5px solid var(--color-line);
@@ -92,7 +92,7 @@
 
 .form-hint {
   font-size: 12.5px;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   margin-top: 6px;
   line-height: 1.5;
 }
@@ -118,15 +118,17 @@
 .form-radio-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--color-night);
+  min-height: 44px; /* alvo de toque confortavel (dedos grandes, ecra ao sol) */
+  padding: 4px 0;
 }
 
 .form-radio-item input[type="radio"] {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   accent-color: var(--color-copper);
   cursor: pointer;
   flex-shrink: 0;
@@ -146,16 +148,18 @@
 .form-check-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
-  font-size: 14.5px;
+  font-size: 16px;
   color: var(--color-night);
   line-height: 1.4;
+  min-height: 44px; /* alvo de toque confortavel */
+  padding: 4px 0;
 }
 
 .form-check-item input[type="checkbox"] {
-  width: 17px;
-  height: 17px;
+  width: 22px;
+  height: 22px;
   accent-color: var(--color-copper);
   cursor: pointer;
   flex-shrink: 0;
@@ -167,7 +171,7 @@
   gap: 12px;
   line-height: 1.55;
   font-size: 14px;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
 }
 
 .form-check-item--consent input[type="checkbox"] {
@@ -183,7 +187,7 @@
 }
 
 .form-consent a {
-  color: var(--color-copper);
+  color: var(--color-copper-text);
   text-decoration: underline;
 }
 
@@ -201,13 +205,13 @@
 .form-submit-area .form-legal {
   flex: 1;
   font-size: 12.5px;
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   line-height: 1.5;
   min-width: 200px;
 }
 
 .form-submit-area .form-legal a {
-  color: var(--color-copper);
+  color: var(--color-copper-text);
   text-decoration: underline;
   text-decoration-color: transparent;
   transition: text-decoration-color 160ms;
@@ -261,14 +265,14 @@
 }
 
 .form-success h2 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 1.5rem;
   margin: 0 0 var(--space-md) 0;
   color: var(--color-night);
 }
 
 .form-success p {
-  color: var(--color-muted);
+  color: var(--color-ink-muted);
   font-size: 15px;
   line-height: 1.6;
   max-width: 460px;
