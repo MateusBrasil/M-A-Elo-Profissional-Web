@@ -107,7 +107,9 @@ test("cria a tabela uma so vez e remove apaga a sessao", async () => {
   await store.load(tel);
   await store.save(tel, { stage: "new" });
   await store.load(tel);
-  assert.equal(calls.filter((c) => c === "CREATE TABLE").length, 1);
+  // Memo por isolate: o CREATE corre no maximo uma vez por processo (0 se ja
+  // correu noutro teste deste ficheiro), nunca a cada operacao.
+  assert.ok(calls.filter((c) => c === "CREATE TABLE").length <= 1);
 
   await store.remove(tel);
   assert.equal(sessoes.has(tel), false);

@@ -4,7 +4,12 @@
 
 import { fetchResilient } from "./http.js";
 
-const GRAPH_VERSION = "v21.0";
+const GRAPH_VERSION = "v21.0"; // fallback; override por env WHATSAPP_GRAPH_VERSION
+
+function messagesEndpoint(env, phoneId) {
+  const version = env.WHATSAPP_GRAPH_VERSION || GRAPH_VERSION;
+  return `https://graph.facebook.com/${version}/${phoneId}/messages`;
+}
 
 function enc(str) {
   return new TextEncoder().encode(String(str));
@@ -52,6 +57,10 @@ function mapMessage(message, change) {
   if (message.type === "button") {
     return { ...base, text: message.button?.text || "", buttonId: message.button?.payload || null };
   }
+  // Primeiro contacto via anuncio Click-to-WhatsApp: dispara a saudacao.
+  if (message.type === "request_welcome") {
+    return { ...base, text: "", welcome: true };
+  }
   if (message.type !== "text") {
     // Nao e texto (imagem, audio...). Sem texto, para o orquestrador pedir texto.
     return { ...base, text: "", unsupportedType: message.type };
@@ -91,8 +100,7 @@ function contactName(change) {
 export async function sendMessage(env, to, text) {
   const phoneId = env.WHATSAPP_PHONE_ID;
   const token = env.WHATSAPP_TOKEN;
-  const endpoint = `https://graph.facebook.com/${GRAPH_VERSION}/${phoneId}/messages`;
-  const res = await fetchResilient(endpoint, {
+  const res = await fetchResilient(messagesEndpoint(env, phoneId), {
     method: "POST",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -102,8 +110,8 @@ export async function sendMessage(env, to, text) {
       text: { preview_url: false, body: text },
     }),
   }, { timeoutMs: 8000, retries: 2 });
-  if (!res.ok) throw new Error(`WhatsApp send failed (${res.status}): ${await res.text()}`);
-  return res.json();
+  if (!res.ok) throw new Error(`WhatsApp send failed (${res.status}): ${res.text}`);
+  return res.text ? JSON.parse(res.text) : {};
 }
 
 // Envia uma mensagem interativa (lista ou botoes). O `spec` vem de
@@ -111,7 +119,7 @@ export async function sendMessage(env, to, text) {
 export async function sendInteractive(env, to, spec) {
   const phoneId = env.WHATSAPP_PHONE_ID;
   const token = env.WHATSAPP_TOKEN;
-  const endpoint = `https://graph.facebook.com/${GRAPH_VERSION}/${phoneId}/messages`;
+  const endpoint = messagesEndpoint(env, phoneId);
   let interactive;
   if (spec.type === "buttons") {
     interactive = {
@@ -134,8 +142,8 @@ export async function sendInteractive(env, to, spec) {
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     body: JSON.stringify({ messaging_product: "whatsapp", to, type: "interactive", interactive }),
   }, { timeoutMs: 8000, retries: 2 });
-  if (!res.ok) throw new Error(`WhatsApp interactive send failed (${res.status}): ${await res.text()}`);
-  return res.json();
+  if (!res.ok) throw new Error(`WhatsApp interactive send failed (${res.status}): ${res.text}`);
+  return res.text ? JSON.parse(res.text) : {};
 }
 
 // Marca a mensagem como lida e mostra o indicador "a escrever…" enquanto a IA
@@ -143,7 +151,7 @@ export async function sendInteractive(env, to, spec) {
 // de resposta durante os segundos de espera. Best-effort: nunca lanca.
 export async function markReadAndTyping(env, messageId) {
   if (!messageId || !env.WHATSAPP_PHONE_ID || !env.WHATSAPP_TOKEN) return;
-  const endpoint = `https://graph.facebook.com/${GRAPH_VERSION}/${env.WHATSAPP_PHONE_ID}/messages`;
+  const endpoint = messagesEndpoint(env, env.WHATSAPP_PHONE_ID);
   try {
     await fetchResilient(endpoint, {
       method: "POST",

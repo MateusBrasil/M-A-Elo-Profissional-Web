@@ -19,21 +19,23 @@ import { makeLeadStore, reviewByPhone } from "./_lib/agent/leads.js";
 import { makeErrorLog } from "./_lib/agent/observability.js";
 import { parseInboundAll, verifySignature, sendMessage, sendInteractive, markReadAndTyping } from "./_lib/agent/whatsapp.js";
 import { messages, retention } from "./_lib/agent/config.js";
+import { fetchResilient } from "./_lib/agent/http.js";
 
 // Neon SQL com a ligacao de baixo privilegio (so INSERT candidatos), tal como o
 // public-form.js. O lead vai por aqui; as tabelas wa_* usam a ligacao owner.
+// Com timeout (nao pendura o waitUntil), mas SEM retry: o INSERT do lead nao e
+// idempotente, um retry duplicaria o lead.
 async function formQuery(env, sql, params) {
   const connString = env.NEON_FORM_CONN;
   if (!connString) throw new Error("Missing NEON_FORM_CONN env var");
-  const url = new URL(connString);
-  const host = url.host.replace("-pooler", "");
-  const res = await fetch(`https://${host}/sql`, {
+  const host = new URL(connString).host.replace("-pooler", "");
+  const res = await fetchResilient(`https://${host}/sql`, {
     method: "POST",
     headers: { "Content-Type": "application/json", "Neon-Connection-String": connString },
     body: JSON.stringify({ query: sql, params: params || [] }),
-  });
-  if (!res.ok) throw new Error(`Neon query failed (${res.status}): ${await res.text()}`);
-  return res.json();
+  }, { timeoutMs: 8000, retries: 0 });
+  if (!res.ok) throw new Error(`Neon query failed (${res.status}): ${res.text}`);
+  return res.text ? JSON.parse(res.text) : {};
 }
 
 export async function onRequestGet({ request, env }) {
@@ -125,25 +127,28 @@ export async function processOne(msg, ctx) {
   if (typing) typing(msg.wamid);
 
   // Tipos nao-texto sem escolha (imagem, audio): pede texto de volta. Respostas de
-  // botao/lista trazem buttonId (e o titulo como texto), por isso passam.
-  if (!msg.text && !msg.buttonId) {
+  // botao/lista trazem buttonId; o request_welcome (anuncio) traz welcome.
+  if (!msg.text && !msg.buttonId && !msg.welcome) {
     await safeSend(ctx, msg.from, "De momento só consigo ler mensagens de texto. Pode escrever a sua resposta, por favor?", msg);
     return;
   }
 
-  // Conduz o turno. Se a IA falhar, responde com desculpa em vez de silencio total.
+  // Conduz o turno. Em conflito de concorrencia (duas mensagens quase simultaneas
+  // do mesmo numero), recarrega e repete UMA vez em vez de perder a mensagem.
+  const inputText = msg.text || (msg.welcome ? "olá" : "");
   let result;
-  try {
-    result = await convo.handle(msg.from, msg.text, { buttonId: msg.buttonId });
-  } catch (err) {
-    await errorLog.record({ telefone: msg.from, wamid: msg.wamid, etapa: "conversa", erro: err });
-    await safeSend(ctx, msg.from, messages.aiError, msg);
-    return;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      result = await convo.handle(msg.from, inputText, { buttonId: msg.buttonId });
+    } catch (err) {
+      await errorLog.record({ telefone: msg.from, wamid: msg.wamid, etapa: "conversa", erro: err });
+      await safeSend(ctx, msg.from, messages.aiError, msg);
+      return;
+    }
+    if (result.saved !== false) break;
   }
-
-  // Conflito de concorrencia: nao envia esse turno (evita respostas contraditorias).
   if (result.saved === false) {
-    await errorLog.record({ telefone: msg.from, wamid: msg.wamid, etapa: "concorrencia", erro: "save em conflito; turno ignorado" });
+    await errorLog.record({ telefone: msg.from, wamid: msg.wamid, etapa: "concorrencia", erro: "save em conflito apos retry; turno ignorado" });
     return;
   }
 

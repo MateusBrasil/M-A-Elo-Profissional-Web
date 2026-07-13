@@ -122,7 +122,7 @@ Ver logs em tempo real: Cloudflare → Pages → maelo-pt → Functions → Real
 
 ## 7. Notas e troubleshooting
 
-- **Versão da Graph API:** o código usa `v21.0` (`functions/api/_lib/agent/whatsapp.js`). Se a Meta pedir outra, mudar aí.
+- **Versão da Graph API:** o default é `v21.0`, mas pode ser mudado sem tocar no código pela env **`WHATSAPP_GRAPH_VERSION`** (ex.: `v23.0`). A v21.0 aproxima-se do fim de vida (~out 2026); definir uma versão corrente evita que os envios comecem a falhar.
 - **A Meta reenvia se não receber 200.** O endpoint responde 200 de imediato e processa em background (`waitUntil`), por isso não deve haver reenvios.
 - **Não responde nada:** conferir `WHATSAPP_TOKEN` (permanente e com a permissão certa) e `WHATSAPP_PHONE_ID`; ver os logs.
 - **Webhook recusa mensagens:** conferir `WHATSAPP_APP_SECRET` (a assinatura) e a subscrição ao campo `messages`.

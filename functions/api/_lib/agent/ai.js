@@ -207,8 +207,8 @@ export function mistralCaller(env) {
         prompt_cache_key: "ma-elo-triagem",
       }),
     }, { timeoutMs: 8000, retries: 1 });
-    if (!res.ok) throw new Error(`AI request failed (${res.status}): ${await res.text()}`);
-    const data = await res.json();
+    if (!res.ok) throw new Error(`AI request failed (${res.status}): ${res.text}`);
+    const data = JSON.parse(res.text || "{}");
     const content = data?.choices?.[0]?.message?.content || "{}";
     return parseModelJson(content);
   };

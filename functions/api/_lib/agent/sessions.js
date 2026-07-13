@@ -29,13 +29,17 @@ function rowsOf(res) {
   return (res && res.rows) || [];
 }
 
+// Memo por isolate: a criacao/migracao das tabelas corre uma vez por processo,
+// nao a cada webhook (poupa varios round-trips a Neon por mensagem recebida).
+let schemaEnsured = false;
+let dedupEnsured = false;
+
 export function makeSessionStore(runQuery) {
-  let ensured = false;
   // Versao carregada por numero, para o save conseguir fazer a guarda otimista.
   const versoes = new Map();
 
   async function ensureTable() {
-    if (ensured) return;
+    if (schemaEnsured) return;
     await runQuery(CREATE_TABLE, []);
     // Migracao: uma wa_sessoes criada por um deploy anterior nao tem a coluna
     // `versao` (CREATE IF NOT EXISTS nao a acrescenta) -> sem isto, todo o load()
@@ -48,7 +52,7 @@ export function makeSessionStore(runQuery) {
       "UPDATE wa_sessoes SET estado = jsonb_set(estado, '{leadSaved}', 'true') WHERE estado->>'stage' = 'completed' AND NOT jsonb_exists(estado, 'leadSaved')",
       []
     );
-    ensured = true;
+    schemaEnsured = true;
   }
 
   return {
@@ -149,12 +153,10 @@ const CREATE_PROCESSED = `
 `;
 
 export function makeDedupStore(runQuery) {
-  let ensured = false;
-
   async function ensureTable() {
-    if (ensured) return;
+    if (dedupEnsured) return;
     await runQuery(CREATE_PROCESSED, []);
-    ensured = true;
+    dedupEnsured = true;
   }
 
   return {
