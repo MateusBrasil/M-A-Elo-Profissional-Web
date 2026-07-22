@@ -82,12 +82,16 @@ test("funcao por texto livre (sem tocar na lista) avanca para os documentos", as
   assert.equal(r.interactive.type, "buttons"); // documentos
 });
 
-test("depois de concluida, repete a ultima mensagem", async () => {
+test("depois de concluida, uma mensagem de seguimento recebe resposta natural da IA (nao repete o script)", async () => {
   const store = memStore();
   const aiAgent = aiConcludes(
     "Formulário de pintor: https://maelo.pt/candidatura-pintor.html",
     { decision: "proceed", roleKey: "pintor", review: false }
   );
+  aiAgent.closingReply = async (text) => {
+    assert.equal(text, "já enviei?");
+    return "Sim, já ficou registado. Obrigado!";
+  };
   const convo = makeConversation({ store, aiAgent });
   const tel = "351900000103";
 
@@ -98,7 +102,29 @@ test("depois de concluida, repete a ultima mensagem", async () => {
   const again = await convo.handle(tel, "já enviei?");
 
   assert.equal(again.done, true);
-  assert.match(again.reply, /candidatura-pintor/);
+  assert.equal(again.decision.roleKey, "pintor"); // a decisao final mantem-se
+  assert.equal(again.reply, "Sim, já ficou registado. Obrigado!");
+  assert.doesNotMatch(again.reply, /candidatura-pintor/); // ja nao repete o link as cegas
+});
+
+test("depois de concluida, se a IA falhar a resposta natural cai numa mensagem graciosa (nao rebenta)", async () => {
+  const store = memStore();
+  const aiAgent = aiConcludes(
+    "Formulário de pintor: https://maelo.pt/candidatura-pintor.html",
+    { decision: "proceed", roleKey: "pintor", review: false }
+  );
+  aiAgent.closingReply = async () => { throw new Error("falha simulada da IA"); };
+  const convo = makeConversation({ store, aiAgent });
+  const tel = "351900000108";
+
+  await convo.handle(tel, "olá");
+  await convo.handle(tel, "Pintor", { buttonId: "pintor" });
+  await convo.handle(tel, "Tenho", { buttonId: "authorized" });
+  await convo.handle(tel, "sim consigo, tenho casa");
+  const again = await convo.handle(tel, "obrigado");
+
+  assert.equal(again.done, true);
+  assert.match(again.reply, /pré-triagem já foi feita/i); // messages.alreadyDone
 });
 
 test("candidato rejeitado que responde REVER e reaberto para revisao humana (RGPD Art. 22)", async () => {
@@ -128,7 +154,10 @@ test("teto de turnos: passa a revisao humana em vez de continuar em loop", async
 
   await convo.handle(tel, "olá"); // abertura
   let last;
-  for (let i = 0; i < 20; i += 1) last = await convo.handle(tel, "zzz" + i); // texto que nao resolve funcao
+  for (let i = 0; i < 20; i += 1) {
+    last = await convo.handle(tel, "zzz" + i); // texto que nao resolve funcao
+    if (last.done) break; // para no momento exato do handoff, antes de a sessao ja estar concluida
+  }
 
   assert.equal(last.done, true);
   assert.equal(last.decision.review, true);

@@ -151,14 +151,29 @@ export function makeConversation({ store, aiAgent }) {
             saved,
           };
         }
-        // Caso normal: repete a ultima mensagem e devolve a decisao (para o inbound
-        // poder (re)gravar o lead se a gravacao anterior falhou).
+        // Caso normal: ja nao ha triagem para conduzir, mas a pessoa pode estar so
+        // a agradecer ou a perguntar prazos. Uma resposta natural da IA em vez de
+        // repetir sempre o mesmo texto (sem isto, parecia um chatbot de script).
+        // A decisao devolvida nao muda (para o inbound poder (re)gravar o lead se
+        // a gravacao anterior falhou).
+        session.history = session.history || [];
+        session.history.push({ role: "user", content: text || `[${buttonId}]` });
+        let reply = messages.alreadyDone;
+        if (text) {
+          try {
+            reply = await aiAgent.closingReply(text);
+          } catch {
+            reply = messages.alreadyDone;
+          }
+        }
+        session.history.push({ role: "assistant", content: reply });
+        const saved = await store.save(telefone, session);
         return {
-          reply: session.lastMessage || messages.alreadyDone,
+          reply,
           done: true,
           decision: decisionFromSession(session),
           data: session.data || {},
-          saved: true,
+          saved,
         };
       }
 

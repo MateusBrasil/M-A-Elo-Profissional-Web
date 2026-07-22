@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { makeAiAgent, buildSystemPrompt, normalizeExtraction, parseModelJson, mergeExtraction, resolveRole } from "./ai.js";
+import { makeAiAgent, buildSystemPrompt, buildClosingPrompt, normalizeExtraction, parseModelJson, mergeExtraction, resolveRole } from "./ai.js";
 
 // Modelo falso: devolve extracoes/replies pre-programadas, sem gastar tokens.
 function scriptedCaller(steps) {
@@ -128,4 +128,25 @@ test("buildSystemPrompt injeta os dados ja confirmados e omite-os quando vazio",
   assert.match(p, /DADOS JÁ CONFIRMADOS/);
   assert.match(p, /soldador/);
   assert.doesNotMatch(buildSystemPrompt(), /DADOS JÁ CONFIRMADOS/);
+});
+
+test("buildClosingPrompt pede JSON e proibe reabrir a triagem", () => {
+  const p = buildClosingPrompt();
+  assert.match(p, /reply/);
+  assert.match(p, /NÃO é para reabrir a triagem/);
+});
+
+test("closingReply devolve a resposta natural do modelo para uma mensagem pos-conclusao", async () => {
+  const agent = makeAiAgent(async ({ system, history }) => {
+    assert.match(system, /pré-triagem desta pessoa já terminou/i);
+    assert.equal(history[0].content, "obrigado, ja enviei");
+    return { reply: "De nada! Fico a aguardar." };
+  });
+  const reply = await agent.closingReply("obrigado, ja enviei");
+  assert.equal(reply, "De nada! Fico a aguardar.");
+});
+
+test("closingReply lanca se o modelo nao devolver texto (quem chama decide o fallback)", async () => {
+  const agent = makeAiAgent(async () => ({ reply: "" }));
+  await assert.rejects(() => agent.closingReply("ok"));
 });
