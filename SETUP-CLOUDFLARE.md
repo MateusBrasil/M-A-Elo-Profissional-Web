@@ -282,7 +282,7 @@ Quando o agente IA WhatsApp entrar em produção:
 ## Próximos passos depois deste setup
 
 1. **Activar paragrafo IA WhatsApp** em `candidatos.html`, `faq.html`, `politica-de-privacidade.html` (PDF do CEO tem o texto exacto — só descomentar)
-2. **Integrar agente IA** no WhatsApp RH `+351 936 525 992`
+2. **Integrar agente IA** no WhatsApp RH `+351 924 861 439`
 3. **Form backend** — confirmar que `/api/public-form` insere correctamente em `candidatos` table (rodar SQL: `SELECT count(*) FROM candidatos`)
 4. **Dashboard admin** — verificar `admin.html` mostra candidaturas (usa `/api/neon-proxy`)
 

@@ -16,7 +16,7 @@ Dados confirmados:
 - Cidade: Miranda do Douro
 - NIF: 518954170
 - Morada: Rua 1.º de Maio, N.º 37, 5210-191 Miranda do Douro, Portugal
-- WhatsApp confirmado: +351 936 525 992
+- WhatsApp confirmado: +351 924 861 439
 - Email oficial: não confirmado
 
 O objetivo principal do site é gerar confiança institucional para empresas, parceiros e clientes.  

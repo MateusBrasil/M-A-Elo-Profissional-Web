@@ -28,7 +28,7 @@ Resultado: triagem sem depender de atendimento manual a tempo inteiro; a equipa 
 | Formulários por função (`candidatura-soldador.html`, `form.html?role=X`, etc.) | O agente envia o **link do formulário certo** |
 | Backend Cloudflare Pages Functions | Possível runtime do agente (webhook) |
 | Painel admin (lista candidatos/contactos) | Onde a equipa vê os leads triados |
-| WhatsApp RH: +351 936 525 992 | Canal atual (ver decisão sobre número — §11) |
+| WhatsApp RH: +351 924 861 439 | Canal atual (ver decisão sobre número — §11) |
 | Política de Privacidade / RGPD | Base legal para consentimento no chat |
 
 Princípio: o agente é uma **camada nova** sobre a infra atual, não um sistema isolado.
@@ -200,7 +200,7 @@ O investimento real é o **desenvolvimento inicial** (tempo), não a operação.
 
 ## 12. Decisões-chave em aberto (destravam o início)
 
-1. **Número de WhatsApp:** novo dedicado ao bot (recomendado) **ou** migrar o atual (+351 936 525 992, que deixaria de funcionar no app normal)?
+1. **Número de WhatsApp:** novo dedicado ao bot (recomendado) **ou** migrar o atual (+351 924 861 439, que deixaria de funcionar no app normal)?
 2. **Critérios de qualificação:** definição exata pela empresa (§5).
 3. **Rota de stack:** n8n (visual) **ou** Cloudflare Worker (código integrado)?
 
