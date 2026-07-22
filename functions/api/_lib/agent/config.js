@@ -5,7 +5,7 @@
 
 export const company = {
   name: "M&A Elo Profissional",
-  whatsapp: "351936525992",
+  whatsapp: "351924861439",
   privacyUrl: "https://maelo.pt/politica-de-privacidade.html",
   reviewSlaHours: 48,
 };

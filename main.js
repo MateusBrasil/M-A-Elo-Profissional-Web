@@ -237,7 +237,7 @@
   const injectWhatsappFloat = () => {
     const btn = document.createElement("a");
     btn.className = "wa-float";
-    btn.href = "https://wa.me/351936525992?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo.";
+    btn.href = "https://wa.me/351924861439?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20a%20M%26A%20Elo.";
     btn.target = "_blank";
     btn.rel = "noopener noreferrer";
     btn.setAttribute("aria-label", "Falar pelo WhatsApp — abre nova janela");

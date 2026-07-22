@@ -10,8 +10,8 @@ Documento de trabalho. Reúne tudo o que a empresa precisa de fornecer/decidir p
 
 O agente precisa de um número de telefone **dedicado**. Há duas opções:
 
-- **(A) Número novo, só para o agente — recomendado.** Um número/SIM que **não** esteja a ser usado no WhatsApp normal (ou que possa ser desvinculado do app). Fica exclusivo do bot, e o **+351 936 525 992 continua** a funcionar no telemóvel da equipa.
-- **(B) Usar o +351 936 525 992 atual.** O agente assume este número — mas ele **deixa de funcionar no WhatsApp normal** do telemóvel (não é possível ter os dois em simultâneo).
+- **(A) Número novo, só para o agente — recomendado.** Um número/SIM que **não** esteja a ser usado no WhatsApp normal (ou que possa ser desvinculado do app). Fica exclusivo do bot, e o **+351 924 861 439 continua** a funcionar no telemóvel da equipa.
+- **(B) Usar o +351 924 861 439 atual.** O agente assume este número — mas ele **deixa de funcionar no WhatsApp normal** do telemóvel (não é possível ter os dois em simultâneo).
 
 **Preciso que decidam A ou B e me indiquem o número.** Se for A, basta um número disponível (chip novo ou número virtual).
 

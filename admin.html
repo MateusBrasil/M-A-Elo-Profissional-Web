@@ -442,6 +442,11 @@ select.fi{cursor:pointer}
 .pf label{display:block;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-m);margin-bottom:3px}
 .pf span{font-size:13px;color:var(--ink)}
 .pf-full{grid-column:1/-1}
+.wa-conv{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding:2px}
+.wa-msg{max-width:82%;padding:8px 11px;border-radius:var(--r12);font-size:12.5px;line-height:1.5;white-space:pre-wrap;position:relative}
+.wa-msg-who{display:block;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin-bottom:2px}
+.wa-msg-user{align-self:flex-start;background:var(--surface-t);color:var(--ink-s);border:1px solid var(--line-l);border-bottom-left-radius:3px}
+.wa-msg-agent{align-self:flex-end;background:var(--copper-bg);color:var(--ink-s);border:1px solid var(--copper-br);border-bottom-right-radius:3px}
 .fc{width:100%;padding:9px 12px;border:1.5px solid var(--line);border-radius:var(--r8);font-size:13px;font-family:var(--fu);color:var(--ink);background:var(--surface-t);outline:none;transition:border-color 150ms,box-shadow 150ms}
 .fc:focus{border-color:var(--copper);background:#fff;box-shadow:0 0 0 3px var(--copper-bg)}
 textarea.fc{resize:vertical;min-height:90px;line-height:1.5}
@@ -1726,6 +1731,7 @@ const CANDS = (()=>{
     ].filter(([,v])=>v&&v!=='—');
 
     const ctag=c.contactado_em?`<div class="ctag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Contactado em ${fmtDT(c.contactado_em)}</div>`:'';
+    const isWa=String(c.mensagem||'').startsWith('[Pré-triagem WhatsApp]');
 
     $('cp-body').innerHTML=`
       <div class="ps">
@@ -1733,6 +1739,7 @@ const CANDS = (()=>{
         <div class="pg">${fields.map(([l,v])=>`<div class="pf"><label>${esc(l)}</label><span>${esc(v)}</span></div>`).join('')}</div>
       </div>
       ${c.mensagem?`<div class="ps"><div class="ps-lbl">Mensagem</div><p style="font-size:13px;line-height:1.6;white-space:pre-wrap;color:var(--ink-s)">${esc(c.mensagem)}</p></div>`:''}
+      ${isWa?`<div class="ps"><div class="ps-lbl">Conversa do WhatsApp</div><div id="cp-wa-conv" class="wa-conv"><div class="loading" style="padding:14px 0"><div class="spin"></div>A carregar conversa…</div></div></div>`:''}
       <div class="ps">
         <div class="ps-lbl">Estado da candidatura</div>
         <select class="fc" id="cp-estado">
@@ -1755,6 +1762,30 @@ const CANDS = (()=>{
       const ci=all.findIndex(x=>x.id===panelId); if(ci!==-1) all[ci].estado=v;
       applyFilters(); render(); toast('Estado atualizado','ok');
     };
+
+    if(isWa) loadWaConversation(c.telefone);
+  }
+
+  // Le o historico da conversa (wa_sessoes.estado.history) guardado pelo agente
+  // e mostra como bolhas de chat. Mesma ligacao DB.q (autenticada) do resto do
+  // painel — nenhuma tabela nova, nenhum custo extra.
+  async function loadWaConversation(telefone){
+    const box=$('cp-wa-conv'); if(!box) return;
+    try{
+      const r=await DB.q('SELECT estado FROM wa_sessoes WHERE telefone=$1',[telefone]);
+      const row=r.rows?.[0];
+      if(!row){ box.innerHTML='<p style="font-size:12.5px;color:var(--ink-f)">Sem conversa guardada para este número (pode ter expirado ou sido apagada).</p>'; return; }
+      const estado=typeof row.estado==='string'?JSON.parse(row.estado):row.estado;
+      const hist=(estado&&estado.history)||[];
+      if(!hist.length){ box.innerHTML='<p style="font-size:12.5px;color:var(--ink-f)">Sem mensagens guardadas para esta conversa.</p>'; return; }
+      box.innerHTML=hist.map(m=>{
+        const mine=m.role==='assistant';
+        return `<div class="wa-msg ${mine?'wa-msg-agent':'wa-msg-user'}"><span class="wa-msg-who">${mine?'Agente':'Candidato'}</span>${esc(m.content)}</div>`;
+      }).join('');
+      box.scrollTop=box.scrollHeight;
+    }catch(err){
+      box.innerHTML='<p style="font-size:12.5px;color:var(--ink-f)">Erro ao carregar conversa: '+esc(err.message)+'</p>';
+    }
   }
 
   function renderPanelFoot(c){

@@ -473,10 +473,10 @@ async function loadForm() {
     if (joinList(answers.international_interest)) mensagemParts.push('Interesse internacional: ' + joinList(answers.international_interest));
     if (answers.can_work_without_housing) mensagemParts.push('Sem alojamento: ' + answers.can_work_without_housing);
     const cvNames = Array.isArray(answers.cv_files) && answers.cv_files.length
-      ? 'CV anexado: ' + answers.cv_files.join(', ') + ' — enviar via WhatsApp +351 936 525 992'
+      ? 'CV anexado: ' + answers.cv_files.join(', ') + ' — enviar via WhatsApp +351 924 861 439'
       : null;
     const certNames = Array.isArray(answers.certificate_files) && answers.certificate_files.length
-      ? 'Certificados: ' + answers.certificate_files.join(', ') + ' — enviar via WhatsApp +351 936 525 992'
+      ? 'Certificados: ' + answers.certificate_files.join(', ') + ' — enviar via WhatsApp +351 924 861 439'
       : null;
     if (cvNames) mensagemParts.push(cvNames);
     if (certNames) mensagemParts.push(certNames);
@@ -500,10 +500,10 @@ async function loadForm() {
       updateProgress(form);
       status.className = 'status success';
       status.textContent = 'Candidatura recebida com sucesso. A equipa vai analisar e entrar em contacto se houver seguimento.'
-        + (cvNames || certNames ? ' Para enviar os ficheiros, use o WhatsApp: +351 936 525 992' : '');
+        + (cvNames || certNames ? ' Para enviar os ficheiros, use o WhatsApp: +351 924 861 439' : '');
     } catch (err) {
       status.className = 'status error';
-      status.textContent = 'Erro ao enviar. Verifique a ligação e tente novamente, ou contacte pelo WhatsApp: +351 936 525 992';
+      status.textContent = 'Erro ao enviar. Verifique a ligação e tente novamente, ou contacte pelo WhatsApp: +351 924 861 439';
       console.error(err);
     } finally {
       submitButton.disabled = false;
