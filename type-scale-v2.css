@@ -1,0 +1,165 @@
+/* ══════════════════════════════════════════════════════════════
+   TYPE SCALE V2 — régua do design-system-squad (2026-08-17)
+   Reactiva a hierarquia que já existia em design-tokens.css e que
+   estava anulada por 120 declarações !important em effects.css.
+
+   Display: Archivo 900 (SIL OFL) — casa com o wordmark sans do
+   logotipo M&A. Corpo: Inter, mantida por decisão (numerais
+   tabulares para os códigos de processo, e neutralidade para
+   deixar a display dominar). Mono: JetBrains, promovida a marcar
+   códigos de linha e de processo.
+
+   Carregado DEPOIS de effects.css, por isso usa !important para
+   ganhar. Quando a régua for aprovada, o caminho definitivo é
+   apagar as sobreposições em effects.css e este ficheiro deixa
+   de precisar de !important.
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --font-display: "Archivo", "Archivo Black", Impact, system-ui, sans-serif;
+
+  /* Escala — ratio medido a 1440px: 122px / 16px = 7,6x no hero de
+     linha longa, 9,0x nos H2. Ver audit-2026-08-17.md */
+  --t-hero:  clamp(38px, 6vw, 100px);
+  --t-d1:    clamp(44px, 7vw, 112px);
+  --t-d2:    clamp(36px, 4.6vw, 76px);
+  --t-d3:    clamp(22px, 2.2vw, 34px);
+  --t-lead:  clamp(18px, 1.4vw, 22px);
+
+  --ls-hero: -0.045em;
+  --ls-d1:   -0.040em;
+  --ls-d2:   -0.035em;
+  --ls-d3:   -0.020em;
+}
+
+/* ── Hero da homepage ─────────────────────────────────────────── */
+body .hero--screen .hero__title,
+.hero--screen .hero__title {
+  font-family: var(--font-display) !important;
+  font-weight: 900 !important;
+  font-size: var(--t-hero) !important;
+  line-height: 0.86 !important;
+  letter-spacing: var(--ls-hero) !important;
+  text-transform: none !important;
+  max-width: 1360px !important;
+  text-wrap: balance;
+}
+
+.hero--screen .hero__lead {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  max-width: 620px;
+}
+
+/* ── H1 das páginas internas ──────────────────────────────────── */
+body .page-hero h1,
+body .page-hero__title,
+.page-hero h1,
+.page-hero__title {
+  font-family: var(--font-display) !important;
+  font-weight: 900 !important;
+  font-size: var(--t-d1) !important;
+  line-height: 0.88 !important;
+  letter-spacing: var(--ls-d1) !important;
+  max-width: 1120px !important;
+  text-wrap: balance;
+}
+
+.page-hero h1 em,
+.page-hero__title em {
+  font-style: normal !important;
+  font-weight: 900 !important;
+}
+
+/* ── H2 de secção ─────────────────────────────────────────────────
+   Especificidade tem de bater `section.section h2` do effects.css
+   (0,1,2), por isso o prefixo html body. */
+html body section h2,
+html body main h2,
+html body .spec-edit__h2,
+html body .section-intro h2,
+html body .page-copy h2,
+html body .feature-split__title {
+  font-family: var(--font-display) !important;
+  font-weight: 900 !important;
+  font-size: var(--t-d2) !important;
+  line-height: 0.92 !important;
+  letter-spacing: var(--ls-d2) !important;
+  text-wrap: balance;
+}
+
+html body section h2 em,
+html body .spec-edit__h2 em {
+  font-style: normal !important;
+  font-weight: 900 !important;
+}
+
+/* ── H3 de card ───────────────────────────────────────────────── */
+html body section h3,
+html body main h3,
+html body .spec-edit__body h3,
+html body .role-card h3,
+html body .sector-card h3 {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  font-size: var(--t-d3) !important;
+  font-style: normal !important;
+  line-height: 1.02 !important;
+  letter-spacing: var(--ls-d3) !important;
+}
+
+/* ── Mono com papel real: códigos de processo e de linha ──────── */
+.spec-edit__sub,
+.role-card ul li,
+.section-label,
+.page-kicker,
+.spec-edit__tag,
+.sector-card__tag {
+  font-family: var(--font-mono) !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+/* ── Signature component: a chapa numerada ────────────────────── */
+.spec-edit__num,
+.process-step__num,
+.role-card > span:first-of-type {
+  font-family: var(--font-display) !important;
+  font-weight: 900 !important;
+  font-size: clamp(38px, 3.4vw, 58px) !important;
+  line-height: 0.8 !important;
+  letter-spacing: -0.04em !important;
+  font-style: normal !important;
+  color: var(--color-white) !important;
+  opacity: 0.92;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
+}
+
+.role-card > span:first-of-type {
+  color: var(--accent-spark) !important;
+  text-shadow: none;
+  display: block;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-line);
+  margin-bottom: 14px;
+}
+
+/* ── Cantos: 20px é assinatura de template ────────────────────── */
+.spec-edit__card,
+.role-card,
+.sector-card,
+.value-item,
+.cred-item,
+.region-card-v2,
+.applications__panel,
+.screen-card {
+  border-radius: 4px !important;
+}
+
+/* ── Sem movimento em loop infinito sem input do utilizador ───── */
+.hero--screen .hero__spark,
+.page-hero::after {
+  animation: none !important;
+}

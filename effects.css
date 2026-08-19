@@ -4485,3 +4485,204 @@ body .page-hero__title,
   .spec-edit__card:hover .spec-edit__media img,
   .process-rail__dot { transition: none !important; transform: none !important; animation: none !important; }
 }
+
+/* ──────────────────────────────────────────────────────────────
+   23. Legibilidade sobre as fotos reais da equipa M&A Elo
+   As fotos da equipa têm zonas claras (céu, oficina iluminada),
+   ao contrário das anteriores. Reforça o degradê de leitura sem
+   reactivar o overlay copper que fora removido.
+   ────────────────────────────────────────────────────────────── */
+
+.sector-card__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    0deg,
+    rgba(6, 8, 10, 0.94) 0%,
+    rgba(6, 8, 10, 0.74) 34%,
+    rgba(6, 8, 10, 0.38) 64%,
+    rgba(6, 8, 10, 0.12) 100%
+  );
+}
+
+/* Topo dos cards de especialidade: garante leitura do número + tag */
+.spec-edit__media::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 42%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(6, 8, 10, 0.52) 0%, rgba(6, 8, 10, 0.18) 55%, transparent 100%);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   24. Heros com fotografia própria da equipa M&A Elo (17/08/2026)
+   Substitui o hero cream vazio. A fotografia real com uniforme da
+   empresa é o que distingue o site de um template genérico — o véu
+   é assimétrico e parcial (nunca preto uniforme por cima da foto),
+   para a obra continuar a ler-se.
+   ────────────────────────────────────────────────────────────── */
+
+/* ── Homepage ───────────────────────────────────────────────── */
+body .hero--screen,
+.hero--screen {
+  background: #090c0f !important;
+  color: #fff !important;
+  color-scheme: dark;
+}
+
+.hero--screen .hero__bg-photo {
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+}
+
+.hero--screen .hero__bg-photo img {
+  object-position: center 46%;
+  filter: contrast(1.06) saturate(0.94) brightness(0.94);
+}
+
+.hero--screen .hero__bg-grad {
+  background: linear-gradient(180deg,
+    rgba(6, 9, 12, 0.56) 0%,
+    rgba(6, 9, 12, 0.34) 30%,
+    rgba(6, 9, 12, 0.44) 66%,
+    rgba(6, 9, 12, 0.78) 100%);
+}
+
+.hero--screen .hero__bg-tint {
+  background: linear-gradient(180deg, transparent 48%, rgba(230, 81, 0, 0.10) 100%);
+}
+
+.hero--screen .hero__pill {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #fff;
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 6px 22px -8px rgba(0, 0, 0, 0.6);
+}
+
+body .hero--screen .hero__title,
+.hero--screen .hero__title {
+  color: #fff !important;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.45) !important;
+}
+
+.hero--screen .hero__lead {
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 2px 18px rgba(0, 0, 0, 0.5);
+}
+
+.hero--screen .hero__cta-ghost {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.34);
+}
+
+/* ── Páginas internas ───────────────────────────────────────── */
+body .page-hero,
+.page-hero {
+  background: #090c0f !important;
+  color: #fff !important;
+  color-scheme: dark;
+}
+
+.page-hero::before {
+  display: block !important;
+  background-position: center 46% !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  filter: contrast(1.05) saturate(0.9) brightness(0.92) !important;
+}
+
+/* Fotografia por página, injectada como custom property para o véu poder
+   viver na mesma camada (sem elipse solta a marcar borda no ecrã) */
+.page-hero                  { --hero-foto: url("assets/equipa-solda-tubagem.webp"); }
+.page-hero--industrial      { --hero-foto: url("assets/equipa-manutencao-bomba-hero.webp"); }
+.page-hero--people          { --hero-foto: url("assets/equipa-serralharia-corte.webp"); }
+.page-hero--empresa         { --hero-foto: url("assets/equipa-caldeiraria.webp"); }
+.page-hero--servicos        { --hero-foto: url("assets/equipa-solda-tig-inox.webp"); }
+.page-hero--obras           { --hero-foto: url("assets/equipa-tubista.webp"); }
+.page-hero--industria       { --hero-foto: url("assets/equipa-manutencao-bomba-hero.webp"); }
+.page-hero--metalomecanica  { --hero-foto: url("assets/equipa-serralharia-corte.webp"); }
+.page-hero--candidatos      { --hero-foto: url("assets/equipa-solda-tubagem.webp"); }
+.page-hero--candidatura     { --hero-foto: url("assets/equipa-serralheiro-preparacao-hero.webp"); }
+.page-hero--contacto        { --hero-foto: url("assets/equipa-serralheiro-preparacao-hero.webp"); }
+.page-hero--soldador        { --hero-foto: url("assets/equipa-solda-electrodo.webp"); }
+.page-hero--serralheiro     { --hero-foto: url("assets/equipa-serralheiro-preparacao-hero.webp"); }
+.page-hero--pintor          { --hero-foto: url("assets/equipa-pintura-industrial.webp"); }
+.page-hero--regioes         { --hero-foto: url("assets/equipa-montagem-estruturas.webp"); }
+.page-hero--lisboa          { --hero-foto: url("assets/lisboa-city.webp"); }
+.page-hero--viana           { --hero-foto: url("assets/viana-city.webp"); }
+.page-hero--estarreja       { --hero-foto: url("assets/aveiro-city.webp"); }
+
+/* Véu uniforme na mesma camada da foto: nunca deixa canto claro nem borda
+   de "película", e é leve o suficiente para a obra continuar a ver-se */
+.page-hero::before {
+  background-image:
+    linear-gradient(180deg,
+      rgba(6, 9, 12, 0.56) 0%,
+      rgba(6, 9, 12, 0.34) 32%,
+      rgba(6, 9, 12, 0.42) 68%,
+      rgba(6, 9, 12, 0.72) 100%),
+    var(--hero-foto) !important;
+}
+
+/* Texto sobre fotografia */
+body .page-hero h1,
+body .page-hero__title,
+.page-hero h1,
+.page-hero__title {
+  color: #fff !important;
+  text-shadow: 0 2px 26px rgba(0, 0, 0, 0.48) !important;
+}
+
+.page-hero h1 em,
+.page-hero__title em {
+  color: #FF8A3D !important;
+}
+
+.page-hero__inner > p,
+.page-hero p:not([class]),
+.page-hero__lead {
+  color: rgba(255, 255, 255, 0.94) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 2px 18px rgba(0, 0, 0, 0.5) !important;
+}
+
+.page-hero .section-label,
+.page-hero .section-label--light,
+.page-hero .section-label--navy,
+.page-hero .page-kicker {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(255, 255, 255, 0.26) !important;
+  color: #fff !important;
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 6px 22px -8px rgba(0, 0, 0, 0.6) !important;
+}
+
+.page-hero .section-label .pill-spark,
+.page-hero .section-label--navy .pill-spark {
+  color: #FF8A3D !important;
+}
+
+.page-hero .button--secondary,
+.page-hero .button--ghost {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.36) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Nav pill: opacidade suficiente para contraste sobre hero fotográfico escuro
+   (o glass a 0.6 ficava ilegível sobre foto escura) */
+body .site-header .navbar,
+.site-header .navbar {
+  background: linear-gradient(135deg, rgba(247, 244, 239, 0.95) 0%, rgba(241, 236, 229, 0.90) 100%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow:
+    0 16px 40px -12px rgba(6, 9, 12, 0.48),
+    0 4px 12px -4px rgba(6, 9, 12, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+}

@@ -165,7 +165,12 @@
     }
 
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-    tl.from(headerItems, { y: -18, opacity: 0, duration: 0.7, stagger: 0.04 }, 0);
+    // fromTo + immediateRender:false + clearProps — um `from` aqui deixava o
+    // .nav-cta preso em opacity 0 quando a timeline era criada duas vezes
+    // (init + Barba after-enter), escondendo o CTA principal do nav.
+    tl.fromTo(headerItems,
+      { y: -18, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.7, stagger: 0.04, immediateRender: false, clearProps: "opacity,transform" }, 0);
     if (eyebrow) tl.fromTo(eyebrow, { clipPath: "inset(0 100% 0 0)", opacity: 0 }, { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 0.9 }, 0.15);
     if (words.length) tl.fromTo(words, { yPercent: 108, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.1, stagger: 0.045 }, 0.3);
     if (line) tl.fromTo(line, { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 1.1 }, 0.52);

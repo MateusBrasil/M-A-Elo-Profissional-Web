@@ -65,10 +65,31 @@ Site estático B2B da empresa **M&A Elo Profissional, Unipessoal, Lda.** (NIF 51
 1. Registo o que funcionou em memória (feedback positivo também importa)
 2. Aplico o mesmo padrão às restantes páginas
 
+## Régua tipográfica (design-system-squad, 17/08/2026)
+
+- **Display: Archivo 900** (SIL OFL, Google Fonts). Escolhida contra Anton e Fraunces porque casa com o wordmark sans do logotipo. Fraunces foi rejeitada **neste site** (serif contradiz o logo), continua válida onde já está aprovada
+- Corpo Inter (decisão activa, com rationale: numerais tabulares para os códigos de processo) e mono JetBrains promovida a marcar códigos de linha (`P-106-01A`, `SCH 40`)
+- Signature component declarado: **a chapa numerada** (numeral Archivo 900 + filete 1px + código em mono), como uma peça marcada em obra
+- `type-scale-v2.css` é **protótipo, ligado só no index.html**. Caminho definitivo: apagar as sobreposições de tipografia em `effects.css` e deixar de precisar de `!important`
+- Relatório completo com os números: `design system/audit-2026-08-17.md`. Plano de motion: `HANDOFF-PREMIUM.md`
+
+### Duas armadilhas de CSS neste projeto
+- `effects.css` tem `section.section h2` (especificidade 0,1,2). Regra nova que queira mandar nos H2 precisa de prefixo `html body`, senão perde em silêncio
+- `.spec-edit__body h3` traz `font-style: italic` sem `!important`. Ao trocar a família, repor `font-style: normal`
+
 ## Decisões já tomadas (não reverter)
 
 - Paleta e estética mantidas: cream/copper, minimalista premium — sem dark industrial
 - Linguagem: português europeu (pt-PT) — não brasileiro
 - ETT/recrutamento removido: a empresa é de "prestação de serviços técnicos"
 - nav-link--secondary aplicado a "Profissionais" em todos os HTML
-- Imagens dos 8 cards de serviço: ficheiros `mig-mag-welding.jpg`, `tig-welding.jpg`, `electrode-welding.jpg`, `serralharia-industrial.jpg`, `tubagem-industrial.jpg`, `montagem-industrial.jpg`, `manutencao-industrial.jpg`, `estruturas-metalicas.jpg`
+- Imagens: desde 17/08/2026 o site usa **fotos próprias da equipa M&A Elo** (uniforme com logo visível), prefixo `assets/equipa-*.webp` + `.jpg`. As antigas stock (`mig-mag-welding`, `tig-welding`, `electrode-welding`, `serralharia-industrial`, `tubagem-industrial`, `montagem-industrial`, `manutencao-industrial`, `estruturas-metalicas`, `welder-field`, `metal-bending`, heros `*-hero`) continuam em `assets/` mas **não são referenciadas** — não voltar a usá-las havendo foto própria equivalente
+- Mapa foto própria → uso: `equipa-solda-electrodo` (soldadura/eléctrodo, versão `-tall` para o card alto do index), `equipa-solda-tig-inox` (TIG/inox), `equipa-solda-tubagem` (soldadura de tubagem em obra), `equipa-serralharia-corte` (serralharia/corte), `equipa-serralheiro-preparacao` (preparação de peças/apoio técnico), `equipa-caldeiraria` (caldeiraria), `equipa-tubista` (tubagem), `equipa-pintura-industrial` (pintura), `equipa-montagem-estruturas` (montagem/estruturas, og:image), `equipa-manutencao-bomba` (manutenção/mecânica)
+- **Não existe** foto própria de MIG/MAG. O card de soldadura usa eléctrodo revestido; não rotular uma foto como MIG/MAG sem foto real
+- Reprocessar fotos novas com `node scripts/importar-fotos-equipa.mjs` (sharp, gera webp+jpg)
+- **Heros com fotografia própria** (revertido o cream vazio em 17/08/2026, bloco 24 do `effects.css`): a foto real com uniforme M&A é o que distingue o site de um template de IA. Homepage a `opacity: 1`, internas com `.page-hero::before` reactivado. Texto do hero é branco
+- **Véu só em gradiente vertical uniforme, na mesma camada da foto.** Nunca usar elipse/radial centrado atrás do texto: deixa os cantos claros e a emenda vê-se como uma "película" colada (reprovado pelo Mateus em 17/08/2026). A foto de cada página entra pela custom property `--hero-foto` e o `::before` compõe `linear-gradient(...), var(--hero-foto)`
+- Ao trocar a foto de uma página, editar `--hero-foto` no bloco 24 do `effects.css` e o `<link rel="preload" as="image">` dessa página
+- Sinalética PT-BR nas fotos: as versões `equipa-manutencao-bomba-hero` e `equipa-serralheiro-preparacao-hero` são crops que cortam placas com "SOMENTE PESSOAL AUTORIZADO", "ÁREA DE SOLDA" e "Planejamento" (o site é pt-PT). Usar sempre as `-hero` em heros; nos cards pequenos o texto é ilegível e não importa
+- Nav pill precisa de `background` ≥ 0.90 de opacidade: sobre hero fotográfico escuro, o glass a 0.6 tornava os links ilegíveis
+- `animations.js`: a entrada do header usa `fromTo` com `immediateRender:false` e `clearProps`. Um `from` deixava o `.nav-cta` preso em `opacity: 0` quando a timeline corria duas vezes (init + Barba)
