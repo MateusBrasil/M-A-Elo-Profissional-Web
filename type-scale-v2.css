@@ -163,3 +163,152 @@ html body .sector-card h3 {
 .page-hero::after {
   animation: none !important;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   RITMO DE FUNDOS — alternância clara/escura
+   A home tinha 9 secções em creme e um único bloco navy. Sem
+   alternância, nenhuma tipografia salva o ritmo: a página lê-se
+   como um documento único e é isso que dá o ar de template.
+   Escurecidas: "como trabalhamos" e "processo de execução".
+   ══════════════════════════════════════════════════════════════ */
+
+html body .how-we-work,
+html body .process-rail {
+  background: var(--color-night, #090C0F) !important;
+  color: #fff;
+  position: relative;
+}
+
+/* Filete industrial a marcar a entrada e a saída do bloco escuro */
+html body .how-we-work::before,
+html body .process-rail::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-spark) 18%, var(--accent-spark) 82%, transparent);
+  opacity: 0.55;
+}
+
+html body .how-we-work h2,
+html body .process-rail h2,
+html body .how-we-work h3,
+html body .process-rail h3,
+html body .how-we-work .how-we-work__sub {
+  color: #fff !important;
+}
+
+html body .how-we-work p,
+html body .process-rail p {
+  color: rgba(255, 255, 255, 0.76) !important;
+}
+
+html body .how-we-work .section-label,
+html body .process-rail .section-label {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  color: #fff !important;
+}
+
+/* A chapa numerada sobre fundo escuro: o numeral é a faísca */
+html body .how-we-work__num,
+html body .process-rail__num {
+  font-family: var(--font-display) !important;
+  font-weight: 900 !important;
+  font-size: clamp(34px, 3vw, 52px) !important;
+  line-height: 0.8 !important;
+  letter-spacing: -0.04em !important;
+  color: var(--accent-spark) !important;
+  display: block;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  margin-bottom: 16px;
+}
+
+html body .how-we-work__step,
+html body .process-rail__step,
+html body .process-rail__card {
+  background: rgba(255, 255, 255, 0.035) !important;
+  border: 1px solid rgba(255, 255, 255, 0.13) !important;
+  box-shadow: none !important;
+}
+
+html body .how-we-work__step:hover,
+html body .process-rail__step:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(230, 81, 0, 0.45) !important;
+}
+
+/* H2 destas secções tem classe própria e vence os selectores genéricos */
+html body .how-we-work__h2,
+html body .process-rail__h2 {
+  font-family: var(--font-display) !important;
+  font-weight: 900 !important;
+  font-size: var(--t-d2) !important;
+  line-height: 0.92 !important;
+  letter-spacing: var(--ls-d2) !important;
+  color: #fff !important;
+}
+
+html body .how-we-work__h2 em,
+html body .process-rail__h2 em {
+  font-style: normal !important;
+  font-weight: 900 !important;
+  color: var(--accent-spark) !important;
+}
+
+/* Trilho de progresso do processo, sobre escuro */
+html body .process-rail__line {
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+
+html body .process-rail__line-fill {
+  background: var(--accent-spark) !important;
+}
+
+html body .process-rail__dot {
+  color: rgba(255, 255, 255, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+html body .process-rail__dot.is-active {
+  color: #fff !important;
+  border-color: var(--accent-spark) !important;
+}
+
+html body .process-rail__sub {
+  color: var(--accent-spark) !important;
+}
+
+/* Botões dentro dos blocos escuros */
+html body .how-we-work .button--dark,
+html body .process-rail .button--dark {
+  background: #fff !important;
+  color: #0a0a0a !important;
+  border-color: #fff !important;
+}
+
+/* O numeral tinha gradiente em texto (-webkit-text-fill-color: transparent)
+   e um color !important herdado: sobre fundo escuro saía cobre lavado */
+html body .how-we-work .how-we-work__num,
+html body .process-rail .process-rail__num {
+  color: var(--accent-spark) !important;
+  -webkit-text-fill-color: var(--accent-spark) !important;
+  background: none !important;
+  background-clip: border-box !important;
+  -webkit-background-clip: border-box !important;
+}
+
+html body .how-we-work__step,
+html body .process-rail__step {
+  border-radius: 4px !important;
+}
+
+/* Página do formulário: o título tem classe própria em form-styles.css */
+html body .form-hero__title {
+  font-family: var(--font-display) !important;
+  font-weight: 900 !important;
+  font-size: var(--t-d1) !important;
+  line-height: 0.88 !important;
+  letter-spacing: var(--ls-d1) !important;
+}
