@@ -16,7 +16,7 @@
    ══════════════════════════════════════════════════════════════ */
 
 :root {
-  --font-display: "Archivo", "Archivo Black", Impact, system-ui, sans-serif;
+  --font-display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
 
   /* Escala — ratio medido a 1440px: 122px / 16px = 7,6x no hero de
      linha longa, 9,0x nos H2. Ver audit-2026-08-17.md */
