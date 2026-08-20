@@ -500,6 +500,11 @@
       // initStickySpec(); // deprecated
       if (window.ScrollTrigger) ScrollTrigger.refresh();
 
+      /* Secções externas (obra-reveal e afins) ligam-se aqui: este pipeline
+         mata todos os ScrollTriggers, por isso quem cria os seus tem de o
+         fazer DEPOIS deste ponto, e outra vez a cada entrada do Barba. */
+      document.dispatchEvent(new CustomEvent("maelo:page-init"));
+
       // Re-mark active nav link
       const curr = window.location.pathname.split("/").pop() || "index.html";
       document.querySelectorAll(".nav-links a").forEach(l => {
@@ -936,6 +941,7 @@
         initWordReveal();
         initImageBlurUp();
         ScrollTrigger.refresh();
+        document.dispatchEvent(new CustomEvent("maelo:page-init"));
         // Barba last — depends on everything else being ready
         initBarba();
       });

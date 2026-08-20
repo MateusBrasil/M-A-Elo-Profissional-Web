@@ -15,7 +15,7 @@ import crypto from 'node:crypto';
 
 const ALVOS = [
   'design-tokens.css', 'styles.css', 'effects.css', 'cookies.css', 'palette-v2.css',
-  'footer-v3.css', 'type-scale-v2.css', 'forms.css', 'form-styles.css', 'map-iberia.css',
+  'footer-v3.css', 'type-scale-v2.css', 'obra-reveal.css', 'obra-reveal.js', 'forms.css', 'form-styles.css', 'map-iberia.css',
   'main.js', 'animations.js', 'cookies.js', 'neon.js', 'map-iberia.js', 'supabase.js',
   'form-app.js', 'form-contact.js', 'form-geral.js', 'form-pintor.js', 'form-serralheiro.js', 'form-soldador.js',
 ];
