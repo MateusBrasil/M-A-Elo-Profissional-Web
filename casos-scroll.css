@@ -205,14 +205,22 @@
   }
 }
 
-/* Sem JS ou com movimento reduzido: cada caso mostra a sua própria foto,
-   em vez de ficar uma pilha com uma imagem só por cima */
+/* ── Modo estático ────────────────────────────────────────────────
+   Com movimento reduzido ou sem GSAP não há coluna presa nem corte de
+   fotografia: cada caso mostra a sua própria imagem.
+
+   Em ecrã largo isto NÃO colapsa para uma coluna. A primeira versão
+   reaproveitava o layout de telemóvel e, num monitor, os casos apareciam
+   empilhados ao centro com cara de versão móvel. Movimento reduzido é um
+   pedido para não animar, não para receber outro layout. */
 .casos-scroll[data-estatica="true"] .casos-scroll__visual { display: none; }
 
 .casos-scroll[data-estatica="true"] .casos-scroll__caso {
   min-height: 0;
   padding-block: clamp(32px, 6vh, 56px);
 }
+
+.casos-scroll__foto-inline { display: none; }
 
 .casos-scroll[data-estatica="true"] .casos-scroll__foto-inline {
   display: block;
@@ -222,4 +230,42 @@
   margin-bottom: 22px;
 }
 
-.casos-scroll__foto-inline { display: none; }
+@media (min-width: 901px) {
+  .casos-scroll[data-estatica="true"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .casos-scroll[data-estatica="true"] .casos-scroll__caso {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    column-gap: clamp(32px, 5vw, 88px);
+    align-items: center;
+    max-width: none;
+    padding-block: clamp(44px, 7vh, 88px);
+    border-top: 1px solid var(--color-line, #D9D4CC);
+  }
+
+  .casos-scroll[data-estatica="true"] .casos-scroll__caso:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  /* A fotografia ocupa a coluna da direita, a altura toda do caso */
+  .casos-scroll[data-estatica="true"] .casos-scroll__foto-inline {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: stretch;
+    height: 100%;
+    max-height: 62vh;
+    aspect-ratio: auto;
+    margin-bottom: 0;
+  }
+
+  .casos-scroll[data-estatica="true"] .casos-scroll__num,
+  .casos-scroll[data-estatica="true"] .casos-scroll__meta,
+  .casos-scroll[data-estatica="true"] .casos-scroll__caso h3,
+  .casos-scroll[data-estatica="true"] .casos-scroll__desc,
+  .casos-scroll[data-estatica="true"] .casos-scroll__ficha {
+    grid-column: 1;
+  }
+}
