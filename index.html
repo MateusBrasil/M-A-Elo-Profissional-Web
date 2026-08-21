@@ -35,11 +35,12 @@
     <link rel="stylesheet" href="cookies.css?v=eccd2e3f">
     <link rel="stylesheet" href="palette-v2.css?v=1cd5d329">
     <link rel="stylesheet" href="footer-v3.css?v=137dc5e0">
-    <link rel="stylesheet" href="sector-proof.css?v=1c4e8b72">
     <!-- Régua tipográfica do design-system-squad (Archivo 900) -->
     <link rel="stylesheet" href="casos-scroll.css?v=5d2e7b4c">
+    <link rel="stylesheet" href="casos-scroll-v2.css?v=4d5a10b9">
     <link rel="stylesheet" href="obra-reveal.css?v=3f8a9c71">
     <link rel="stylesheet" href="type-scale-v2.css?v=32ae6d58">
+    <link rel="stylesheet" href="home-hero-v3.css?v=6c98e04a">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -150,55 +151,26 @@
 
     <main id="conteudo" data-barba="container" data-barba-namespace="default">
 
-      <!-- ═══ HERO SCREEN — Logo Design System (cream + faísca laranja) ═══ -->
-      <section class="hero hero--screen" id="inicio" aria-labelledby="hero-title">
-        <figure class="hero__bg-photo" aria-hidden="true">
-          <img src="assets/equipa-montagem-estruturas.webp?v=208de242" alt="" fetchpriority="high" loading="eager" decoding="async" width="1600" height="1067">
-        </figure>
-        <div class="hero__bg-grad" aria-hidden="true"></div>
-        <div class="hero__bg-tint" aria-hidden="true"></div>
-        <svg class="hero__spark" aria-hidden="true" viewBox="0 0 80 80" fill="none">
-          <g stroke="#E65100" stroke-width="2.5" stroke-linecap="round">
-            <line x1="40" y1="10" x2="40" y2="26"/>
-            <line x1="40" y1="54" x2="40" y2="70"/>
-            <line x1="10" y1="40" x2="26" y2="40"/>
-            <line x1="54" y1="40" x2="70" y2="40"/>
-            <line x1="18" y1="18" x2="29" y2="29"/>
-            <line x1="51" y1="51" x2="62" y2="62"/>
-            <line x1="62" y1="18" x2="51" y2="29"/>
-            <line x1="29" y1="51" x2="18" y2="62"/>
-          </g>
-          <circle cx="40" cy="40" r="5" fill="#E65100"/>
-        </svg>
-
-        <div class="hero__shell">
-          <div class="hero__inner">
-            <span class="hero__pill">
-              Prestação de serviços técnicos industriais
-            </span>
-
-            <h1 class="hero__title" id="hero-title" data-hero-title>
-              <span class="hero__title-line">Execução técnica industrial.</span>
-              <span class="hero__title-line">Uma equipa, uma responsabilidade.</span>
-            </h1>
-
-            <p class="hero__lead">A M&amp;A Elo executa projectos técnicos industriais em todo o território português e na Europa. Soldadura, serralharia, caldeiraria, tubagem, pintura industrial e manutenção — com equipa própria, gestão operacional e responsabilidade pelo resultado.</p>
-
-            <div class="hero__actions">
-              <a class="hero__cta-split" href="contacto.html" data-cta="hero-empresas">
-                <span class="hero__cta-split-bg" aria-hidden="true"></span>
-                <span class="hero__cta-split-label">Solicitar proposta</span>
-                <span class="hero__cta-split-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m7 7 10 10"/>
-                    <path d="M17 7v10H7"/>
-                  </svg>
-                </span>
-              </a>
-              <a class="hero__cta-ghost" href="#servicos-tecnicos" data-cta="hero-ver-executamos">Ver o que executamos</a>
-            </div>
+      <!-- Hero adaptado de "Pipely — Case Study Hero" (acervo Code Eagle):
+           narrativa + fotografia de obra + factos de operação, sem template cru. -->
+      <section class="hero hero--dossier" id="inicio" aria-labelledby="hero-title">
+        <div class="hero-dossier__intro">
+          <p class="hero-dossier__eyebrow">M&amp;A Elo Profissional <span aria-hidden="true">/</span> Serviços técnicos industriais</p>
+          <h1 class="hero-dossier__title" id="hero-title">Equipas técnicas para operações industriais que exigem presença no terreno.</h1>
+          <div class="hero-dossier__detail">
+            <p>Apoiamos empresas com execução de soldadura, serralharia, tubagem, caldeiraria, pintura industrial e manutenção — do planeamento à entrega da frente de obra.</p>
+            <a href="contacto.html" data-cta="hero-empresas">Falar sobre uma necessidade operacional <span aria-hidden="true">↗</span></a>
           </div>
         </div>
+
+        <figure class="hero-dossier__media">
+          <img src="assets/equipa-montagem-estruturas.webp?v=208de242" alt="Técnico da M&amp;A Elo durante a montagem de uma estrutura metálica em ambiente industrial" fetchpriority="high" loading="eager" decoding="async" width="1600" height="1067">
+          <figcaption>
+            <span>Operação industrial</span>
+            <span>Portugal <i aria-hidden="true">·</i> Europa</span>
+            <span>Equipas mobilizáveis</span>
+          </figcaption>
+        </figure>
       </section>
 
 
@@ -504,23 +476,9 @@
           </div>
         </div>
 
-          <aside class="sector-proof" aria-labelledby="hydro-proof-title" data-reveal>
-            <div class="sector-proof__intro">
-              <p class="sector-proof__eyebrow">Infraestrutura hidroeléctrica</p>
-              <h3 id="hydro-proof-title">Execução técnica para contextos onde a margem de erro é reduzida.</h3>
-            </div>
-            <div class="sector-proof__evidence">
-              <p>Três intervenções distintas num ambiente de elevada exigência operacional, com planeamento, equipas técnicas e controlo de execução no terreno.</p>
-              <ol class="sector-proof__list">
-                <li><span>01</span><strong>Turbinas</strong></li>
-                <li><span>02</span><strong>Circuitos de arrefecimento</strong></li>
-                <li><span>03</span><strong>Sistemas de filtragem</strong></li>
-              </ol>
-            </div>
-          </aside>
-
-          <div class="cases__cta-row" data-reveal>
-            <a class="button button--dark" href="empresa.html#projectos" data-cta="cases-ver-todos">Ver todos os projectos executados</a>
+          <div class="cases__cta-row cases__cta-row--editorial" data-reveal>
+            <p>Arquivo de obra <span aria-hidden="true">/</span> intervenções, especialidades e capacidade no terreno.</p>
+            <a href="empresa.html#projectos" data-cta="cases-ver-todos">Explorar todos os projectos <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </section>
