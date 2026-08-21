@@ -1,5 +1,26 @@
-/* Code Eagle — adaptação de "Hirely, Why Hirely outperforms alternatives".
-   Credenciais institucionais: composição editorial, não uma grelha genérica. */
+/* Code Eagle — porte directo de "Hirely, Why Hirely outperforms alternatives".
+   Origem: Componentes Code Eagle/secoes/secao-68/index.html + styles.css.
+   Mantêm-se as classes estruturais do componente, tokenizadas para a M&A Elo. */
+.eagle-hirely-alternative .alternative-grid {
+  grid-column-gap: .5rem;
+  grid-row-gap: .5rem;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-columns: 1fr;
+  display: grid;
+}
+
+.eagle-hirely-alternative .alternative_item {
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  text-align: center;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2rem;
+  display: flex;
+}
+
 .cred-strip {
   background: var(--navy-deep) !important;
   background-image: none !important;
@@ -158,6 +179,15 @@
   .cred-item { min-height: 252px; padding: 28px !important; }
   .cred-item__icon { margin-bottom: 34px !important; }
   .cred-strip__intro h2 { font-size: clamp(40px, 13vw, 58px); }
+}
+
+/* Breakpoint original do componente Hirely, adaptado para esta secção. */
+@media (max-width: 767px) {
+  .eagle-hirely-alternative .alternative-grid {
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 1fr;
+  }
+  .eagle-hirely-alternative .alternative_item { padding: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
