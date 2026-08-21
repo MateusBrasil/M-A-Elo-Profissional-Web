@@ -128,7 +128,9 @@
   top: 0;
   height: 100vh;
   display: flex;
-  align-items: center;
+  /* A fotografia acompanha o bloco de contexto do projecto, não o número
+     que funciona apenas como marcador da sequência. */
+  align-items: flex-end;
 }
 
 .casos-scroll__pilha {
