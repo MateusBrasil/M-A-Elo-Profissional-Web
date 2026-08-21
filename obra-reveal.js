@@ -90,6 +90,12 @@
     gsap.registerPlugin(ScrollTrigger);
 
     var reduzido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduzido) {
+      /* A rede de segurança lá em baixo marca a secção como estática se o
+         GSAP tardar. Numa ligação lenta isso acontecia e ficava assim para
+         sempre, porque nada revertia o atributo: a secção nunca animava. */
+      seccao.removeAttribute("data-estatica");
+    }
     if (reduzido) {
       seccao.setAttribute("data-estatica", "true");
       seccao.querySelectorAll("[data-obra-blinds]").forEach(function (g) {

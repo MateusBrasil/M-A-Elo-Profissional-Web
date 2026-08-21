@@ -169,8 +169,12 @@
   .obra-reveal__progress { width: 100%; }
 }
 
-/* Sem JS ou com movimento reduzido: as etapas ficam legíveis em lista,
-   a secção deixa de ser alta e a primeira foto fica visível */
+/* ── Modo estático ────────────────────────────────────────────────
+   Usado com prefers-reduced-motion e quando o GSAP não carrega.
+   A primeira versão mantinha `height` e `overflow: hidden` no contentor
+   das camadas: o texto das quatro etapas media 965px dentro de uma caixa
+   de 702px e a etapa 03 aparecia cortada a meio. Agora o contentor cresce
+   com o conteúdo e a fotografia tem altura própria. */
 html:not(.js) .obra-reveal,
 .obra-reveal[data-estatica="true"] {
   height: auto;
@@ -179,25 +183,64 @@ html:not(.js) .obra-reveal,
 html:not(.js) .obra-reveal__layers,
 .obra-reveal[data-estatica="true"] .obra-reveal__layers {
   position: relative;
-  height: clamp(560px, 78vh, 820px);
+  display: block;
+  height: auto;
+  overflow: visible;
 }
 
-html:not(.js) .obra-reveal__step,
-.obra-reveal[data-estatica="true"] .obra-reveal__step {
+/* Só a primeira fotografia, com altura própria. As lâminas da máscara são
+   geradas por JS; sem elas a máscara fica opaca e a foto não apareceria,
+   por isso a máscara é desligada neste modo. */
+html:not(.js) .obra-reveal__layer,
+.obra-reveal[data-estatica="true"] .obra-reveal__layer {
   position: relative;
-  opacity: 1;
-  transform: none;
-  margin-bottom: 28px;
+  height: clamp(280px, 40vh, 440px);
 }
 
-html:not(.js) .obra-reveal__steps,
-.obra-reveal[data-estatica="true"] .obra-reveal__steps {
-  min-height: 0;
+html:not(.js) .obra-reveal__layer ~ .obra-reveal__layer,
+.obra-reveal[data-estatica="true"] .obra-reveal__layer ~ .obra-reveal__layer {
+  display: none;
+}
+
+html:not(.js) .obra-reveal__layer image,
+.obra-reveal[data-estatica="true"] .obra-reveal__layer image {
+  mask: none !important;
+  -webkit-mask: none !important;
+}
+
+html:not(.js) .obra-reveal__veil,
+html:not(.js) .obra-reveal__progress,
+.obra-reveal[data-estatica="true"] .obra-reveal__veil,
+.obra-reveal[data-estatica="true"] .obra-reveal__progress {
+  display: none;
 }
 
 html:not(.js) .obra-reveal__shell,
 .obra-reveal[data-estatica="true"] .obra-reveal__shell {
   position: relative;
   inset: auto;
-  padding-top: clamp(48px, 8vh, 96px);
+  padding-top: clamp(40px, 6vh, 72px);
+  padding-bottom: clamp(40px, 6vh, 72px);
+}
+
+html:not(.js) .obra-reveal__foot,
+.obra-reveal[data-estatica="true"] .obra-reveal__foot {
+  display: block;
+}
+
+html:not(.js) .obra-reveal__steps,
+.obra-reveal[data-estatica="true"] .obra-reveal__steps {
+  min-height: 0;
+  display: grid;
+  gap: clamp(28px, 4vh, 44px);
+  margin-top: clamp(28px, 4vh, 40px);
+}
+
+html:not(.js) .obra-reveal__step,
+.obra-reveal[data-estatica="true"] .obra-reveal__step {
+  position: relative;
+  inset: auto;
+  opacity: 1;
+  transform: none;
+  max-width: 720px;
 }
