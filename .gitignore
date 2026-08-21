@@ -26,3 +26,6 @@ Emergent _ Fullstack App_files/
 zynia-os-agents-npx-test/
 
 .vercel
+
+# Arquivo local de versoes anteriores (o historico do git ja as preserva)
+_ARQUIVO/
