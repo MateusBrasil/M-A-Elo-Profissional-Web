@@ -556,7 +556,7 @@ html.js body > main {
   margin: 0;
 }
 
-/* ── GRID ── 1 col mobile / 2 col tablet / 3 col desktop asymmetric */
+/* ── GRID ── 1 col mobile / 2 col tablet / 3 col desktop */
 .spec-edit__grid {
   list-style: none;
   margin: 0;
@@ -570,34 +570,11 @@ html.js body > main {
   .spec-edit__grid {
     grid-template-columns: 1fr 1fr;
   }
-  .spec-edit__card--tall {
-    grid-row: span 2;
-  }
 }
 
 @media (min-width: 1100px) {
   .spec-edit__grid {
-    grid-template-columns: 1.15fr 1fr 1fr;
-    grid-auto-rows: minmax(280px, auto);
-  }
-  /* Asymmetric layout:
-     [01 tall × 2 rows] [02 wide]      [03]
-                        [04]            [05]
-                        [06 wide spans 2 cols] */
-  .spec-edit__card--tall {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-  }
-  .spec-edit__card--wide:nth-of-type(2) {
-    grid-column: 2 / span 2;
-    grid-row: 1;
-  }
-  .spec-edit__card:nth-of-type(3) { grid-column: 2; grid-row: 2; }
-  .spec-edit__card:nth-of-type(4) { grid-column: 3; grid-row: 2; }
-  .spec-edit__card:nth-of-type(5) { grid-column: 1; grid-row: 3; }
-  .spec-edit__card--wide:nth-of-type(6) {
-    grid-column: 2 / span 2;
-    grid-row: 3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -623,17 +600,10 @@ html.js body > main {
 .spec-edit__media {
   position: relative;
   margin: 0;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  min-height: 220px;
-}
-
-.spec-edit__card--tall .spec-edit__media {
-  min-height: 480px;
-}
-
-.spec-edit__card--wide .spec-edit__media {
-  min-height: 280px;
+  min-height: 0;
 }
 
 .spec-edit__media img {
