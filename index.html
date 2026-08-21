@@ -39,9 +39,9 @@
     <link rel="stylesheet" href="casos-scroll.css?v=5d2e7b4c">
     <link rel="stylesheet" href="casos-scroll-v2.css?v=4d5a10b9">
     <link rel="stylesheet" href="casos-scroll-v3.css?v=3ad0f819">
-    <link rel="stylesheet" href="obra-reveal.css?v=3f8a9c71">
     <link rel="stylesheet" href="type-scale-v2.css?v=32ae6d58">
     <link rel="stylesheet" href="eagle-folds-v1.css?v=771c2f4d">
+    <link rel="stylesheet" href="eagle-obra-v1.css?v=9d73a2f0">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -381,24 +381,26 @@
       </section>
 
 
-      <!-- ═══ EXECUÇÃO EM OBRA — revelação em lâminas ligada ao scroll ═══ -->
-      <section class="obra-reveal" aria-labelledby="obra-title" data-obra-reveal>
-        <div class="obra-reveal__layers">
-          <div class="obra-reveal__layer" aria-hidden="true"><img src="assets/equipa-tubista.webp?v=16fa6248" alt=""></div>
-          <div class="obra-reveal__layer" aria-hidden="true"><img src="assets/equipa-solda-tubagem.webp?v=170d4ff1" alt=""></div>
-          <div class="obra-reveal__layer" aria-hidden="true"><img src="assets/equipa-montagem-estruturas.webp?v=208de242" alt=""></div>
-          <div class="obra-reveal__layer" aria-hidden="true"><img src="assets/equipa-pintura-industrial.webp?v=085b01a6" alt=""></div>
-          <div class="obra-reveal__veil" aria-hidden="true"></div>
-          <div class="obra-reveal__shell">
-            <p class="obra-reveal__kicker" id="obra-title">Execução em obra</p>
-            <div class="obra-reveal__foot">
-              <ol class="obra-reveal__steps">
-                <li class="obra-reveal__step" data-obra-step="0" data-activa="true"><span class="obra-reveal__num">01</span><h3>Traçado e preparação</h3><p>Leitura do isométrico, marcação e corte do tubo à medida da linha. É aqui que se ganha ou se perde o prazo da obra.</p></li>
-                <li class="obra-reveal__step" data-obra-step="1"><span class="obra-reveal__num">02</span><h3>Soldadura em obra</h3><p>Passe de raiz e enchimento em aço carbono, inox e ligas especiais. Soldador qualificado e supervisão técnica no terreno.</p></li>
-                <li class="obra-reveal__step" data-obra-step="2"><span class="obra-reveal__num">03</span><h3>Montagem da estrutura</h3><p>Aprumo, alinhamento e aperto conforme projecto, com equipa própria e responsável técnico identificado em cada fase.</p></li>
-                <li class="obra-reveal__step" data-obra-step="3"><span class="obra-reveal__num">04</span><h3>Protecção anticorrosiva</h3><p>Preparação de superfície e aplicação do sistema de pintura, para a estrutura durar o que tem de durar.</p></li>
-              </ol>
-              <div class="obra-reveal__progress" aria-hidden="true"><div class="obra-reveal__bar"><span data-obra-bar></span></div><div class="obra-reveal__bar"><span data-obra-bar></span></div><div class="obra-reveal__bar"><span data-obra-bar></span></div><div class="obra-reveal__bar"><span data-obra-bar></span></div></div>
+      <!-- Code Eagle: Congra — Itinerary. Sequência operacional adaptada à M&A Elo. -->
+      <section class="eagle-obra" aria-labelledby="obra-title">
+        <div class="eagle-obra__shell">
+          <header class="eagle-obra__header">
+            <p>Execução em obra <span aria-hidden="true">/</span> método no terreno</p>
+            <h2 id="obra-title">Cada frente de obra tem uma sequência que a equipa domina.</h2>
+            <p>Do traçado à protecção final, coordenamos pessoas, processos e verificação técnica em cada fase da execução.</p>
+          </header>
+          <div class="eagle-obra__layout">
+            <ol class="eagle-obra__timeline">
+              <li><div class="eagle-obra__bar"><span>01</span><i aria-hidden="true"></i></div><div><h3>Traçado e preparação</h3><p>Leitura do isométrico, marcação e corte do tubo à medida da linha.</p></div></li>
+              <li><div class="eagle-obra__bar"><span>02</span><i aria-hidden="true"></i></div><div><h3>Soldadura em obra</h3><p>Passe de raiz e enchimento com supervisão técnica no terreno.</p></div></li>
+              <li><div class="eagle-obra__bar"><span>03</span><i aria-hidden="true"></i></div><div><h3>Montagem da estrutura</h3><p>Aprumo, alinhamento e aperto conforme projecto e especificação.</p></div></li>
+              <li><div class="eagle-obra__bar"><span>04</span></div><div><h3>Protecção anticorrosiva</h3><p>Preparação de superfície e aplicação do sistema de pintura.</p></div></li>
+            </ol>
+            <div class="eagle-obra__gallery" aria-label="Registos de execução em obra">
+              <figure class="eagle-obra__photo eagle-obra__photo--main"><img src="assets/equipa-tubista.webp?v=16fa6248" alt="Técnico da M&A Elo a preparar uma tubagem industrial" loading="lazy" decoding="async" width="1200" height="800"><figcaption>Tubagem industrial</figcaption></figure>
+              <figure class="eagle-obra__photo"><img src="assets/equipa-solda-tubagem.webp?v=170d4ff1" alt="Soldadura em obra realizada por técnico da M&A Elo" loading="lazy" decoding="async" width="1200" height="800"><figcaption>Soldadura</figcaption></figure>
+              <figure class="eagle-obra__photo"><img src="assets/equipa-montagem-estruturas.webp?v=208de242" alt="Montagem de estrutura metálica em ambiente industrial" loading="lazy" decoding="async" width="1600" height="1067"><figcaption>Montagem</figcaption></figure>
+              <figure class="eagle-obra__photo"><img src="assets/equipa-pintura-industrial.webp?v=085b01a6" alt="Pintura industrial de estrutura metálica" loading="lazy" decoding="async" width="1200" height="800"><figcaption>Protecção</figcaption></figure>
             </div>
           </div>
         </div>
@@ -754,7 +756,6 @@
     <script src="main.js?v=221fe85a" defer></script>
     <script src="cookies.js?v=86ea6313" defer></script>
     <script src="casos-scroll.js?v=b8cd4e03" defer></script>
-    <script src="obra-reveal.js?v=7d21cb90" defer></script>
     <script src="animations.js?v=0456337a" defer></script>
   </body>
 </html>
