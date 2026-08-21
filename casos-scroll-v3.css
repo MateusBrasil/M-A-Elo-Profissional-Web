@@ -1,0 +1,13 @@
+/* Ajuste de hierarquia do fallback estático: a fotografia começa junto ao
+   conteúdo técnico, não junto ao número de navegação do projecto. */
+@media (min-width: 901px) {
+  .casos-scroll[data-estatica="true"] .casos-scroll__foto-inline {
+    grid-row: 3 / span 3;
+    align-self: center;
+    width: 100%;
+    height: auto;
+    max-height: min(42vw, 330px);
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+}
