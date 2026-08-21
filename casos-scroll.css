@@ -1,0 +1,225 @@
+/* ══════════════════════════════════════════════════════════════
+   CASOS SCROLL — intervenções reais em formato editorial
+
+   Mecanismo portado de "Architecture Showcase" (banco Code Eagle,
+   parallax/gsap-scroll-reveal): coluna de texto que rola normalmente,
+   coluna de imagens presa, cada imagem cortada por clip-path a revelar
+   a seguinte, com parallax no object-position.
+
+   O que diverge do original, por decisão nossa:
+   - não se anima o background do <body>: num site com Barba a cor ficava
+     presa ao mudar de página. O fundo da secção fica fixo
+   - cada caso mostra os dados reais da obra (processo, equipa, prazo)
+     em vez de um botão colorido
+   - a numeração usa a chapa numerada, a assinatura do site
+   ══════════════════════════════════════════════════════════════ */
+
+.casos-scroll {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(32px, 5vw, 96px);
+  align-items: start;
+  max-width: var(--container-narrow, 1240px);
+  margin: clamp(48px, 8vh, 96px) auto 0;
+  padding-inline: var(--page-gutter, 40px);
+  /* Respiro no fim: sem isto a coluna presa sai do ecrã colada ao bloco
+     seguinte e a última fotografia parece um resto por cortar */
+  padding-bottom: clamp(40px, 12vh, 140px);
+}
+
+/* ── Coluna de texto ─────────────────────────────────────────── */
+.casos-scroll__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.casos-scroll__caso {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 480px;
+}
+
+.casos-scroll__num {
+  display: block;
+  font-family: var(--font-display, sans-serif);
+  font-weight: 900;
+  font-size: clamp(34px, 3vw, 52px);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: var(--accent-spark, #E65100);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-line, #D9D4CC);
+  margin-bottom: 20px;
+  width: fit-content;
+  min-width: 92px;
+}
+
+.casos-scroll__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-family: var(--font-mono, monospace);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-spark, #E65100);
+  margin-bottom: 14px;
+}
+
+.casos-scroll__caso h3 {
+  font-family: var(--font-display, sans-serif) !important;
+  font-weight: 900 !important;
+  font-size: clamp(28px, 3vw, 46px) !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.035em !important;
+  color: var(--color-ink, #0A0A0A) !important;
+  margin: 0 0 16px;
+}
+
+.casos-scroll__desc {
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.62;
+  color: var(--color-ink-neutral, #525252);
+  margin: 0 0 24px;
+}
+
+/* Ficha técnica da obra: é isto que separa um case real de um slogan */
+.casos-scroll__ficha {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1px;
+  background: var(--color-line, #D9D4CC);
+  border: 1px solid var(--color-line, #D9D4CC);
+}
+
+.casos-scroll__ficha div {
+  background: var(--color-paper, #F3EFE9);
+  padding: 14px 16px;
+}
+
+.casos-scroll__ficha dt {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute, #737373);
+  margin: 0 0 6px;
+}
+
+.casos-scroll__ficha dd {
+  margin: 0;
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  font-size: clamp(17px, 1.5vw, 22px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-ink, #0A0A0A);
+}
+
+/* ── Coluna de imagens (presa) ───────────────────────────────── */
+.casos-scroll__visual {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.casos-scroll__pilha {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 76vh;
+  overflow: hidden;
+  background: var(--color-night, #090C0F);
+}
+
+.casos-scroll__foto {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.casos-scroll__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 0 0%;
+  display: block;
+  filter: contrast(1.04) saturate(0.96);
+}
+
+/* Etiqueta do caso sobre a foto */
+.casos-scroll__tag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: rgba(6, 9, 12, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.casos-scroll__tag::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--accent-spark, #E65100);
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+  .casos-scroll {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .casos-scroll__caso {
+    min-height: 0;
+    max-width: none;
+    padding-block: clamp(28px, 5vh, 48px);
+  }
+  /* A pilha só faz sentido com a coluna presa. Em telemóvel cada caso mostra
+     a sua própria fotografia, senão os três casos ficavam com a mesma. */
+  .casos-scroll__visual { display: none; }
+  .casos-scroll__foto-inline {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+}
+
+/* Sem JS ou com movimento reduzido: cada caso mostra a sua própria foto,
+   em vez de ficar uma pilha com uma imagem só por cima */
+.casos-scroll[data-estatica="true"] .casos-scroll__visual { display: none; }
+
+.casos-scroll[data-estatica="true"] .casos-scroll__caso {
+  min-height: 0;
+  padding-block: clamp(32px, 6vh, 56px);
+}
+
+.casos-scroll[data-estatica="true"] .casos-scroll__foto-inline {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  margin-bottom: 22px;
+}
+
+.casos-scroll__foto-inline { display: none; }

@@ -23,6 +23,7 @@
     <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="stylesheet" href="map-iberia.css?v=90590096">
+    <link rel="stylesheet" href="equipa-grid.css?v=143b5d2a">
     <link rel="stylesheet" href="type-scale-v2.css?v=32ae6d58">
   </head>
   <body data-barba="wrapper">
@@ -301,6 +302,31 @@
       </section>
 
       <!-- ═══ CREDENCIAIS STRIP ═══ -->
+
+      <!-- ═══ A EQUIPA EM OBRA — grelha que se monta e abre no scroll ═══
+           Mecanismo portado de Code Eagle parallax/sticky-grid-scroll.
+           Ver cabeçalho de equipa-grid.js. -->
+      <section class="equipa-grid" aria-labelledby="equipa-grid-title" data-equipa-grid>
+        <div class="equipa-grid__wrapper">
+          <div class="equipa-grid__malha" data-equipa-malha aria-hidden="true">
+            <figure class="equipa-grid__item" data-equipa-item><img src="assets/equipa-solda-electrodo.webp" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
+            <figure class="equipa-grid__item" data-equipa-item><img src="assets/equipa-tubista.webp" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
+            <figure class="equipa-grid__item" data-equipa-item><img src="assets/equipa-montagem-estruturas.webp" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
+            <figure class="equipa-grid__item" data-equipa-item><img src="assets/equipa-serralharia-corte.webp" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
+            <figure class="equipa-grid__item" data-equipa-item><img src="assets/equipa-solda-tig-inox.webp" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
+            <figure class="equipa-grid__item" data-equipa-item><img src="assets/equipa-pintura-industrial.webp" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
+            <figure class="equipa-grid__item" data-equipa-item><img src="assets/equipa-caldeiraria.webp" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
+            <figure class="equipa-grid__item" data-equipa-item><img src="assets/equipa-manutencao-bomba.webp" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
+            <figure class="equipa-grid__item" data-equipa-item><img src="assets/equipa-solda-tubagem.webp" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
+          </div>
+          <div class="equipa-grid__veu" data-equipa-veu aria-hidden="true"></div>
+          <div class="equipa-grid__centro" data-equipa-centro>
+            <p class="equipa-grid__kicker">Equipa própria</p>
+            <h2 id="equipa-grid-title">Quem executa é quem responde.</h2>
+            <p>Soldadores, serralheiros, tubistas, caldeireiros, pintores e mecânicos da M&amp;A Elo. A mesma equipa que assina a proposta é a que está na obra, com responsável técnico identificado em cada fase.</p>
+          </div>
+        </div>
+      </section>
       <section class="cred-strip" aria-label="Credenciais institucionais da M&A Elo">
         <div class="cred-strip__inner">
           <div class="cred-strip__grid">
@@ -591,6 +617,7 @@
     <script src="main.js?v=221fe85a" defer></script>
     <script src="cookies.js?v=86ea6313" defer></script>
     <script src="map-iberia.js?v=b7edfd1a" defer></script>
+    <script src="equipa-grid.js?v=9ed05d22" defer></script>
     <script src="animations.js?v=0456337a" defer></script>
   </body>
 </html>

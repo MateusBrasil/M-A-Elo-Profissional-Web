@@ -1,0 +1,136 @@
+/* ══════════════════════════════════════════════════════════════
+   EQUIPA GRID — grelha de obra que se monta e abre no scroll
+
+   Mecanismo portado de "Sticky Grid Scroll" (banco Code Eagle,
+   parallax/sticky-grid-scroll): wrapper sticky, grelha de 3 colunas
+   agrupadas por coluna, entrada alternada de cima e de baixo com
+   stagger, e um zoom final em que as colunas laterais se afastam para
+   deixar aparecer o conteúdo central.
+
+   Diverge do original: fotografia real da equipa em vez de placeholders,
+   sem unidades `rem` a fingir de `px` (o demo usa `32rem` para 32px),
+   tokens da marca, e fallback estático que o original não tem.
+   ══════════════════════════════════════════════════════════════ */
+
+.equipa-grid {
+  position: relative;
+  height: 300vh;
+  background: var(--color-night, #090C0F);
+}
+
+.equipa-grid__wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 0 clamp(16px, 4vw, 64px);
+}
+
+.equipa-grid__malha {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.6vw, 26px);
+  width: 100%;
+  max-width: 1180px;
+  will-change: transform;
+}
+
+.equipa-grid__item {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #11151a;
+}
+
+.equipa-grid__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.05) saturate(0.92) brightness(0.9);
+}
+
+/* Conteúdo que aparece quando a grelha abre */
+.equipa-grid__centro {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 clamp(20px, 6vw, 80px);
+  pointer-events: none;
+}
+
+.equipa-grid__kicker {
+  font-family: var(--font-mono, monospace);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-spark, #E65100);
+  margin: 0 0 18px;
+}
+
+.equipa-grid__centro h2 {
+  font-family: var(--font-display, sans-serif) !important;
+  font-weight: 900 !important;
+  font-size: clamp(32px, 5vw, 84px) !important;
+  line-height: 0.9 !important;
+  letter-spacing: -0.04em !important;
+  color: #fff !important;
+  margin: 0 0 20px;
+  max-width: 16ch;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.6);
+}
+
+.equipa-grid__centro p {
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+  margin: 0;
+  max-width: 46ch;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Véu que escurece a grelha quando o texto entra */
+.equipa-grid__veu {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: rgba(6, 9, 12, 0.55);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 849px) {
+  .equipa-grid { height: 220vh; }
+  .equipa-grid__malha { gap: 8px; }
+  .equipa-grid__item { aspect-ratio: 1 / 1; }
+}
+
+/* Sem JS ou com movimento reduzido: grelha simples e texto por cima,
+   tudo visível de uma vez, secção com altura normal */
+.equipa-grid[data-estatica="true"] { height: auto; }
+
+.equipa-grid[data-estatica="true"] .equipa-grid__wrapper {
+  position: relative;
+  height: auto;
+  padding-block: clamp(56px, 10vh, 120px);
+}
+
+.equipa-grid[data-estatica="true"] .equipa-grid__centro {
+  position: relative;
+  inset: auto;
+  margin-bottom: clamp(32px, 6vh, 64px);
+}
+
+.equipa-grid[data-estatica="true"] .equipa-grid__veu { display: none; }
+
+.equipa-grid[data-estatica="true"] .equipa-grid__wrapper {
+  display: block;
+}
