@@ -6,7 +6,8 @@ Site estático B2B da empresa **M&A Elo Profissional, Unipessoal, Lda.** (NIF 51
 
 - 27 ficheiros HTML + styles.css + design-tokens.css + main.js + animations.js
 - Paleta cream/copper, tipografia Cormorant Garamond + Inter, estética minimalista premium
-- Sem framework — HTML estático puro, deploy em Vercel
+- Sem framework — HTML estático puro. Deploy: Cloudflare Pages via push no main do GitHub (o vercel.json é legado; quem manda nos cabeçalhos é o _headers)
+- A pasta do projecto é `DocumentsProjetosmaelo-site` (renomeada a 21/08/2026; antes era M-A-Elo-Profissional-Web-main)
 
 ## Regras de qualidade (NÃO NEGOCIÁVEIS)
 
@@ -70,7 +71,7 @@ Site estático B2B da empresa **M&A Elo Profissional, Unipessoal, Lda.** (NIF 51
 - **Display: Archivo 900** (SIL OFL, Google Fonts). Escolhida contra Anton e Fraunces porque casa com o wordmark sans do logotipo. Fraunces foi rejeitada **neste site** (serif contradiz o logo), continua válida onde já está aprovada
 - Corpo Inter (decisão activa, com rationale: numerais tabulares para os códigos de processo) e mono JetBrains promovida a marcar códigos de linha (`P-106-01A`, `SCH 40`)
 - Signature component declarado: **a chapa numerada** (numeral Archivo 900 + filete 1px + código em mono), como uma peça marcada em obra
-- `type-scale-v2.css` é **protótipo, ligado só no index.html**. Caminho definitivo: apagar as sobreposições de tipografia em `effects.css` e deixar de precisar de `!important`
+- `type-scale-v2.css` é **ligado em todas as páginas desde 19/08/2026**. Caminho definitivo: apagar as sobreposições de tipografia em `effects.css` e deixar de precisar de `!important`
 - Relatório completo com os números: `design system/audit-2026-08-17.md`. Plano de motion: `HANDOFF-PREMIUM.md`
 
 ### Duas armadilhas de CSS neste projeto
@@ -93,3 +94,22 @@ Site estático B2B da empresa **M&A Elo Profissional, Unipessoal, Lda.** (NIF 51
 - Sinalética PT-BR nas fotos: as versões `equipa-manutencao-bomba-hero` e `equipa-serralheiro-preparacao-hero` são crops que cortam placas com "SOMENTE PESSOAL AUTORIZADO", "ÁREA DE SOLDA" e "Planejamento" (o site é pt-PT). Usar sempre as `-hero` em heros; nos cards pequenos o texto é ilegível e não importa
 - Nav pill precisa de `background` ≥ 0.90 de opacidade: sobre hero fotográfico escuro, o glass a 0.6 tornava os links ilegíveis
 - `animations.js`: a entrada do header usa `fromTo` com `immediateRender:false` e `clearProps`. Um `from` deixava o `.nav-cta` preso em `opacity: 0` quando a timeline corria duas vezes (init + Barba)
+
+## Secções com scroll (portes do banco Code Eagle)
+
+Três peças, cada uma com o mecanismo documentado no cabeçalho do seu ficheiro:
+
+| Secção | Ficheiros | Origem no acervo |
+|---|---|---|
+| Execução em obra (home) | `obra-reveal.css/js` | `parallax/svg-mask-scroll-transitions` |
+| Intervenções reais (home) | `casos-scroll.css/js` | `parallax/gsap-scroll-reveal` |
+| A equipa em obra (empresa) | `equipa-grid.css/js` | `parallax/sticky-grid-scroll` |
+
+### Regras para qualquer secção nova com ScrollTrigger
+
+1. **Ligar ao evento `maelo:page-init`**, nunca criar triggers por fora. O `animations.js` mata todos os ScrollTriggers no `runPageInits` e recria só os dele; triggers criados fora morrem poucos milissegundos depois. O evento é disparado no fim do boot e no fim de cada entrada do Barba.
+2. **Nunca `gsap.from`. Sempre `fromTo` com `immediateRender: false`.** Como o pipeline corre duas vezes, um `from` deixa os elementos presos em `opacity: 0`. Já aconteceu no CTA do nav e nas fotos da grelha da equipa; é a primeira coisa a verificar quando algo não aparece.
+3. **Preferir `position: sticky` ao `pin` do ScrollTrigger.** Com `pinSpacing: false` o elemento solta-se mal no fim e invade a secção seguinte.
+4. **Estado por progresso, não por callbacks na timeline.** Com `scrub`, um salto de scroll dispara todos os callbacks de uma vez e o texto passa à frente da imagem.
+5. **Fallback estático obrigatório** para `prefers-reduced-motion` e para o caso de o GSAP não carregar.
+6. **Correr `node scripts/versionar-assets.mjs`** antes de commitar CSS ou JS, senão o edge da Cloudflare serve a versão antiga durante 24h.
