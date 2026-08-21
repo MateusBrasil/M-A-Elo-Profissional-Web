@@ -1196,7 +1196,7 @@ const fmtDate = iso => iso ? new Date(iso).toLocaleDateString('pt-PT',{day:'2-di
 const fmtDT   = iso => iso ? new Date(iso).toLocaleString('pt-PT',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '—';
 const timeAgo = iso => {
   if(!iso) return '—';
-  const d = (Date.now() - new Date(iso))/1000;
+  const d = (Date.now() + (-new Date(iso)))/1000;
   if(d<60) return 'agora mesmo';
   if(d<3600) return Math.floor(d/60)+'min atrás';
   if(d<86400) return Math.floor(d/3600)+'h atrás';
@@ -2302,7 +2302,7 @@ AUTH.init();
       // Sem .catch por query: uma falha real (permissões, proxy em baixo) tem de
       // aparecer como ERRO, não ser mascarada como "sem erros" (falso "está tudo bem").
       var er = await DB.q("SELECT etapa, erro, telefone, criado_em FROM wa_erros ORDER BY criado_em DESC LIMIT 20",[]);
-      var pr = await DB.q("SELECT telefone, atualizado_em FROM wa_sessoes WHERE (estado->>'stage')='in_progress' AND atualizado_em < now() - interval '24 hours' ORDER BY atualizado_em DESC LIMIT 20",[]);
+      var pr = await DB.q("SELECT telefone, atualizado_em FROM wa_sessoes WHERE (estado->>'stage')='in_progress' AND atualizado_em < now() + interval '-24 hours' ORDER BY atualizado_em DESC LIMIT 20",[]);
       var erros=(er&&er.rows)||[], presas=(pr&&pr.rows)||[];
       sum.textContent = erros.length+' erro(s) recentes · '+presas.length+' conversa(s) presa(s) há mais de 24h';
       erosEl.innerHTML = '<strong>Erros recentes</strong><br>' + (erros.length? erros.map(function(r){return esc(fmt(r.criado_em))+' · <b>'+esc(r.etapa)+'</b> · '+esc(r.telefone||'')+' — '+esc(r.erro);}).join('<br>') : 'Sem erros registados.');

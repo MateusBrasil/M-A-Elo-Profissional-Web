@@ -1,0 +1,25 @@
+/* Code Eagle, Congra Itinerary: percurso editorial sem os cartões genéricos do processo anterior. */
+.eagle-process { padding: clamp(88px, 11vw, 172px) var(--page-gutter, 40px); background: var(--color-paper, #f3efe9); color: var(--color-ink, #111); }
+.eagle-process__shell { width: min(100%, 1320px); margin-inline: auto; }
+.eagle-process__header { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .56fr); column-gap: clamp(42px, 9vw, 160px); align-items: end; }
+.eagle-process__header > p:first-child { grid-column: 1 / -1; margin: 0 0 clamp(36px, 5vw, 68px); color: var(--accent-spark, #e65100); font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.eagle-process__header > p:first-child span { padding-inline: 6px; color: var(--color-ink-muted, #666); }
+.eagle-process__header h2 { max-width: 12ch; margin: 0; font-family: var(--font-display, serif); font-size: clamp(46px, 5.7vw, 90px); font-weight: 700; letter-spacing: -.06em; line-height: .89; text-wrap: balance; }
+.eagle-process__header > p:last-child { max-width: 410px; margin: 0 0 5px; color: var(--color-ink-neutral, #525252); font-size: clamp(15px, 1.15vw, 18px); line-height: 1.55; }
+.eagle-process__timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: clamp(68px, 9vw, 130px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-line, #d9d4cc); }
+.eagle-process__timeline li { display: grid; grid-template-columns: 48px 1fr; gap: 18px; min-height: 290px; padding: 30px clamp(16px, 2vw, 30px) 24px 0; border-right: 1px solid var(--color-line, #d9d4cc); }
+.eagle-process__timeline li + li { padding-left: clamp(16px, 2vw, 30px); }
+.eagle-process__timeline li:last-child { border-right: 0; padding-right: 0; }
+.eagle-process__bar { display: grid; justify-items: center; grid-template-rows: auto 1fr; }
+.eagle-process__bar span { display: grid; place-items: center; width: 36px; height: 36px; color: var(--accent-spark, #e65100); border: 1px solid currentColor; border-radius: 50%; font-family: var(--font-mono, monospace); font-size: 10px; font-weight: 600; }
+.eagle-process__bar i { width: 1px; margin-top: 10px; background: linear-gradient(var(--accent-spark, #e65100), transparent); }
+.eagle-process__meta { min-height: 32px; margin: 4px 0 34px; color: var(--accent-spark, #e65100); font-family: var(--font-mono, monospace); font-size: 9px; font-weight: 600; letter-spacing: .09em; line-height: 1.45; text-transform: uppercase; }
+.eagle-process__content h3 { margin: 0 0 10px; font-size: clamp(18px, 1.45vw, 24px); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
+.eagle-process__content > p:last-child { margin: 0; color: var(--color-ink-neutral, #525252); font-size: 14px; line-height: 1.55; }
+.eagle-process__actions { display: flex; align-items: center; gap: 30px; margin-top: 34px; }
+.eagle-process__actions a { display: inline-flex; align-items: center; gap: 18px; min-height: 48px; color: var(--color-ink, #111); font-size: 13px; font-weight: 700; text-decoration: none; }
+.eagle-process__actions a:first-child { padding: 0 19px; color: #fff; background: var(--color-ink-deep, #0a0a0a); }
+.eagle-process__actions a:first-child span { color: var(--accent-spark, #e65100); font-size: 20px; }
+.eagle-process__actions a:last-child { border-bottom: 1px solid currentColor; }
+.eagle-process a:focus-visible { outline: 2px solid var(--accent-spark, #e65100); outline-offset: 5px; }
+@media (max-width: 800px) { .eagle-process { padding-inline: 20px; } .eagle-process__header { grid-template-columns: 1fr; gap: 24px; } .eagle-process__header > p:first-child { margin-bottom: 4px; } .eagle-process__timeline { grid-template-columns: 1fr; margin-top: 54px; } .eagle-process__timeline li, .eagle-process__timeline li + li { min-height: 0; padding: 25px 0; border-right: 0; border-bottom: 1px solid var(--color-line, #d9d4cc); } .eagle-process__meta { min-height: 0; margin-bottom: 13px; } .eagle-process__actions { flex-direction: column; align-items: stretch; gap: 12px; } .eagle-process__actions a { justify-content: space-between; } }
