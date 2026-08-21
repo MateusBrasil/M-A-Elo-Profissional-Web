@@ -30,7 +30,7 @@ for (const a of ALVOS) {
    Substituir uma foto mantendo o nome do ficheiro não chega ao visitante
    durante um ano. Por isso as `assets/equipa-*` também levam ?v=<hash>. */
 const FOTOS = fs.existsSync('assets')
-  ? fs.readdirSync('assets').filter((f) => /^equipa-.*\.(webp|jpg)$/.test(f))
+  ? fs.readdirSync('assets').filter((f) => /^(equipa-|favicon-|apple-touch-icon).*\.(webp|jpg|png)$/.test(f))
   : [];
 for (const f of FOTOS) {
   versao['assets/' + f] = crypto.createHash('sha1').update(fs.readFileSync('assets/' + f)).digest('hex').slice(0, 8);
