@@ -1369,7 +1369,7 @@ body .site-header .nav-cta:hover,
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 380ms var(--ease-cinematic);
+    transition: background-color 380ms var(--ease-cinematic), border-color 380ms var(--ease-cinematic), box-shadow 380ms var(--ease-cinematic), transform 380ms var(--ease-cinematic);
     z-index: 2;
   }
 
@@ -4370,7 +4370,7 @@ body .page-hero__title,
   background: var(--accent-spark) !important;
   box-shadow: 0 0 0 4px var(--accent-spark-glow), 0 0 24px rgba(230, 81, 0, 0.45) !important;
   transform: scale(1.15);
-  transition: all var(--duration-ios) var(--ease-ios);
+  transition: background-color var(--duration-ios) var(--ease-ios), box-shadow var(--duration-ios) var(--ease-ios), transform var(--duration-ios) var(--ease-ios);
 }
 
 .process-rail__fill,

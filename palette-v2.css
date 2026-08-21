@@ -37,8 +37,7 @@
 .hero,
 .hero--screen,
 .page-hero,
-.footer-v2,
-.sector-spotlight {
+.footer-v2 {
   background-color: var(--navy-deep) !important;
 }
 
