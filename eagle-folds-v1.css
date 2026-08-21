@@ -1,0 +1,41 @@
+/* Peças Code Eagle adaptadas: Hirely Process + Congra CTA. */
+.eagle-hirely { padding: clamp(84px, 10vw, 156px) var(--page-gutter, 40px); background: var(--color-paper, #f3efe9); color: var(--color-ink, #111); }
+.eagle-hirely__shell, .eagle-congra__shell { width: min(100%, 1440px); margin-inline: auto; }
+.eagle-hirely__header { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, .55fr); column-gap: clamp(40px, 9vw, 170px); align-items: end; }
+.eagle-hirely__header > p:first-child { grid-column: 1 / -1; margin: 0 0 42px; color: var(--accent-spark, #e65100); font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.eagle-hirely__header > p:first-child span, .eagle-congra__copy > p span { color: var(--color-ink-muted, #666); padding-inline: 6px; }
+.eagle-hirely h2 { max-width: 13ch; margin: 0; font-family: var(--font-display, serif); font-size: clamp(44px, 5.6vw, 88px); font-weight: 700; letter-spacing: -.055em; line-height: .91; text-wrap: balance; }
+.eagle-hirely__intro { max-width: 420px; margin: 0 0 4px; color: var(--color-ink-neutral, #525252); font-size: clamp(15px, 1.2vw, 18px); line-height: 1.55; }
+.eagle-hirely__timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: clamp(64px, 9vw, 128px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-line, #d9d4cc); }
+.eagle-hirely__timeline li { position: relative; min-height: 260px; padding: 32px clamp(18px, 2vw, 34px) 20px 0; border-right: 1px solid var(--color-line, #d9d4cc); }
+.eagle-hirely__timeline li:not(:first-child) { padding-left: clamp(18px, 2vw, 34px); }
+.eagle-hirely__timeline li:last-child { border-right: 0; padding-right: 0; }
+.eagle-hirely__number { display: block; margin-bottom: clamp(42px, 5vw, 76px); color: var(--accent-spark, #e65100); font-family: var(--font-display, serif); font-size: clamp(42px, 4vw, 68px); font-weight: 700; letter-spacing: -.06em; line-height: .8; }
+.eagle-hirely__timeline h3 { margin: 0 0 10px; font-size: clamp(17px, 1.35vw, 22px); font-weight: 700; letter-spacing: -.025em; line-height: 1.1; }
+.eagle-hirely__timeline p { max-width: 24ch; margin: 0; color: var(--color-ink-neutral, #525252); font-size: 14px; line-height: 1.5; }
+.eagle-hirely__actions { display: flex; align-items: center; gap: 32px; margin-top: 30px; }
+.eagle-hirely__actions a { display: inline-flex; align-items: center; gap: 16px; min-height: 48px; color: var(--color-ink, #111); font-size: 13px; font-weight: 700; text-decoration: none; }
+.eagle-hirely__actions a:first-child { padding: 0 18px; color: #fff; background: var(--color-ink-deep, #0a0a0a); }
+.eagle-hirely__actions a:first-child span { color: var(--accent-spark, #e65100); font-size: 20px; }
+.eagle-hirely__actions a:last-child { border-bottom: 1px solid currentColor; }
+.eagle-congra { padding: clamp(24px, 3vw, 48px) var(--page-gutter, 40px) clamp(84px, 10vw, 150px); background: var(--color-paper, #f3efe9); }
+.eagle-congra__shell { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr); min-height: min(650px, 62vw); overflow: hidden; background: var(--color-night, #0f2244); }
+.eagle-congra__copy { display: flex; flex-direction: column; justify-content: space-between; padding: clamp(36px, 5vw, 78px); color: #fff; }
+.eagle-congra__copy > p:first-child { margin: 0; color: var(--accent-spark, #e65100); font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.eagle-congra h2 { max-width: 11ch; margin: clamp(74px, 12vw, 176px) 0 0; font-family: var(--font-display, serif); font-size: clamp(46px, 5.5vw, 90px); font-weight: 700; letter-spacing: -.06em; line-height: .88; text-wrap: balance; }
+.eagle-congra__lead { max-width: 45ch; margin: 26px 0 0; color: rgba(255,255,255,.74); font-size: 16px; line-height: 1.55; }
+.eagle-congra__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 38px; }
+.eagle-congra__primary { position: relative; display: inline-grid; overflow: hidden; min-height: 52px; padding: 0 24px; color: #111; background: var(--color-paper, #f3efe9); font-size: 13px; font-weight: 700; line-height: 52px; text-decoration: none; }
+.eagle-congra__primary span { grid-area: 1 / 1; transition: transform 220ms var(--ease-out, ease-out); }
+.eagle-congra__primary span:last-child { color: var(--accent-spark, #e65100); transform: translateY(110%); }
+.eagle-congra__primary:hover span:first-child, .eagle-congra__primary:focus-visible span:first-child { transform: translateY(-110%); }
+.eagle-congra__primary:hover span:last-child, .eagle-congra__primary:focus-visible span:last-child { transform: translateY(0); }
+.eagle-congra__secondary { display: inline-flex; gap: 16px; min-height: 48px; align-items: center; color: #fff; border-bottom: 1px solid rgba(255,255,255,.68); font-size: 13px; font-weight: 700; text-decoration: none; }
+.eagle-congra__secondary span { color: var(--accent-spark, #e65100); font-size: 20px; }
+.eagle-congra__media { position: relative; margin: 0; min-height: 100%; overflow: hidden; }
+.eagle-congra__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,34,68,.28), transparent 40%); pointer-events: none; }
+.eagle-congra__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; filter: saturate(.88) contrast(1.05); }
+.eagle-congra__media figcaption { position: absolute; z-index: 1; right: 18px; bottom: 18px; left: 18px; display: flex; justify-content: space-between; gap: 16px; padding-top: 12px; color: #fff; border-top: 1px solid rgba(255,255,255,.54); font-family: var(--font-mono, monospace); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.eagle-hirely a:focus-visible, .eagle-congra a:focus-visible { outline: 2px solid var(--accent-spark, #e65100); outline-offset: 5px; }
+@media (max-width: 800px) { .eagle-hirely { padding-inline: 20px; } .eagle-hirely__header { grid-template-columns: 1fr; gap: 24px; } .eagle-hirely__header > p:first-child { margin-bottom: 8px; } .eagle-hirely h2 { max-width: 12ch; } .eagle-hirely__timeline { grid-template-columns: 1fr; margin-top: 54px; } .eagle-hirely__timeline li, .eagle-hirely__timeline li:not(:first-child) { display: grid; grid-template-columns: 78px 1fr; gap: 20px; min-height: 0; padding: 26px 0; border-right: 0; border-bottom: 1px solid var(--color-line, #d9d4cc); } .eagle-hirely__number { margin: 2px 0 0; font-size: 46px; } .eagle-hirely__actions { align-items: stretch; flex-direction: column; gap: 12px; } .eagle-hirely__actions a { justify-content: space-between; } .eagle-congra { padding: 20px 20px 84px; } .eagle-congra__shell { grid-template-columns: 1fr; min-height: 0; } .eagle-congra__copy { padding: 34px 26px 40px; } .eagle-congra h2 { margin-top: 72px; font-size: clamp(46px, 14vw, 66px); } .eagle-congra__media { height: 82vw; min-height: 310px; } }
+@media (prefers-reduced-motion: reduce) { .eagle-congra__primary span { transition: none; } }
