@@ -4599,21 +4599,21 @@ body .page-hero,
 
 /* Fotografia por página, injectada como custom property para o véu poder
    viver na mesma camada (sem elipse solta a marcar borda no ecrã) */
-.page-hero                  { --hero-foto: url("assets/equipa-solda-tubagem.webp"); }
-.page-hero--industrial      { --hero-foto: url("assets/equipa-manutencao-bomba-hero.webp"); }
-.page-hero--people          { --hero-foto: url("assets/equipa-serralharia-corte.webp"); }
-.page-hero--empresa         { --hero-foto: url("assets/equipa-caldeiraria.webp"); }
-.page-hero--servicos        { --hero-foto: url("assets/equipa-solda-tig-inox.webp"); }
-.page-hero--obras           { --hero-foto: url("assets/equipa-tubista.webp"); }
-.page-hero--industria       { --hero-foto: url("assets/equipa-manutencao-bomba-hero.webp"); }
-.page-hero--metalomecanica  { --hero-foto: url("assets/equipa-serralharia-corte.webp"); }
-.page-hero--candidatos      { --hero-foto: url("assets/equipa-solda-tubagem.webp"); }
-.page-hero--candidatura     { --hero-foto: url("assets/equipa-serralheiro-preparacao-hero.webp"); }
-.page-hero--contacto        { --hero-foto: url("assets/equipa-serralheiro-preparacao-hero.webp"); }
-.page-hero--soldador        { --hero-foto: url("assets/equipa-solda-electrodo.webp"); }
-.page-hero--serralheiro     { --hero-foto: url("assets/equipa-serralheiro-preparacao-hero.webp"); }
-.page-hero--pintor          { --hero-foto: url("assets/equipa-pintura-industrial.webp"); }
-.page-hero--regioes         { --hero-foto: url("assets/equipa-montagem-estruturas.webp"); }
+.page-hero                  { --hero-foto: url("assets/equipa-solda-tubagem.webp?v=170d4ff1"); }
+.page-hero--industrial      { --hero-foto: url("assets/equipa-manutencao-bomba-hero.webp?v=e0b4e21f"); }
+.page-hero--people          { --hero-foto: url("assets/equipa-serralharia-corte.webp?v=ec1375e6"); }
+.page-hero--empresa         { --hero-foto: url("assets/equipa-caldeiraria.webp?v=9a79070c"); }
+.page-hero--servicos        { --hero-foto: url("assets/equipa-solda-tig-inox.webp?v=5900ff98"); }
+.page-hero--obras           { --hero-foto: url("assets/equipa-tubista.webp?v=16fa6248"); }
+.page-hero--industria       { --hero-foto: url("assets/equipa-manutencao-bomba-hero.webp?v=e0b4e21f"); }
+.page-hero--metalomecanica  { --hero-foto: url("assets/equipa-serralharia-corte.webp?v=ec1375e6"); }
+.page-hero--candidatos      { --hero-foto: url("assets/equipa-solda-tubagem.webp?v=170d4ff1"); }
+.page-hero--candidatura     { --hero-foto: url("assets/equipa-serralheiro-preparacao-hero.webp?v=65f171c1"); }
+.page-hero--contacto        { --hero-foto: url("assets/equipa-serralheiro-preparacao-hero.webp?v=65f171c1"); }
+.page-hero--soldador        { --hero-foto: url("assets/equipa-solda-electrodo.webp?v=0b949402"); }
+.page-hero--serralheiro     { --hero-foto: url("assets/equipa-serralheiro-preparacao-hero.webp?v=65f171c1"); }
+.page-hero--pintor          { --hero-foto: url("assets/equipa-pintura-industrial.webp?v=085b01a6"); }
+.page-hero--regioes         { --hero-foto: url("assets/equipa-montagem-estruturas.webp?v=208de242"); }
 .page-hero--lisboa          { --hero-foto: url("assets/lisboa-city.webp"); }
 .page-hero--viana           { --hero-foto: url("assets/viana-city.webp"); }
 .page-hero--estarreja       { --hero-foto: url("assets/aveiro-city.webp"); }

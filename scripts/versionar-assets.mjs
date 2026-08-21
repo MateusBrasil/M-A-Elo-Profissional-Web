@@ -26,8 +26,36 @@ for (const a of ALVOS) {
   versao[a] = crypto.createHash('sha1').update(fs.readFileSync(a)).digest('hex').slice(0, 8);
 }
 
+/* As fotografias saem com `max-age=31536000, immutable` (ver `_headers`).
+   Substituir uma foto mantendo o nome do ficheiro não chega ao visitante
+   durante um ano. Por isso as `assets/equipa-*` também levam ?v=<hash>. */
+const FOTOS = fs.existsSync('assets')
+  ? fs.readdirSync('assets').filter((f) => /^equipa-.*\.(webp|jpg)$/.test(f))
+  : [];
+for (const f of FOTOS) {
+  versao['assets/' + f] = crypto.createHash('sha1').update(fs.readFileSync('assets/' + f)).digest('hex').slice(0, 8);
+}
+
 const escapar = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 let paginas = 0, substituicoes = 0;
+
+/* As fotos aparecem em HTML (src/href) e em CSS (url(...)), por isso o
+   padrão é diferente do dos scripts e folhas de estilo. */
+function versionarFotos(texto) {
+  for (const [ficheiro, v] of Object.entries(versao)) {
+    if (!ficheiro.startsWith('assets/')) continue;
+    const re = new RegExp(escapar(ficheiro) + '(\\?v=[a-f0-9]+)?', 'g');
+    texto = texto.replace(re, () => { substituicoes++; return `${ficheiro}?v=${v}`; });
+  }
+  return texto;
+}
+
+for (const css of ['effects.css', 'styles.css', 'palette-v2.css']) {
+  if (!fs.existsSync(css)) continue;
+  const antes = fs.readFileSync(css, 'utf8');
+  const depois = versionarFotos(antes);
+  if (depois !== antes) fs.writeFileSync(css, depois, 'utf8');
+}
 
 for (const f of fs.readdirSync('.').filter((x) => x.endsWith('.html'))) {
   let t = fs.readFileSync(f, 'utf8');

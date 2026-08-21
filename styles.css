@@ -1069,7 +1069,7 @@ strong {
   background:
     linear-gradient(95deg, rgba(9,9,9,0.96) 0%, rgba(9,9,9,0.88) 42%, rgba(9,9,9,0.38) 68%, rgba(9,9,9,0.06) 100%),
     linear-gradient(0deg, rgba(9,9,9,0.65) 0%, rgba(9,9,9,0.0) 52%),
-    url("assets/equipa-solda-tig-inox.jpg") 62% center / cover;
+    url("assets/equipa-solda-tig-inox.jpg?v=e49b6494") 62% center / cover;
   color: var(--color-white);
 }
 
@@ -1241,8 +1241,8 @@ strong {
   background:
     linear-gradient(90deg, rgba(9, 13, 15, 0.88) 0%, rgba(9, 13, 15, 0.52) 55%, rgba(9, 13, 15, 0.18) 100%),
     image-set(
-      url("assets/equipa-solda-tubagem.webp") type("image/webp"),
-      url("assets/equipa-solda-tubagem.jpg") type("image/jpeg")
+      url("assets/equipa-solda-tubagem.webp?v=170d4ff1") type("image/webp"),
+      url("assets/equipa-solda-tubagem.jpg?v=33675aa8") type("image/jpeg")
     ) center / cover;
   filter: contrast(1.10) saturate(0.68) brightness(0.86);
 }
@@ -1251,8 +1251,8 @@ strong {
   background:
     linear-gradient(90deg, rgba(9, 13, 15, 0.9) 0%, rgba(9, 13, 15, 0.5) 55%, rgba(9, 13, 15, 0.2) 100%),
     image-set(
-      url("assets/equipa-serralharia-corte.webp") type("image/webp"),
-      url("assets/equipa-serralharia-corte.jpg") type("image/jpeg")
+      url("assets/equipa-serralharia-corte.webp?v=ec1375e6") type("image/webp"),
+      url("assets/equipa-serralharia-corte.jpg?v=5a5d134e") type("image/jpeg")
     ) center / cover;
   filter: contrast(1.08) saturate(0.65) brightness(0.88);
 }
@@ -1261,8 +1261,8 @@ strong {
   background:
     linear-gradient(90deg, rgba(9, 13, 15, 0.9) 0%, rgba(9, 13, 15, 0.48) 55%, rgba(9, 13, 15, 0.18) 100%),
     image-set(
-      url("assets/equipa-caldeiraria.webp") type("image/webp"),
-      url("assets/equipa-caldeiraria.jpg") type("image/jpeg")
+      url("assets/equipa-caldeiraria.webp?v=9a79070c") type("image/webp"),
+      url("assets/equipa-caldeiraria.jpg?v=4c8ad368") type("image/jpeg")
     ) center / cover;
   filter: contrast(1.08) saturate(0.65) brightness(0.88);
 }
@@ -1277,28 +1277,28 @@ strong {
 .page-hero--servicos::before {
   background:
     linear-gradient(90deg, rgba(9,13,15,0.9) 0%, rgba(9,13,15,0.5) 60%, rgba(9,13,15,0.15) 100%),
-    image-set(url("assets/equipa-solda-tig-inox.webp") type("image/webp"), url("assets/equipa-solda-tig-inox.jpg") type("image/jpeg")) center / cover;
+    image-set(url("assets/equipa-solda-tig-inox.webp?v=5900ff98") type("image/webp"), url("assets/equipa-solda-tig-inox.jpg?v=e49b6494") type("image/jpeg")) center / cover;
   filter: contrast(1.08) saturate(0.62) brightness(0.86);
 }
 
 .page-hero--obras::before {
   background:
     linear-gradient(90deg, rgba(9,13,15,0.88) 0%, rgba(9,13,15,0.48) 50%, rgba(9,13,15,0.18) 100%),
-    image-set(url("assets/equipa-tubista.webp") type("image/webp"), url("assets/equipa-tubista.jpg") type("image/jpeg")) center / cover;
+    image-set(url("assets/equipa-tubista.webp?v=16fa6248") type("image/webp"), url("assets/equipa-tubista.jpg?v=fd30fea9") type("image/jpeg")) center / cover;
   filter: contrast(1.10) saturate(0.65) brightness(0.85);
 }
 
 .page-hero--industria::before {
   background:
     linear-gradient(90deg, rgba(9,13,15,0.92) 0%, rgba(9,13,15,0.54) 58%, rgba(9,13,15,0.2) 100%),
-    image-set(url("assets/equipa-manutencao-bomba.webp") type("image/webp"), url("assets/equipa-manutencao-bomba.jpg") type("image/jpeg")) center / cover;
+    image-set(url("assets/equipa-manutencao-bomba.webp?v=7538946c") type("image/webp"), url("assets/equipa-manutencao-bomba.jpg?v=20974b9e") type("image/jpeg")) center / cover;
   filter: contrast(1.06) saturate(0.7) brightness(0.84);
 }
 
 .page-hero--candidatos::before {
   background:
     linear-gradient(90deg, rgba(9,13,15,0.9) 0%, rgba(9,13,15,0.46) 52%, rgba(9,13,15,0.14) 100%),
-    image-set(url("assets/equipa-montagem-estruturas.webp") type("image/webp"), url("assets/equipa-montagem-estruturas.jpg") type("image/jpeg")) center / cover;
+    image-set(url("assets/equipa-montagem-estruturas.webp?v=208de242") type("image/webp"), url("assets/equipa-montagem-estruturas.jpg?v=3766c155") type("image/jpeg")) center / cover;
   filter: contrast(1.05) saturate(0.72) brightness(0.87);
 }
 
@@ -2535,21 +2535,21 @@ strong {
 .page-hero--soldador::before {
   background:
     linear-gradient(90deg, rgba(9, 13, 15, 0.92), rgba(9, 13, 15, 0.38)),
-    url("assets/equipa-solda-electrodo.webp") center / cover;
+    url("assets/equipa-solda-electrodo.webp?v=0b949402") center / cover;
   filter: saturate(0.82) contrast(1.04);
 }
 
 .page-hero--serralheiro::before {
   background:
     linear-gradient(90deg, rgba(9, 13, 15, 0.88), rgba(9, 13, 15, 0.34)),
-    url("assets/equipa-serralheiro-preparacao.webp") 55% center / cover;
+    url("assets/equipa-serralheiro-preparacao.webp?v=50342f2d") 55% center / cover;
   filter: saturate(0.8) contrast(1.03);
 }
 
 .page-hero--pintor::before {
   background:
     linear-gradient(90deg, rgba(9, 13, 15, 0.9), rgba(9, 13, 15, 0.42)),
-    url("assets/equipa-pintura-industrial.jpg") center / cover;
+    url("assets/equipa-pintura-industrial.jpg?v=f316323b") center / cover;
   filter: saturate(0.78) contrast(1.04);
 }
 
