@@ -7,7 +7,7 @@ Site estático B2B da empresa **M&A Elo Profissional, Unipessoal, Lda.** (NIF 51
 - 27 ficheiros HTML + styles.css + design-tokens.css + main.js + animations.js
 - Paleta cream/copper, tipografia Cormorant Garamond + Inter, estética minimalista premium
 - Sem framework — HTML estático puro. Deploy: Cloudflare Pages via push no main do GitHub (o vercel.json é legado; quem manda nos cabeçalhos é o _headers)
-- A pasta do projecto é `DocumentsProjetosmaelo-site` (renomeada a 21/08/2026; antes era M-A-Elo-Profissional-Web-main)
+- A pasta do projecto é `Documents\Projetos\maelo-site` (renomeada a 21/08/2026; antes era `M-A-Elo-Profissional-Web-main`)
 
 ## Regras de qualidade (NÃO NEGOCIÁVEIS)
 
