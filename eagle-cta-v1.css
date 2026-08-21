@@ -14,6 +14,23 @@
 .block-cta--eagle .block-cta__sub { grid-column: 1; max-width: 43ch !important; margin: 24px 0 0 !important; color: rgba(255,255,255,.72) !important; font-size: clamp(15px, 1.1vw, 17px) !important; line-height: 1.55 !important; }
 .block-cta--eagle .block-cta__actions { grid-column: 1; display: flex !important; flex-wrap: wrap; gap: 14px !important; margin: 34px 0 0 !important; }
 .block-cta--eagle .block-cta__actions .button { min-height: 50px; padding-inline: 19px; border-radius: 0 !important; font-size: 13px !important; }
-.block-cta--eagle .block-cta__actions .button--whatsapp, .block-cta--eagle .block-cta__actions .button--primary { color: var(--color-ink, #111) !important; background: var(--color-paper, #f3efe9) !important; }
+.block-cta--eagle .block-cta__actions .button--primary { color: var(--color-ink, #111) !important; background: var(--color-paper, #f3efe9) !important; }
+.block-cta--eagle .block-cta__actions .button--whatsapp,
+.block-cta--eagle .block-cta__actions .button[href*="wa.me"] {
+  color: #fff !important;
+  background: linear-gradient(180deg, #34D77B 0%, #25D366 100%) !important;
+  border-color: #25D366 !important;
+}
+.block-cta--eagle .block-cta__actions .button--whatsapp::before,
+.block-cta--eagle .block-cta__actions .button[href*="wa.me"]::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  background: center / contain no-repeat url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z'/%3E%3C/svg%3E");
+  flex-shrink: 0;
+  opacity: 1 !important;
+}
 .block-cta--eagle .block-cta__actions .button--secondary, .block-cta--eagle .block-cta__actions .button--outline-dark { color: #fff !important; border: 1px solid rgba(255,255,255,.58) !important; background: transparent !important; }
 @media (max-width: 800px) { .block-cta--eagle { padding-inline: 20px !important; } .block-cta--eagle .block-cta__inner { grid-template-columns: 1fr; min-height: 0; padding: 34px 26px 0 !important; } .block-cta--eagle .block-cta__inner::after { position: relative; grid-column: 1; grid-row: auto; width: calc(100% + 52px); height: 76vw; min-height: 290px; margin: 72px -26px 0; order: 10; } .block-cta--eagle .block-cta__heading { margin-top: 74px !important; font-size: clamp(46px, 14vw, 66px) !important; } .block-cta--eagle .block-cta__actions { margin-bottom: 0 !important; } }
