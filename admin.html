@@ -1056,12 +1056,12 @@ select.fc{cursor:pointer}
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" class="mb-3">
           <div class="fgrp">
-            <label>Tipo / Profissão <span class="freq-mark">*</span></label>
+            <label>Tipo, Profissão <span class="freq-mark">*</span></label>
             <select class="fc" id="fb-prof">
               <option value="soldador">Soldador</option>
               <option value="serralheiro">Serralheiro</option>
               <option value="pintor">Pintor industrial</option>
-              <option value="geral">Geral / Outra</option>
+              <option value="geral">Geral, Outra</option>
               <option value="motorista">Motorista</option>
               <option value="pedreiro">Pedreiro</option>
               <option value="eletricista">Eletricista</option>
@@ -1728,7 +1728,7 @@ const CANDS = (()=>{
     const fields=[
       ['Telefone',c.telefone],['Email',c.email??'—'],['Região',c.regiao??'—'],
       ['Disponibilidade',c.disponibilidade?'Sim':'Não'],['Experiência',c.experiencia??'—'],
-      ['Processos / Função',c.processos??'—'],['Certificações',c.certificacoes??'—'],
+      ['Processos, Função',c.processos??'—'],['Certificações',c.certificacoes??'—'],
       ['Tipo de trabalhos',c.tipo_trabalhos??'—'],
       ['Lê medidas',c.le_medidas===true?'Sim':c.le_medidas===false?'Não':'—'],
       ['Tipo de pintura',c.tipo_pintura??'—'],['Equipamentos',c.equipamentos??'—'],
@@ -1874,9 +1874,9 @@ const FORMS = (()=>{
 
   const _BASE_CAMPOS = skills => [
     {section:'Dados pessoais',label:'Nome completo',type:'text',required:true},
-    {section:'Dados pessoais',label:'Telefone / WhatsApp',type:'phone',required:true},
+    {section:'Dados pessoais',label:'Telefone, WhatsApp',type:'phone',required:true},
     {section:'Dados pessoais',label:'Email',type:'email',required:false},
-    {section:'Dados pessoais',label:'Cidade / Região atual',type:'text',required:true},
+    {section:'Dados pessoais',label:'Cidade, Região atual',type:'text',required:true},
     {section:'Documentação',label:'Tem autorização/documentos para trabalhar em Portugal?',type:'select',required:true,options:['Sim, tenho documentos para trabalhar em Portugal','Estou em processo de regularização','Não tenho autorização/documentos para trabalhar em Portugal','Prefiro explicar com a equipa']},
     {section:'Experiência',label:'Função principal',type:'text',required:true},
     {section:'Experiência',label:'Anos de experiência nesta função',type:'select',required:true,options:['Menos de 1 ano','1 a 2 anos','3 a 5 anos','Mais de 5 anos']},
@@ -1892,7 +1892,7 @@ const FORMS = (()=>{
   const _SLUG_SKILLS = {
     soldador:   ['MIG/MAG','TIG','Elétrico (MMA)','Oxiacetileno','Soldadura estrutural','Soldadura de tubagem'],
     serralheiro:['Serralharia civil','Montagem metálica','Ferramentas manuais','Leitura de medidas','Soldadura ligeira','Estruturas metálicas'],
-    pintor:     ['Pintura industrial','Preparação de superfícies','Airless / pistola','Rolo e trincha','Primário e acabamento','Pintura de estruturas'],
+    pintor:     ['Pintura industrial','Preparação de superfícies','Airless, pistola','Rolo e trincha','Primário e acabamento','Pintura de estruturas'],
     geral:      ['Obra','Indústria','Montagem','Ferramentas manuais','Leitura de medidas','Outro'],
   };
 
@@ -2287,7 +2287,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 AUTH.init();
 </script>
 <script>
-// Diagnostico do agente WhatsApp: le as tabelas wa_erros / wa_sessoes (criadas
+// Diagnostico do agente WhatsApp: le as tabelas wa_erros, wa_sessoes (criadas
 // pelo agente na primeira mensagem) via o mesmo DB.q autenticado do painel.
 (function(){
   var esc = function(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); };
