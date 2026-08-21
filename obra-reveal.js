@@ -1,28 +1,14 @@
 /*
-  OBRA REVEAL — sequência de obra revelada em lâminas, ligada ao scroll.
+  OBRA REVEAL — sequência de obra ligada ao scroll.
 
-  Origem do mecanismo: banco Code Eagle, `parallax/svg-mask-scroll-transitions`
-  ("SVG Mask Scroll Transitions"). O que foi efectivamente portado dessa peça:
-    - a estrutura de máscara SVG (rect preto a esconder + <g> de rects brancos
-      a revelar, com `maskUnits="userSpaceOnUse"`)
-    - `createHorizontalBlinds`: duas rects por lâmina, a abrir a partir do centro
-    - a animação por `attr` de `y` e `height` com stagger de 0.02 e `power3.out`
-    - o padrão de camadas empilhadas dentro de um contentor sticky
-
-  O que é nosso e diverge do original:
-    - sticky em CSS puro em vez de `pin` do ScrollTrigger
-    - conteúdo, tokens e tipografia da M&A Elo; nada do demo entra
-    - sem Lenis próprio (o site já tem uma instância em animations.js)
-    - fallback estático em telemóvel e em prefers-reduced-motion
-    - cleanup ligado ao Barba, que o original não tinha
+  As fotografias são camadas HTML com `object-fit: cover`; em vez de SVGs
+  esticados, cada camada é revelada por `clip-path`. Assim, a fotografia fica
+  sempre proporcional em qualquer largura de ecrã.
 */
 
 (function () {
   "use strict";
 
-  var SVG_NS = "http://www.w3.org/2000/svg";
-  var LAMINAS_DESKTOP = 26;
-  var LAMINAS_MOBILE = 14;
   var triggers = [];
 
   function esperarGsap(callback, tentativas) {
@@ -31,53 +17,6 @@
     if (tentativas > 120) return; // ~10s: desiste e fica no fallback estático
     window.requestAnimationFrame(function () {
       esperarGsap(callback, tentativas + 1);
-    });
-  }
-
-  /* Gera as lâminas de uma camada. Duas rects por lâmina, ambas a nascer com
-     altura 0 no centro da lâmina: uma cresce para cima, outra para baixo. */
-  function criarLaminas(grupo, total) {
-    var altura = 100 / total;
-    var laminas = [];
-    for (var i = 0; i < total; i++) {
-      var centro = 100 - (i * altura + altura / 2);
-      var cima = document.createElementNS(SVG_NS, "rect");
-      var baixo = document.createElementNS(SVG_NS, "rect");
-      [cima, baixo].forEach(function (r) {
-        r.setAttribute("x", 0);
-        r.setAttribute("width", 100);
-        r.setAttribute("height", 0);
-        r.setAttribute("y", centro);
-        r.setAttribute("fill", "#fff");
-        r.setAttribute("shape-rendering", "crispEdges");
-        grupo.appendChild(r);
-      });
-      laminas.push({ cima: cima, baixo: baixo, y: centro, h: altura / 2 });
-    }
-    return laminas;
-  }
-
-  function abrirInstantaneamente(laminas) {
-    laminas.forEach(function (l) {
-      l.cima.setAttribute("y", l.y - l.h);
-      l.cima.setAttribute("height", l.h + 0.1);
-      l.baixo.setAttribute("y", l.y);
-      l.baixo.setAttribute("height", l.h + 0.1);
-    });
-  }
-
-  function animacaoDeAbertura(laminas) {
-    var alvos = laminas.flatMap(function (l) { return [l.cima, l.baixo]; });
-    return window.gsap.timeline().to(alvos, {
-      attr: {
-        y: function (i) {
-          var l = laminas[Math.floor(i / 2)];
-          return i % 2 === 0 ? l.y - l.h : l.y;
-        },
-        height: function (i) { return laminas[Math.floor(i / 2)].h + 0.1; }
-      },
-      ease: "power3.out",
-      stagger: { each: 0.02, from: "start" }
     });
   }
 
@@ -98,27 +37,21 @@
     }
     if (reduzido) {
       seccao.setAttribute("data-estatica", "true");
-      seccao.querySelectorAll("[data-obra-blinds]").forEach(function (g) {
-        abrirInstantaneamente(criarLaminas(g, 2));
-      });
       seccao.querySelectorAll("[data-obra-step]").forEach(function (s) {
         s.setAttribute("data-activa", "true");
       });
       return;
     }
 
-    var grupos = Array.prototype.slice.call(seccao.querySelectorAll("[data-obra-blinds]"));
+    seccao.setAttribute("data-obra-animada", "true");
+
+    var camadas = Array.prototype.slice.call(seccao.querySelectorAll(".obra-reveal__layer"));
     var etapas = Array.prototype.slice.call(seccao.querySelectorAll("[data-obra-step]"));
     var barras = Array.prototype.slice.call(seccao.querySelectorAll("[data-obra-bar]"));
-    if (!grupos.length) return;
+    if (!camadas.length) return;
 
-    var total = window.innerWidth <= 849 ? LAMINAS_MOBILE : LAMINAS_DESKTOP;
-    var conjuntos = grupos.map(function (g) {
-      g.textContent = "";
-      return criarLaminas(g, total);
-    });
-
-    abrirInstantaneamente(conjuntos[0]);
+    gsap.set(camadas, { clipPath: "inset(0 100% 0 0)" });
+    gsap.set(camadas[0], { clipPath: "inset(0 0 0 0)" });
     if (etapas[0]) etapas[0].setAttribute("data-activa", "true");
 
     var linha = gsap.timeline({
@@ -132,9 +65,9 @@
       }
     });
 
-    conjuntos.forEach(function (laminas, i) {
+    camadas.forEach(function (camada, i) {
       if (i === 0) return;
-      linha.add(animacaoDeAbertura(laminas), i === 1 ? ">" : ">+=0.35");
+      linha.to(camada, { clipPath: "inset(0 0 0 0)", duration: 1, ease: "power3.out" }, i === 1 ? ">" : ">+=0.35");
     });
 
     triggers.push(linha.scrollTrigger);
@@ -204,7 +137,7 @@
   window.setTimeout(function () {
     var s = document.querySelector("[data-obra-reveal]");
     if (!s) return;
-    if (s.querySelector("[data-obra-blinds] rect")) return;
+    if (s.hasAttribute("data-obra-animada")) return;
     s.setAttribute("data-estatica", "true");
     Array.prototype.forEach.call(s.querySelectorAll("[data-obra-step]"), function (e) {
       e.setAttribute("data-activa", "true");

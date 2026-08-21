@@ -35,7 +35,14 @@
   display: block;
 }
 
-.obra-reveal__layer image {
+.obra-reveal__layer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Mantém o técnico e o trabalho de tubagem no enquadramento, mesmo no
+     formato panorâmico da secção. */
+  object-position: center 30%;
   filter: brightness(0.82) contrast(1.05) saturate(0.95);
 }
 
@@ -194,18 +201,12 @@ html:not(.js) .obra-reveal__layers,
 html:not(.js) .obra-reveal__layer,
 .obra-reveal[data-estatica="true"] .obra-reveal__layer {
   position: relative;
-  height: clamp(280px, 40vh, 440px);
+  height: clamp(360px, 48vw, 640px);
 }
 
 html:not(.js) .obra-reveal__layer ~ .obra-reveal__layer,
 .obra-reveal[data-estatica="true"] .obra-reveal__layer ~ .obra-reveal__layer {
   display: none;
-}
-
-html:not(.js) .obra-reveal__layer image,
-.obra-reveal[data-estatica="true"] .obra-reveal__layer image {
-  mask: none !important;
-  -webkit-mask: none !important;
 }
 
 html:not(.js) .obra-reveal__veil,
